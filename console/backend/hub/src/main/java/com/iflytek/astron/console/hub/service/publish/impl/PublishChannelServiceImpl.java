@@ -1,8 +1,8 @@
 package com.iflytek.astron.console.hub.service.publish.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.iflytek.astron.console.commons.entity.wechat.BotOffiaccount;
-import com.iflytek.astron.console.commons.mapper.wechat.BotOffiaccountMapper;
+import com.iflytek.astron.console.hub.entity.wechat.BotOffiaccount;
+import com.iflytek.astron.console.hub.mapper.wechat.BotOffiaccountMapper;
 import com.iflytek.astron.console.hub.service.publish.PublishChannelService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

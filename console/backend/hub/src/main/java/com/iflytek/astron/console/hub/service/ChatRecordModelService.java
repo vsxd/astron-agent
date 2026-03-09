@@ -1,6 +1,6 @@
 package com.iflytek.astron.console.hub.service;
 
-import com.iflytek.astron.console.commons.entity.chat.ChatReqRecords;
+import com.iflytek.astron.console.hub.entity.chat.ChatReqRecords;
 
 public interface ChatRecordModelService {
 

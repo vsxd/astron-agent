@@ -1,6 +1,6 @@
 package com.iflytek.astron.console.hub.controller;
 
-import com.iflytek.astron.console.commons.dto.llm.SparkChatRequest;
+import com.iflytek.astron.console.hub.dto.llm.SparkChatRequest;
 import com.iflytek.astron.console.hub.service.SparkChatService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

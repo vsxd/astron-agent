@@ -1,6 +1,6 @@
 package com.iflytek.astron.console.hub.service.mcp;
 
-import com.iflytek.astron.console.commons.entity.model.McpData;
+import com.iflytek.astron.console.hub.entity.model.McpData;
 
 import java.util.List;
 

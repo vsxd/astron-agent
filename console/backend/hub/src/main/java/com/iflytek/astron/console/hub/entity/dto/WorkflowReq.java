@@ -1,7 +1,7 @@
 package com.iflytek.astron.console.hub.entity.dto;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.iflytek.astron.console.commons.enums.bot.BotTypeEnum;
+import com.iflytek.astron.console.hub.enums.bot.BotTypeEnum;
 import com.iflytek.astron.console.hub.entity.biz.workflow.BizWorkflowData;
 import com.iflytek.astron.console.hub.entity.dto.talkagent.TalkAgentConfigDto;
 import lombok.Data;

@@ -3,12 +3,12 @@ package com.iflytek.astron.console.hub.service.space.impl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.iflytek.astron.console.commons.dto.space.ApplyRecordParam;
-import com.iflytek.astron.console.commons.entity.space.ApplyRecord;
-import com.iflytek.astron.console.commons.mapper.space.ApplyRecordMapper;
+import com.iflytek.astron.console.hub.dto.space.ApplyRecordParam;
+import com.iflytek.astron.console.hub.entity.space.ApplyRecord;
+import com.iflytek.astron.console.hub.mapper.space.ApplyRecordMapper;
 import com.iflytek.astron.console.hub.service.space.ApplyRecordService;
 import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
-import com.iflytek.astron.console.commons.dto.space.ApplyRecordVO;
+import com.iflytek.astron.console.hub.dto.space.ApplyRecordVO;
 import org.springframework.stereotype.Service;
 
 /**

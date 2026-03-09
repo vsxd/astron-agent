@@ -8,9 +8,9 @@ import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.Mockito.*;
 
-import com.iflytek.astron.console.commons.data.impl.UserInfoDataServiceImpl;
-import com.iflytek.astron.console.commons.entity.user.UserInfo;
-import com.iflytek.astron.console.commons.mapper.user.UserInfoMapper;
+import com.iflytek.astron.console.hub.data.impl.UserInfoDataServiceImpl;
+import com.iflytek.astron.console.hub.entity.user.UserInfo;
+import com.iflytek.astron.console.hub.mapper.user.UserInfoMapper;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;

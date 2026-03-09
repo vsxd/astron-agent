@@ -1,6 +1,6 @@
 package com.iflytek.astron.console.hub.service.wechat;
 
-import com.iflytek.astron.console.commons.entity.wechat.BotOffiaccount;
+import com.iflytek.astron.console.hub.entity.wechat.BotOffiaccount;
 
 import java.util.List;
 

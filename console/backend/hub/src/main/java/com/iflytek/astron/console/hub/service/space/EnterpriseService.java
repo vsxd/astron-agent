@@ -1,7 +1,7 @@
 package com.iflytek.astron.console.hub.service.space;
 
-import com.iflytek.astron.console.commons.dto.space.EnterpriseVO;
-import com.iflytek.astron.console.commons.entity.space.Enterprise;
+import com.iflytek.astron.console.hub.dto.space.EnterpriseVO;
+import com.iflytek.astron.console.hub.entity.space.Enterprise;
 
 import java.time.LocalDateTime;
 import java.util.List;

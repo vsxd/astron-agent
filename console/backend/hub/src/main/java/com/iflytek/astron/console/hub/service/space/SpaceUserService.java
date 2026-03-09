@@ -1,10 +1,10 @@
 package com.iflytek.astron.console.hub.service.space;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.iflytek.astron.console.commons.dto.space.SpaceUserParam;
-import com.iflytek.astron.console.commons.entity.space.SpaceUser;
-import com.iflytek.astron.console.commons.enums.space.SpaceRoleEnum;
-import com.iflytek.astron.console.commons.dto.space.SpaceUserVO;
+import com.iflytek.astron.console.hub.dto.space.SpaceUserParam;
+import com.iflytek.astron.console.hub.entity.space.SpaceUser;
+import com.iflytek.astron.console.hub.enums.space.SpaceRoleEnum;
+import com.iflytek.astron.console.hub.dto.space.SpaceUserVO;
 
 import java.util.Collection;
 import java.util.List;

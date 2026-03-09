@@ -1,9 +1,9 @@
 package com.iflytek.astron.console.hub.service.bot;
 
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
-import com.iflytek.astron.console.commons.dto.bot.BotInfoDto;
-import com.iflytek.astron.console.commons.dto.bot.TalkAgentHistoryDto;
-import com.iflytek.astron.console.commons.dto.bot.TalkAgentUpgradeDto;
+import com.iflytek.astron.console.hub.dto.bot.BotInfoDto;
+import com.iflytek.astron.console.hub.dto.bot.TalkAgentHistoryDto;
+import com.iflytek.astron.console.hub.dto.bot.TalkAgentUpgradeDto;
 import jakarta.servlet.http.HttpServletRequest;
 
 public interface TalkAgentService {

@@ -15,7 +15,7 @@ import java.util.List;
 
 /** MyBatis-Plus basic configuration and Mapper scanning. */
 @Configuration
-@MapperScan({"com.iflytek.astron.console.hub.mapper", "com.iflytek.astron.console.commons.mapper", "com.iflytek.astron.console.hub.mapper"})
+@MapperScan({"com.iflytek.astron.console.hub.mapper"})
 public class MyBatisPlusConfig {
 
     @Bean(name = "mybatisPlusInterceptor")

@@ -1,11 +1,11 @@
 package com.iflytek.astron.console.hub.service.space;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.iflytek.astron.console.commons.dto.space.InviteRecordParam;
-import com.iflytek.astron.console.commons.dto.space.InviteRecordVO;
-import com.iflytek.astron.console.commons.entity.space.InviteRecord;
-import com.iflytek.astron.console.commons.enums.space.InviteRecordTypeEnum;
-import com.iflytek.astron.console.commons.enums.space.SpaceTypeEnum;
+import com.iflytek.astron.console.hub.dto.space.InviteRecordParam;
+import com.iflytek.astron.console.hub.dto.space.InviteRecordVO;
+import com.iflytek.astron.console.hub.entity.space.InviteRecord;
+import com.iflytek.astron.console.hub.enums.space.InviteRecordTypeEnum;
+import com.iflytek.astron.console.hub.enums.space.SpaceTypeEnum;
 
 import java.util.Collection;
 import java.util.List;

@@ -2,8 +2,8 @@ package com.iflytek.astron.console.hub.service.space.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.iflytek.astron.console.commons.entity.space.SpacePermission;
-import com.iflytek.astron.console.commons.mapper.space.SpacePermissionMapper;
+import com.iflytek.astron.console.hub.entity.space.SpacePermission;
+import com.iflytek.astron.console.hub.mapper.space.SpacePermissionMapper;
 import com.iflytek.astron.console.hub.service.space.SpacePermissionService;
 import org.springframework.stereotype.Service;
 

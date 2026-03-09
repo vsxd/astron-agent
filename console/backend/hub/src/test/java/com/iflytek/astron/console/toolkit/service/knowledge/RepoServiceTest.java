@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.iflytek.astron.console.commons.config.JwtClaimsFilter;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
-import com.iflytek.astron.console.commons.dto.dataset.DatasetStats;
+import com.iflytek.astron.console.hub.dto.dataset.DatasetStats;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.hub.service.data.IDatasetFileService;
 import com.iflytek.astron.console.hub.common.constant.ProjectContent;

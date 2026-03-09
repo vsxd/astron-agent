@@ -1,7 +1,7 @@
 package com.iflytek.astron.console.hub.service.bot.impl;
 
-import com.iflytek.astron.console.commons.entity.bot.ChatBotBase;
-import com.iflytek.astron.console.commons.enums.bot.BotVersionEnum;
+import com.iflytek.astron.console.hub.entity.bot.ChatBotBase;
+import com.iflytek.astron.console.hub.enums.bot.BotVersionEnum;
 import com.iflytek.astron.console.hub.service.bot.BotService;
 import com.iflytek.astron.console.commons.util.MaasUtil;
 import com.iflytek.astron.console.hub.service.workflow.BotChainService;

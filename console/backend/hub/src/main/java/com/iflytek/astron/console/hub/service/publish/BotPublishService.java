@@ -1,7 +1,7 @@
 package com.iflytek.astron.console.hub.service.publish;
 
 import com.iflytek.astron.console.hub.dto.PageResponse;
-import com.iflytek.astron.console.commons.dto.bot.BotListRequestDto;
+import com.iflytek.astron.console.hub.dto.bot.BotListRequestDto;
 import com.iflytek.astron.console.hub.dto.publish.BotPublishInfoDto;
 import com.iflytek.astron.console.hub.dto.publish.BotDetailResponseDto;
 import com.iflytek.astron.console.hub.dto.publish.BotVersionVO;
@@ -9,7 +9,7 @@ import com.iflytek.astron.console.hub.dto.publish.BotSummaryStatsVO;
 import com.iflytek.astron.console.hub.dto.publish.BotTimeSeriesResponseDto;
 import com.iflytek.astron.console.hub.dto.publish.WechatAuthUrlResponseDto;
 import com.iflytek.astron.console.hub.dto.publish.BotTraceRequestDto;
-import com.iflytek.astron.console.commons.enums.PublishChannelEnum;
+import com.iflytek.astron.console.hub.enums.PublishChannelEnum;
 import com.iflytek.astron.console.hub.dto.publish.UnifiedPrepareDto;
 
 /**

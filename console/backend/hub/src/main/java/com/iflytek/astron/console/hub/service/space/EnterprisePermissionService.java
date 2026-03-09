@@ -1,6 +1,6 @@
 package com.iflytek.astron.console.hub.service.space;
 
-import com.iflytek.astron.console.commons.entity.space.EnterprisePermission;
+import com.iflytek.astron.console.hub.entity.space.EnterprisePermission;
 
 import java.util.Collection;
 import java.util.List;

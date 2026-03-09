@@ -1,10 +1,10 @@
 package com.iflytek.astron.console.hub.service.bot;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.iflytek.astron.console.commons.dto.bot.BotCreateForm;
-import com.iflytek.astron.console.commons.dto.bot.BotInfoDto;
-import com.iflytek.astron.console.commons.entity.bot.BotTypeList;
-import com.iflytek.astron.console.commons.entity.bot.ChatBotBase;
+import com.iflytek.astron.console.hub.dto.bot.BotCreateForm;
+import com.iflytek.astron.console.hub.dto.bot.BotInfoDto;
+import com.iflytek.astron.console.hub.entity.bot.BotTypeList;
+import com.iflytek.astron.console.hub.entity.bot.ChatBotBase;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;

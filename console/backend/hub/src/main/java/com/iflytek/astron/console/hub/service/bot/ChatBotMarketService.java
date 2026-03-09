@@ -1,7 +1,7 @@
 package com.iflytek.astron.console.hub.service.bot;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.iflytek.astron.console.commons.entity.bot.ChatBotMarket;
+import com.iflytek.astron.console.hub.entity.bot.ChatBotMarket;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 

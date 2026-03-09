@@ -1,6 +1,6 @@
 package com.iflytek.astron.console.hub.service.chat;
 
-import com.iflytek.astron.console.commons.dto.bot.ChatBotApi;
+import com.iflytek.astron.console.hub.dto.bot.ChatBotApi;
 
 import java.util.List;
 

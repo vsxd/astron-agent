@@ -1,6 +1,6 @@
 package com.iflytek.astron.console.hub.service.knowledge.impl;
 
-import com.iflytek.astron.console.commons.entity.dataset.BotDatasetMaas;
+import com.iflytek.astron.console.hub.entity.dataset.BotDatasetMaas;
 import com.iflytek.astron.console.hub.service.data.ChatListDataService;
 import com.iflytek.astron.console.hub.service.data.DatasetDataService;
 import com.iflytek.astron.console.hub.service.knowledge.KnowledgeService;

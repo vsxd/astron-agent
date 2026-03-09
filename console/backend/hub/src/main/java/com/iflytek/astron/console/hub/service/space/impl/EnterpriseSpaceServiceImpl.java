@@ -1,8 +1,8 @@
 package com.iflytek.astron.console.hub.service.space.impl;
 
-import com.iflytek.astron.console.commons.entity.space.*;
+import com.iflytek.astron.console.hub.entity.space.*;
 import com.iflytek.astron.console.hub.service.space.*;
-import com.iflytek.astron.console.commons.enums.space.SpaceTypeEnum;
+import com.iflytek.astron.console.hub.enums.space.SpaceTypeEnum;
 import com.iflytek.astron.console.commons.util.space.OrderInfoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;

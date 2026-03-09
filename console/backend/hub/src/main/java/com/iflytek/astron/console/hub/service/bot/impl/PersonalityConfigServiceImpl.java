@@ -4,7 +4,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
-import com.iflytek.astron.console.commons.dto.bot.PersonalityConfigDto;
+import com.iflytek.astron.console.hub.dto.bot.PersonalityConfigDto;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.util.I18nUtil;
 import com.iflytek.astron.console.hub.dto.PageResponse;

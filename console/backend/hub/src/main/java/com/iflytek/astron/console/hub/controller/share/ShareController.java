@@ -2,11 +2,11 @@ package com.iflytek.astron.console.hub.controller.share;
 
 import com.alibaba.fastjson2.JSON;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
-import com.iflytek.astron.console.commons.dto.chat.ChatListCreateResponse;
-import com.iflytek.astron.console.commons.entity.space.AgentShareRecord;
+import com.iflytek.astron.console.hub.dto.chat.ChatListCreateResponse;
+import com.iflytek.astron.console.hub.entity.space.AgentShareRecord;
 import com.iflytek.astron.console.hub.dto.share.ShareKey;
 import com.iflytek.astron.console.commons.annotation.space.SpacePreAuth;
-import com.iflytek.astron.console.commons.enums.ShelfStatusEnum;
+import com.iflytek.astron.console.hub.enums.ShelfStatusEnum;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
 import com.iflytek.astron.console.hub.dto.share.CardAddBody;

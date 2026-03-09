@@ -1,9 +1,9 @@
 package com.iflytek.astron.console.hub.service.homepage.Impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.iflytek.astron.console.commons.data.UserInfoDataService;
-import com.iflytek.astron.console.commons.entity.bot.ChatBotMarket;
-import com.iflytek.astron.console.commons.entity.chat.ChatList;
+import com.iflytek.astron.console.hub.data.UserInfoDataService;
+import com.iflytek.astron.console.hub.entity.bot.ChatBotMarket;
+import com.iflytek.astron.console.hub.entity.chat.ChatList;
 import com.iflytek.astron.console.hub.service.bot.BotFavoriteService;
 import com.iflytek.astron.console.hub.service.bot.BotTypeListService;
 import com.iflytek.astron.console.hub.service.bot.ChatBotMarketService;

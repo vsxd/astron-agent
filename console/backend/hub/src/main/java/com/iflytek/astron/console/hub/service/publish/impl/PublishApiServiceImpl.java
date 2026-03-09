@@ -1,12 +1,12 @@
 package com.iflytek.astron.console.hub.service.publish.impl;
 
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
-import com.iflytek.astron.console.commons.dto.bot.ChatBotApi;
-import com.iflytek.astron.console.commons.entity.bot.ChatBotBase;
-import com.iflytek.astron.console.commons.entity.bot.UserLangChainInfo;
-import com.iflytek.astron.console.commons.entity.user.AppMst;
+import com.iflytek.astron.console.hub.dto.bot.ChatBotApi;
+import com.iflytek.astron.console.hub.entity.bot.ChatBotBase;
+import com.iflytek.astron.console.hub.entity.bot.UserLangChainInfo;
+import com.iflytek.astron.console.hub.entity.user.AppMst;
 import com.iflytek.astron.console.commons.exception.BusinessException;
-import com.iflytek.astron.console.commons.mapper.bot.BotDatasetMapper;
+import com.iflytek.astron.console.hub.mapper.bot.BotDatasetMapper;
 import com.iflytek.astron.console.hub.service.bot.ChatBotDataService;
 import com.iflytek.astron.console.hub.service.data.UserLangChainDataService;
 import com.iflytek.astron.console.hub.service.user.AppMstService;
@@ -18,7 +18,7 @@ import com.iflytek.astron.console.hub.dto.publish.BotApiInfoDTO;
 import com.iflytek.astron.console.hub.dto.publish.CreateAppVo;
 import com.iflytek.astron.console.hub.dto.publish.CreateBotApiVo;
 import com.iflytek.astron.console.hub.dto.user.TenantAuth;
-import com.iflytek.astron.console.commons.enums.bot.BotVersionEnum;
+import com.iflytek.astron.console.hub.enums.bot.BotVersionEnum;
 import com.iflytek.astron.console.hub.service.chat.ChatBotApiService;
 import com.iflytek.astron.console.hub.service.publish.PublishApiService;
 import com.iflytek.astron.console.hub.service.publish.ReleaseManageClientService;

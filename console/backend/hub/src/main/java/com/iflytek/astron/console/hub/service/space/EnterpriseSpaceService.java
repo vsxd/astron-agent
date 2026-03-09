@@ -1,9 +1,9 @@
 package com.iflytek.astron.console.hub.service.space;
 
-import com.iflytek.astron.console.commons.entity.space.EnterprisePermission;
-import com.iflytek.astron.console.commons.entity.space.EnterpriseUser;
-import com.iflytek.astron.console.commons.entity.space.SpacePermission;
-import com.iflytek.astron.console.commons.entity.space.SpaceUser;
+import com.iflytek.astron.console.hub.entity.space.EnterprisePermission;
+import com.iflytek.astron.console.hub.entity.space.EnterpriseUser;
+import com.iflytek.astron.console.hub.entity.space.SpacePermission;
+import com.iflytek.astron.console.hub.entity.space.SpaceUser;
 
 public interface EnterpriseSpaceService {
 

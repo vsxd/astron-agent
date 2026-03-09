@@ -1,10 +1,10 @@
 package com.iflytek.astron.console.hub.service.chat.impl;
 
-import com.iflytek.astron.console.commons.dto.chat.ChatModelMeta;
-import com.iflytek.astron.console.commons.dto.chat.ChatReqModelDto;
-import com.iflytek.astron.console.commons.dto.chat.ChatRequestDtoList;
-import com.iflytek.astron.console.commons.dto.chat.ChatRespModelDto;
-import com.iflytek.astron.console.commons.dto.llm.SparkChatRequest;
+import com.iflytek.astron.console.hub.dto.chat.ChatModelMeta;
+import com.iflytek.astron.console.hub.dto.chat.ChatReqModelDto;
+import com.iflytek.astron.console.hub.dto.chat.ChatRequestDtoList;
+import com.iflytek.astron.console.hub.dto.chat.ChatRespModelDto;
+import com.iflytek.astron.console.hub.dto.llm.SparkChatRequest;
 import com.iflytek.astron.console.hub.service.data.ChatDataService;
 import com.iflytek.astron.console.commons.util.I18nUtil;
 import com.iflytek.astron.console.hub.data.ReqKnowledgeRecordsDataService;

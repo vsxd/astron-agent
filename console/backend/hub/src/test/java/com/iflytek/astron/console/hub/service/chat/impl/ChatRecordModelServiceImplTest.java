@@ -1,9 +1,9 @@
 package com.iflytek.astron.console.hub.service.chat.impl;
 
 import com.iflytek.astron.console.hub.service.data.ChatDataService;
-import com.iflytek.astron.console.commons.entity.chat.ChatReasonRecords;
-import com.iflytek.astron.console.commons.entity.chat.ChatReqRecords;
-import com.iflytek.astron.console.commons.entity.chat.ChatRespRecords;
+import com.iflytek.astron.console.hub.entity.chat.ChatReasonRecords;
+import com.iflytek.astron.console.hub.entity.chat.ChatReqRecords;
+import com.iflytek.astron.console.hub.entity.chat.ChatRespRecords;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

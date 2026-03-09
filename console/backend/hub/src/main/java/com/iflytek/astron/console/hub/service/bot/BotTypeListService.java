@@ -1,6 +1,6 @@
 package com.iflytek.astron.console.hub.service.bot;
 
-import com.iflytek.astron.console.commons.entity.bot.BotTypeList;
+import com.iflytek.astron.console.hub.entity.bot.BotTypeList;
 
 import java.util.List;
 

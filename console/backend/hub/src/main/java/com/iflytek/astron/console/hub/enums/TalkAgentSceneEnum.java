@@ -1,6 +1,6 @@
 package com.iflytek.astron.console.hub.enums;
 
-import com.iflytek.astron.console.commons.dto.bot.TalkAgentSceneDto;
+import com.iflytek.astron.console.hub.dto.bot.TalkAgentSceneDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

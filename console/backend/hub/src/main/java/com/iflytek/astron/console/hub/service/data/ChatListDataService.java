@@ -1,9 +1,9 @@
 package com.iflytek.astron.console.hub.service.data;
 
-import com.iflytek.astron.console.commons.entity.bot.ChatBotBase;
-import com.iflytek.astron.console.commons.dto.chat.ChatBotListDto;
-import com.iflytek.astron.console.commons.entity.chat.ChatList;
-import com.iflytek.astron.console.commons.entity.chat.ChatTreeIndex;
+import com.iflytek.astron.console.hub.entity.bot.ChatBotBase;
+import com.iflytek.astron.console.hub.dto.chat.ChatBotListDto;
+import com.iflytek.astron.console.hub.entity.chat.ChatList;
+import com.iflytek.astron.console.hub.entity.chat.ChatTreeIndex;
 
 import java.util.List;
 

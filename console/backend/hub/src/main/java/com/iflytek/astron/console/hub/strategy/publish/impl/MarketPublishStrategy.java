@@ -1,14 +1,14 @@
 package com.iflytek.astron.console.hub.strategy.publish.impl;
 
-import com.iflytek.astron.console.commons.enums.bot.ReleaseTypeEnum;
-import com.iflytek.astron.console.commons.enums.PublishChannelEnum;
-import com.iflytek.astron.console.commons.enums.ShelfStatusEnum;
+import com.iflytek.astron.console.hub.enums.bot.ReleaseTypeEnum;
+import com.iflytek.astron.console.hub.enums.PublishChannelEnum;
+import com.iflytek.astron.console.hub.enums.ShelfStatusEnum;
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.commons.mapper.bot.ChatBotMarketMapper;
-import com.iflytek.astron.console.commons.mapper.bot.ChatBotBaseMapper;
-import com.iflytek.astron.console.commons.dto.bot.BotPublishQueryResult;
-import com.iflytek.astron.console.commons.entity.bot.ChatBotBase;
-import com.iflytek.astron.console.commons.entity.bot.ChatBotMarket;
+import com.iflytek.astron.console.hub.mapper.bot.ChatBotMarketMapper;
+import com.iflytek.astron.console.hub.mapper.bot.ChatBotBaseMapper;
+import com.iflytek.astron.console.hub.dto.bot.BotPublishQueryResult;
+import com.iflytek.astron.console.hub.entity.bot.ChatBotBase;
+import com.iflytek.astron.console.hub.entity.bot.ChatBotMarket;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.hub.service.publish.PublishChannelService;

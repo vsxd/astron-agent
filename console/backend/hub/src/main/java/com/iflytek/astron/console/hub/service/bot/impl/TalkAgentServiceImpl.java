@@ -1,15 +1,15 @@
 package com.iflytek.astron.console.hub.service.bot.impl;
 
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
-import com.iflytek.astron.console.commons.dto.bot.BotInfoDto;
-import com.iflytek.astron.console.commons.dto.bot.TalkAgentHistoryDto;
-import com.iflytek.astron.console.commons.dto.bot.TalkAgentUpgradeDto;
-import com.iflytek.astron.console.commons.entity.bot.ChatBotBase;
-import com.iflytek.astron.console.commons.entity.chat.ChatList;
-import com.iflytek.astron.console.commons.entity.chat.ChatReqRecords;
-import com.iflytek.astron.console.commons.entity.chat.ChatRespRecords;
-import com.iflytek.astron.console.commons.entity.chat.ChatTreeIndex;
-import com.iflytek.astron.console.commons.enums.bot.BotVersionEnum;
+import com.iflytek.astron.console.hub.dto.bot.BotInfoDto;
+import com.iflytek.astron.console.hub.dto.bot.TalkAgentHistoryDto;
+import com.iflytek.astron.console.hub.dto.bot.TalkAgentUpgradeDto;
+import com.iflytek.astron.console.hub.entity.bot.ChatBotBase;
+import com.iflytek.astron.console.hub.entity.chat.ChatList;
+import com.iflytek.astron.console.hub.entity.chat.ChatReqRecords;
+import com.iflytek.astron.console.hub.entity.chat.ChatRespRecords;
+import com.iflytek.astron.console.hub.entity.chat.ChatTreeIndex;
+import com.iflytek.astron.console.hub.enums.bot.BotVersionEnum;
 import com.iflytek.astron.console.hub.service.bot.BotService;
 import com.iflytek.astron.console.hub.service.data.ChatDataService;
 import com.iflytek.astron.console.hub.service.data.ChatListDataService;

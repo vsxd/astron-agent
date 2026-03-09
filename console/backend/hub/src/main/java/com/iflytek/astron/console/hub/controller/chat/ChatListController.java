@@ -1,19 +1,19 @@
 package com.iflytek.astron.console.hub.controller.chat;
 
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
-import com.iflytek.astron.console.commons.entity.bot.ChatBotMarket;
+import com.iflytek.astron.console.hub.entity.bot.ChatBotMarket;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
 import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.service.bot.ChatBotDataService;
-import com.iflytek.astron.console.commons.dto.bot.BotInfoDto;
-import com.iflytek.astron.console.commons.dto.chat.ChatListCreateRequest;
-import com.iflytek.astron.console.commons.dto.chat.ChatListCreateResponse;
-import com.iflytek.astron.console.commons.dto.chat.ChatListDelRequest;
-import com.iflytek.astron.console.commons.dto.chat.ChatListResponseDto;
-import com.iflytek.astron.console.commons.entity.bot.ChatBotBase;
-import com.iflytek.astron.console.commons.enums.ShelfStatusEnum;
+import com.iflytek.astron.console.hub.dto.bot.BotInfoDto;
+import com.iflytek.astron.console.hub.dto.chat.ChatListCreateRequest;
+import com.iflytek.astron.console.hub.dto.chat.ChatListCreateResponse;
+import com.iflytek.astron.console.hub.dto.chat.ChatListDelRequest;
+import com.iflytek.astron.console.hub.dto.chat.ChatListResponseDto;
+import com.iflytek.astron.console.hub.entity.bot.ChatBotBase;
+import com.iflytek.astron.console.hub.enums.ShelfStatusEnum;
 import com.iflytek.astron.console.hub.service.chat.ChatListService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -1,8 +1,8 @@
 package com.iflytek.astron.console.hub.service.chat.impl;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.iflytek.astron.console.commons.dto.chat.*;
-import com.iflytek.astron.console.commons.dto.llm.SparkChatRequest;
+import com.iflytek.astron.console.hub.dto.chat.*;
+import com.iflytek.astron.console.hub.dto.llm.SparkChatRequest;
 import com.iflytek.astron.console.hub.service.data.ChatDataService;
 import com.iflytek.astron.console.hub.service.data.ChatHistoryService;
 import com.iflytek.astron.console.commons.util.I18nUtil;

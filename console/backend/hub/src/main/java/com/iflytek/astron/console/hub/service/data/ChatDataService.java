@@ -1,10 +1,10 @@
 package com.iflytek.astron.console.hub.service.data;
 
-import com.iflytek.astron.console.commons.dto.chat.ChatFileReq;
-import com.iflytek.astron.console.commons.dto.chat.ChatReqModelDto;
-import com.iflytek.astron.console.commons.dto.chat.ChatRespModelDto;
-import com.iflytek.astron.console.commons.entity.bot.BotChatFileParam;
-import com.iflytek.astron.console.commons.entity.chat.*;
+import com.iflytek.astron.console.hub.dto.chat.ChatFileReq;
+import com.iflytek.astron.console.hub.dto.chat.ChatReqModelDto;
+import com.iflytek.astron.console.hub.dto.chat.ChatRespModelDto;
+import com.iflytek.astron.console.hub.entity.bot.BotChatFileParam;
+import com.iflytek.astron.console.hub.entity.chat.*;
 
 import java.time.LocalDateTime;
 import java.util.List;

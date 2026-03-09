@@ -1,9 +1,9 @@
 package com.iflytek.astron.console.hub.service.data;
 
-import com.iflytek.astron.console.commons.entity.bot.BotDataset;
-import com.iflytek.astron.console.commons.entity.bot.DatasetFile;
-import com.iflytek.astron.console.commons.entity.bot.DatasetInfo;
-import com.iflytek.astron.console.commons.entity.dataset.BotDatasetMaas;
+import com.iflytek.astron.console.hub.entity.bot.BotDataset;
+import com.iflytek.astron.console.hub.entity.bot.DatasetFile;
+import com.iflytek.astron.console.hub.entity.bot.DatasetInfo;
+import com.iflytek.astron.console.hub.entity.dataset.BotDatasetMaas;
 
 import java.util.List;
 import java.util.Optional;

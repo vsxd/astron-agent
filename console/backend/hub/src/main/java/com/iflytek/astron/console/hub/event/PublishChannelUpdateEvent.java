@@ -1,6 +1,6 @@
 package com.iflytek.astron.console.hub.event;
 
-import com.iflytek.astron.console.commons.enums.PublishChannelEnum;
+import com.iflytek.astron.console.hub.enums.PublishChannelEnum;
 import lombok.Getter;
 import lombok.EqualsAndHashCode;
 import org.springframework.context.ApplicationEvent;

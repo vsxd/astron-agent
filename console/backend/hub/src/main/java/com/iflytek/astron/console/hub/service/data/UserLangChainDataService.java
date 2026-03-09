@@ -1,6 +1,6 @@
 package com.iflytek.astron.console.hub.service.data;
 
-import com.iflytek.astron.console.commons.entity.bot.UserLangChainInfo;
+import com.iflytek.astron.console.hub.entity.bot.UserLangChainInfo;
 
 import java.util.List;
 import java.util.Set;

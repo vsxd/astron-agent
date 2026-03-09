@@ -1,7 +1,7 @@
 package com.iflytek.astron.console.hub.service.space;
 
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.commons.dto.space.EnterpriseAddDTO;
+import com.iflytek.astron.console.hub.dto.space.EnterpriseAddDTO;
 
 public interface EnterpriseBizService {
 

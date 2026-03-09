@@ -1,16 +1,16 @@
 package com.iflytek.astron.console.hub.service.chat.impl;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.iflytek.astron.console.commons.dto.llm.SparkChatRequest;
-import com.iflytek.astron.console.commons.entity.bot.ChatBotBase;
-import com.iflytek.astron.console.commons.entity.bot.ChatBotMarket;
-import com.iflytek.astron.console.commons.dto.bot.ChatBotReqDto;
-import com.iflytek.astron.console.commons.dto.bot.DebugChatBotReqDto;
-import com.iflytek.astron.console.commons.entity.chat.ChatList;
-import com.iflytek.astron.console.commons.dto.chat.ChatListCreateResponse;
-import com.iflytek.astron.console.commons.entity.chat.ChatReqRecords;
-import com.iflytek.astron.console.commons.enums.ShelfStatusEnum;
-import com.iflytek.astron.console.commons.enums.bot.BotTypeEnum;
+import com.iflytek.astron.console.hub.dto.llm.SparkChatRequest;
+import com.iflytek.astron.console.hub.entity.bot.ChatBotBase;
+import com.iflytek.astron.console.hub.entity.bot.ChatBotMarket;
+import com.iflytek.astron.console.hub.dto.bot.ChatBotReqDto;
+import com.iflytek.astron.console.hub.dto.bot.DebugChatBotReqDto;
+import com.iflytek.astron.console.hub.entity.chat.ChatList;
+import com.iflytek.astron.console.hub.dto.chat.ChatListCreateResponse;
+import com.iflytek.astron.console.hub.entity.chat.ChatReqRecords;
+import com.iflytek.astron.console.hub.enums.ShelfStatusEnum;
+import com.iflytek.astron.console.hub.enums.bot.BotTypeEnum;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.service.bot.BotService;
 import com.iflytek.astron.console.hub.service.bot.ChatBotDataService;

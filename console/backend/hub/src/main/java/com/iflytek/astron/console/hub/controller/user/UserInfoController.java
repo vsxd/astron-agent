@@ -1,7 +1,7 @@
 package com.iflytek.astron.console.hub.controller.user;
 
-import com.iflytek.astron.console.commons.data.UserInfoDataService;
-import com.iflytek.astron.console.commons.entity.user.UserInfo;
+import com.iflytek.astron.console.hub.data.UserInfoDataService;
+import com.iflytek.astron.console.hub.entity.user.UserInfo;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.dto.user.UpdateUserBasicInfoRequest;
 import io.swagger.v3.oas.annotations.Operation;

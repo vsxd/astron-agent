@@ -2,7 +2,7 @@ package com.iflytek.astron.console.hub.mapper.workflow;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.iflytek.astron.console.commons.entity.workflow.Workflow;
+import com.iflytek.astron.console.hub.entity.workflow.Workflow;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

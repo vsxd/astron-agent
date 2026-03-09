@@ -3,7 +3,7 @@ package com.iflytek.astron.console.hub.handler;
 
 import com.iflytek.astron.console.commons.config.JwtClaimsFilter;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
-import com.iflytek.astron.console.commons.entity.user.UserInfo;
+import com.iflytek.astron.console.hub.entity.user.UserInfo;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;

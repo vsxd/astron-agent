@@ -1,8 +1,8 @@
 package com.iflytek.astron.console.hub.service.bot;
 
-import com.iflytek.astron.console.commons.dto.bot.BotDetail;
-import com.iflytek.astron.console.commons.dto.bot.PromptBotDetail;
-import com.iflytek.astron.console.commons.entity.bot.*;
+import com.iflytek.astron.console.hub.dto.bot.BotDetail;
+import com.iflytek.astron.console.hub.dto.bot.PromptBotDetail;
+import com.iflytek.astron.console.hub.entity.bot.*;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;

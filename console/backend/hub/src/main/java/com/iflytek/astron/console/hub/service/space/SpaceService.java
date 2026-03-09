@@ -1,10 +1,10 @@
 package com.iflytek.astron.console.hub.service.space;
 
 
-import com.iflytek.astron.console.commons.dto.space.EnterpriseSpaceCountVO;
-import com.iflytek.astron.console.commons.dto.space.SpaceVO;
-import com.iflytek.astron.console.commons.entity.space.Space;
-import com.iflytek.astron.console.commons.enums.space.SpaceTypeEnum;
+import com.iflytek.astron.console.hub.dto.space.EnterpriseSpaceCountVO;
+import com.iflytek.astron.console.hub.dto.space.SpaceVO;
+import com.iflytek.astron.console.hub.entity.space.Space;
+import com.iflytek.astron.console.hub.enums.space.SpaceTypeEnum;
 
 import java.util.List;
 

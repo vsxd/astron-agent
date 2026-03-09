@@ -1,7 +1,7 @@
 package com.iflytek.astron.console.hub.service.data.impl;
 
-import com.iflytek.astron.console.commons.dto.dataset.DatasetStats;
-import com.iflytek.astron.console.commons.mapper.dataset.BotDatasetMaasMapper;
+import com.iflytek.astron.console.hub.dto.dataset.DatasetStats;
+import com.iflytek.astron.console.hub.mapper.dataset.BotDatasetMaasMapper;
 import com.iflytek.astron.console.hub.service.data.IDatasetFileService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;

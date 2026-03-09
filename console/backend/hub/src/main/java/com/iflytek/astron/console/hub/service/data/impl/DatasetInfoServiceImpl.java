@@ -1,10 +1,10 @@
 package com.iflytek.astron.console.hub.service.data.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.iflytek.astron.console.commons.entity.bot.BotDataset;
-import com.iflytek.astron.console.commons.entity.bot.DatasetInfo;
-import com.iflytek.astron.console.commons.mapper.bot.BotDatasetMapper;
-import com.iflytek.astron.console.commons.mapper.bot.DatasetInfoMapper;
+import com.iflytek.astron.console.hub.entity.bot.BotDataset;
+import com.iflytek.astron.console.hub.entity.bot.DatasetInfo;
+import com.iflytek.astron.console.hub.mapper.bot.BotDatasetMapper;
+import com.iflytek.astron.console.hub.mapper.bot.DatasetInfoMapper;
 import com.iflytek.astron.console.hub.service.data.IDatasetInfoService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;

@@ -1,7 +1,7 @@
 package com.iflytek.astron.console.hub.service;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.iflytek.astron.console.commons.entity.chat.ChatReqRecords;
+import com.iflytek.astron.console.hub.entity.chat.ChatReqRecords;
 import com.iflytek.astron.console.hub.service.ChatRecordModelService;
 import com.iflytek.astron.console.hub.service.data.ChatDataService;
 import com.iflytek.astron.console.commons.util.SseEmitterUtil;

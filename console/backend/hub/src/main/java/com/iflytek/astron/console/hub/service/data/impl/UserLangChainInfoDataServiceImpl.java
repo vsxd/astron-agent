@@ -2,8 +2,8 @@ package com.iflytek.astron.console.hub.service.data.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.iflytek.astron.console.commons.entity.bot.UserLangChainInfo;
-import com.iflytek.astron.console.commons.mapper.UserLangChainInfoMapper;
+import com.iflytek.astron.console.hub.entity.bot.UserLangChainInfo;
+import com.iflytek.astron.console.hub.mapper.UserLangChainInfoMapper;
 import com.iflytek.astron.console.hub.service.data.UserLangChainDataService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.iflytek.astron.console.hub.service.user;
 
-import com.iflytek.astron.console.commons.entity.user.AppMst;
+import com.iflytek.astron.console.hub.entity.user.AppMst;
 
 import java.util.List;
 

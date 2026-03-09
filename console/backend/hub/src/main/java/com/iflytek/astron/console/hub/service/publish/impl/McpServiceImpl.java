@@ -3,11 +3,11 @@ package com.iflytek.astron.console.hub.service.publish.impl;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.hub.dto.publish.mcp.McpPublishRequestDto;
-import com.iflytek.astron.console.commons.entity.model.McpData;
-import com.iflytek.astron.console.commons.entity.bot.UserLangChainInfo;
-import com.iflytek.astron.console.commons.mapper.bot.ChatBotBaseMapper;
-import com.iflytek.astron.console.commons.mapper.model.McpDataMapper;
-import com.iflytek.astron.console.commons.mapper.UserLangChainInfoMapper;
+import com.iflytek.astron.console.hub.entity.model.McpData;
+import com.iflytek.astron.console.hub.entity.bot.UserLangChainInfo;
+import com.iflytek.astron.console.hub.mapper.bot.ChatBotBaseMapper;
+import com.iflytek.astron.console.hub.mapper.model.McpDataMapper;
+import com.iflytek.astron.console.hub.mapper.UserLangChainInfoMapper;
 import com.iflytek.astron.console.hub.service.publish.McpService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,7 @@ import com.iflytek.astron.console.hub.service.publish.BotPublishService;
 import com.iflytek.astron.console.hub.service.workflow.WorkflowReleaseService;
 import com.iflytek.astron.console.hub.service.data.UserLangChainDataService;
 import com.iflytek.astron.console.hub.dto.workflow.WorkflowReleaseResponseDto;
-import com.iflytek.astron.console.commons.enums.PublishChannelEnum;
+import com.iflytek.astron.console.hub.enums.PublishChannelEnum;
 
 import java.time.LocalDateTime;
 

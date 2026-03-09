@@ -1,6 +1,6 @@
 package com.iflytek.astron.console.hub.service.workflow;
 
-import com.iflytek.astron.console.commons.dto.bot.TalkAgentConfigDto;
+import com.iflytek.astron.console.hub.dto.bot.TalkAgentConfigDto;
 import jakarta.servlet.http.HttpServletRequest;
 
 /**

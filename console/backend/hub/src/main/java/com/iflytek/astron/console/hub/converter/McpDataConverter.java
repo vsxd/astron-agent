@@ -1,7 +1,7 @@
 package com.iflytek.astron.console.hub.converter;
 
 import com.iflytek.astron.console.hub.dto.publish.mcp.McpContentResponseDto;
-import com.iflytek.astron.console.commons.entity.model.McpData;
+import com.iflytek.astron.console.hub.entity.model.McpData;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.NullValuePropertyMappingStrategy;

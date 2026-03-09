@@ -3,7 +3,7 @@ package com.iflytek.astron.console.hub.data.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.iflytek.astron.console.commons.data.UserInfoDataService;
+import com.iflytek.astron.console.hub.data.UserInfoDataService;
 import com.iflytek.astron.console.hub.data.NotificationDataService;
 import com.iflytek.astron.console.hub.dto.notification.NotificationDto;
 import com.iflytek.astron.console.hub.dto.notification.NotificationQueryRequest;

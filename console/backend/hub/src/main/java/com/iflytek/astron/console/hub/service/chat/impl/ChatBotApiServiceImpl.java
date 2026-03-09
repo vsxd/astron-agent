@@ -1,8 +1,8 @@
 package com.iflytek.astron.console.hub.service.chat.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.iflytek.astron.console.commons.dto.bot.ChatBotApi;
-import com.iflytek.astron.console.commons.mapper.bot.ChatBotApiMapper;
+import com.iflytek.astron.console.hub.dto.bot.ChatBotApi;
+import com.iflytek.astron.console.hub.mapper.bot.ChatBotApiMapper;
 import com.iflytek.astron.console.hub.service.chat.ChatBotApiService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

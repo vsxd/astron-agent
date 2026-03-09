@@ -1,16 +1,16 @@
 package com.iflytek.astron.console.hub.service.space.impl;
 
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
-import com.iflytek.astron.console.commons.data.UserInfoDataService;
-import com.iflytek.astron.console.commons.entity.user.UserInfo;
+import com.iflytek.astron.console.hub.data.UserInfoDataService;
+import com.iflytek.astron.console.hub.entity.user.UserInfo;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
-import com.iflytek.astron.console.commons.entity.space.ApplyRecord;
-import com.iflytek.astron.console.commons.entity.space.EnterpriseUser;
-import com.iflytek.astron.console.commons.entity.space.SpaceUser;
-import com.iflytek.astron.console.commons.enums.space.EnterpriseRoleEnum;
-import com.iflytek.astron.console.commons.enums.space.SpaceRoleEnum;
+import com.iflytek.astron.console.hub.entity.space.ApplyRecord;
+import com.iflytek.astron.console.hub.entity.space.EnterpriseUser;
+import com.iflytek.astron.console.hub.entity.space.SpaceUser;
+import com.iflytek.astron.console.hub.enums.space.EnterpriseRoleEnum;
+import com.iflytek.astron.console.hub.enums.space.SpaceRoleEnum;
 import com.iflytek.astron.console.hub.service.space.ApplyRecordService;
 import com.iflytek.astron.console.hub.service.space.EnterpriseUserService;
 import com.iflytek.astron.console.hub.service.space.SpaceUserService;

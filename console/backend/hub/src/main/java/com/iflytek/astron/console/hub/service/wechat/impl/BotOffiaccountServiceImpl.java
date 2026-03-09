@@ -1,13 +1,13 @@
 package com.iflytek.astron.console.hub.service.wechat.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.iflytek.astron.console.commons.entity.bot.ChatBotBase;
-import com.iflytek.astron.console.commons.entity.wechat.BotOffiaccount;
-import com.iflytek.astron.console.commons.enums.BotOffiaccountStatusEnum;
-import com.iflytek.astron.console.commons.enums.PublishChannelEnum;
+import com.iflytek.astron.console.hub.entity.bot.ChatBotBase;
+import com.iflytek.astron.console.hub.entity.wechat.BotOffiaccount;
+import com.iflytek.astron.console.hub.enums.BotOffiaccountStatusEnum;
+import com.iflytek.astron.console.hub.enums.PublishChannelEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
-import com.iflytek.astron.console.commons.mapper.bot.ChatBotBaseMapper;
-import com.iflytek.astron.console.commons.mapper.wechat.BotOffiaccountMapper;
+import com.iflytek.astron.console.hub.mapper.bot.ChatBotBaseMapper;
+import com.iflytek.astron.console.hub.mapper.wechat.BotOffiaccountMapper;
 import com.iflytek.astron.console.hub.event.PublishChannelUpdateEvent;
 import com.iflytek.astron.console.hub.service.wechat.BotOffiaccountService;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
