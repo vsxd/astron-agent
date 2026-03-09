@@ -18,7 +18,7 @@ import java.util.Date;
  * @date 2025/10/23
  */
 @Data
-public class WorkflowConfig implements Serializable {
+public class WorkflowConfigEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

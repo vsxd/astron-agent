@@ -69,7 +69,7 @@ public class WorkflowController {
 
 
     private final WorkflowService workflowService;
-    private final TalkAgentService talkAgentService;
+    private final TalkAgentConfigService talkAgentService;
     private final WorkflowExportService workflowExportService;
 
     // ---------------------- Basic Information ----------------------

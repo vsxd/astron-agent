@@ -106,7 +106,7 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
     @Resource
     private FileDirectoryTreeService fileDirectoryTreeService;
     @Resource
-    private KnowledgeService knowledgeService;
+    private KnowledgeRepoService knowledgeService;
     @Resource
     private ExtractKnowledgeTaskService extractKnowledgeTaskService;
     @Resource

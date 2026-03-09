@@ -8,7 +8,7 @@ import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.toolkit.common.anno.ResponseResultBody;
 import com.iflytek.astron.console.toolkit.entity.mongo.Knowledge;
 import com.iflytek.astron.console.toolkit.entity.vo.repo.KnowledgeVO;
-import com.iflytek.astron.console.toolkit.service.repo.KnowledgeService;
+import com.iflytek.astron.console.toolkit.service.repo.KnowledgeRepoService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
@@ -31,7 +31,7 @@ import java.util.concurrent.ExecutionException;
 @ResponseResultBody
 public class KnowledgeController {
     @Resource
-    private KnowledgeService knowledgeService;
+    private KnowledgeRepoService knowledgeService;
 
     /**
      * Create knowledge

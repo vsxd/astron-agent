@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.iflytek.astron.console.toolkit.config.properties.RepoAuthorizedConfig;
 import com.iflytek.astron.console.toolkit.entity.table.repo.ExtractKnowledgeTask;
 import com.iflytek.astron.console.toolkit.mapper.repo.ExtractKnowledgeTaskMapper;
-import com.iflytek.astron.console.toolkit.service.repo.KnowledgeService;
+import com.iflytek.astron.console.toolkit.service.repo.KnowledgeRepoService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class ExtractKnowledgeTaskService extends ServiceImpl<ExtractKnowledgeTas
     private RepoAuthorizedConfig repoAuthorizedConfig;
 
     @Resource
-    private KnowledgeService knowledgeService;
+    private KnowledgeRepoService knowledgeService;
 
     /**
      * Get a single ExtractKnowledgeTask record with limit 1 using QueryWrapper

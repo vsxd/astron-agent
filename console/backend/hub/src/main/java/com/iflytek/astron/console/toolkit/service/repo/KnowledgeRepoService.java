@@ -53,9 +53,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+/**
+ * Knowledge repository service - renamed from KnowledgeService to avoid conflict with hub.service.knowledge.KnowledgeService
+ */
 @Service
 @Slf4j
-public class KnowledgeService {
+public class KnowledgeRepoService {
     @Resource
     private KnowledgeV2ServiceCallHandler knowledgeV2ServiceCallHandler;
     @Resource

@@ -69,6 +69,7 @@ import com.iflytek.astron.console.toolkit.entity.table.relation.FlowToolRel;
 import com.iflytek.astron.console.toolkit.entity.table.repo.FileInfoV2;
 import com.iflytek.astron.console.toolkit.entity.table.tool.*;
 import com.iflytek.astron.console.toolkit.entity.table.workflow.*;
+import com.iflytek.astron.console.toolkit.entity.table.workflow.WorkflowConfigEntity;
 import com.iflytek.astron.console.toolkit.entity.tool.McpServerTool;
 import com.iflytek.astron.console.toolkit.entity.vo.*;
 import com.iflytek.astron.console.toolkit.entity.vo.eval.EvalSetVerDataVo;
@@ -497,10 +498,10 @@ public class WorkflowService extends ServiceImpl<WorkflowMapper, Workflow> {
         vo.setSourceCode(String.valueOf(CommonConst.PlatformCode.COMMON));
         // Is it a voice intelligent agent
         if (Objects.equals(workflow.getType(), BotTypeEnum.TALK.getType())) {
-            WorkflowConfig workflowConfig = workflowConfigMapper.selectOne(new LambdaQueryWrapper<WorkflowConfig>()
-                    .eq(WorkflowConfig::getFlowId, workflow.getFlowId())
-                    .eq(WorkflowConfig::getVersionNum, "-1")
-                    .eq(WorkflowConfig::getDeleted, false));
+            WorkflowConfigEntity workflowConfig = workflowConfigMapper.selectOne(new LambdaQueryWrapper<WorkflowConfigEntity>()
+                    .eq(WorkflowConfigEntity::getFlowId, workflow.getFlowId())
+                    .eq(WorkflowConfigEntity::getVersionNum, "-1")
+                    .eq(WorkflowConfigEntity::getDeleted, false));
             vo.setFlowConfig(workflowConfig.getConfig());
         }
         if (StringUtils.isBlank(workflow.getExt())) {
@@ -1060,7 +1061,7 @@ public class WorkflowService extends ServiceImpl<WorkflowMapper, Workflow> {
         workflow.setOrder(DEFAULT_ORDER);
         // Add voice intelligent agent configuration
         if (createReq.getFlowConfig() != null) {
-            WorkflowConfig config = new WorkflowConfig();
+            WorkflowConfigEntity config = new WorkflowConfigEntity();
             config.setFlowId(workflow.getFlowId());
             config.setBotId(createReq.getExt().getInteger("botId"));
             config.setVersionNum("-1");
@@ -1152,10 +1153,10 @@ public class WorkflowService extends ServiceImpl<WorkflowMapper, Workflow> {
             replica.setExt(ext.toJSONString());
             updateById(replica);
             if (Objects.equals(src.getType(), BotTypeEnum.TALK.getType())) {
-                WorkflowConfig workflowConfig = workflowConfigMapper.selectOne(new LambdaQueryWrapper<WorkflowConfig>()
-                        .eq(WorkflowConfig::getFlowId, src.getFlowId())
-                        .eq(WorkflowConfig::getVersionNum, "-1")
-                        .eq(WorkflowConfig::getDeleted, false));
+                WorkflowConfigEntity workflowConfig = workflowConfigMapper.selectOne(new LambdaQueryWrapper<WorkflowConfigEntity>()
+                        .eq(WorkflowConfigEntity::getFlowId, src.getFlowId())
+                        .eq(WorkflowConfigEntity::getVersionNum, "-1")
+                        .eq(WorkflowConfigEntity::getDeleted, false));
                 workflowConfig.setId(null);
                 workflowConfig.setFlowId(replica.getFlowId());
                 workflowConfig.setBotId(botId);
@@ -1229,13 +1230,13 @@ public class WorkflowService extends ServiceImpl<WorkflowMapper, Workflow> {
         save(replica);
         // New configuration information for voice intelligent agents
         if (Objects.equals(BotTypeEnum.TALK.getType(), flowType)) {
-            WorkflowConfig config = new WorkflowConfig();
+            WorkflowConfigEntity config = new WorkflowConfigEntity();
             // Obtain the configuration of the source intelligent agent
             if (flowConfig == null) {
-                config = workflowConfigMapper.selectOne(new LambdaQueryWrapper<WorkflowConfig>()
-                        .eq(WorkflowConfig::getFlowId, src.getFlowId())
-                        .eq(WorkflowConfig::getVersionNum, "-1")
-                        .eq(WorkflowConfig::getDeleted, false));
+                config = workflowConfigMapper.selectOne(new LambdaQueryWrapper<WorkflowConfigEntity>()
+                        .eq(WorkflowConfigEntity::getFlowId, src.getFlowId())
+                        .eq(WorkflowConfigEntity::getVersionNum, "-1")
+                        .eq(WorkflowConfigEntity::getDeleted, false));
                 config.setId(null);
             } else {
                 config.setConfig(JSON.toJSONString(flowConfig));
@@ -1728,16 +1729,16 @@ public class WorkflowService extends ServiceImpl<WorkflowMapper, Workflow> {
         // 3) Merge/validate advanced configuration
         mergeAdvancedConfigSafe(saveReq, workflow);
         if (saveReq.getFlowConfig() != null) {
-            WorkflowConfig workflowConfig = workflowConfigMapper.selectOne(new LambdaQueryWrapper<WorkflowConfig>()
-                    .eq(WorkflowConfig::getFlowId, workflow.getFlowId())
-                    .eq(WorkflowConfig::getVersionNum, "-1")
-                    .eq(WorkflowConfig::getDeleted, false));
+            WorkflowConfigEntity workflowConfig = workflowConfigMapper.selectOne(new LambdaQueryWrapper<WorkflowConfigEntity>()
+                    .eq(WorkflowConfigEntity::getFlowId, workflow.getFlowId())
+                    .eq(WorkflowConfigEntity::getVersionNum, "-1")
+                    .eq(WorkflowConfigEntity::getDeleted, false));
             if (workflowConfig != null) {
                 workflowConfig.setConfig(JSON.toJSONString(saveReq.getFlowConfig()));
                 workflowConfig.setUpdatedTime(new Date());
                 workflowConfigMapper.updateById(workflowConfig);
             } else {
-                WorkflowConfig config = new WorkflowConfig();
+                WorkflowConfigEntity config = new WorkflowConfigEntity();
                 config.setFlowId(workflow.getFlowId());
                 config.setBotId(botId);
                 config.setVersionNum("-1");

@@ -5,7 +5,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.toolkit.entity.dto.talkagent.TalkAgentConfigDto;
-import com.iflytek.astron.console.toolkit.entity.table.workflow.WorkflowConfig;
+import com.iflytek.astron.console.toolkit.entity.table.workflow.WorkflowConfigEntity;
 import com.iflytek.astron.console.toolkit.mapper.workflow.WorkflowConfigMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -24,12 +24,16 @@ import org.springframework.stereotype.Service;
  * to a specific version of a workflow.
  * </p>
  *
+ * <p>
+ * Renamed from TalkAgentService to TalkAgentConfigService to avoid conflict with hub.service.bot.TalkAgentService
+ * </p>
+ *
  * @author clliu19
  * @date 2025/10/23
  */
 @Service
 @Slf4j
-public class TalkAgentService {
+public class TalkAgentConfigService {
 
     @Autowired
     private VersionService versionService;
@@ -58,8 +62,8 @@ public class TalkAgentService {
      */
     public TalkAgentConfigDto getTalkAgentConfig(Integer botId, String version, String type) {
         // Build query condition for retrieving workflow configuration
-        LambdaQueryWrapper<WorkflowConfig> lqw = new LambdaQueryWrapper<>();
-        lqw.eq(WorkflowConfig::getBotId, botId);
+        LambdaQueryWrapper<WorkflowConfigEntity> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(WorkflowConfigEntity::getBotId, botId);
 
         // Determine version based on type and provided version
         if (StringUtils.isBlank(version)) {
@@ -70,18 +74,18 @@ public class TalkAgentService {
                 if ("0".equals(versionNum)) {
                     versionNum = "-1";
                 }
-                lqw.eq(WorkflowConfig::getVersionNum, versionNum);
+                lqw.eq(WorkflowConfigEntity::getVersionNum, versionNum);
             } else {
                 // If not chat mode and version not specified, use default placeholder "-1"
-                lqw.eq(WorkflowConfig::getVersionNum, "-1");
+                lqw.eq(WorkflowConfigEntity::getVersionNum, "-1");
             }
         } else {
             // Use version name as query key
-            lqw.eq(WorkflowConfig::getName, version);
+            lqw.eq(WorkflowConfigEntity::getName, version);
         }
 
         // Query workflow configuration from database
-        WorkflowConfig workflowConfig = workflowConfigMapper.selectOne(lqw);
+        WorkflowConfigEntity workflowConfig = workflowConfigMapper.selectOne(lqw);
 
         TalkAgentConfigDto talkAgentConfigDto = new TalkAgentConfigDto();
         if (workflowConfig != null) {

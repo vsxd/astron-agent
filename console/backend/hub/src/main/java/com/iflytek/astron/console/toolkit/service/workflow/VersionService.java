@@ -16,7 +16,7 @@ import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.toolkit.entity.biz.workflow.BizWorkflowData;
 import com.iflytek.astron.console.toolkit.entity.core.workflow.FlowProtocol;
 import com.iflytek.astron.console.toolkit.entity.dto.WorkflowReq;
-import com.iflytek.astron.console.toolkit.entity.table.workflow.WorkflowConfig;
+import com.iflytek.astron.console.toolkit.entity.table.workflow.WorkflowConfigEntity;
 import com.iflytek.astron.console.toolkit.entity.table.workflow.WorkflowVersion;
 import com.iflytek.astron.console.toolkit.mapper.workflow.*;
 import com.iflytek.astron.console.toolkit.tool.DataPermissionCheckTool;
@@ -86,27 +86,27 @@ public class VersionService {
         // get WorkflowConfig
         Map<String, String> cfgByVersion = Collections.emptyMap();
         try {
-            List<WorkflowConfig> workflowConfigs = new ArrayList<>();
+            List<WorkflowConfigEntity> workflowConfigs = new ArrayList<>();
             if (StringUtils.isNotBlank(botId)) {
                 Integer botIdInt = Integer.parseInt(botId);
                 workflowConfigs = workflowConfigMapper.selectList(
-                        Wrappers.<WorkflowConfig>lambdaQuery()
-                                .eq(WorkflowConfig::getBotId, botIdInt)
-                                .eq(WorkflowConfig::getDeleted, false));
+                        Wrappers.<WorkflowConfigEntity>lambdaQuery()
+                                .eq(WorkflowConfigEntity::getBotId, botIdInt)
+                                .eq(WorkflowConfigEntity::getDeleted, false));
             }
             if (StringUtils.isNotBlank(flowIdStr)) {
                 workflowConfigs = workflowConfigMapper.selectList(
-                        Wrappers.<WorkflowConfig>lambdaQuery()
-                                .eq(WorkflowConfig::getFlowId, flowIdStr)
-                                .eq(WorkflowConfig::getDeleted, false));
+                        Wrappers.<WorkflowConfigEntity>lambdaQuery()
+                                .eq(WorkflowConfigEntity::getFlowId, flowIdStr)
+                                .eq(WorkflowConfigEntity::getDeleted, false));
             }
 
             if (CollUtil.isNotEmpty(workflowConfigs)) {
                 cfgByVersion = workflowConfigs.stream()
                         .filter(cfg -> cfg.getVersionNum() != null)
                         .collect(Collectors.toMap(
-                                WorkflowConfig::getVersionNum,
-                                WorkflowConfig::getConfig,
+                                WorkflowConfigEntity::getVersionNum,
+                                WorkflowConfigEntity::getConfig,
                                 (exist, replace) -> exist));
             }
         } catch (NumberFormatException ignore) {
@@ -189,15 +189,15 @@ public class VersionService {
             workflowVersion.setAdvancedConfig(workflow.getAdvancedConfig());
             // Determine whether it is a voice intelligent agent
             if (Objects.equals(workflow.getType(), BotTypeEnum.TALK.getType())) {
-                WorkflowConfig workflowConfig = workflowConfigMapper.selectOne(new LambdaQueryWrapper<WorkflowConfig>()
-                        .eq(WorkflowConfig::getFlowId, workflow.getFlowId())
-                        .eq(WorkflowConfig::getVersionNum, "-1")
-                        .eq(WorkflowConfig::getDeleted, false));
-                WorkflowConfig latestConfig = workflowConfigMapper.selectOne(new LambdaQueryWrapper<WorkflowConfig>()
-                        .eq(WorkflowConfig::getFlowId, workflow.getFlowId())
-                        .eq(WorkflowConfig::getName, createDto.getName())
-                        .eq(WorkflowConfig::getDeleted, false)
-                        .orderByDesc(WorkflowConfig::getUpdatedTime)
+                WorkflowConfigEntity workflowConfig = workflowConfigMapper.selectOne(new LambdaQueryWrapper<WorkflowConfigEntity>()
+                        .eq(WorkflowConfigEntity::getFlowId, workflow.getFlowId())
+                        .eq(WorkflowConfigEntity::getVersionNum, "-1")
+                        .eq(WorkflowConfigEntity::getDeleted, false));
+                WorkflowConfigEntity latestConfig = workflowConfigMapper.selectOne(new LambdaQueryWrapper<WorkflowConfigEntity>()
+                        .eq(WorkflowConfigEntity::getFlowId, workflow.getFlowId())
+                        .eq(WorkflowConfigEntity::getName, createDto.getName())
+                        .eq(WorkflowConfigEntity::getDeleted, false)
+                        .orderByDesc(WorkflowConfigEntity::getUpdatedTime)
                         .last("limit 1"));
                 if (latestConfig != null) {
                     latestConfig.setConfig(workflowConfig.getConfig());
@@ -288,26 +288,26 @@ public class VersionService {
             String advancedConfig = workflow.getAdvancedConfig();
             boolean configNoChange = true;
             if (Objects.equals(workflow.getType(), BotTypeEnum.TALK.getType())) {
-                WorkflowConfig draftCfg = workflowConfigMapper.selectOne(new LambdaQueryWrapper<WorkflowConfig>()
-                        .eq(WorkflowConfig::getFlowId, workflow.getFlowId())
-                        .eq(WorkflowConfig::getVersionNum, "-1")
-                        .eq(WorkflowConfig::getDeleted, false));
+                WorkflowConfigEntity draftCfg = workflowConfigMapper.selectOne(new LambdaQueryWrapper<WorkflowConfigEntity>()
+                        .eq(WorkflowConfigEntity::getFlowId, workflow.getFlowId())
+                        .eq(WorkflowConfigEntity::getVersionNum, "-1")
+                        .eq(WorkflowConfigEntity::getDeleted, false));
                 String draftConfig = (draftCfg != null) ? draftCfg.getConfig() : null;
 
-                List<WorkflowConfig> beforeVersionConfigList = workflowConfigMapper.selectList(new LambdaQueryWrapper<WorkflowConfig>()
-                        .eq(WorkflowConfig::getFlowId, workflow.getFlowId())
-                        .ne(WorkflowConfig::getVersionNum, "-1")
-                        .eq(WorkflowConfig::getDeleted, false));
-                Optional<WorkflowConfig> latestNonDraftCfgOpt = beforeVersionConfigList.stream()
+                List<WorkflowConfigEntity> beforeVersionConfigList = workflowConfigMapper.selectList(new LambdaQueryWrapper<WorkflowConfigEntity>()
+                        .eq(WorkflowConfigEntity::getFlowId, workflow.getFlowId())
+                        .ne(WorkflowConfigEntity::getVersionNum, "-1")
+                        .eq(WorkflowConfigEntity::getDeleted, false));
+                Optional<WorkflowConfigEntity> latestNonDraftCfgOpt = beforeVersionConfigList.stream()
                         .filter(cfg -> StrUtil.isNotBlank(cfg.getName()))
                         .filter(cfg -> extractVersionNumberSafely(cfg.getName()) > 0D)
                         .max(Comparator
-                                .comparingDouble((WorkflowConfig cfg) -> extractVersionNumberSafely(cfg.getName()))
-                                .thenComparing(WorkflowConfig::getUpdatedTime, Comparator.nullsLast(Date::compareTo)));
+                                .comparingDouble((WorkflowConfigEntity cfg) -> extractVersionNumberSafely(cfg.getName()))
+                                .thenComparing(WorkflowConfigEntity::getUpdatedTime, Comparator.nullsLast(Date::compareTo)));
 
                 // Compare draft configuration and historical configuration
                 configNoChange = latestNonDraftCfgOpt
-                        .map(WorkflowConfig::getConfig)
+                        .map(WorkflowConfigEntity::getConfig)
                         .map(latestCfg -> Objects.equals(latestCfg, draftConfig))
                         .orElse(false);
             }
