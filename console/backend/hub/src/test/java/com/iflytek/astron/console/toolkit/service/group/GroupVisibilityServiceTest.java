@@ -1,13 +1,13 @@
-package com.iflytek.astron.console.toolkit.service.group;
+package com.iflytek.astron.console.hub.service.group;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.iflytek.astron.console.toolkit.entity.table.group.GroupVisibility;
-import com.iflytek.astron.console.toolkit.entity.vo.group.GroupUserTagVO;
-import com.iflytek.astron.console.toolkit.handler.UserInfoManagerHandler;
+import com.iflytek.astron.console.hub.entity.table.group.GroupVisibility;
+import com.iflytek.astron.console.hub.entity.vo.group.GroupUserTagVO;
+import com.iflytek.astron.console.hub.handler.UserInfoManagerHandler;
 import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
-import com.iflytek.astron.console.toolkit.mapper.group.GroupVisibilityMapper;
+import com.iflytek.astron.console.hub.mapper.group.GroupVisibilityMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

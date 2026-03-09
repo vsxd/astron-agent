@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.iflytek.astron.console.toolkit.mapper.knowledge.KnowledgeMapper">
-    <resultMap id="resultMap" type="com.iflytek.astron.console.toolkit.entity.table.knowledge.MysqlKnowledge">
+<mapper namespace="com.iflytek.astron.console.hub.mapper.knowledge.KnowledgeMapper">
+    <resultMap id="resultMap" type="com.iflytek.astron.console.hub.entity.table.knowledge.MysqlKnowledge">
         <result column="content" property="content"
-                typeHandler="com.iflytek.astron.console.toolkit.handler.MySqlJsonHandler"
+                typeHandler="com.iflytek.astron.console.hub.handler.MySqlJsonHandler"
         />
     </resultMap>
     <!--
@@ -12,7 +12,7 @@
         @param fileId the ID of the file
         @return List<MysqlKnowledge>
     -->
-    <select id="findByFileId" resultType="com.iflytek.astron.console.toolkit.entity.table.knowledge.MysqlKnowledge">
+    <select id="findByFileId" resultType="com.iflytek.astron.console.hub.entity.table.knowledge.MysqlKnowledge">
         SELECT * FROM knowledge
         WHERE file_id = #{fileId}
         ORDER BY seq_id ASC
@@ -25,7 +25,7 @@
         @param enabled the enabled status
         @return List<MysqlKnowledge>
     -->
-    <select id="findByFileIdAndEnabled" resultType="com.iflytek.astron.console.toolkit.entity.table.knowledge.MysqlKnowledge">
+    <select id="findByFileIdAndEnabled" resultType="com.iflytek.astron.console.hub.entity.table.knowledge.MysqlKnowledge">
         SELECT * FROM knowledge
         WHERE file_id = #{fileId} AND enabled = #{enabled}
         ORDER BY seq_id ASC
@@ -38,7 +38,7 @@
         @param source the source type
         @return List<MysqlKnowledge>
     -->
-    <select id="findByFileIdAndSource" resultType="com.iflytek.astron.console.toolkit.entity.table.knowledge.MysqlKnowledge">
+    <select id="findByFileIdAndSource" resultType="com.iflytek.astron.console.hub.entity.table.knowledge.MysqlKnowledge">
         SELECT * FROM knowledge
         WHERE file_id = #{fileId} AND source = #{source}
         ORDER BY seq_id ASC
@@ -50,7 +50,7 @@
         @param fileIds list of file IDs
         @return List<MysqlKnowledge>
     -->
-    <select id="findByFileIdIn" resultType="com.iflytek.astron.console.toolkit.entity.table.knowledge.MysqlKnowledge">
+    <select id="findByFileIdIn" resultType="com.iflytek.astron.console.hub.entity.table.knowledge.MysqlKnowledge">
         SELECT * FROM knowledge WHERE file_id IN
         <foreach collection="fileIds" item="fileId" open="(" separator="," close=")">
             #{fileId}
@@ -65,7 +65,7 @@
         @param enabled the enabled status
         @return List<MysqlKnowledge>
     -->
-    <select id="findByFileIdInAndEnabled" resultType="com.iflytek.astron.console.toolkit.entity.table.knowledge.MysqlKnowledge">
+    <select id="findByFileIdInAndEnabled" resultType="com.iflytek.astron.console.hub.entity.table.knowledge.MysqlKnowledge">
         SELECT * FROM knowledge WHERE file_id IN
         <foreach collection="fileIds" item="fileId" open="(" separator="," close=")">
             #{fileId}
@@ -135,7 +135,7 @@
         @param query query string for fuzzy matching
         @return List<MysqlKnowledge>
     -->
-    <select id="findByFileIdInAndContentLike" resultType="com.iflytek.astron.console.toolkit.entity.table.knowledge.MysqlKnowledge">
+    <select id="findByFileIdInAndContentLike" resultType="com.iflytek.astron.console.hub.entity.table.knowledge.MysqlKnowledge">
         SELECT * FROM knowledge WHERE file_id IN
         <foreach collection="fileIds" item="fileId" open="(" separator="," close=")">
             #{fileId}
@@ -151,7 +151,7 @@
         @param fileIds list of file IDs
         @return List<MysqlKnowledge>
     -->
-    <select id="findByFileIdInAndAuditType" resultType="com.iflytek.astron.console.toolkit.entity.table.knowledge.MysqlKnowledge">
+    <select id="findByFileIdInAndAuditType" resultType="com.iflytek.astron.console.hub.entity.table.knowledge.MysqlKnowledge">
         SELECT * FROM knowledge WHERE file_id IN
         <foreach collection="fileIds" item="fileId" open="(" separator="," close=")">
             #{fileId}

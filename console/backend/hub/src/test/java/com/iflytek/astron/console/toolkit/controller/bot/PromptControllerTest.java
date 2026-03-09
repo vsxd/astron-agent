@@ -1,11 +1,11 @@
-package com.iflytek.astron.console.toolkit.controller.bot;
+package com.iflytek.astron.console.hub.controller.bot;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.toolkit.entity.biz.AiCode;
-import com.iflytek.astron.console.toolkit.entity.biz.AiGenerate;
-import com.iflytek.astron.console.toolkit.service.bot.PromptService;
-import com.iflytek.astron.console.toolkit.util.SpringUtils;
+import com.iflytek.astron.console.hub.entity.biz.AiCode;
+import com.iflytek.astron.console.hub.entity.biz.AiGenerate;
+import com.iflytek.astron.console.hub.service.bot.PromptService;
+import com.iflytek.astron.console.hub.util.SpringUtils;
 import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;

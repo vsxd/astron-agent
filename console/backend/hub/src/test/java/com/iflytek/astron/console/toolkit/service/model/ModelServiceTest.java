@@ -1,23 +1,23 @@
-package com.iflytek.astron.console.toolkit.service.model;
+package com.iflytek.astron.console.hub.service.model;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.toolkit.entity.biz.modelconfig.*;
-import com.iflytek.astron.console.toolkit.entity.table.ConfigInfo;
-import com.iflytek.astron.console.toolkit.entity.table.model.Model;
-import com.iflytek.astron.console.toolkit.entity.table.model.ModelCommon;
-import com.iflytek.astron.console.toolkit.entity.vo.CategoryTreeVO;
-import com.iflytek.astron.console.toolkit.entity.vo.LLMInfoVo;
-import com.iflytek.astron.console.toolkit.entity.vo.ModelCategoryReq;
-import com.iflytek.astron.console.toolkit.mapper.ConfigInfoMapper;
-import com.iflytek.astron.console.toolkit.mapper.bot.SparkBotMapper;
-import com.iflytek.astron.console.toolkit.mapper.model.ModelMapper;
-import com.iflytek.astron.console.toolkit.mapper.workflow.WorkflowMapper;
-import com.iflytek.astron.console.toolkit.handler.LocalModelHandler;
-import com.iflytek.astron.console.toolkit.util.S3Util;
+import com.iflytek.astron.console.hub.entity.biz.modelconfig.*;
+import com.iflytek.astron.console.hub.entity.table.ConfigInfo;
+import com.iflytek.astron.console.hub.entity.table.model.Model;
+import com.iflytek.astron.console.hub.entity.table.model.ModelCommon;
+import com.iflytek.astron.console.hub.entity.vo.CategoryTreeVO;
+import com.iflytek.astron.console.hub.entity.vo.LLMInfoVo;
+import com.iflytek.astron.console.hub.entity.vo.ModelCategoryReq;
+import com.iflytek.astron.console.hub.mapper.ConfigInfoMapper;
+import com.iflytek.astron.console.hub.mapper.bot.SparkBotMapper;
+import com.iflytek.astron.console.hub.mapper.model.ModelMapper;
+import com.iflytek.astron.console.hub.mapper.workflow.WorkflowMapper;
+import com.iflytek.astron.console.hub.handler.LocalModelHandler;
+import com.iflytek.astron.console.hub.util.S3Util;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -464,11 +464,11 @@ class ModelServiceTest {
         when(configInfoMapper.selectOne(any(LambdaQueryWrapper.class))).thenReturn(pri);
 
         // 2) mock static RSAUtil: loadPrivateKey + decrypt
-        try (MockedStatic<com.iflytek.astron.console.toolkit.util.idata.RSAUtil> rsa = mockStatic(com.iflytek.astron.console.toolkit.util.idata.RSAUtil.class)) {
+        try (MockedStatic<com.iflytek.astron.console.hub.util.idata.RSAUtil> rsa = mockStatic(com.iflytek.astron.console.hub.util.idata.RSAUtil.class)) {
             RSAPrivateKey mockKey = mock(RSAPrivateKey.class);
-            rsa.when(() -> com.iflytek.astron.console.toolkit.util.idata.RSAUtil.loadPrivateKey(anyString()))
+            rsa.when(() -> com.iflytek.astron.console.hub.util.idata.RSAUtil.loadPrivateKey(anyString()))
                     .thenReturn(mockKey);
-            rsa.when(() -> com.iflytek.astron.console.toolkit.util.idata.RSAUtil.decryptByPrivateKeyBase64(eq("ENCRYPTED_BASE64"), eq(mockKey)))
+            rsa.when(() -> com.iflytek.astron.console.hub.util.idata.RSAUtil.decryptByPrivateKeyBase64(eq("ENCRYPTED_BASE64"), eq(mockKey)))
                     .thenReturn("DECRYPTED_KEY");
 
             // 3) saveOrUpdateModel: creation branch
@@ -608,7 +608,7 @@ class ModelServiceTest {
         mcReq.setContextLengthSystemId(999L);
         dto.setModelCategoryReq(mcReq);
 
-        com.iflytek.astron.console.toolkit.entity.table.model.ModelCategory cat = new com.iflytek.astron.console.toolkit.entity.table.model.ModelCategory();
+        com.iflytek.astron.console.hub.entity.table.model.ModelCategory cat = new com.iflytek.astron.console.hub.entity.table.model.ModelCategory();
         cat.setId(999L);
         cat.setName("128k");
         when(modelCategoryService.getById(999L)).thenReturn(cat);
@@ -674,8 +674,8 @@ class ModelServiceTest {
     @Test
     void testSwitchModel_enable_on_success_and_unauthorized() {
         // Authorized path
-        try (MockedStatic<com.iflytek.astron.console.toolkit.handler.UserInfoManagerHandler> u = mockStatic(com.iflytek.astron.console.toolkit.handler.UserInfoManagerHandler.class)) {
-            u.when(com.iflytek.astron.console.toolkit.handler.UserInfoManagerHandler::getUserId).thenReturn("u1");
+        try (MockedStatic<com.iflytek.astron.console.hub.handler.UserInfoManagerHandler> u = mockStatic(com.iflytek.astron.console.hub.handler.UserInfoManagerHandler.class)) {
+            u.when(com.iflytek.astron.console.hub.handler.UserInfoManagerHandler::getUserId).thenReturn("u1");
 
             Model m = new Model();
             m.setId(5L);
@@ -689,8 +689,8 @@ class ModelServiceTest {
         }
 
         // Unauthorized path
-        try (MockedStatic<com.iflytek.astron.console.toolkit.handler.UserInfoManagerHandler> u = mockStatic(com.iflytek.astron.console.toolkit.handler.UserInfoManagerHandler.class)) {
-            u.when(com.iflytek.astron.console.toolkit.handler.UserInfoManagerHandler::getUserId).thenReturn("u2");
+        try (MockedStatic<com.iflytek.astron.console.hub.handler.UserInfoManagerHandler> u = mockStatic(com.iflytek.astron.console.hub.handler.UserInfoManagerHandler.class)) {
+            u.when(com.iflytek.astron.console.hub.handler.UserInfoManagerHandler::getUserId).thenReturn("u2");
 
             Model m = new Model();
             m.setId(6L);

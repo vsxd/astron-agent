@@ -11,7 +11,7 @@ import com.iflytek.astron.console.commons.service.data.UserLangChainDataService;
 import com.iflytek.astron.console.commons.dto.workflow.WorkflowInfoDto;
 import com.iflytek.astron.console.commons.entity.bot.ChatBotBase;
 import com.iflytek.astron.console.commons.entity.bot.UserLangChainInfo;
-import com.iflytek.astron.console.toolkit.service.workflow.WorkflowService;
+import com.iflytek.astron.console.hub.service.workflow.WorkflowService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

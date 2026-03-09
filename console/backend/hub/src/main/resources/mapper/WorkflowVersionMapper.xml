@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.iflytek.astron.console.toolkit.mapper.workflow.WorkflowVersionMapper">
+<mapper namespace="com.iflytek.astron.console.hub.mapper.workflow.WorkflowVersionMapper">
 
-    <select id="selectPageByCondition" resultType="com.iflytek.astron.console.toolkit.entity.table.workflow.WorkflowVersion">
+    <select id="selectPageByCondition" resultType="com.iflytek.astron.console.hub.entity.table.workflow.WorkflowVersion">
         SELECT w.id,
                w.name,
                w.version_num,
@@ -31,7 +31,7 @@
         ORDER BY w.created_time DESC
 
     </select>
-    <select id="selectPageLatestByName" resultType="com.iflytek.astron.console.toolkit.entity.table.workflow.WorkflowVersion">
+    <select id="selectPageLatestByName" resultType="com.iflytek.astron.console.hub.entity.table.workflow.WorkflowVersion">
         SELECT *
         FROM (
                  SELECT wv.*,

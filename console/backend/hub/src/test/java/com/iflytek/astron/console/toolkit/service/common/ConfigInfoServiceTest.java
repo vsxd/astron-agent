@@ -1,10 +1,10 @@
-package com.iflytek.astron.console.toolkit.service.common;
+package com.iflytek.astron.console.hub.service.common;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.iflytek.astron.console.toolkit.entity.table.ConfigInfo;
-import com.iflytek.astron.console.toolkit.mapper.ConfigInfoMapper;
+import com.iflytek.astron.console.hub.entity.table.ConfigInfo;
+import com.iflytek.astron.console.hub.mapper.ConfigInfoMapper;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;

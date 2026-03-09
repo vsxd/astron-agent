@@ -23,7 +23,7 @@ import com.iflytek.astron.console.hub.service.chat.ChatBotApiService;
 import com.iflytek.astron.console.hub.service.publish.PublishApiService;
 import com.iflytek.astron.console.hub.service.publish.ReleaseManageClientService;
 import com.iflytek.astron.console.hub.service.publish.TenantService;
-import com.iflytek.astron.console.toolkit.util.RedisUtil;
+import com.iflytek.astron.console.hub.util.RedisUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

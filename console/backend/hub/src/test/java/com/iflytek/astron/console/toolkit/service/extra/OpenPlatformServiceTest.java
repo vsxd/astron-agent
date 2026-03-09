@@ -1,4 +1,4 @@
-package com.iflytek.astron.console.toolkit.service.extra;
+package com.iflytek.astron.console.hub.service.extra;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
@@ -6,10 +6,10 @@ import com.alibaba.fastjson2.JSONObject;
 import com.iflytek.astron.console.commons.dto.workflow.CloneSynchronize;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.service.workflow.WorkflowBotService;
-import com.iflytek.astron.console.toolkit.config.properties.ApiUrl;
-import com.iflytek.astron.console.toolkit.config.properties.CommonConfig;
-import com.iflytek.astron.console.toolkit.tool.OpenPlatformTool;
-import com.iflytek.astron.console.toolkit.util.OkHttpUtil;
+import com.iflytek.astron.console.hub.config.properties.ApiUrl;
+import com.iflytek.astron.console.hub.config.properties.CommonConfig;
+import com.iflytek.astron.console.hub.tool.OpenPlatformTool;
+import com.iflytek.astron.console.hub.util.OkHttpUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

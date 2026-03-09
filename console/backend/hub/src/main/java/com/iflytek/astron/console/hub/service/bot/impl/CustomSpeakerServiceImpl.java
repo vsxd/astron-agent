@@ -8,7 +8,7 @@ import com.iflytek.astron.console.hub.entity.CustomSpeaker;
 import com.iflytek.astron.console.hub.enums.TtsTypeEnum;
 import com.iflytek.astron.console.hub.mapper.CustomSpeakerMapper;
 import com.iflytek.astron.console.hub.service.bot.CustomSpeakerService;
-import com.iflytek.astron.console.toolkit.tool.http.HttpAuthTool;
+import com.iflytek.astron.console.hub.tool.http.HttpAuthTool;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

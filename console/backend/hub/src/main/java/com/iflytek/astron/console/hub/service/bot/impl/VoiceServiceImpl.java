@@ -6,7 +6,7 @@ import com.iflytek.astron.console.hub.entity.PronunciationPersonConfig;
 import com.iflytek.astron.console.hub.enums.TtsTypeEnum;
 import com.iflytek.astron.console.hub.mapper.PronunciationPersonConfigMapper;
 import com.iflytek.astron.console.hub.service.bot.VoiceService;
-import com.iflytek.astron.console.toolkit.tool.http.HttpAuthTool;
+import com.iflytek.astron.console.hub.tool.http.HttpAuthTool;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

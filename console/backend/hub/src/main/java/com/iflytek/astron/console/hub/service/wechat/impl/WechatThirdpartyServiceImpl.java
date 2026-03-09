@@ -11,7 +11,7 @@ import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import com.iflytek.astron.console.toolkit.util.OkHttpUtil;
+import com.iflytek.astron.console.hub.util.OkHttpUtil;
 import com.alibaba.fastjson2.JSONObject;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;

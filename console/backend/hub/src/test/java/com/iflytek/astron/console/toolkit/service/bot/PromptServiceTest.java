@@ -1,16 +1,16 @@
-package com.iflytek.astron.console.toolkit.service.bot;
+package com.iflytek.astron.console.hub.service.bot;
 
 import com.alibaba.fastjson2.JSONArray;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.iflytek.astron.console.commons.entity.workflow.Workflow;
-import com.iflytek.astron.console.toolkit.entity.biz.AiCode;
-import com.iflytek.astron.console.toolkit.entity.biz.AiGenerate;
-import com.iflytek.astron.console.toolkit.entity.table.ConfigInfo;
-import com.iflytek.astron.console.toolkit.entity.table.bot.SparkBot;
-import com.iflytek.astron.console.toolkit.mapper.ConfigInfoMapper;
-import com.iflytek.astron.console.toolkit.mapper.bot.SparkBotMapper;
-import com.iflytek.astron.console.toolkit.mapper.workflow.WorkflowMapper;
-import com.iflytek.astron.console.toolkit.tool.spark.SparkApiTool;
+import com.iflytek.astron.console.hub.entity.biz.AiCode;
+import com.iflytek.astron.console.hub.entity.biz.AiGenerate;
+import com.iflytek.astron.console.hub.entity.table.ConfigInfo;
+import com.iflytek.astron.console.hub.entity.table.bot.SparkBot;
+import com.iflytek.astron.console.hub.mapper.ConfigInfoMapper;
+import com.iflytek.astron.console.hub.mapper.bot.SparkBotMapper;
+import com.iflytek.astron.console.hub.mapper.workflow.WorkflowMapper;
+import com.iflytek.astron.console.hub.tool.spark.SparkApiTool;
 import static org.assertj.core.api.InstanceOfAssertFactories.list;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

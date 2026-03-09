@@ -1,20 +1,20 @@
-package com.iflytek.astron.console.toolkit.controller.workflow;
+package com.iflytek.astron.console.hub.controller.workflow;
 
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.entity.workflow.Workflow;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.toolkit.entity.biz.workflow.ChatBizReq;
-import com.iflytek.astron.console.toolkit.entity.biz.workflow.ChatResumeReq;
-import com.iflytek.astron.console.toolkit.entity.biz.workflow.WorkflowDebugDto;
-import com.iflytek.astron.console.toolkit.entity.common.PageData;
-import com.iflytek.astron.console.toolkit.entity.common.Pagination;
-import com.iflytek.astron.console.toolkit.entity.dto.*;
-import com.iflytek.astron.console.toolkit.entity.dto.eval.WorkflowComparisonSaveReq;
-import com.iflytek.astron.console.toolkit.entity.table.workflow.*;
-import com.iflytek.astron.console.toolkit.entity.vo.WorkflowVo;
-import com.iflytek.astron.console.toolkit.service.workflow.WorkflowExportService;
-import com.iflytek.astron.console.toolkit.service.workflow.WorkflowService;
+import com.iflytek.astron.console.hub.entity.biz.workflow.ChatBizReq;
+import com.iflytek.astron.console.hub.entity.biz.workflow.ChatResumeReq;
+import com.iflytek.astron.console.hub.entity.biz.workflow.WorkflowDebugDto;
+import com.iflytek.astron.console.hub.entity.common.PageData;
+import com.iflytek.astron.console.hub.entity.common.Pagination;
+import com.iflytek.astron.console.hub.entity.dto.*;
+import com.iflytek.astron.console.hub.entity.dto.eval.WorkflowComparisonSaveReq;
+import com.iflytek.astron.console.hub.entity.table.workflow.*;
+import com.iflytek.astron.console.hub.entity.vo.WorkflowVo;
+import com.iflytek.astron.console.hub.service.workflow.WorkflowExportService;
+import com.iflytek.astron.console.hub.service.workflow.WorkflowService;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -376,7 +376,7 @@ class WorkflowControllerTest {
          * @throws UnsupportedEncodingException if URL-decoding occurs in controller signature
          */
         @ParameterizedTest
-        @MethodSource("com.iflytek.astron.console.toolkit.controller.workflow.WorkflowControllerTest#statusValues")
+        @MethodSource("com.iflytek.astron.console.hub.controller.workflow.WorkflowControllerTest#statusValues")
         @DisplayName("Should support filtering by different status values")
         void list_shouldSupportDifferentStatusValues(int status) throws UnsupportedEncodingException {
             // Given
@@ -398,7 +398,7 @@ class WorkflowControllerTest {
          * @throws UnsupportedEncodingException if URL-decoding occurs in controller signature
          */
         @ParameterizedTest
-        @MethodSource("com.iflytek.astron.console.toolkit.controller.workflow.WorkflowControllerTest#specialCharacters")
+        @MethodSource("com.iflytek.astron.console.hub.controller.workflow.WorkflowControllerTest#specialCharacters")
         @DisplayName("Should handle special characters in search keyword")
         void list_whenSearchContainsSpecialCharacters_shouldHandleCorrectly(String specialSearch) throws UnsupportedEncodingException {
             // Given
@@ -626,7 +626,7 @@ class WorkflowControllerTest {
          * @param incorrectPassword a wrong password
          */
         @ParameterizedTest
-        @MethodSource("com.iflytek.astron.console.toolkit.controller.workflow.WorkflowControllerTest#invalidPasswords")
+        @MethodSource("com.iflytek.astron.console.hub.controller.workflow.WorkflowControllerTest#invalidPasswords")
         @DisplayName("Should reject all incorrect passwords for internal clone")
         void cloneV2_shouldRejectAllIncorrectPasswords(String incorrectPassword) {
             // When

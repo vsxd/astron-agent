@@ -14,7 +14,7 @@ import com.iflytek.astron.console.hub.service.bot.PersonalityConfigService;
 import com.iflytek.astron.console.hub.service.chat.ChatListService;
 import com.iflytek.astron.console.hub.service.user.UserBotService;
 import com.iflytek.astron.console.hub.util.BotPermissionUtil;
-import com.iflytek.astron.console.toolkit.service.repo.MassDatasetInfoService;
+import com.iflytek.astron.console.hub.service.repo.MassDatasetInfoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;

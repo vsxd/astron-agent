@@ -1,11 +1,11 @@
-package com.iflytek.astron.console.toolkit.controller.knowledge;
+package com.iflytek.astron.console.hub.controller.knowledge;
 
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.toolkit.entity.mongo.Knowledge;
-import com.iflytek.astron.console.toolkit.entity.vo.repo.KnowledgeVO;
-import com.iflytek.astron.console.toolkit.service.repo.KnowledgeService;
+import com.iflytek.astron.console.hub.entity.mongo.Knowledge;
+import com.iflytek.astron.console.hub.entity.vo.repo.KnowledgeVO;
+import com.iflytek.astron.console.hub.service.repo.KnowledgeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

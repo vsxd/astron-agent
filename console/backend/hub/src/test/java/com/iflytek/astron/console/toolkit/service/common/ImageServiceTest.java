@@ -1,7 +1,7 @@
-package com.iflytek.astron.console.toolkit.service.common;
+package com.iflytek.astron.console.hub.service.common;
 
 import com.iflytek.astron.console.commons.exception.BusinessException;
-import com.iflytek.astron.console.toolkit.util.S3Util;
+import com.iflytek.astron.console.hub.util.S3Util;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,4 +1,4 @@
-package com.iflytek.astron.console.toolkit.service.knowledge;
+package com.iflytek.astron.console.hub.service.knowledge;
 
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
@@ -9,43 +9,43 @@ import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.dto.dataset.DatasetStats;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.service.data.IDatasetFileService;
-import com.iflytek.astron.console.toolkit.common.constant.ProjectContent;
-import com.iflytek.astron.console.toolkit.config.properties.ApiUrl;
-import com.iflytek.astron.console.toolkit.config.properties.RepoAuthorizedConfig;
-import com.iflytek.astron.console.toolkit.entity.table.ConfigInfo;
-import com.iflytek.astron.console.toolkit.entity.table.group.GroupVisibility;
-import com.iflytek.astron.console.toolkit.entity.table.relation.FlowRepoRel;
-import com.iflytek.astron.console.toolkit.entity.table.repo.Repo;
-import com.iflytek.astron.console.toolkit.entity.table.repo.FileInfoV2;
-import com.iflytek.astron.console.toolkit.entity.table.repo.HitTestHistory;
-import com.iflytek.astron.console.toolkit.entity.table.repo.FileDirectoryTree;
-import com.iflytek.astron.console.toolkit.entity.dto.RepoDto;
-import com.iflytek.astron.console.toolkit.entity.dto.SparkBotVO;
-import com.iflytek.astron.console.toolkit.entity.common.PageData;
-import com.iflytek.astron.console.toolkit.entity.core.knowledge.QueryRequest;
-import com.iflytek.astron.console.toolkit.entity.core.knowledge.KnowledgeResponse;
-import com.iflytek.astron.console.toolkit.entity.core.knowledge.QueryRespData;
-import com.iflytek.astron.console.toolkit.entity.core.knowledge.ChunkInfo;
-import com.iflytek.astron.console.toolkit.entity.vo.knowledge.RepoVO;
-import com.iflytek.astron.console.toolkit.handler.KnowledgeV2ServiceCallHandler;
-import com.iflytek.astron.console.toolkit.handler.UserInfoManagerHandler;
+import com.iflytek.astron.console.hub.common.constant.ProjectContent;
+import com.iflytek.astron.console.hub.config.properties.ApiUrl;
+import com.iflytek.astron.console.hub.config.properties.RepoAuthorizedConfig;
+import com.iflytek.astron.console.hub.entity.table.ConfigInfo;
+import com.iflytek.astron.console.hub.entity.table.group.GroupVisibility;
+import com.iflytek.astron.console.hub.entity.table.relation.FlowRepoRel;
+import com.iflytek.astron.console.hub.entity.table.repo.Repo;
+import com.iflytek.astron.console.hub.entity.table.repo.FileInfoV2;
+import com.iflytek.astron.console.hub.entity.table.repo.HitTestHistory;
+import com.iflytek.astron.console.hub.entity.table.repo.FileDirectoryTree;
+import com.iflytek.astron.console.hub.entity.dto.RepoDto;
+import com.iflytek.astron.console.hub.entity.dto.SparkBotVO;
+import com.iflytek.astron.console.hub.entity.common.PageData;
+import com.iflytek.astron.console.hub.entity.core.knowledge.QueryRequest;
+import com.iflytek.astron.console.hub.entity.core.knowledge.KnowledgeResponse;
+import com.iflytek.astron.console.hub.entity.core.knowledge.QueryRespData;
+import com.iflytek.astron.console.hub.entity.core.knowledge.ChunkInfo;
+import com.iflytek.astron.console.hub.entity.vo.knowledge.RepoVO;
+import com.iflytek.astron.console.hub.handler.KnowledgeV2ServiceCallHandler;
+import com.iflytek.astron.console.hub.handler.UserInfoManagerHandler;
 import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
-import com.iflytek.astron.console.toolkit.mapper.ConfigInfoMapper;
-import com.iflytek.astron.console.toolkit.mapper.bot.SparkBotMapper;
-import com.iflytek.astron.console.toolkit.mapper.knowledge.KnowledgeMapper;
-import com.iflytek.astron.console.toolkit.mapper.relation.FlowRepoRelMapper;
-import com.iflytek.astron.console.toolkit.mapper.repo.FileInfoV2Mapper;
-import com.iflytek.astron.console.toolkit.mapper.repo.RepoMapper;
-import com.iflytek.astron.console.toolkit.service.bot.BotRepoRelService;
-import com.iflytek.astron.console.toolkit.service.bot.BotRepoSubscriptService;
-import com.iflytek.astron.console.toolkit.service.extra.OpenPlatformService;
-import com.iflytek.astron.console.toolkit.service.group.GroupVisibilityService;
-import com.iflytek.astron.console.toolkit.service.repo.FileDirectoryTreeService;
-import com.iflytek.astron.console.toolkit.service.repo.FileInfoV2Service;
-import com.iflytek.astron.console.toolkit.service.repo.HitTestHistoryService;
-import com.iflytek.astron.console.toolkit.service.repo.RepoService;
-import com.iflytek.astron.console.toolkit.tool.DataPermissionCheckTool;
-import com.iflytek.astron.console.toolkit.util.S3Util;
+import com.iflytek.astron.console.hub.mapper.ConfigInfoMapper;
+import com.iflytek.astron.console.hub.mapper.bot.SparkBotMapper;
+import com.iflytek.astron.console.hub.mapper.knowledge.KnowledgeMapper;
+import com.iflytek.astron.console.hub.mapper.relation.FlowRepoRelMapper;
+import com.iflytek.astron.console.hub.mapper.repo.FileInfoV2Mapper;
+import com.iflytek.astron.console.hub.mapper.repo.RepoMapper;
+import com.iflytek.astron.console.hub.service.bot.BotRepoRelService;
+import com.iflytek.astron.console.hub.service.bot.BotRepoSubscriptService;
+import com.iflytek.astron.console.hub.service.extra.OpenPlatformService;
+import com.iflytek.astron.console.hub.service.group.GroupVisibilityService;
+import com.iflytek.astron.console.hub.service.repo.FileDirectoryTreeService;
+import com.iflytek.astron.console.hub.service.repo.FileInfoV2Service;
+import com.iflytek.astron.console.hub.service.repo.HitTestHistoryService;
+import com.iflytek.astron.console.hub.service.repo.RepoService;
+import com.iflytek.astron.console.hub.tool.DataPermissionCheckTool;
+import com.iflytek.astron.console.hub.util.S3Util;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -1152,8 +1152,8 @@ class RepoServiceTest {
         @Test
         @DisplayName("deleteRepo - Spark platform repository")
         void testDeleteRepo_SparkRepository() {
-            try (MockedStatic<com.iflytek.astron.console.toolkit.util.OkHttpUtil> okHttpMock =
-                    mockStatic(com.iflytek.astron.console.toolkit.util.OkHttpUtil.class)) {
+            try (MockedStatic<com.iflytek.astron.console.hub.util.OkHttpUtil> okHttpMock =
+                    mockStatic(com.iflytek.astron.console.hub.util.OkHttpUtil.class)) {
 
                 // Given
                 when(apiUrl.getDeleteXinghuoDatasetUrl()).thenReturn("https://api.example.com/delete");
@@ -1162,7 +1162,7 @@ class RepoServiceTest {
                 mockResponse.put("code", 0);
                 mockResponse.put("message", "success");
 
-                okHttpMock.when(() -> com.iflytek.astron.console.toolkit.util.OkHttpUtil.post(
+                okHttpMock.when(() -> com.iflytek.astron.console.hub.util.OkHttpUtil.post(
                         anyString(), any(Map.class), any(Map.class), any()))
                         .thenReturn(mockResponse.toJSONString());
 
@@ -1176,7 +1176,7 @@ class RepoServiceTest {
                 assertThat(jsonResult.getInteger("code")).isEqualTo(0);
 
                 // Verify Spark deletion API was called
-                okHttpMock.verify(() -> com.iflytek.astron.console.toolkit.util.OkHttpUtil.post(
+                okHttpMock.verify(() -> com.iflytek.astron.console.hub.util.OkHttpUtil.post(
                         anyString(), any(Map.class), any(Map.class), any()), times(1));
 
                 // Verify local repo deletion methods were NOT called
@@ -1410,8 +1410,8 @@ class RepoServiceTest {
         void testList_BasicPagination() {
             try (MockedStatic<UserInfoManagerHandler> userMock = mockStatic(UserInfoManagerHandler.class);
                     MockedStatic<SpaceInfoUtil> spaceMock = mockStatic(SpaceInfoUtil.class);
-                    MockedStatic<com.iflytek.astron.console.toolkit.util.OkHttpUtil> okHttpMock =
-                            mockStatic(com.iflytek.astron.console.toolkit.util.OkHttpUtil.class)) {
+                    MockedStatic<com.iflytek.astron.console.hub.util.OkHttpUtil> okHttpMock =
+                            mockStatic(com.iflytek.astron.console.hub.util.OkHttpUtil.class)) {
 
                 // Setup
                 userMock.when(UserInfoManagerHandler::getUserId).thenReturn("user-001");
@@ -1419,7 +1419,7 @@ class RepoServiceTest {
 
                 // Mock external API call to prevent NullPointerException
                 when(apiUrl.getDatasetUrl()).thenReturn("https://api.example.com/dataset");
-                okHttpMock.when(() -> com.iflytek.astron.console.toolkit.util.OkHttpUtil.get(anyString(), any(Map.class)))
+                okHttpMock.when(() -> com.iflytek.astron.console.hub.util.OkHttpUtil.get(anyString(), any(Map.class)))
                         .thenReturn("{\"data\":null}");
 
                 List<RepoDto> mockRepos = createMockRepoDtoList();
@@ -1446,15 +1446,15 @@ class RepoServiceTest {
         void testList_WithContentFilter() {
             try (MockedStatic<UserInfoManagerHandler> userMock = mockStatic(UserInfoManagerHandler.class);
                     MockedStatic<SpaceInfoUtil> spaceMock = mockStatic(SpaceInfoUtil.class);
-                    MockedStatic<com.iflytek.astron.console.toolkit.util.OkHttpUtil> okHttpMock =
-                            mockStatic(com.iflytek.astron.console.toolkit.util.OkHttpUtil.class)) {
+                    MockedStatic<com.iflytek.astron.console.hub.util.OkHttpUtil> okHttpMock =
+                            mockStatic(com.iflytek.astron.console.hub.util.OkHttpUtil.class)) {
 
                 userMock.when(UserInfoManagerHandler::getUserId).thenReturn("user-001");
                 spaceMock.when(SpaceInfoUtil::getSpaceId).thenReturn(null);
 
                 // Mock external API call
                 when(apiUrl.getDatasetUrl()).thenReturn("https://api.example.com/dataset");
-                okHttpMock.when(() -> com.iflytek.astron.console.toolkit.util.OkHttpUtil.get(anyString(), any(Map.class)))
+                okHttpMock.when(() -> com.iflytek.astron.console.hub.util.OkHttpUtil.get(anyString(), any(Map.class)))
                         .thenReturn("{\"data\":null}");
 
                 List<RepoDto> mockRepos = createMockRepoDtoList();
@@ -1479,15 +1479,15 @@ class RepoServiceTest {
         void testList_WithTagFilter() {
             try (MockedStatic<UserInfoManagerHandler> userMock = mockStatic(UserInfoManagerHandler.class);
                     MockedStatic<SpaceInfoUtil> spaceMock = mockStatic(SpaceInfoUtil.class);
-                    MockedStatic<com.iflytek.astron.console.toolkit.util.OkHttpUtil> okHttpMock =
-                            mockStatic(com.iflytek.astron.console.toolkit.util.OkHttpUtil.class)) {
+                    MockedStatic<com.iflytek.astron.console.hub.util.OkHttpUtil> okHttpMock =
+                            mockStatic(com.iflytek.astron.console.hub.util.OkHttpUtil.class)) {
 
                 userMock.when(UserInfoManagerHandler::getUserId).thenReturn("user-001");
                 spaceMock.when(SpaceInfoUtil::getSpaceId).thenReturn(null);
 
                 // Mock external API call
                 when(apiUrl.getDatasetUrl()).thenReturn("https://api.example.com/dataset");
-                okHttpMock.when(() -> com.iflytek.astron.console.toolkit.util.OkHttpUtil.get(anyString(), any(Map.class)))
+                okHttpMock.when(() -> com.iflytek.astron.console.hub.util.OkHttpUtil.get(anyString(), any(Map.class)))
                         .thenReturn("{\"data\":null}");
 
                 List<RepoDto> mockRepos = createMockRepoDtoList();
@@ -1513,15 +1513,15 @@ class RepoServiceTest {
         void testList_WithVisibilityPermissions() {
             try (MockedStatic<UserInfoManagerHandler> userMock = mockStatic(UserInfoManagerHandler.class);
                     MockedStatic<SpaceInfoUtil> spaceMock = mockStatic(SpaceInfoUtil.class);
-                    MockedStatic<com.iflytek.astron.console.toolkit.util.OkHttpUtil> okHttpMock =
-                            mockStatic(com.iflytek.astron.console.toolkit.util.OkHttpUtil.class)) {
+                    MockedStatic<com.iflytek.astron.console.hub.util.OkHttpUtil> okHttpMock =
+                            mockStatic(com.iflytek.astron.console.hub.util.OkHttpUtil.class)) {
 
                 userMock.when(UserInfoManagerHandler::getUserId).thenReturn("user-001");
                 spaceMock.when(SpaceInfoUtil::getSpaceId).thenReturn(null);
 
                 // Mock external API call
                 when(apiUrl.getDatasetUrl()).thenReturn("https://api.example.com/dataset");
-                okHttpMock.when(() -> com.iflytek.astron.console.toolkit.util.OkHttpUtil.get(anyString(), any(Map.class)))
+                okHttpMock.when(() -> com.iflytek.astron.console.hub.util.OkHttpUtil.get(anyString(), any(Map.class)))
                         .thenReturn("{\"data\":null}");
 
                 List<GroupVisibility> visibilityList = new ArrayList<>();
@@ -1978,8 +1978,8 @@ class RepoServiceTest {
             try (MockedStatic<UserInfoManagerHandler> userMock = mockStatic(UserInfoManagerHandler.class);
                     MockedStatic<SpaceInfoUtil> spaceMock = mockStatic(SpaceInfoUtil.class);
                     MockedStatic<cn.hutool.core.thread.ThreadUtil> threadMock = mockStatic(cn.hutool.core.thread.ThreadUtil.class);
-                    MockedStatic<com.iflytek.astron.console.toolkit.util.OkHttpUtil> okHttpMock =
-                            mockStatic(com.iflytek.astron.console.toolkit.util.OkHttpUtil.class)) {
+                    MockedStatic<com.iflytek.astron.console.hub.util.OkHttpUtil> okHttpMock =
+                            mockStatic(com.iflytek.astron.console.hub.util.OkHttpUtil.class)) {
 
                 userMock.when(UserInfoManagerHandler::getUserId).thenReturn("user-001");
                 spaceMock.when(SpaceInfoUtil::getSpaceId).thenReturn(null);
@@ -1994,7 +1994,7 @@ class RepoServiceTest {
 
                 // Mock external API
                 when(apiUrl.getDatasetUrl()).thenReturn("https://api.example.com/dataset");
-                okHttpMock.when(() -> com.iflytek.astron.console.toolkit.util.OkHttpUtil.get(anyString(), any(Map.class)))
+                okHttpMock.when(() -> com.iflytek.astron.console.hub.util.OkHttpUtil.get(anyString(), any(Map.class)))
                         .thenReturn("{\"data\":null}");
 
                 // Mock Page response
@@ -2065,8 +2065,8 @@ class RepoServiceTest {
             try (MockedStatic<UserInfoManagerHandler> userMock = mockStatic(UserInfoManagerHandler.class);
                     MockedStatic<SpaceInfoUtil> spaceMock = mockStatic(SpaceInfoUtil.class);
                     MockedStatic<cn.hutool.core.thread.ThreadUtil> threadMock = mockStatic(cn.hutool.core.thread.ThreadUtil.class);
-                    MockedStatic<com.iflytek.astron.console.toolkit.util.OkHttpUtil> okHttpMock =
-                            mockStatic(com.iflytek.astron.console.toolkit.util.OkHttpUtil.class)) {
+                    MockedStatic<com.iflytek.astron.console.hub.util.OkHttpUtil> okHttpMock =
+                            mockStatic(com.iflytek.astron.console.hub.util.OkHttpUtil.class)) {
 
                 userMock.when(UserInfoManagerHandler::getUserId).thenReturn("user-001");
                 spaceMock.when(SpaceInfoUtil::getSpaceId).thenReturn(null);
@@ -2079,7 +2079,7 @@ class RepoServiceTest {
                         });
 
                 when(apiUrl.getDatasetUrl()).thenReturn("https://api.example.com/dataset");
-                okHttpMock.when(() -> com.iflytek.astron.console.toolkit.util.OkHttpUtil.get(anyString(), any(Map.class)))
+                okHttpMock.when(() -> com.iflytek.astron.console.hub.util.OkHttpUtil.get(anyString(), any(Map.class)))
                         .thenReturn("{\"data\":null}");
 
                 com.github.pagehelper.Page<RepoDto> mockPage = new com.github.pagehelper.Page<>();
@@ -2114,8 +2114,8 @@ class RepoServiceTest {
         @Test
         @DisplayName("getStarFireData - success with data")
         void testGetStarFireData_Success() {
-            try (MockedStatic<com.iflytek.astron.console.toolkit.util.OkHttpUtil> okHttpMock =
-                    mockStatic(com.iflytek.astron.console.toolkit.util.OkHttpUtil.class)) {
+            try (MockedStatic<com.iflytek.astron.console.hub.util.OkHttpUtil> okHttpMock =
+                    mockStatic(com.iflytek.astron.console.hub.util.OkHttpUtil.class)) {
 
                 when(apiUrl.getDatasetUrl()).thenReturn("https://api.example.com/dataset");
 
@@ -2128,7 +2128,7 @@ class RepoServiceTest {
                 JSONObject response = new JSONObject();
                 response.put("data", mockData);
 
-                okHttpMock.when(() -> com.iflytek.astron.console.toolkit.util.OkHttpUtil.get(anyString(), any(Map.class)))
+                okHttpMock.when(() -> com.iflytek.astron.console.hub.util.OkHttpUtil.get(anyString(), any(Map.class)))
                         .thenReturn(response.toJSONString());
 
                 mockRequest.addHeader("Authorization", "Bearer test-token");
@@ -2145,15 +2145,15 @@ class RepoServiceTest {
         @Test
         @DisplayName("getStarFireData - null data")
         void testGetStarFireData_NullData() {
-            try (MockedStatic<com.iflytek.astron.console.toolkit.util.OkHttpUtil> okHttpMock =
-                    mockStatic(com.iflytek.astron.console.toolkit.util.OkHttpUtil.class)) {
+            try (MockedStatic<com.iflytek.astron.console.hub.util.OkHttpUtil> okHttpMock =
+                    mockStatic(com.iflytek.astron.console.hub.util.OkHttpUtil.class)) {
 
                 when(apiUrl.getDatasetUrl()).thenReturn("https://api.example.com/dataset");
 
                 JSONObject response = new JSONObject();
                 response.put("data", null);
 
-                okHttpMock.when(() -> com.iflytek.astron.console.toolkit.util.OkHttpUtil.get(anyString(), any(Map.class)))
+                okHttpMock.when(() -> com.iflytek.astron.console.hub.util.OkHttpUtil.get(anyString(), any(Map.class)))
                         .thenReturn(response.toJSONString());
 
                 // When
@@ -2167,20 +2167,20 @@ class RepoServiceTest {
         @Test
         @DisplayName("getStarFireData - with authorization header")
         void testGetStarFireData_WithAuthHeader() {
-            try (MockedStatic<com.iflytek.astron.console.toolkit.util.OkHttpUtil> okHttpMock =
-                    mockStatic(com.iflytek.astron.console.toolkit.util.OkHttpUtil.class)) {
+            try (MockedStatic<com.iflytek.astron.console.hub.util.OkHttpUtil> okHttpMock =
+                    mockStatic(com.iflytek.astron.console.hub.util.OkHttpUtil.class)) {
 
                 when(apiUrl.getDatasetUrl()).thenReturn("https://api.example.com/dataset");
                 mockRequest.addHeader("Authorization", "Bearer test-token");
 
-                okHttpMock.when(() -> com.iflytek.astron.console.toolkit.util.OkHttpUtil.get(anyString(), any(Map.class)))
+                okHttpMock.when(() -> com.iflytek.astron.console.hub.util.OkHttpUtil.get(anyString(), any(Map.class)))
                         .thenReturn("{\"data\":null}");
 
                 // When
                 repoService.getStarFireData(mockRequest);
 
                 // Then
-                okHttpMock.verify(() -> com.iflytek.astron.console.toolkit.util.OkHttpUtil.get(anyString(), any(Map.class)), times(1));
+                okHttpMock.verify(() -> com.iflytek.astron.console.hub.util.OkHttpUtil.get(anyString(), any(Map.class)), times(1));
             }
         }
     }
@@ -2195,8 +2195,8 @@ class RepoServiceTest {
         @Test
         @DisplayName("deleteXinghuoDataset - success")
         void testDeleteXinghuoDataset_Success() {
-            try (MockedStatic<com.iflytek.astron.console.toolkit.util.OkHttpUtil> okHttpMock =
-                    mockStatic(com.iflytek.astron.console.toolkit.util.OkHttpUtil.class)) {
+            try (MockedStatic<com.iflytek.astron.console.hub.util.OkHttpUtil> okHttpMock =
+                    mockStatic(com.iflytek.astron.console.hub.util.OkHttpUtil.class)) {
 
                 when(apiUrl.getDeleteXinghuoDatasetUrl()).thenReturn("https://api.example.com/delete");
 
@@ -2204,7 +2204,7 @@ class RepoServiceTest {
                 response.put("code", 0);
                 response.put("message", "success");
 
-                okHttpMock.when(() -> com.iflytek.astron.console.toolkit.util.OkHttpUtil.post(anyString(), any(Map.class), any(Map.class), any()))
+                okHttpMock.when(() -> com.iflytek.astron.console.hub.util.OkHttpUtil.post(anyString(), any(Map.class), any(Map.class), any()))
                         .thenReturn(response.toJSONString());
 
                 mockRequest.addHeader("Authorization", "Bearer test-token");
@@ -2221,20 +2221,20 @@ class RepoServiceTest {
         @Test
         @DisplayName("deleteXinghuoDataset - with authorization")
         void testDeleteXinghuoDataset_WithAuth() {
-            try (MockedStatic<com.iflytek.astron.console.toolkit.util.OkHttpUtil> okHttpMock =
-                    mockStatic(com.iflytek.astron.console.toolkit.util.OkHttpUtil.class)) {
+            try (MockedStatic<com.iflytek.astron.console.hub.util.OkHttpUtil> okHttpMock =
+                    mockStatic(com.iflytek.astron.console.hub.util.OkHttpUtil.class)) {
 
                 when(apiUrl.getDeleteXinghuoDatasetUrl()).thenReturn("https://api.example.com/delete");
                 mockRequest.addHeader("Authorization", "Bearer test-token");
 
-                okHttpMock.when(() -> com.iflytek.astron.console.toolkit.util.OkHttpUtil.post(anyString(), any(Map.class), any(Map.class), any()))
+                okHttpMock.when(() -> com.iflytek.astron.console.hub.util.OkHttpUtil.post(anyString(), any(Map.class), any(Map.class), any()))
                         .thenReturn("{\"code\":0}");
 
                 // When
                 repoService.deleteXinghuoDataset(mockRequest, "123");
 
                 // Then
-                okHttpMock.verify(() -> com.iflytek.astron.console.toolkit.util.OkHttpUtil.post(anyString(), any(Map.class), any(Map.class), any()), times(1));
+                okHttpMock.verify(() -> com.iflytek.astron.console.hub.util.OkHttpUtil.post(anyString(), any(Map.class), any(Map.class), any()), times(1));
             }
         }
     }
@@ -2353,8 +2353,8 @@ class RepoServiceTest {
         @Test
         @DisplayName("getDetail - Spark RAG with API success and file list")
         void testGetDetail_SparkRag_ApiSuccess() {
-            try (MockedStatic<com.iflytek.astron.console.toolkit.util.OkHttpUtil> okHttpMock =
-                    mockStatic(com.iflytek.astron.console.toolkit.util.OkHttpUtil.class)) {
+            try (MockedStatic<com.iflytek.astron.console.hub.util.OkHttpUtil> okHttpMock =
+                    mockStatic(com.iflytek.astron.console.hub.util.OkHttpUtil.class)) {
 
                 // Mock dataset file API response
                 String fileApiResponse = "{\"flag\":true,\"code\":0,\"data\":[" +
@@ -2373,11 +2373,11 @@ class RepoServiceTest {
                 when(apiUrl.getDatasetFileUrl()).thenReturn("https://api.example.com/dataset/file");
                 when(apiUrl.getDatasetUrl()).thenReturn("https://api.example.com/dataset");
 
-                okHttpMock.when(() -> com.iflytek.astron.console.toolkit.util.OkHttpUtil.get(
+                okHttpMock.when(() -> com.iflytek.astron.console.hub.util.OkHttpUtil.get(
                         contains("datasetId=100"), any(Map.class)))
                         .thenReturn(fileApiResponse);
 
-                okHttpMock.when(() -> com.iflytek.astron.console.toolkit.util.OkHttpUtil.get(
+                okHttpMock.when(() -> com.iflytek.astron.console.hub.util.OkHttpUtil.get(
                         eq("https://api.example.com/dataset"), any(Map.class)))
                         .thenReturn(datasetResponse);
 
@@ -2397,8 +2397,8 @@ class RepoServiceTest {
         @Test
         @DisplayName("getDetail - Spark RAG with API failure")
         void testGetDetail_SparkRag_ApiFailure() {
-            try (MockedStatic<com.iflytek.astron.console.toolkit.util.OkHttpUtil> okHttpMock =
-                    mockStatic(com.iflytek.astron.console.toolkit.util.OkHttpUtil.class)) {
+            try (MockedStatic<com.iflytek.astron.console.hub.util.OkHttpUtil> okHttpMock =
+                    mockStatic(com.iflytek.astron.console.hub.util.OkHttpUtil.class)) {
 
                 // Mock failed API response
                 String failedResponse = "{\"flag\":false,\"code\":500,\"data\":null}";
@@ -2407,11 +2407,11 @@ class RepoServiceTest {
                 when(apiUrl.getDatasetFileUrl()).thenReturn("https://api.example.com/dataset/file");
                 when(apiUrl.getDatasetUrl()).thenReturn("https://api.example.com/dataset");
 
-                okHttpMock.when(() -> com.iflytek.astron.console.toolkit.util.OkHttpUtil.get(
+                okHttpMock.when(() -> com.iflytek.astron.console.hub.util.OkHttpUtil.get(
                         contains("datasetId=100"), any(Map.class)))
                         .thenReturn(failedResponse);
 
-                okHttpMock.when(() -> com.iflytek.astron.console.toolkit.util.OkHttpUtil.get(
+                okHttpMock.when(() -> com.iflytek.astron.console.hub.util.OkHttpUtil.get(
                         eq("https://api.example.com/dataset"), any(Map.class)))
                         .thenReturn(datasetResponse);
 
@@ -2429,8 +2429,8 @@ class RepoServiceTest {
         @Test
         @DisplayName("getDetail - Spark RAG with authorization header")
         void testGetDetail_SparkRag_WithAuth() {
-            try (MockedStatic<com.iflytek.astron.console.toolkit.util.OkHttpUtil> okHttpMock =
-                    mockStatic(com.iflytek.astron.console.toolkit.util.OkHttpUtil.class)) {
+            try (MockedStatic<com.iflytek.astron.console.hub.util.OkHttpUtil> okHttpMock =
+                    mockStatic(com.iflytek.astron.console.hub.util.OkHttpUtil.class)) {
 
                 // Create a request with Authorization header
                 MockHttpServletRequest requestWithAuth = new MockHttpServletRequest();
@@ -2442,7 +2442,7 @@ class RepoServiceTest {
                 when(apiUrl.getDatasetFileUrl()).thenReturn("https://api.example.com/dataset/file");
                 when(apiUrl.getDatasetUrl()).thenReturn("https://api.example.com/dataset");
 
-                okHttpMock.when(() -> com.iflytek.astron.console.toolkit.util.OkHttpUtil.get(
+                okHttpMock.when(() -> com.iflytek.astron.console.hub.util.OkHttpUtil.get(
                         anyString(), any(Map.class)))
                         .thenReturn(apiResponse, datasetResponse);
 
@@ -2452,7 +2452,7 @@ class RepoServiceTest {
                 // Then
                 assertThat(result).isNotNull();
                 // Verify authorization header was passed
-                okHttpMock.verify(() -> com.iflytek.astron.console.toolkit.util.OkHttpUtil.get(
+                okHttpMock.verify(() -> com.iflytek.astron.console.hub.util.OkHttpUtil.get(
                         anyString(), argThat(map -> map.containsKey("Authorization"))),
                         atLeastOnce());
             }
@@ -2692,14 +2692,14 @@ class RepoServiceTest {
         void testList_RepoWithNoFiles() {
             try (MockedStatic<UserInfoManagerHandler> userMock = mockStatic(UserInfoManagerHandler.class);
                     MockedStatic<SpaceInfoUtil> spaceMock = mockStatic(SpaceInfoUtil.class);
-                    MockedStatic<com.iflytek.astron.console.toolkit.util.OkHttpUtil> okHttpMock =
-                            mockStatic(com.iflytek.astron.console.toolkit.util.OkHttpUtil.class)) {
+                    MockedStatic<com.iflytek.astron.console.hub.util.OkHttpUtil> okHttpMock =
+                            mockStatic(com.iflytek.astron.console.hub.util.OkHttpUtil.class)) {
 
                 userMock.when(UserInfoManagerHandler::getUserId).thenReturn("user-001");
                 spaceMock.when(SpaceInfoUtil::getSpaceId).thenReturn(null);
 
                 when(apiUrl.getDatasetUrl()).thenReturn("https://api.example.com/dataset");
-                okHttpMock.when(() -> com.iflytek.astron.console.toolkit.util.OkHttpUtil.get(anyString(), any(Map.class)))
+                okHttpMock.when(() -> com.iflytek.astron.console.hub.util.OkHttpUtil.get(anyString(), any(Map.class)))
                         .thenReturn("{\"data\":null}");
 
                 RepoDto repo = new RepoDto();
@@ -2739,15 +2739,15 @@ class RepoServiceTest {
         @Test
         @DisplayName("getStarFireData - without authorization header")
         void testGetStarFireData_NoAuth() {
-            try (MockedStatic<com.iflytek.astron.console.toolkit.util.OkHttpUtil> okHttpMock =
-                    mockStatic(com.iflytek.astron.console.toolkit.util.OkHttpUtil.class)) {
+            try (MockedStatic<com.iflytek.astron.console.hub.util.OkHttpUtil> okHttpMock =
+                    mockStatic(com.iflytek.astron.console.hub.util.OkHttpUtil.class)) {
 
                 // Create a request without Authorization header
                 MockHttpServletRequest requestWithoutAuth = new MockHttpServletRequest();
                 when(apiUrl.getDatasetUrl()).thenReturn("https://api.example.com/dataset");
 
                 String response = "{\"data\":null}";
-                okHttpMock.when(() -> com.iflytek.astron.console.toolkit.util.OkHttpUtil.get(
+                okHttpMock.when(() -> com.iflytek.astron.console.hub.util.OkHttpUtil.get(
                         eq("https://api.example.com/dataset"), any(Map.class)))
                         .thenReturn(response);
 
@@ -2757,7 +2757,7 @@ class RepoServiceTest {
                 // Then
                 assertThat(result).isNull();
                 // Verify that the headers map does not contain Authorization
-                okHttpMock.verify(() -> com.iflytek.astron.console.toolkit.util.OkHttpUtil.get(
+                okHttpMock.verify(() -> com.iflytek.astron.console.hub.util.OkHttpUtil.get(
                         eq("https://api.example.com/dataset"),
                         argThat(map -> !map.containsKey("Authorization"))),
                         times(1));
@@ -2767,8 +2767,8 @@ class RepoServiceTest {
         @Test
         @DisplayName("getStarFireData - with empty string authorization")
         void testGetStarFireData_EmptyAuth() {
-            try (MockedStatic<com.iflytek.astron.console.toolkit.util.OkHttpUtil> okHttpMock =
-                    mockStatic(com.iflytek.astron.console.toolkit.util.OkHttpUtil.class)) {
+            try (MockedStatic<com.iflytek.astron.console.hub.util.OkHttpUtil> okHttpMock =
+                    mockStatic(com.iflytek.astron.console.hub.util.OkHttpUtil.class)) {
 
                 // Create a request with empty Authorization header
                 MockHttpServletRequest requestWithEmptyAuth = new MockHttpServletRequest();
@@ -2776,7 +2776,7 @@ class RepoServiceTest {
                 when(apiUrl.getDatasetUrl()).thenReturn("https://api.example.com/dataset");
 
                 String response = "{\"data\":null}";
-                okHttpMock.when(() -> com.iflytek.astron.console.toolkit.util.OkHttpUtil.get(
+                okHttpMock.when(() -> com.iflytek.astron.console.hub.util.OkHttpUtil.get(
                         anyString(), any(Map.class)))
                         .thenReturn(response);
 
@@ -2786,7 +2786,7 @@ class RepoServiceTest {
                 // Then
                 assertThat(result).isNull();
                 // Empty/blank string should not add Authorization header
-                okHttpMock.verify(() -> com.iflytek.astron.console.toolkit.util.OkHttpUtil.get(
+                okHttpMock.verify(() -> com.iflytek.astron.console.hub.util.OkHttpUtil.get(
                         anyString(),
                         argThat(map -> !map.containsKey("Authorization"))),
                         times(1));

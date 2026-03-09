@@ -1,12 +1,12 @@
-package com.iflytek.astron.console.toolkit.controller.knowledge;
+package com.iflytek.astron.console.hub.controller.knowledge;
 
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.toolkit.entity.common.PageData;
-import com.iflytek.astron.console.toolkit.entity.dto.RepoDto;
-import com.iflytek.astron.console.toolkit.entity.table.repo.HitTestHistory;
-import com.iflytek.astron.console.toolkit.entity.table.repo.Repo;
-import com.iflytek.astron.console.toolkit.entity.vo.knowledge.RepoVO;
-import com.iflytek.astron.console.toolkit.service.repo.RepoService;
+import com.iflytek.astron.console.hub.entity.common.PageData;
+import com.iflytek.astron.console.hub.entity.dto.RepoDto;
+import com.iflytek.astron.console.hub.entity.table.repo.HitTestHistory;
+import com.iflytek.astron.console.hub.entity.table.repo.Repo;
+import com.iflytek.astron.console.hub.entity.vo.knowledge.RepoVO;
+import com.iflytek.astron.console.hub.service.repo.RepoService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

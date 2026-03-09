@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.iflytek.astron.console.toolkit.mapper.workflow.WorkflowMapper">
+<mapper namespace="com.iflytek.astron.console.hub.mapper.workflow.WorkflowMapper">
     <select id="selectSuqareFlowList" resultType="com.iflytek.astron.console.commons.entity.workflow.Workflow">
         SELECT
         w.*, fr.latest_create_time AS frCreateTime

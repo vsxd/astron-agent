@@ -17,7 +17,7 @@ import com.iflytek.astron.console.hub.mapper.AiPromptTemplateMapper;
 import com.iflytek.astron.console.hub.service.bot.BotAIService;
 import com.iflytek.astron.console.hub.util.BotAIServiceClient;
 import com.iflytek.astron.console.hub.util.ImageUtil;
-import com.iflytek.astron.console.toolkit.util.RedisUtil;
+import com.iflytek.astron.console.hub.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +51,7 @@ public class BotAIServiceImpl implements BotAIService {
     private AiPromptTemplateMapper promptTemplateMapper;
 
     @Autowired
-    private com.iflytek.astron.console.toolkit.service.bot.OpenAiModelProcessService openAiModelProcessService;
+    private com.iflytek.astron.console.hub.service.bot.OpenAiModelProcessService openAiModelProcessService;
 
     @Autowired
     private RedisUtil redisUtil;

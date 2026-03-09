@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.DynamicTableNameInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import com.iflytek.astron.console.toolkit.handler.language.LanguageContext;
+import com.iflytek.astron.console.hub.handler.language.LanguageContext;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ import java.util.List;
 
 /** MyBatis-Plus basic configuration and Mapper scanning. */
 @Configuration
-@MapperScan({"com.iflytek.astron.console.hub.mapper", "com.iflytek.astron.console.commons.mapper", "com.iflytek.astron.console.toolkit.mapper"})
+@MapperScan({"com.iflytek.astron.console.hub.mapper", "com.iflytek.astron.console.commons.mapper", "com.iflytek.astron.console.hub.mapper"})
 public class MyBatisPlusConfig {
 
     @Bean(name = "mybatisPlusInterceptor")

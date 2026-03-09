@@ -1,16 +1,16 @@
-package com.iflytek.astron.console.toolkit.controller.model;
+package com.iflytek.astron.console.hub.controller.model;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
-import com.iflytek.astron.console.toolkit.entity.biz.modelconfig.LocalModelDto;
-import com.iflytek.astron.console.toolkit.entity.biz.modelconfig.ModelDto;
-import com.iflytek.astron.console.toolkit.entity.biz.modelconfig.ModelValidationRequest;
-import com.iflytek.astron.console.toolkit.entity.vo.CategoryTreeVO;
-import com.iflytek.astron.console.toolkit.entity.vo.LLMInfoVo;
-import com.iflytek.astron.console.toolkit.handler.UserInfoManagerHandler;
-import com.iflytek.astron.console.toolkit.service.model.ModelService;
+import com.iflytek.astron.console.hub.entity.biz.modelconfig.LocalModelDto;
+import com.iflytek.astron.console.hub.entity.biz.modelconfig.ModelDto;
+import com.iflytek.astron.console.hub.entity.biz.modelconfig.ModelValidationRequest;
+import com.iflytek.astron.console.hub.entity.vo.CategoryTreeVO;
+import com.iflytek.astron.console.hub.entity.vo.LLMInfoVo;
+import com.iflytek.astron.console.hub.handler.UserInfoManagerHandler;
+import com.iflytek.astron.console.hub.service.model.ModelService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

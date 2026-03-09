@@ -1,12 +1,12 @@
-package com.iflytek.astron.console.toolkit.service.extra;
+package com.iflytek.astron.console.hub.service.extra;
 
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import com.iflytek.astron.console.commons.exception.BusinessException;
-import com.iflytek.astron.console.toolkit.config.properties.ApiUrl;
-import com.iflytek.astron.console.toolkit.config.properties.CommonConfig;
-import com.iflytek.astron.console.toolkit.tool.CommonTool;
-import com.iflytek.astron.console.toolkit.tool.http.HeaderAuthHttpTool;
-import com.iflytek.astron.console.toolkit.util.RedisUtil;
+import com.iflytek.astron.console.hub.config.properties.ApiUrl;
+import com.iflytek.astron.console.hub.config.properties.CommonConfig;
+import com.iflytek.astron.console.hub.tool.CommonTool;
+import com.iflytek.astron.console.hub.tool.http.HeaderAuthHttpTool;
+import com.iflytek.astron.console.hub.util.RedisUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -60,7 +60,7 @@ class AppServiceTest {
                     return RETURNS_DEFAULTS.answer(invocation);
                 }));
 
-        Class<?> springUtils = Class.forName("com.iflytek.astron.console.toolkit.util.SpringUtils");
+        Class<?> springUtils = Class.forName("com.iflytek.astron.console.hub.util.SpringUtils");
         var bfField = springUtils.getDeclaredField("beanFactory");
         bfField.setAccessible(true);
         bfField.set(null, fakeBF);
