@@ -3,7 +3,7 @@ package com.iflytek.astron.console.hub.controller.bot;
 import com.alibaba.fastjson2.JSONObject;
 import com.iflytek.astron.console.commons.dto.bot.*;
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.commons.service.bot.BotService;
+import com.iflytek.astron.console.hub.service.bot.BotService;
 import com.iflytek.astron.console.hub.service.bot.TalkAgentService;
 import com.iflytek.astron.console.commons.util.MaasUtil;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;

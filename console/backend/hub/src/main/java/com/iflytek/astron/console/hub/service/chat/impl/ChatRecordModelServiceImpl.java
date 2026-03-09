@@ -1,10 +1,10 @@
 package com.iflytek.astron.console.hub.service.chat.impl;
 
-import com.iflytek.astron.console.commons.service.data.ChatDataService;
+import com.iflytek.astron.console.hub.service.data.ChatDataService;
 import com.iflytek.astron.console.commons.entity.chat.ChatReasonRecords;
 import com.iflytek.astron.console.commons.entity.chat.ChatReqRecords;
 import com.iflytek.astron.console.commons.entity.chat.ChatRespRecords;
-import com.iflytek.astron.console.commons.service.ChatRecordModelService;
+import com.iflytek.astron.console.hub.service.ChatRecordModelService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

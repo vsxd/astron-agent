@@ -8,7 +8,7 @@ import com.iflytek.astron.console.commons.dto.space.EnterpriseUserParam;
 import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;
 import com.iflytek.astron.console.commons.dto.space.EnterpriseUserVO;
 import com.iflytek.astron.console.commons.dto.space.UserLimitVO;
-import com.iflytek.astron.console.commons.service.space.EnterpriseUserService;
+import com.iflytek.astron.console.hub.service.space.EnterpriseUserService;
 import com.iflytek.astron.console.hub.service.space.EnterpriseUserBizService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -19,7 +19,7 @@ import com.iflytek.astron.console.hub.dto.publish.UnifiedPrepareDto;
 import com.iflytek.astron.console.hub.dto.publish.prepare.*;
 import com.iflytek.astron.console.hub.dto.publish.prepare.WechatPrepareDto;
 import com.iflytek.astron.console.commons.enums.bot.ReleaseTypeEnum;
-import com.iflytek.astron.console.commons.service.data.UserLangChainDataService;
+import com.iflytek.astron.console.hub.service.data.UserLangChainDataService;
 import com.iflytek.astron.console.commons.enums.PublishChannelEnum;
 import com.iflytek.astron.console.commons.enums.ShelfStatusEnum;
 import com.iflytek.astron.console.commons.mapper.bot.ChatBotMarketMapper;

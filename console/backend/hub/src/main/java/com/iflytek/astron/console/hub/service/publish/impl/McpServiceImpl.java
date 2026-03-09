@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.iflytek.astron.console.hub.service.publish.BotPublishService;
 import com.iflytek.astron.console.hub.service.workflow.WorkflowReleaseService;
-import com.iflytek.astron.console.commons.service.data.UserLangChainDataService;
+import com.iflytek.astron.console.hub.service.data.UserLangChainDataService;
 import com.iflytek.astron.console.hub.dto.workflow.WorkflowReleaseResponseDto;
 import com.iflytek.astron.console.commons.enums.PublishChannelEnum;
 

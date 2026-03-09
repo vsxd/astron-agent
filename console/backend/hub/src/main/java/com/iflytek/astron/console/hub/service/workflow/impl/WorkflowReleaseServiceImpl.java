@@ -1,7 +1,7 @@
 package com.iflytek.astron.console.hub.service.workflow.impl;
 
 import com.iflytek.astron.console.commons.enums.bot.ReleaseTypeEnum;
-import com.iflytek.astron.console.commons.service.data.UserLangChainDataService;
+import com.iflytek.astron.console.hub.service.data.UserLangChainDataService;
 import com.iflytek.astron.console.commons.mapper.bot.ChatBotApiMapper;
 import com.iflytek.astron.console.commons.dto.bot.ChatBotApi;
 import com.iflytek.astron.console.commons.util.MaasUtil;

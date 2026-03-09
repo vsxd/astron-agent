@@ -6,7 +6,7 @@ import cn.xfyun.model.agent.AgentResumeParam;
 import cn.xfyun.model.sparkmodel.RoleContent;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import com.iflytek.astron.console.commons.service.data.ChatDataService;
+import com.iflytek.astron.console.hub.service.data.ChatDataService;
 import com.iflytek.astron.console.commons.dto.workflow.WorkflowChatRequest;
 import com.iflytek.astron.console.commons.dto.workflow.WorkflowEventData;
 import com.iflytek.astron.console.commons.dto.workflow.WorkflowResumeReq;

@@ -11,7 +11,7 @@ import com.iflytek.astron.console.commons.enums.space.InviteRecordTypeEnum;
 import com.iflytek.astron.console.commons.dto.space.BatchChatUserVO;
 import com.iflytek.astron.console.commons.dto.space.ChatUserVO;
 import com.iflytek.astron.console.commons.dto.space.InviteRecordVO;
-import com.iflytek.astron.console.commons.service.space.InviteRecordService;
+import com.iflytek.astron.console.hub.service.space.InviteRecordService;
 import com.iflytek.astron.console.hub.service.space.InviteRecordBizService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

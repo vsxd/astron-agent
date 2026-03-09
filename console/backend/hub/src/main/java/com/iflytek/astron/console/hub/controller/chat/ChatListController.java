@@ -6,7 +6,7 @@ import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
 import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
-import com.iflytek.astron.console.commons.service.bot.ChatBotDataService;
+import com.iflytek.astron.console.hub.service.bot.ChatBotDataService;
 import com.iflytek.astron.console.commons.dto.bot.BotInfoDto;
 import com.iflytek.astron.console.commons.dto.chat.ChatListCreateRequest;
 import com.iflytek.astron.console.commons.dto.chat.ChatListCreateResponse;

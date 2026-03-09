@@ -5,7 +5,7 @@ import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.iflytek.astron.console.commons.dto.workflow.CloneSynchronize;
 import com.iflytek.astron.console.commons.exception.BusinessException;
-import com.iflytek.astron.console.commons.service.workflow.WorkflowBotService;
+import com.iflytek.astron.console.hub.service.workflow.WorkflowBotService;
 import com.iflytek.astron.console.hub.config.properties.ApiUrl;
 import com.iflytek.astron.console.hub.config.properties.CommonConfig;
 import com.iflytek.astron.console.hub.tool.OpenPlatformTool;

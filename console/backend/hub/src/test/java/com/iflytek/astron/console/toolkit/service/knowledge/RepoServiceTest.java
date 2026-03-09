@@ -8,7 +8,7 @@ import com.iflytek.astron.console.commons.config.JwtClaimsFilter;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.dto.dataset.DatasetStats;
 import com.iflytek.astron.console.commons.exception.BusinessException;
-import com.iflytek.astron.console.commons.service.data.IDatasetFileService;
+import com.iflytek.astron.console.hub.service.data.IDatasetFileService;
 import com.iflytek.astron.console.hub.common.constant.ProjectContent;
 import com.iflytek.astron.console.hub.config.properties.ApiUrl;
 import com.iflytek.astron.console.hub.config.properties.RepoAuthorizedConfig;

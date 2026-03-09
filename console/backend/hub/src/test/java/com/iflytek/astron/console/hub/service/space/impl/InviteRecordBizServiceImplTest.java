@@ -15,7 +15,7 @@ import com.iflytek.astron.console.commons.entity.user.UserInfo;
 import com.iflytek.astron.console.commons.enums.space.*;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.commons.service.space.*;
+import com.iflytek.astron.console.hub.service.space.*;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
 import com.iflytek.astron.console.commons.util.S3ClientUtil;
 import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;

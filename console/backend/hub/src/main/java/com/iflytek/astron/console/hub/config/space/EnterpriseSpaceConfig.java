@@ -1,7 +1,7 @@
 package com.iflytek.astron.console.hub.config.space;
 
 
-import com.iflytek.astron.console.commons.service.space.EnterpriseSpaceService;
+import com.iflytek.astron.console.hub.service.space.EnterpriseSpaceService;
 import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;
 import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
 package com.iflytek.astron.console.hub.service.knowledge.impl;
 
 import com.iflytek.astron.console.commons.entity.dataset.BotDatasetMaas;
-import com.iflytek.astron.console.commons.service.data.ChatListDataService;
-import com.iflytek.astron.console.commons.service.data.DatasetDataService;
+import com.iflytek.astron.console.hub.service.data.ChatListDataService;
+import com.iflytek.astron.console.hub.service.data.DatasetDataService;
 import com.iflytek.astron.console.hub.entity.core.knowledge.ChunkInfo;
 import com.iflytek.astron.console.hub.service.repo.RepoService;
 import org.junit.jupiter.api.BeforeEach;

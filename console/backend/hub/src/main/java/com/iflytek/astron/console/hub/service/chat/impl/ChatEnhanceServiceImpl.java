@@ -9,7 +9,7 @@ import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
-import com.iflytek.astron.console.commons.service.data.ChatDataService;
+import com.iflytek.astron.console.hub.service.data.ChatDataService;
 import com.iflytek.astron.console.hub.dto.chat.ChatEnhanceChatHistoryListFileVo;
 import com.iflytek.astron.console.hub.dto.chat.ChatEnhanceSaveFileVo;
 import com.iflytek.astron.console.commons.dto.chat.ChatReqModelDto;

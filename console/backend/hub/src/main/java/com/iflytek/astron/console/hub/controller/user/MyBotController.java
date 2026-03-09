@@ -6,7 +6,7 @@ import com.iflytek.astron.console.commons.dto.bot.BotDetail;
 import com.iflytek.astron.console.commons.dto.bot.PersonalityConfigDto;
 import com.iflytek.astron.console.commons.dto.bot.PromptBotDetail;
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.commons.service.bot.ChatBotDataService;
+import com.iflytek.astron.console.hub.service.bot.ChatBotDataService;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
 import com.iflytek.astron.console.hub.dto.user.MyBotPageDTO;
 import com.iflytek.astron.console.hub.dto.user.MyBotParamDTO;

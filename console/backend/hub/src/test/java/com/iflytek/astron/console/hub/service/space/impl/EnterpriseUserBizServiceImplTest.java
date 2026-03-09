@@ -9,7 +9,7 @@ import com.iflytek.astron.console.commons.enums.space.EnterpriseRoleEnum;
 import com.iflytek.astron.console.commons.enums.space.EnterpriseServiceTypeEnum;
 import com.iflytek.astron.console.commons.enums.space.SpaceRoleEnum;
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.commons.service.space.*;
+import com.iflytek.astron.console.hub.service.space.*;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
 import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;
 import com.iflytek.astron.console.hub.properties.SpaceLimitProperties;

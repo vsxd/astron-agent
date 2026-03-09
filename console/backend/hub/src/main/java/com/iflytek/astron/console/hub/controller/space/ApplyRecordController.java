@@ -8,7 +8,7 @@ import com.iflytek.astron.console.commons.annotation.space.EnterprisePreAuth;
 import com.iflytek.astron.console.commons.annotation.space.SpacePreAuth;
 import com.iflytek.astron.console.commons.dto.space.ApplyRecordParam;
 import com.iflytek.astron.console.commons.dto.space.ApplyRecordVO;
-import com.iflytek.astron.console.commons.service.space.ApplyRecordService;
+import com.iflytek.astron.console.hub.service.space.ApplyRecordService;
 import com.iflytek.astron.console.hub.service.space.ApplyRecordBizService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.annotation.Resource;

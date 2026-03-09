@@ -15,7 +15,7 @@ import com.iflytek.astron.console.commons.entity.chat.*;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.mapper.chat.ChatListMapper;
 import com.iflytek.astron.console.commons.mapper.chat.ChatTreeIndexMapper;
-import com.iflytek.astron.console.commons.service.data.ChatDataService;
+import com.iflytek.astron.console.hub.service.data.ChatDataService;
 import com.iflytek.astron.console.hub.enums.LongContextStatusEnum;
 import com.iflytek.astron.console.hub.mapper.*;
 

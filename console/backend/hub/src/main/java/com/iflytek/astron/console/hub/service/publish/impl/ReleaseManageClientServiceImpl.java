@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.iflytek.astron.console.commons.enums.bot.ReleaseTypeEnum;
-import com.iflytek.astron.console.commons.service.data.UserLangChainDataService;
+import com.iflytek.astron.console.hub.service.data.UserLangChainDataService;
 import com.iflytek.astron.console.commons.util.MaasUtil;
 import com.iflytek.astron.console.hub.dto.publish.ReleaseBotReqDto;
 import com.iflytek.astron.console.hub.dto.publish.ReleaseBotRespDto;

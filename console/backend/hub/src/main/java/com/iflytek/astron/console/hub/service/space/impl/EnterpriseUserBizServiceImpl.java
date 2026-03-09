@@ -3,7 +3,7 @@ package com.iflytek.astron.console.hub.service.space.impl;
 import cn.hutool.core.collection.CollectionUtil;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.commons.service.space.*;
+import com.iflytek.astron.console.hub.service.space.*;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
 import com.iflytek.astron.console.commons.entity.space.Enterprise;
 import com.iflytek.astron.console.commons.entity.space.EnterpriseUser;

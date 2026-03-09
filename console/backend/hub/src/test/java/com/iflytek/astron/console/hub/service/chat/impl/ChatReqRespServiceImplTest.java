@@ -1,6 +1,6 @@
 package com.iflytek.astron.console.hub.service.chat.impl;
 
-import com.iflytek.astron.console.commons.service.data.ChatDataService;
+import com.iflytek.astron.console.hub.service.data.ChatDataService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

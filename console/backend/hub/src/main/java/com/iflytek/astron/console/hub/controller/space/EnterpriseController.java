@@ -5,7 +5,7 @@ import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.commons.annotation.space.EnterprisePreAuth;
 import com.iflytek.astron.console.commons.dto.space.EnterpriseAddDTO;
 import com.iflytek.astron.console.commons.dto.space.EnterpriseVO;
-import com.iflytek.astron.console.commons.service.space.EnterpriseService;
+import com.iflytek.astron.console.hub.service.space.EnterpriseService;
 import com.iflytek.astron.console.hub.service.space.EnterpriseBizService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

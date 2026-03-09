@@ -5,7 +5,7 @@ import com.iflytek.astron.console.commons.enums.ShelfStatusEnum;
 import com.iflytek.astron.console.commons.enums.bot.ReleaseTypeEnum;
 import com.iflytek.astron.console.commons.enums.bot.BotTypeEnum;
 import com.iflytek.astron.console.commons.mapper.bot.ChatBotBaseMapper;
-import com.iflytek.astron.console.commons.service.data.UserLangChainDataService;
+import com.iflytek.astron.console.hub.service.data.UserLangChainDataService;
 import com.iflytek.astron.console.hub.dto.workflow.WorkflowReleaseResponseDto;
 import com.iflytek.astron.console.hub.event.BotPublishStatusChangedEvent;
 import com.iflytek.astron.console.hub.service.workflow.WorkflowReleaseService;

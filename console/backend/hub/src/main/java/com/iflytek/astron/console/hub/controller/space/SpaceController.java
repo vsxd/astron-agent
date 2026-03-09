@@ -11,7 +11,7 @@ import com.iflytek.astron.console.commons.entity.space.Space;
 import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;
 import com.iflytek.astron.console.commons.dto.space.EnterpriseSpaceCountVO;
 import com.iflytek.astron.console.commons.dto.space.SpaceVO;
-import com.iflytek.astron.console.commons.service.space.SpaceService;
+import com.iflytek.astron.console.hub.service.space.SpaceService;
 import com.iflytek.astron.console.hub.service.space.SpaceBizService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
