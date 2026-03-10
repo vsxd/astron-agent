@@ -17,7 +17,7 @@ import com.iflytek.astron.console.hub.common.constant.*;
 import com.iflytek.astron.console.hub.config.properties.ApiUrl;
 import com.iflytek.astron.console.hub.entity.common.PageData;
 import com.iflytek.astron.console.hub.entity.dto.*;
-import com.iflytek.astron.console.hub.entity.knowledge.ChunkInfo;
+import com.iflytek.astron.console.hub.entity.core.knowledge.ChunkInfo;
 import com.iflytek.astron.console.hub.entity.mongo.PreviewKnowledge;
 import com.iflytek.astron.console.hub.entity.table.knowledge.MysqlKnowledge;
 import com.iflytek.astron.console.hub.entity.table.knowledge.MysqlPreviewKnowledge;

@@ -2,6 +2,7 @@ package com.iflytek.astron.console.hub.entity;
 
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.apache.ibatis.type.Alias;
 
 /**
  * Unified entity for FlyCloud and Open Platform users
@@ -11,6 +12,7 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Alias("CommonUserInfo")
 public class UserInfo {
     /**
      * User ID

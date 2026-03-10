@@ -103,12 +103,8 @@ mybatis-plus:
     - classpath*:/mapper/**/*.xml
     - classpath*:/mybatis/mapper/**/*.xml
   type-aliases-package:
-    com.iflytek.astron.console.hub.entity,
-    com.iflytek.astron.console.hub.entity,
-    com.iflytek.astron.console.hub.entity.table
+    com.iflytek.astron.console.hub.entity
   type-enums-package:
-    com.iflytek.astron.console.hub.enums,
-    com.iflytek.astron.console.hub.enums,
     com.iflytek.astron.console.hub.enums
   configuration:
     default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler

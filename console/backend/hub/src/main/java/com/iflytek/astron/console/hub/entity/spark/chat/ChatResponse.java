@@ -3,9 +3,11 @@ package com.iflytek.astron.console.hub.entity.spark.chat;
 import com.iflytek.astron.console.hub.common.constant.ChatConstant;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.ibatis.type.Alias;
 
 @Data
 @NoArgsConstructor
+@Alias("SparkChatResponse")
 public class ChatResponse {
     Header header;
     Payload payload;

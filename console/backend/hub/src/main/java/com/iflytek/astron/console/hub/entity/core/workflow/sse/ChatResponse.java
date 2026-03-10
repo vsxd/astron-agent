@@ -3,11 +3,13 @@ package com.iflytek.astron.console.hub.entity.core.workflow.sse;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.ibatis.type.Alias;
 
 import java.util.List;
 
 @Data
 @NoArgsConstructor
+@Alias("WorkflowSseChatResponse")
 public class ChatResponse {
     Integer code;
     String message;

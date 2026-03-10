@@ -2,8 +2,10 @@ package com.iflytek.astron.console.hub.entity.spark.chat;
 
 import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Data;
+import org.apache.ibatis.type.Alias;
 
 @Data
+@Alias("SparkChatMessage")
 public class Message {
     String role;
     String type;

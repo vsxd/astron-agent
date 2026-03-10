@@ -3,6 +3,7 @@ package com.iflytek.astron.console.hub.entity.table.model;
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.apache.ibatis.type.Alias;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.Date;
  * @Date: 2025/4/11 17:05
  */
 @Data
+@Alias("TableModel")
 public class Model {
     @TableId(type = IdType.AUTO)
     private Long id;

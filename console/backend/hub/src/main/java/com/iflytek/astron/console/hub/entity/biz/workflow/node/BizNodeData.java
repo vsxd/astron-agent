@@ -2,10 +2,12 @@ package com.iflytek.astron.console.hub.entity.biz.workflow.node;
 
 import com.alibaba.fastjson2.JSONObject;
 import lombok.Data;
+import org.apache.ibatis.type.Alias;
 
 import java.util.List;
 
 @Data
+@Alias("BizWorkflowBizNodeData")
 public class BizNodeData {
     @Deprecated
     String id;

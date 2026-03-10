@@ -7,12 +7,14 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.iflytek.astron.console.hub.enums.space.EnterpriseServiceTypeEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import org.apache.ibatis.type.Alias;
 
 import java.time.LocalDateTime;
 
 @Data
 @TableName("user_info")
 @Schema(name = "UserInfo", description = "User information table")
+@Alias("TableUserInfo")
 public class UserInfo {
 
     @TableId(type = IdType.AUTO)
