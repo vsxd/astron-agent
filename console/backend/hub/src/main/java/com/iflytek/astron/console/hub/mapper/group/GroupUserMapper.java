@@ -3,7 +3,7 @@ package com.iflytek.astron.console.hub.mapper.group;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.iflytek.astron.console.hub.entity.table.group.GroupUser;
-import com.iflytek.astron.console.hub.entity.vo.group.GroupUserTagVO;
+import com.iflytek.astron.console.hub.entity.vo.group.GroupUserTagVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -21,7 +21,7 @@ import java.util.List;
 @Mapper
 
 public interface GroupUserMapper extends BaseMapper<GroupUser> {
-    List<GroupUserTagVO> listUserByTagId(@Param("uid") String uid, @Param("tagId") Long tagId, @Param("content") String content);
+    List<GroupUserTagVo> listUserByTagId(@Param("uid") String uid, @Param("tagId") Long tagId, @Param("content") String content);
 
     void deleteByTagIdAndUidList(@Param("uid") String uid, @Param("tagId") Long tagId, @Param("uids") List<String> uids);
 

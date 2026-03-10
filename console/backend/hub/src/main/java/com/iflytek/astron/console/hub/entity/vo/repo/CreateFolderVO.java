@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class CreateFolderVO {
+public class CreateFolderVo {
     private Long id;
     private Long repoId;
     private String name;

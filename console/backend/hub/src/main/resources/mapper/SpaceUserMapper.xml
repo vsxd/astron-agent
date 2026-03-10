@@ -15,7 +15,7 @@
         where u.uid = #{uid} and u.space_id = #{spaceId} and s.deleted = 0
     </select>
 
-    <select id="selectVOPageByParam" resultType="com.iflytek.astron.console.hub.dto.space.SpaceUserVO">
+    <select id="selectVoPageByParam" resultType="com.iflytek.astron.console.hub.dto.space.SpaceUserVo">
         select u.* from agent_space_user u
         <where>
             <if test="spaceId != null">

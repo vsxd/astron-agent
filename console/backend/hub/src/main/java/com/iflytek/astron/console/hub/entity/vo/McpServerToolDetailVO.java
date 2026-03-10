@@ -10,7 +10,7 @@ import java.util.List;
  * @Description:
  */
 @Data
-public class McpServerToolDetailVO {
+public class McpServerToolDetailVo {
     /**
      * Tool brief description (short description)
      */

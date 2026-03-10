@@ -7,9 +7,9 @@ import java.util.List;
 
 @Data
 @Schema(name = "Batch user info")
-public class BatchChatUserVO {
+public class BatchChatUserVo {
 
-    private List<ChatUserVO> chatUserVOS;
+    private List<ChatUserVo> chatUserVos;
     @Schema(description = "Result file URL")
     private String resultUrl;
 }

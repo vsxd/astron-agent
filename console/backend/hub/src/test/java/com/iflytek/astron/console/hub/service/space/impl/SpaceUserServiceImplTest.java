@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.iflytek.astron.console.hub.data.UserInfoDataService;
 import com.iflytek.astron.console.hub.dto.space.SpaceUserParam;
-import com.iflytek.astron.console.hub.dto.space.SpaceUserVO;
+import com.iflytek.astron.console.hub.dto.space.SpaceUserVo;
 import com.iflytek.astron.console.hub.entity.space.SpaceUser;
 import com.iflytek.astron.console.hub.entity.user.UserInfo;
 import com.iflytek.astron.console.hub.enums.space.SpaceRoleEnum;
@@ -48,8 +48,8 @@ class SpaceUserServiceImplTest {
     private SpaceUser mockSpaceUser;
     private UserInfo mockUserInfo;
     private SpaceUserParam mockParam;
-    private SpaceUserVO mockSpaceUserVO;
-    private Page<SpaceUserVO> mockVOPage;
+    private SpaceUserVo mockSpaceUserVo;
+    private Page<SpaceUserVo> mockVOPage;
     private List<SpaceUser> mockSpaceUserList;
 
     @BeforeEach
@@ -71,14 +71,14 @@ class SpaceUserServiceImplTest {
         mockParam.setNickname("Test");
         mockParam.setRole(SpaceRoleEnum.MEMBER.getCode());
 
-        mockSpaceUserVO = new SpaceUserVO();
-        mockSpaceUserVO.setId(1L);
-        mockSpaceUserVO.setUid("test-uid");
-        mockSpaceUserVO.setNickname("Test User");
-        mockSpaceUserVO.setRole(SpaceRoleEnum.MEMBER.getCode());
+        mockSpaceUserVo = new SpaceUserVo();
+        mockSpaceUserVo.setId(1L);
+        mockSpaceUserVo.setUid("test-uid");
+        mockSpaceUserVo.setNickname("Test User");
+        mockSpaceUserVo.setRole(SpaceRoleEnum.MEMBER.getCode());
 
         mockVOPage = new Page<>();
-        mockVOPage.setRecords(Arrays.asList(mockSpaceUserVO));
+        mockVOPage.setRecords(Arrays.asList(mockSpaceUserVo));
         mockVOPage.setTotal(1L);
         mockVOPage.setCurrent(1L);
         mockVOPage.setSize(10L);
@@ -496,17 +496,17 @@ class SpaceUserServiceImplTest {
 
         try (MockedStatic<SpaceInfoUtil> mockedStatic = mockStatic(SpaceInfoUtil.class)) {
             mockedStatic.when(SpaceInfoUtil::getSpaceId).thenReturn(spaceId);
-            when(spaceUserMapper.selectVOPageByParam(any(Page.class), eq(spaceId),
+            when(spaceUserMapper.selectVoPageByParam(any(Page.class), eq(spaceId),
                     eq("Test"), eq(SpaceRoleEnum.MEMBER.getCode()))).thenReturn(mockVOPage);
 
             // When
-            Page<SpaceUserVO> result = spaceUserService.page(mockParam);
+            Page<SpaceUserVo> result = spaceUserService.page(mockParam);
 
             // Then
             assertNotNull(result);
             assertEquals(1L, result.getTotal());
             assertEquals(1, result.getRecords().size());
-            verify(spaceUserMapper).selectVOPageByParam(any(Page.class), eq(spaceId),
+            verify(spaceUserMapper).selectVoPageByParam(any(Page.class), eq(spaceId),
                     eq("Test"), eq(SpaceRoleEnum.MEMBER.getCode()));
         }
     }
@@ -519,7 +519,7 @@ class SpaceUserServiceImplTest {
             mockedStatic.when(SpaceInfoUtil::getSpaceId).thenReturn(null);
 
             // When
-            Page<SpaceUserVO> result = spaceUserService.page(mockParam);
+            Page<SpaceUserVo> result = spaceUserService.page(mockParam);
 
             // Then
             assertNotNull(result);
@@ -527,7 +527,7 @@ class SpaceUserServiceImplTest {
             assertEquals(10L, result.getSize());
             assertTrue(result.getRecords().isEmpty());
 
-            verify(spaceUserMapper, never()).selectVOPageByParam(any(), any(), any(), any());
+            verify(spaceUserMapper, never()).selectVoPageByParam(any(), any(), any(), any());
         }
     }
 

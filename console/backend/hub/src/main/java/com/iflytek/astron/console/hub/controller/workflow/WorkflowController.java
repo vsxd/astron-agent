@@ -18,7 +18,7 @@ import com.iflytek.astron.console.hub.entity.table.workflow.WorkflowComparison;
 import com.iflytek.astron.console.hub.entity.table.workflow.WorkflowDialog;
 import com.iflytek.astron.console.hub.entity.table.workflow.WorkflowFeedback;
 import com.iflytek.astron.console.hub.entity.tool.McpServerTool;
-import com.iflytek.astron.console.hub.entity.vo.McpServerToolDetailVO;
+import com.iflytek.astron.console.hub.entity.vo.McpServerToolDetailVo;
 import com.iflytek.astron.console.hub.entity.vo.WorkflowVo;
 import com.iflytek.astron.console.hub.handler.UserInfoManagerHandler;
 import com.iflytek.astron.console.hub.service.workflow.*;
@@ -381,7 +381,7 @@ public class WorkflowController {
     }
 
     @GetMapping("/get-server-tool-detail-locally")
-    public ApiResult<McpServerToolDetailVO> getServerToolDetailLocally(@RequestParam String serverId) {
+    public ApiResult<McpServerToolDetailVo> getServerToolDetailLocally(@RequestParam String serverId) {
         return ApiResult.success(workflowService.getServerToolDetailLocally(serverId));
     }
 

@@ -2,8 +2,8 @@ package com.iflytek.astron.console.hub.service.space.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.iflytek.astron.console.hub.data.UserInfoDataService;
-import com.iflytek.astron.console.hub.dto.space.EnterpriseSpaceCountVO;
-import com.iflytek.astron.console.hub.dto.space.SpaceVO;
+import com.iflytek.astron.console.hub.dto.space.EnterpriseSpaceCountVo;
+import com.iflytek.astron.console.hub.dto.space.SpaceVo;
 import com.iflytek.astron.console.hub.entity.space.Space;
 import com.iflytek.astron.console.hub.entity.space.SpaceUser;
 import com.iflytek.astron.console.hub.entity.user.UserInfo;
@@ -64,12 +64,12 @@ class SpaceServiceImplTest {
     private SpaceServiceImpl spaceService;
 
     private Space mockSpace;
-    private SpaceVO mockSpaceVO;
+    private SpaceVo mockSpaceVo;
     private SpaceUser mockSpaceUser;
     private UserInfo mockUserInfo;
-    private List<SpaceVO> mockSpaceVOList;
+    private List<SpaceVo> mockSpaceVoList;
     private List<SpaceUser> mockSpaceUserList;
-    private EnterpriseSpaceCountVO mockCountVO;
+    private EnterpriseSpaceCountVo mockCountVo;
 
     @BeforeEach
     void setUp() {
@@ -79,7 +79,7 @@ class SpaceServiceImplTest {
         // Initialize test data
         mockSpace = createMockSpace(1L, "Test Space", "test-uid", 100L, SpaceTypeEnum.FREE.getCode());
 
-        mockSpaceVO = createMockSpaceVO(1L, "Test Space", "test-uid", 100L, SpaceTypeEnum.FREE.getCode());
+        mockSpaceVo = createMockSpaceVo(1L, "Test Space", "test-uid", 100L, SpaceTypeEnum.FREE.getCode());
 
         mockSpaceUser = createMockSpaceUser(1L, 1L, "test-uid", "Test User", SpaceRoleEnum.OWNER.getCode());
 
@@ -88,17 +88,17 @@ class SpaceServiceImplTest {
         mockUserInfo.setNickname("Test User");
         mockUserInfo.setUsername("testuser");
 
-        mockSpaceVOList = Arrays.asList(
-                mockSpaceVO,
-                createMockSpaceVO(2L, "Test Space 2", "test-uid-2", 100L, SpaceTypeEnum.PRO.getCode()));
+        mockSpaceVoList = Arrays.asList(
+                mockSpaceVo,
+                createMockSpaceVo(2L, "Test Space 2", "test-uid-2", 100L, SpaceTypeEnum.PRO.getCode()));
 
         mockSpaceUserList = Arrays.asList(
                 mockSpaceUser,
                 createMockSpaceUser(2L, 1L, "test-uid-2", "Test User 2", SpaceRoleEnum.MEMBER.getCode()));
 
-        mockCountVO = new EnterpriseSpaceCountVO();
-        mockCountVO.setTotal(10L);
-        mockCountVO.setJoined(5L);
+        mockCountVo = new EnterpriseSpaceCountVo();
+        mockCountVo.setTotal(10L);
+        mockCountVo.setJoined(5L);
     }
 
     /**
@@ -117,18 +117,18 @@ class SpaceServiceImplTest {
     }
 
     /**
-     * Helper method to create mock SpaceVO objects
+     * Helper method to create mock SpaceVo objects
      */
-    private SpaceVO createMockSpaceVO(Long id, String name, String uid, Long enterpriseId, Integer type) {
-        SpaceVO spaceVO = new SpaceVO();
-        spaceVO.setId(id);
-        spaceVO.setName(name);
-        spaceVO.setUid(uid);
-        spaceVO.setEnterpriseId(enterpriseId);
-        spaceVO.setLastVisitTime(LocalDateTime.now());
-        spaceVO.setMemberCount(2);
-        spaceVO.setOwnerName("Test Owner");
-        return spaceVO;
+    private SpaceVo createMockSpaceVo(Long id, String name, String uid, Long enterpriseId, Integer type) {
+        SpaceVo spaceVo = new SpaceVo();
+        spaceVo.setId(id);
+        spaceVo.setName(name);
+        spaceVo.setUid(uid);
+        spaceVo.setEnterpriseId(enterpriseId);
+        spaceVo.setLastVisitTime(LocalDateTime.now());
+        spaceVo.setMemberCount(2);
+        spaceVo.setOwnerName("Test Owner");
+        return spaceVo;
     }
 
     /**
@@ -149,7 +149,7 @@ class SpaceServiceImplTest {
 
     @Test
     @DisplayName("Should return recent visit list successfully")
-    void recentVisitList_ShouldReturnSpaceVOList() {
+    void recentVisitList_ShouldReturnSpaceVoList() {
         // Given
         String uid = "test-uid";
         Long enterpriseId = 100L;
@@ -159,10 +159,10 @@ class SpaceServiceImplTest {
 
             requestMockedStatic.when(RequestContextUtil::getUID).thenReturn(uid);
             enterpriseMockedStatic.when(EnterpriseInfoUtil::getEnterpriseId).thenReturn(enterpriseId);
-            when(spaceMapper.recentVisitList(uid, enterpriseId)).thenReturn(mockSpaceVOList);
+            when(spaceMapper.recentVisitList(uid, enterpriseId)).thenReturn(mockSpaceVoList);
 
             // When
-            List<SpaceVO> result = spaceService.recentVisitList();
+            List<SpaceVo> result = spaceService.recentVisitList();
 
             // Then
             assertNotNull(result);
@@ -173,7 +173,7 @@ class SpaceServiceImplTest {
 
     @Test
     @DisplayName("Should return personal list with extra info")
-    void personalList_WithValidName_ShouldReturnSpaceVOListWithExtraInfo() {
+    void personalList_WithValidName_ShouldReturnSpaceVoListWithExtraInfo() {
         // Given
         String uid = "test-uid";
         Long enterpriseId = 100L;
@@ -185,12 +185,12 @@ class SpaceServiceImplTest {
 
             requestMockedStatic.when(RequestContextUtil::getUID).thenReturn(uid);
             enterpriseMockedStatic.when(EnterpriseInfoUtil::getEnterpriseId).thenReturn(enterpriseId);
-            when(spaceMapper.joinList(uid, enterpriseId, name)).thenReturn(mockSpaceVOList);
+            when(spaceMapper.joinList(uid, enterpriseId, name)).thenReturn(mockSpaceVoList);
             when(spaceUserService.getAllSpaceUsers(spaceIds)).thenReturn(mockSpaceUserList);
             when(userInfoDataService.findByUid("test-uid")).thenReturn(Optional.of(mockUserInfo));
 
             // When
-            List<SpaceVO> result = spaceService.personalList(name);
+            List<SpaceVo> result = spaceService.personalList(name);
 
             // Then
             assertNotNull(result);
@@ -204,7 +204,7 @@ class SpaceServiceImplTest {
 
     @Test
     @DisplayName("Should return personal self list successfully")
-    void personalSelfList_WithValidName_ShouldReturnSpaceVOList() {
+    void personalSelfList_WithValidName_ShouldReturnSpaceVoList() {
         // Given
         String uid = "test-uid";
         Long enterpriseId = 100L;
@@ -216,12 +216,12 @@ class SpaceServiceImplTest {
 
             requestMockedStatic.when(RequestContextUtil::getUID).thenReturn(uid);
             enterpriseMockedStatic.when(EnterpriseInfoUtil::getEnterpriseId).thenReturn(enterpriseId);
-            when(spaceMapper.selfList(uid, SpaceRoleEnum.OWNER.getCode(), enterpriseId, name)).thenReturn(mockSpaceVOList);
+            when(spaceMapper.selfList(uid, SpaceRoleEnum.OWNER.getCode(), enterpriseId, name)).thenReturn(mockSpaceVoList);
             when(spaceUserService.getAllSpaceUsers(spaceIds)).thenReturn(mockSpaceUserList);
             when(userInfoDataService.findByUid("test-uid")).thenReturn(Optional.of(mockUserInfo));
 
             // When
-            List<SpaceVO> result = spaceService.personalSelfList(name);
+            List<SpaceVo> result = spaceService.personalSelfList(name);
 
             // Then
             assertNotNull(result);
@@ -232,7 +232,7 @@ class SpaceServiceImplTest {
 
     @Test
     @DisplayName("Should return corporate join list successfully")
-    void corporateJoinList_WithValidName_ShouldReturnSpaceVOList() {
+    void corporateJoinList_WithValidName_ShouldReturnSpaceVoList() {
         // Given
         String uid = "test-uid";
         Long enterpriseId = 100L;
@@ -243,12 +243,12 @@ class SpaceServiceImplTest {
 
             requestMockedStatic.when(RequestContextUtil::getUID).thenReturn(uid);
             enterpriseMockedStatic.when(EnterpriseInfoUtil::getEnterpriseId).thenReturn(enterpriseId);
-            when(spaceMapper.joinList(uid, enterpriseId, name)).thenReturn(mockSpaceVOList);
+            when(spaceMapper.joinList(uid, enterpriseId, name)).thenReturn(mockSpaceVoList);
             when(spaceUserService.getAllSpaceUsers(anyList())).thenReturn(mockSpaceUserList);
             when(userInfoDataService.findByUid("test-uid")).thenReturn(Optional.of(mockUserInfo));
 
             // When
-            List<SpaceVO> result = spaceService.corporateJoinList(name);
+            List<SpaceVo> result = spaceService.corporateJoinList(name);
 
             // Then
             assertNotNull(result);
@@ -259,7 +259,7 @@ class SpaceServiceImplTest {
 
     @Test
     @DisplayName("Should return corporate list successfully")
-    void corporateList_WithValidName_ShouldReturnSpaceVOList() {
+    void corporateList_WithValidName_ShouldReturnSpaceVoList() {
         // Given
         String uid = "test-uid";
         Long enterpriseId = 100L;
@@ -270,12 +270,12 @@ class SpaceServiceImplTest {
 
             requestMockedStatic.when(RequestContextUtil::getUID).thenReturn(uid);
             enterpriseMockedStatic.when(EnterpriseInfoUtil::getEnterpriseId).thenReturn(enterpriseId);
-            when(spaceMapper.corporateList(uid, enterpriseId, name)).thenReturn(mockSpaceVOList);
+            when(spaceMapper.corporateList(uid, enterpriseId, name)).thenReturn(mockSpaceVoList);
             when(spaceUserService.getAllSpaceUsers(anyList())).thenReturn(mockSpaceUserList);
             when(userInfoDataService.findByUid("test-uid")).thenReturn(Optional.of(mockUserInfo));
 
             // When
-            List<SpaceVO> result = spaceService.corporateList(name);
+            List<SpaceVo> result = spaceService.corporateList(name);
 
             // Then
             assertNotNull(result);
@@ -286,7 +286,7 @@ class SpaceServiceImplTest {
 
     @Test
     @DisplayName("Should return corporate count successfully")
-    void corporateCount_ShouldReturnEnterpriseSpaceCountVO() {
+    void corporateCount_ShouldReturnEnterpriseSpaceCountVo() {
         // Given
         String uid = "test-uid";
         Long enterpriseId = 100L;
@@ -296,10 +296,10 @@ class SpaceServiceImplTest {
 
             requestMockedStatic.when(RequestContextUtil::getUID).thenReturn(uid);
             enterpriseMockedStatic.when(EnterpriseInfoUtil::getEnterpriseId).thenReturn(enterpriseId);
-            when(spaceMapper.corporateCount(uid, enterpriseId)).thenReturn(mockCountVO);
+            when(spaceMapper.corporateCount(uid, enterpriseId)).thenReturn(mockCountVo);
 
             // When
-            EnterpriseSpaceCountVO result = spaceService.corporateCount();
+            EnterpriseSpaceCountVo result = spaceService.corporateCount();
 
             // Then
             assertNotNull(result);
@@ -321,12 +321,12 @@ class SpaceServiceImplTest {
 
             requestMockedStatic.when(RequestContextUtil::getUID).thenReturn(uid);
             spaceMockedStatic.when(SpaceInfoUtil::getSpaceId).thenReturn(spaceId);
-            when(spaceMapper.getByUidAndId(uid, spaceId)).thenReturn(mockSpaceVO);
+            when(spaceMapper.getByUidAndId(uid, spaceId)).thenReturn(mockSpaceVo);
             when(spaceUserService.getAllSpaceUsers(spaceId)).thenReturn(mockSpaceUserList);
             when(userInfoDataService.findByUid("test-uid")).thenReturn(Optional.of(mockUserInfo));
 
             // When
-            SpaceVO result = spaceService.getSpaceVO();
+            SpaceVo result = spaceService.getSpaceVo();
 
             // Then
             assertNotNull(result);
@@ -352,7 +352,7 @@ class SpaceServiceImplTest {
             when(spaceMapper.getByUidAndId(uid, spaceId)).thenReturn(null);
 
             // When
-            SpaceVO result = spaceService.getSpaceVO();
+            SpaceVo result = spaceService.getSpaceVo();
 
             // Then
             assertNull(result);
@@ -383,7 +383,7 @@ class SpaceServiceImplTest {
 
     @Test
     @DisplayName("Should get last visit space successfully")
-    void getLastVisitSpace_WithValidData_ShouldReturnSpaceVO() {
+    void getLastVisitSpace_WithValidData_ShouldReturnSpaceVo() {
         // Given
         String uid = "test-uid";
         Long enterpriseId = 100L;
@@ -393,13 +393,13 @@ class SpaceServiceImplTest {
 
             requestMockedStatic.when(RequestContextUtil::getUID).thenReturn(uid);
             enterpriseMockedStatic.when(EnterpriseInfoUtil::getEnterpriseId).thenReturn(enterpriseId);
-            when(spaceMapper.recentVisitList(uid, enterpriseId)).thenReturn(mockSpaceVOList);
+            when(spaceMapper.recentVisitList(uid, enterpriseId)).thenReturn(mockSpaceVoList);
             when(redissonClient.getBucket(anyString())).thenReturn(rBucket);
             when(rBucket.get()).thenReturn("1234567890");
-            when(spaceMapper.getByUidAndId(uid, 1L)).thenReturn(mockSpaceVO);
+            when(spaceMapper.getByUidAndId(uid, 1L)).thenReturn(mockSpaceVo);
 
             // When
-            SpaceVO result = spaceService.getLastVisitSpace();
+            SpaceVo result = spaceService.getLastVisitSpace();
 
             // Then
             assertNotNull(result);
@@ -422,7 +422,7 @@ class SpaceServiceImplTest {
             when(spaceMapper.recentVisitList(uid, enterpriseId)).thenReturn(Collections.emptyList());
 
             // When
-            SpaceVO result = spaceService.getLastVisitSpace();
+            SpaceVo result = spaceService.getLastVisitSpace();
 
             // Then
             assertNotNull(result);
@@ -444,13 +444,13 @@ class SpaceServiceImplTest {
             requestMockedStatic.when(RequestContextUtil::getUID).thenReturn(uid);
             enterpriseMockedStatic.when(EnterpriseInfoUtil::getEnterpriseId).thenReturn(null);
             when(enterpriseService.getLastVisitEnterpriseId()).thenReturn(lastVisitEnterpriseId);
-            when(spaceMapper.recentVisitList(uid, lastVisitEnterpriseId)).thenReturn(mockSpaceVOList);
+            when(spaceMapper.recentVisitList(uid, lastVisitEnterpriseId)).thenReturn(mockSpaceVoList);
             when(redissonClient.getBucket(anyString())).thenReturn(rBucket);
             when(rBucket.get()).thenReturn("1234567890");
-            when(spaceMapper.getByUidAndId(uid, 1L)).thenReturn(mockSpaceVO);
+            when(spaceMapper.getByUidAndId(uid, 1L)).thenReturn(mockSpaceVo);
 
             // When
-            SpaceVO result = spaceService.getLastVisitSpace();
+            SpaceVo result = spaceService.getLastVisitSpace();
 
             // Then
             assertNotNull(result);
@@ -529,15 +529,15 @@ class SpaceServiceImplTest {
 
     @Test
     @DisplayName("Should list spaces by enterprise ID and UID")
-    void listByEnterpriseIdAndUid_WithValidParameters_ShouldReturnSpaceVOList() {
+    void listByEnterpriseIdAndUid_WithValidParameters_ShouldReturnSpaceVoList() {
         // Given
         Long enterpriseId = 100L;
         String uid = "test-uid";
 
-        when(spaceMapper.joinList(uid, enterpriseId, null)).thenReturn(mockSpaceVOList);
+        when(spaceMapper.joinList(uid, enterpriseId, null)).thenReturn(mockSpaceVoList);
 
         // When
-        List<SpaceVO> result = spaceService.listByEnterpriseIdAndUid(enterpriseId, uid);
+        List<SpaceVo> result = spaceService.listByEnterpriseIdAndUid(enterpriseId, uid);
 
         // Then
         assertNotNull(result);
@@ -716,15 +716,15 @@ class SpaceServiceImplTest {
     }
 
     @Test
-    @DisplayName("Should handle empty space VO list in setSpaceVOExtraInfo")
-    void setSpaceVOExtraInfo_WithEmptyList_ShouldHandleGracefully() {
+    @DisplayName("Should handle empty space VO list in setSpaceVoExtraInfo")
+    void setSpaceVoExtraInfo_WithEmptyList_ShouldHandleGracefully() {
         // Given
-        List<SpaceVO> emptyList = Collections.emptyList();
+        List<SpaceVo> emptyList = Collections.emptyList();
 
         // Use reflection to call private method
         assertDoesNotThrow(() -> {
             java.lang.reflect.Method method = spaceService.getClass()
-                    .getDeclaredMethod("setSpaceVOExtraInfo", List.class);
+                    .getDeclaredMethod("setSpaceVoExtraInfo", List.class);
             method.setAccessible(true);
             method.invoke(spaceService, emptyList);
         });
@@ -734,10 +734,10 @@ class SpaceServiceImplTest {
     }
 
     @Test
-    @DisplayName("Should handle null user info in setSpaceVOExtraInfo")
-    void setSpaceVOExtraInfo_WithNullUserInfo_ShouldHandleGracefully() {
+    @DisplayName("Should handle null user info in setSpaceVoExtraInfo")
+    void setSpaceVoExtraInfo_WithNullUserInfo_ShouldHandleGracefully() {
         // Given
-        List<Long> spaceIds = Arrays.asList(1L, 2L); // Match the actual space IDs in mockSpaceVOList
+        List<Long> spaceIds = Arrays.asList(1L, 2L); // Match the actual space IDs in mockSpaceVoList
 
         when(spaceUserService.getAllSpaceUsers(spaceIds)).thenReturn(mockSpaceUserList);
         when(userInfoDataService.findByUid("test-uid")).thenReturn(Optional.empty());
@@ -745,9 +745,9 @@ class SpaceServiceImplTest {
         // When & Then
         assertThrows(InvocationTargetException.class, () -> {
             java.lang.reflect.Method method = spaceService.getClass()
-                    .getDeclaredMethod("setSpaceVOExtraInfo", List.class);
+                    .getDeclaredMethod("setSpaceVoExtraInfo", List.class);
             method.setAccessible(true);
-            method.invoke(spaceService, mockSpaceVOList);
+            method.invoke(spaceService, mockSpaceVoList);
         });
     }
 
@@ -835,12 +835,12 @@ class SpaceServiceImplTest {
         String name = "Test";
 
         // Create large lists
-        List<SpaceVO> largeSpaceVOList = new ArrayList<>();
+        List<SpaceVo> largeSpaceVoList = new ArrayList<>();
         List<SpaceUser> largeSpaceUserList = new ArrayList<>();
         List<Long> largeSpaceIds = new ArrayList<>();
 
         for (int i = 0; i < 100; i++) {
-            largeSpaceVOList.add(createMockSpaceVO((long) i, "Space " + i, "uid-" + i, enterpriseId, SpaceTypeEnum.FREE.getCode()));
+            largeSpaceVoList.add(createMockSpaceVo((long) i, "Space " + i, "uid-" + i, enterpriseId, SpaceTypeEnum.FREE.getCode()));
             largeSpaceUserList.add(createMockSpaceUser((long) i, (long) i, "uid-" + i, "User " + i, SpaceRoleEnum.OWNER.getCode()));
             largeSpaceIds.add((long) i);
         }
@@ -850,12 +850,12 @@ class SpaceServiceImplTest {
 
             requestMockedStatic.when(RequestContextUtil::getUID).thenReturn(uid);
             enterpriseMockedStatic.when(EnterpriseInfoUtil::getEnterpriseId).thenReturn(enterpriseId);
-            when(spaceMapper.joinList(uid, enterpriseId, name)).thenReturn(largeSpaceVOList);
+            when(spaceMapper.joinList(uid, enterpriseId, name)).thenReturn(largeSpaceVoList);
             when(spaceUserService.getAllSpaceUsers(largeSpaceIds)).thenReturn(largeSpaceUserList);
             when(userInfoDataService.findByUid(anyString())).thenReturn(Optional.of(mockUserInfo));
 
             // When
-            List<SpaceVO> result = spaceService.personalList(name);
+            List<SpaceVo> result = spaceService.personalList(name);
 
             // Then
             assertNotNull(result);

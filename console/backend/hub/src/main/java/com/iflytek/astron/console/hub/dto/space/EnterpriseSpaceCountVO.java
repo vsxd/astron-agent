@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Schema(name = "Enterprise space count")
-public class EnterpriseSpaceCountVO {
+public class EnterpriseSpaceCountVo {
 
     @Schema(description = "Total")
     private Long total;

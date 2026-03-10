@@ -8,7 +8,7 @@
         where u.uid = #{uid} and u.enterprise_id = #{enterpriseId} and e.deleted = 0
     </select>
 
-    <select id="selectVOPageByParam" resultType="com.iflytek.astron.console.hub.dto.space.EnterpriseUserVO">
+    <select id="selectVoPageByParam" resultType="com.iflytek.astron.console.hub.dto.space.EnterpriseUserVo">
         select u.* from agent_enterprise_user u
         <where>
             <if test="enterpriseId != null">

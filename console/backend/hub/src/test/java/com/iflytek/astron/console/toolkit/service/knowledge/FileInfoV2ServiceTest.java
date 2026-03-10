@@ -11,7 +11,7 @@ import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.entity.dto.KnowledgeDto;
 import com.iflytek.astron.console.hub.entity.table.knowledge.MysqlKnowledge;
 import com.iflytek.astron.console.hub.entity.table.knowledge.MysqlPreviewKnowledge;
-import com.iflytek.astron.console.hub.entity.vo.repo.KnowledgeQueryVO;
+import com.iflytek.astron.console.hub.entity.vo.repo.KnowledgeQueryVo;
 import com.iflytek.astron.console.hub.util.SpringUtils;
 import com.iflytek.astron.console.hub.common.constant.ProjectContent;
 import com.iflytek.astron.console.hub.config.properties.ApiUrl;
@@ -22,9 +22,9 @@ import com.iflytek.astron.console.hub.entity.table.repo.ExtractKnowledgeTask;
 import com.iflytek.astron.console.hub.entity.table.repo.FileInfoV2;
 import com.iflytek.astron.console.hub.entity.table.repo.Repo;
 import com.iflytek.astron.console.hub.entity.table.repo.FileDirectoryTree;
-import com.iflytek.astron.console.hub.entity.vo.HtmlFileVO;
-import com.iflytek.astron.console.hub.entity.vo.repo.CreateFolderVO;
-import com.iflytek.astron.console.hub.entity.vo.repo.DealFileVO;
+import com.iflytek.astron.console.hub.entity.vo.HtmlFileVo;
+import com.iflytek.astron.console.hub.entity.vo.repo.CreateFolderVo;
+import com.iflytek.astron.console.hub.entity.vo.repo.DealFileVo;
 import com.iflytek.astron.console.hub.entity.dto.FileInfoV2Dto;
 import com.iflytek.astron.console.hub.entity.common.PageData;
 import com.iflytek.astron.console.hub.handler.UserInfoManagerHandler;
@@ -626,10 +626,10 @@ class FileInfoV2ServiceTest {
         @DisplayName("Create HTML file - success")
         void testCreateHtmlFile_Success() {
             // Given
-            HtmlFileVO htmlFileVO = new HtmlFileVO();
-            htmlFileVO.setRepoId(100L);
-            htmlFileVO.setParentId(0L);
-            htmlFileVO.setHtmlAddressList(Arrays.asList("http://example.com/page1.html", "http://example.com/page2.html"));
+            HtmlFileVo htmlFileVo = new HtmlFileVo();
+            htmlFileVo.setRepoId(100L);
+            htmlFileVo.setParentId(0L);
+            htmlFileVo.setHtmlAddressList(Arrays.asList("http://example.com/page1.html", "http://example.com/page2.html"));
 
             when(repoService.getById(100L)).thenReturn(mockRepo);
             doNothing().when(dataPermissionCheckTool).checkRepoBelong(any(Repo.class));
@@ -637,7 +637,7 @@ class FileInfoV2ServiceTest {
             doReturn(true).when(fileInfoV2Service).saveBatch(anyList());
 
             // When
-            List<FileInfoV2> result = fileInfoV2Service.createHtmlFile(htmlFileVO);
+            List<FileInfoV2> result = fileInfoV2Service.createHtmlFile(htmlFileVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -655,10 +655,10 @@ class FileInfoV2ServiceTest {
         void testCreateHtmlFile_LongUrlTruncation() {
             // Given
             String longUrl = "http://example.com/" + "a".repeat(100) + ".html";
-            HtmlFileVO htmlFileVO = new HtmlFileVO();
-            htmlFileVO.setRepoId(100L);
-            htmlFileVO.setParentId(0L);
-            htmlFileVO.setHtmlAddressList(Arrays.asList(longUrl));
+            HtmlFileVo htmlFileVo = new HtmlFileVo();
+            htmlFileVo.setRepoId(100L);
+            htmlFileVo.setParentId(0L);
+            htmlFileVo.setHtmlAddressList(Arrays.asList(longUrl));
 
             when(repoService.getById(100L)).thenReturn(mockRepo);
             doNothing().when(dataPermissionCheckTool).checkRepoBelong(any(Repo.class));
@@ -666,7 +666,7 @@ class FileInfoV2ServiceTest {
             doReturn(true).when(fileInfoV2Service).saveBatch(anyList());
 
             // When
-            List<FileInfoV2> result = fileInfoV2Service.createHtmlFile(htmlFileVO);
+            List<FileInfoV2> result = fileInfoV2Service.createHtmlFile(htmlFileVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -682,9 +682,9 @@ class FileInfoV2ServiceTest {
         @DisplayName("Create HTML file - repository not found")
         void testCreateHtmlFile_RepoNotFound() {
             // Given
-            HtmlFileVO htmlFileVO = new HtmlFileVO();
-            htmlFileVO.setRepoId(999L);
-            htmlFileVO.setHtmlAddressList(Arrays.asList("http://example.com/page.html"));
+            HtmlFileVo htmlFileVo = new HtmlFileVo();
+            htmlFileVo.setRepoId(999L);
+            htmlFileVo.setHtmlAddressList(Arrays.asList("http://example.com/page.html"));
 
             when(repoService.getById(999L)).thenReturn(null);
             // When repo is null, checkRepoBelong should throw exception
@@ -693,7 +693,7 @@ class FileInfoV2ServiceTest {
                     .checkRepoBelong(null);
 
             // When & Then
-            assertThatThrownBy(() -> fileInfoV2Service.createHtmlFile(htmlFileVO))
+            assertThatThrownBy(() -> fileInfoV2Service.createHtmlFile(htmlFileVo))
                     .isInstanceOf(BusinessException.class)
                     .extracting("responseEnum")
                     .isEqualTo(ResponseEnum.REPO_NOT_EXIST);
@@ -706,15 +706,15 @@ class FileInfoV2ServiceTest {
         @DisplayName("Create HTML file - empty list")
         void testCreateHtmlFile_EmptyList() {
             // Given
-            HtmlFileVO htmlFileVO = new HtmlFileVO();
-            htmlFileVO.setRepoId(100L);
-            htmlFileVO.setHtmlAddressList(Collections.emptyList());
+            HtmlFileVo htmlFileVo = new HtmlFileVo();
+            htmlFileVo.setRepoId(100L);
+            htmlFileVo.setHtmlAddressList(Collections.emptyList());
 
             when(repoService.getById(100L)).thenReturn(mockRepo);
             doNothing().when(dataPermissionCheckTool).checkRepoBelong(any(Repo.class));
 
             // When
-            List<FileInfoV2> result = fileInfoV2Service.createHtmlFile(htmlFileVO);
+            List<FileInfoV2> result = fileInfoV2Service.createHtmlFile(htmlFileVo);
 
             // Then
             assertThat(result).isEmpty();
@@ -1629,17 +1629,17 @@ class FileInfoV2ServiceTest {
         @DisplayName("Create folder - success")
         void testCreateFolder_Success() {
             // Given
-            CreateFolderVO folderVO = new CreateFolderVO();
-            folderVO.setName("TestFolder");
-            folderVO.setParentId(0L);
-            folderVO.setRepoId(100L);
+            CreateFolderVo folderVo = new CreateFolderVo();
+            folderVo.setName("TestFolder");
+            folderVo.setParentId(0L);
+            folderVo.setRepoId(100L);
 
             when(repoService.getById(100L)).thenReturn(mockRepo);
             doNothing().when(dataPermissionCheckTool).checkRepoBelong(any(Repo.class));
             when(fileDirectoryTreeMapper.insert(any(FileDirectoryTree.class))).thenReturn(1);
 
             // When
-            fileInfoV2Service.createFolder(folderVO);
+            fileInfoV2Service.createFolder(folderVo);
 
             // Then
             verify(fileDirectoryTreeMapper, times(1)).insert(any(FileDirectoryTree.class));
@@ -1653,12 +1653,12 @@ class FileInfoV2ServiceTest {
         @DisplayName("Create folder - empty name")
         void testCreateFolder_EmptyName() {
             // Given
-            CreateFolderVO folderVO = new CreateFolderVO();
-            folderVO.setName("");
-            folderVO.setRepoId(100L);
+            CreateFolderVo folderVo = new CreateFolderVo();
+            folderVo.setName("");
+            folderVo.setRepoId(100L);
 
             // When & Then
-            assertThatThrownBy(() -> fileInfoV2Service.createFolder(folderVO))
+            assertThatThrownBy(() -> fileInfoV2Service.createFolder(folderVo))
                     .isInstanceOf(BusinessException.class)
                     .extracting("responseEnum")
                     .isEqualTo(ResponseEnum.REPO_FILE_NAME_CANNOT_EMPTY);
@@ -1673,12 +1673,12 @@ class FileInfoV2ServiceTest {
         @DisplayName("Create folder - illegal characters in name")
         void testCreateFolder_IllegalCharacters() {
             // Given
-            CreateFolderVO folderVO = new CreateFolderVO();
-            folderVO.setName("Test/Folder");
-            folderVO.setRepoId(100L);
+            CreateFolderVo folderVo = new CreateFolderVo();
+            folderVo.setName("Test/Folder");
+            folderVo.setRepoId(100L);
 
             // When & Then
-            assertThatThrownBy(() -> fileInfoV2Service.createFolder(folderVO))
+            assertThatThrownBy(() -> fileInfoV2Service.createFolder(folderVo))
                     .isInstanceOf(BusinessException.class)
                     .extracting("responseEnum")
                     .isEqualTo(ResponseEnum.REPO_FOLDER_NAME_ILLEGAL);
@@ -1697,12 +1697,12 @@ class FileInfoV2ServiceTest {
                     "Test\"Folder", "Test<Folder", "Test>Folder", "Test|Folder"};
 
             for (String illegalName : illegalNames) {
-                CreateFolderVO folderVO = new CreateFolderVO();
-                folderVO.setName(illegalName);
-                folderVO.setRepoId(100L);
+                CreateFolderVo folderVo = new CreateFolderVo();
+                folderVo.setName(illegalName);
+                folderVo.setRepoId(100L);
 
                 // When & Then
-                assertThatThrownBy(() -> fileInfoV2Service.createFolder(folderVO))
+                assertThatThrownBy(() -> fileInfoV2Service.createFolder(folderVo))
                         .isInstanceOf(BusinessException.class)
                         .extracting("responseEnum")
                         .isEqualTo(ResponseEnum.REPO_FOLDER_NAME_ILLEGAL);
@@ -1726,10 +1726,10 @@ class FileInfoV2ServiceTest {
         @DisplayName("Update folder - success")
         void testUpdateFolder_Success() {
             // Given
-            CreateFolderVO folderVO = new CreateFolderVO();
-            folderVO.setId(1L);
-            folderVO.setName("UpdatedFolder");
-            folderVO.setRepoId(100L);
+            CreateFolderVo folderVo = new CreateFolderVo();
+            folderVo.setId(1L);
+            folderVo.setName("UpdatedFolder");
+            folderVo.setRepoId(100L);
 
             FileDirectoryTree existingTree = new FileDirectoryTree();
             existingTree.setId(1L);
@@ -1741,7 +1741,7 @@ class FileInfoV2ServiceTest {
             when(fileDirectoryTreeService.updateById(any(FileDirectoryTree.class))).thenReturn(true);
 
             // When
-            fileInfoV2Service.updateFolder(folderVO);
+            fileInfoV2Service.updateFolder(folderVo);
 
             // Then
             verify(fileDirectoryTreeService, times(1)).updateById(any(FileDirectoryTree.class));
@@ -1755,13 +1755,13 @@ class FileInfoV2ServiceTest {
         @DisplayName("Update folder - empty name")
         void testUpdateFolder_EmptyName() {
             // Given
-            CreateFolderVO folderVO = new CreateFolderVO();
-            folderVO.setId(1L);
-            folderVO.setName("");
-            folderVO.setRepoId(100L);
+            CreateFolderVo folderVo = new CreateFolderVo();
+            folderVo.setId(1L);
+            folderVo.setName("");
+            folderVo.setRepoId(100L);
 
             // When & Then
-            assertThatThrownBy(() -> fileInfoV2Service.updateFolder(folderVO))
+            assertThatThrownBy(() -> fileInfoV2Service.updateFolder(folderVo))
                     .isInstanceOf(BusinessException.class)
                     .extracting("responseEnum")
                     .isEqualTo(ResponseEnum.REPO_FILE_NAME_CANNOT_EMPTY);
@@ -1776,13 +1776,13 @@ class FileInfoV2ServiceTest {
         @DisplayName("Update folder - illegal characters in name")
         void testUpdateFolder_IllegalCharacters() {
             // Given
-            CreateFolderVO folderVO = new CreateFolderVO();
-            folderVO.setId(1L);
-            folderVO.setName("Test\\Folder");
-            folderVO.setRepoId(100L);
+            CreateFolderVo folderVo = new CreateFolderVo();
+            folderVo.setId(1L);
+            folderVo.setName("Test\\Folder");
+            folderVo.setRepoId(100L);
 
             // When & Then
-            assertThatThrownBy(() -> fileInfoV2Service.updateFolder(folderVO))
+            assertThatThrownBy(() -> fileInfoV2Service.updateFolder(folderVo))
                     .isInstanceOf(BusinessException.class)
                     .extracting("responseEnum")
                     .isEqualTo(ResponseEnum.REPO_FOLDER_NAME_ILLEGAL);
@@ -1805,9 +1805,9 @@ class FileInfoV2ServiceTest {
         @DisplayName("Update file - success")
         void testUpdateFile_Success() {
             // Given
-            CreateFolderVO folderVO = new CreateFolderVO();
-            folderVO.setId(1L);
-            folderVO.setName("UpdatedFile.txt");
+            CreateFolderVo folderVo = new CreateFolderVo();
+            folderVo.setId(1L);
+            folderVo.setName("UpdatedFile.txt");
 
             FileDirectoryTree tree = new FileDirectoryTree();
             tree.setId(1L);
@@ -1821,7 +1821,7 @@ class FileInfoV2ServiceTest {
             doReturn(true).when(fileInfoV2Service).updateById(any(FileInfoV2.class));
 
             // When
-            fileInfoV2Service.updateFile(folderVO);
+            fileInfoV2Service.updateFile(folderVo);
 
             // Then
             verify(fileDirectoryTreeService, times(1)).updateById(any(FileDirectoryTree.class));
@@ -1835,14 +1835,14 @@ class FileInfoV2ServiceTest {
         @DisplayName("Update file - directory tree not found")
         void testUpdateFile_DirectoryTreeNotFound() {
             // Given
-            CreateFolderVO folderVO = new CreateFolderVO();
-            folderVO.setId(999L);
-            folderVO.setName("UpdatedFile.txt");
+            CreateFolderVo folderVo = new CreateFolderVo();
+            folderVo.setId(999L);
+            folderVo.setName("UpdatedFile.txt");
 
             when(fileDirectoryTreeService.getById(999L)).thenReturn(null);
 
             // When & Then
-            assertThatThrownBy(() -> fileInfoV2Service.updateFile(folderVO))
+            assertThatThrownBy(() -> fileInfoV2Service.updateFile(folderVo))
                     .isInstanceOf(RuntimeException.class)
                     .hasMessageContaining("File not found");
         }
@@ -1854,9 +1854,9 @@ class FileInfoV2ServiceTest {
         @DisplayName("Update file - file info not found")
         void testUpdateFile_FileInfoNotFound() {
             // Given
-            CreateFolderVO folderVO = new CreateFolderVO();
-            folderVO.setId(1L);
-            folderVO.setName("UpdatedFile.txt");
+            CreateFolderVo folderVo = new CreateFolderVo();
+            folderVo.setId(1L);
+            folderVo.setName("UpdatedFile.txt");
 
             FileDirectoryTree tree = new FileDirectoryTree();
             tree.setId(1L);
@@ -1866,7 +1866,7 @@ class FileInfoV2ServiceTest {
             when(fileInfoV2Mapper.selectById(999L)).thenReturn(null);
 
             // When & Then
-            assertThatThrownBy(() -> fileInfoV2Service.updateFile(folderVO))
+            assertThatThrownBy(() -> fileInfoV2Service.updateFile(folderVo))
                     .isInstanceOf(RuntimeException.class)
                     .hasMessageContaining("File not found");
         }
@@ -1880,9 +1880,9 @@ class FileInfoV2ServiceTest {
             // Given
             spaceInfoUtilMock.when(SpaceInfoUtil::getSpaceId).thenReturn(123L);
 
-            CreateFolderVO folderVO = new CreateFolderVO();
-            folderVO.setId(1L);
-            folderVO.setName("UpdatedFile.txt");
+            CreateFolderVo folderVo = new CreateFolderVo();
+            folderVo.setId(1L);
+            folderVo.setName("UpdatedFile.txt");
 
             FileDirectoryTree tree = new FileDirectoryTree();
             tree.setId(1L);
@@ -1894,7 +1894,7 @@ class FileInfoV2ServiceTest {
             doReturn(true).when(fileInfoV2Service).updateById(any(FileInfoV2.class));
 
             // When
-            fileInfoV2Service.updateFile(folderVO);
+            fileInfoV2Service.updateFile(folderVo);
 
             // Then
             verify(dataPermissionCheckTool, never()).checkFileBelong(any(FileInfoV2.class));
@@ -2005,9 +2005,9 @@ class FileInfoV2ServiceTest {
         @DisplayName("Get indexing status - success (non-Spark)")
         void testGetIndexingStatus_Success() {
             // Given
-            DealFileVO dealFileVO = new DealFileVO();
-            dealFileVO.setFileIds(Arrays.asList("1", "2"));
-            dealFileVO.setTag("AIUI-RAG2");
+            DealFileVo dealFileVo = new DealFileVo();
+            dealFileVo.setFileIds(Arrays.asList("1", "2"));
+            dealFileVo.setTag("AIUI-RAG2");
 
             FileInfoV2 file1 = new FileInfoV2();
             file1.setId(1L);
@@ -2023,7 +2023,7 @@ class FileInfoV2ServiceTest {
             when(knowledgeMapper.countByFileId(anyString())).thenReturn(10L);
 
             // When
-            List<FileInfoV2Dto> result = fileInfoV2Service.getIndexingStatus(dealFileVO);
+            List<FileInfoV2Dto> result = fileInfoV2Service.getIndexingStatus(dealFileVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -2046,12 +2046,12 @@ class FileInfoV2ServiceTest {
         @DisplayName("Get indexing status - empty file list")
         void testGetIndexingStatus_EmptyFileList() {
             // Given
-            DealFileVO dealFileVO = new DealFileVO();
-            dealFileVO.setFileIds(Collections.emptyList());
-            dealFileVO.setTag("AIUI-RAG2");
+            DealFileVo dealFileVo = new DealFileVo();
+            dealFileVo.setFileIds(Collections.emptyList());
+            dealFileVo.setTag("AIUI-RAG2");
 
             // When
-            List<FileInfoV2Dto> result = fileInfoV2Service.getIndexingStatus(dealFileVO);
+            List<FileInfoV2Dto> result = fileInfoV2Service.getIndexingStatus(dealFileVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -2067,9 +2067,9 @@ class FileInfoV2ServiceTest {
             // Given
             spaceInfoUtilMock.when(SpaceInfoUtil::getSpaceId).thenReturn(123L);
 
-            DealFileVO dealFileVO = new DealFileVO();
-            dealFileVO.setFileIds(Arrays.asList("1"));
-            dealFileVO.setTag("AIUI-RAG2");
+            DealFileVo dealFileVo = new DealFileVo();
+            dealFileVo.setFileIds(Arrays.asList("1"));
+            dealFileVo.setTag("AIUI-RAG2");
 
             FileInfoV2 file1 = new FileInfoV2();
             file1.setId(1L);
@@ -2079,7 +2079,7 @@ class FileInfoV2ServiceTest {
             when(knowledgeMapper.countByFileId(anyString())).thenReturn(10L);
 
             // When
-            List<FileInfoV2Dto> result = fileInfoV2Service.getIndexingStatus(dealFileVO);
+            List<FileInfoV2Dto> result = fileInfoV2Service.getIndexingStatus(dealFileVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -2560,10 +2560,10 @@ class FileInfoV2ServiceTest {
         @DisplayName("Get file summary - success (non-Spark)")
         void testGetFileSummary_Success() {
             // Given
-            DealFileVO dealFileVO = new DealFileVO();
-            dealFileVO.setFileIds(Arrays.asList("1"));
-            dealFileVO.setTag("AIUI-RAG2");
-            dealFileVO.setRepoId(100L);
+            DealFileVo dealFileVo = new DealFileVo();
+            dealFileVo.setFileIds(Arrays.asList("1"));
+            dealFileVo.setTag("AIUI-RAG2");
+            dealFileVo.setRepoId(100L);
 
             FileInfoV2 file1 = new FileInfoV2();
             file1.setId(1L);
@@ -2581,7 +2581,7 @@ class FileInfoV2ServiceTest {
             when(fileDirectoryTreeService.getOnly(any(LambdaQueryWrapper.class))).thenReturn(tree);
 
             // When
-            FileSummary result = fileInfoV2Service.getFileSummary(dealFileVO, mockRequest);
+            FileSummary result = fileInfoV2Service.getFileSummary(dealFileVo, mockRequest);
 
             // Then
             assertThat(result).isNotNull();
@@ -2598,10 +2598,10 @@ class FileInfoV2ServiceTest {
         @DisplayName("Get file summary - no knowledge found")
         void testGetFileSummary_NoKnowledge() {
             // Given
-            DealFileVO dealFileVO = new DealFileVO();
-            dealFileVO.setFileIds(Arrays.asList("1"));
-            dealFileVO.setTag("AIUI-RAG2");
-            dealFileVO.setRepoId(100L);
+            DealFileVo dealFileVo = new DealFileVo();
+            dealFileVo.setFileIds(Arrays.asList("1"));
+            dealFileVo.setTag("AIUI-RAG2");
+            dealFileVo.setRepoId(100L);
 
             FileInfoV2 file1 = new FileInfoV2();
             file1.setId(1L);
@@ -2618,7 +2618,7 @@ class FileInfoV2ServiceTest {
             when(fileDirectoryTreeService.getOnly(any(LambdaQueryWrapper.class))).thenReturn(tree);
 
             // When
-            FileSummary result = fileInfoV2Service.getFileSummary(dealFileVO, mockRequest);
+            FileSummary result = fileInfoV2Service.getFileSummary(dealFileVo, mockRequest);
 
             // Then
             assertThat(result).isNotNull();
@@ -2635,10 +2635,10 @@ class FileInfoV2ServiceTest {
             // Given
             spaceInfoUtilMock.when(SpaceInfoUtil::getSpaceId).thenReturn(123L);
 
-            DealFileVO dealFileVO = new DealFileVO();
-            dealFileVO.setFileIds(Arrays.asList("1"));
-            dealFileVO.setTag("AIUI-RAG2");
-            dealFileVO.setRepoId(100L);
+            DealFileVo dealFileVo = new DealFileVo();
+            dealFileVo.setFileIds(Arrays.asList("1"));
+            dealFileVo.setTag("AIUI-RAG2");
+            dealFileVo.setRepoId(100L);
 
             FileInfoV2 file1 = new FileInfoV2();
             file1.setId(1L);
@@ -2653,7 +2653,7 @@ class FileInfoV2ServiceTest {
             when(fileDirectoryTreeService.getOnly(any(LambdaQueryWrapper.class))).thenReturn(tree);
 
             // When
-            FileSummary result = fileInfoV2Service.getFileSummary(dealFileVO, mockRequest);
+            FileSummary result = fileInfoV2Service.getFileSummary(dealFileVo, mockRequest);
 
             // Then
             assertThat(result).isNotNull();
@@ -2681,15 +2681,15 @@ class FileInfoV2ServiceTest {
         @DisplayName("Slice files - success (non-Spark, single file)")
         void testSliceFiles_Success_SingleFile() throws Exception {
             // Given
-            DealFileVO dealFileVO = new DealFileVO();
-            dealFileVO.setFileIds(Arrays.asList("1"));
-            dealFileVO.setTag("AIUI-RAG2");
+            DealFileVo dealFileVo = new DealFileVo();
+            dealFileVo.setFileIds(Arrays.asList("1"));
+            dealFileVo.setTag("AIUI-RAG2");
 
             SliceConfig sliceConfig = new SliceConfig();
             sliceConfig.setType(1);
             sliceConfig.setLengthRange(Arrays.asList(100, 500));
             sliceConfig.setSeperator(Arrays.asList("。", "！", "？"));
-            dealFileVO.setSliceConfig(sliceConfig);
+            dealFileVo.setSliceConfig(sliceConfig);
 
             mockFileInfo.setStatus(ProjectContent.FILE_PARSE_SUCCESSED);
             mockFileInfo.setSource("AIUI-RAG2");
@@ -2716,7 +2716,7 @@ class FileInfoV2ServiceTest {
             doReturn(successResult).when(fileInfoV2Service).sliceFile(anyLong(), any(SliceConfig.class), anyInt());
 
             // When
-            Boolean result = fileInfoV2Service.sliceFiles(dealFileVO);
+            Boolean result = fileInfoV2Service.sliceFiles(dealFileVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -2731,14 +2731,14 @@ class FileInfoV2ServiceTest {
         @DisplayName("Slice files - file is currently being parsed")
         void testSliceFiles_FileBeingParsed() {
             // Given
-            DealFileVO dealFileVO = new DealFileVO();
-            dealFileVO.setFileIds(Arrays.asList("1"));
-            dealFileVO.setTag("AIUI-RAG2");
+            DealFileVo dealFileVo = new DealFileVo();
+            dealFileVo.setFileIds(Arrays.asList("1"));
+            dealFileVo.setTag("AIUI-RAG2");
 
             SliceConfig sliceConfig = new SliceConfig();
             sliceConfig.setType(1);
             sliceConfig.setLengthRange(Arrays.asList(100, 500));
-            dealFileVO.setSliceConfig(sliceConfig);
+            dealFileVo.setSliceConfig(sliceConfig);
 
             mockFileInfo.setStatus(ProjectContent.FILE_PARSE_DOING);
 
@@ -2746,7 +2746,7 @@ class FileInfoV2ServiceTest {
             doNothing().when(dataPermissionCheckTool).checkFileBelong(any(FileInfoV2.class));
 
             // When & Then
-            assertThatThrownBy(() -> fileInfoV2Service.sliceFiles(dealFileVO))
+            assertThatThrownBy(() -> fileInfoV2Service.sliceFiles(dealFileVo))
                     .isInstanceOf(BusinessException.class)
                     .extracting("responseEnum")
                     .isEqualTo(ResponseEnum.REPO_KNOWLEDGE_SPLITTING);
@@ -2759,14 +2759,14 @@ class FileInfoV2ServiceTest {
         @DisplayName("Slice files - invalid slice range for AIUI-RAG")
         void testSliceFiles_InvalidSliceRange() {
             // Given
-            DealFileVO dealFileVO = new DealFileVO();
-            dealFileVO.setFileIds(Arrays.asList("1"));
-            dealFileVO.setTag("AIUI-RAG2");
+            DealFileVo dealFileVo = new DealFileVo();
+            dealFileVo.setFileIds(Arrays.asList("1"));
+            dealFileVo.setTag("AIUI-RAG2");
 
             SliceConfig sliceConfig = new SliceConfig();
             sliceConfig.setType(1);
             sliceConfig.setLengthRange(Arrays.asList(10, 2000)); // Invalid: max > 1024
-            dealFileVO.setSliceConfig(sliceConfig);
+            dealFileVo.setSliceConfig(sliceConfig);
 
             mockFileInfo.setStatus(ProjectContent.FILE_PARSE_SUCCESSED);
             mockFileInfo.setSource("AIUI-RAG2");
@@ -2775,7 +2775,7 @@ class FileInfoV2ServiceTest {
             doNothing().when(dataPermissionCheckTool).checkFileBelong(any(FileInfoV2.class));
 
             // When & Then
-            assertThatThrownBy(() -> fileInfoV2Service.sliceFiles(dealFileVO))
+            assertThatThrownBy(() -> fileInfoV2Service.sliceFiles(dealFileVo))
                     .isInstanceOf(BusinessException.class)
                     .extracting("responseEnum")
                     .isEqualTo(ResponseEnum.REPO_FILE_SLICE_RANGE_16_1024);
@@ -2791,14 +2791,14 @@ class FileInfoV2ServiceTest {
             // Given
             spaceInfoUtilMock.when(SpaceInfoUtil::getSpaceId).thenReturn(123L);
 
-            DealFileVO dealFileVO = new DealFileVO();
-            dealFileVO.setFileIds(Arrays.asList("1"));
-            dealFileVO.setTag("AIUI-RAG2");
+            DealFileVo dealFileVo = new DealFileVo();
+            dealFileVo.setFileIds(Arrays.asList("1"));
+            dealFileVo.setTag("AIUI-RAG2");
 
             SliceConfig sliceConfig = new SliceConfig();
             sliceConfig.setType(1);
             sliceConfig.setLengthRange(Arrays.asList(100, 500));
-            dealFileVO.setSliceConfig(sliceConfig);
+            dealFileVo.setSliceConfig(sliceConfig);
 
             mockFileInfo.setStatus(ProjectContent.FILE_PARSE_SUCCESSED);
             mockFileInfo.setSource("AIUI-RAG2");
@@ -2826,7 +2826,7 @@ class FileInfoV2ServiceTest {
             doReturn(successResult).when(fileInfoV2Service).sliceFile(anyLong(), any(SliceConfig.class), anyInt());
 
             // When
-            Boolean result = fileInfoV2Service.sliceFiles(dealFileVO);
+            Boolean result = fileInfoV2Service.sliceFiles(dealFileVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -2848,9 +2848,9 @@ class FileInfoV2ServiceTest {
         @DisplayName("Embedding files - success (non-Spark)")
         void testEmbeddingFiles_Success() {
             // Given
-            DealFileVO dealFileVO = new DealFileVO();
-            dealFileVO.setFileIds(Arrays.asList("1"));
-            dealFileVO.setTag("AIUI-RAG2");
+            DealFileVo dealFileVo = new DealFileVo();
+            dealFileVo.setFileIds(Arrays.asList("1"));
+            dealFileVo.setTag("AIUI-RAG2");
 
             FileDirectoryTree tree = new FileDirectoryTree();
             tree.setId(1L);
@@ -2862,7 +2862,7 @@ class FileInfoV2ServiceTest {
             when(fileDirectoryTreeMapper.updateById(any(FileDirectoryTree.class))).thenReturn(1);
 
             // When
-            fileInfoV2Service.embeddingFiles(dealFileVO, mockRequest);
+            fileInfoV2Service.embeddingFiles(dealFileVo, mockRequest);
 
             // Then
             verify(fileDirectoryTreeMapper, times(1)).updateById(any(FileDirectoryTree.class));
@@ -2875,14 +2875,14 @@ class FileInfoV2ServiceTest {
         @DisplayName("Embedding files - file not found")
         void testEmbeddingFiles_FileNotFound() {
             // Given
-            DealFileVO dealFileVO = new DealFileVO();
-            dealFileVO.setFileIds(Arrays.asList("999"));
-            dealFileVO.setTag("AIUI-RAG2");
+            DealFileVo dealFileVo = new DealFileVo();
+            dealFileVo.setFileIds(Arrays.asList("999"));
+            dealFileVo.setTag("AIUI-RAG2");
 
             when(fileInfoV2Mapper.selectById(999L)).thenReturn(null);
 
             // When
-            fileInfoV2Service.embeddingFiles(dealFileVO, mockRequest);
+            fileInfoV2Service.embeddingFiles(dealFileVo, mockRequest);
 
             // Then - method should skip and not throw exception
             verify(fileDirectoryTreeService, never()).getOnly(any(LambdaQueryWrapper.class));
@@ -2897,9 +2897,9 @@ class FileInfoV2ServiceTest {
             // Given
             spaceInfoUtilMock.when(SpaceInfoUtil::getSpaceId).thenReturn(123L);
 
-            DealFileVO dealFileVO = new DealFileVO();
-            dealFileVO.setFileIds(Arrays.asList("1"));
-            dealFileVO.setTag("AIUI-RAG2");
+            DealFileVo dealFileVo = new DealFileVo();
+            dealFileVo.setFileIds(Arrays.asList("1"));
+            dealFileVo.setTag("AIUI-RAG2");
 
             FileDirectoryTree tree = new FileDirectoryTree();
             tree.setId(1L);
@@ -2909,7 +2909,7 @@ class FileInfoV2ServiceTest {
             when(fileDirectoryTreeMapper.updateById(any(FileDirectoryTree.class))).thenReturn(1);
 
             // When
-            fileInfoV2Service.embeddingFiles(dealFileVO, mockRequest);
+            fileInfoV2Service.embeddingFiles(dealFileVo, mockRequest);
 
             // Then
             verify(dataPermissionCheckTool, never()).checkFileBelong(any(FileInfoV2.class));
@@ -2922,10 +2922,10 @@ class FileInfoV2ServiceTest {
         @DisplayName("Embedding files - as back task")
         void testEmbeddingFiles_AsBackTask() {
             // Given
-            DealFileVO dealFileVO = new DealFileVO();
-            dealFileVO.setFileIds(Arrays.asList("1"));
-            dealFileVO.setTag("AIUI-RAG2");
-            dealFileVO.setIsBackTask(1); // Mark as back task
+            DealFileVo dealFileVo = new DealFileVo();
+            dealFileVo.setFileIds(Arrays.asList("1"));
+            dealFileVo.setTag("AIUI-RAG2");
+            dealFileVo.setIsBackTask(1); // Mark as back task
 
             FileDirectoryTree tree = new FileDirectoryTree();
             tree.setId(1L);
@@ -2935,7 +2935,7 @@ class FileInfoV2ServiceTest {
             when(fileDirectoryTreeMapper.updateById(any(FileDirectoryTree.class))).thenReturn(1);
 
             // When
-            fileInfoV2Service.embeddingFiles(dealFileVO, mockRequest);
+            fileInfoV2Service.embeddingFiles(dealFileVo, mockRequest);
 
             // Then
             verify(dataPermissionCheckTool, never()).checkFileBelong(any(FileInfoV2.class));
@@ -2962,15 +2962,15 @@ class FileInfoV2ServiceTest {
         @DisplayName("Retry - parse failed file")
         void testRetry_ParseFailed() throws Exception {
             // Given
-            DealFileVO dealFileVO = new DealFileVO();
-            dealFileVO.setFileIds(Arrays.asList("1"));
-            dealFileVO.setTag("AIUI-RAG2");
+            DealFileVo dealFileVo = new DealFileVo();
+            dealFileVo.setFileIds(Arrays.asList("1"));
+            dealFileVo.setTag("AIUI-RAG2");
 
             SliceConfig sliceConfig = new SliceConfig();
             sliceConfig.setType(1);
             sliceConfig.setLengthRange(Arrays.asList(100, 500));
             sliceConfig.setSeperator(Arrays.asList("。"));
-            dealFileVO.setSliceConfig(sliceConfig);
+            dealFileVo.setSliceConfig(sliceConfig);
 
             mockFileInfo.setStatus(ProjectContent.FILE_PARSE_FAILED);
             mockFileInfo.setSource("AIUI-RAG2");
@@ -2988,7 +2988,7 @@ class FileInfoV2ServiceTest {
             when(fileDirectoryTreeService.getOnly(any(LambdaQueryWrapper.class))).thenReturn(tree);
 
             // When
-            fileInfoV2Service.retry(dealFileVO, mockRequest);
+            fileInfoV2Service.retry(dealFileVo, mockRequest);
 
             // Then
             verify(fileInfoV2Mapper, atLeastOnce()).updateById(any(FileInfoV2.class));
@@ -3001,13 +3001,13 @@ class FileInfoV2ServiceTest {
         @DisplayName("Retry - embedding failed file")
         void testRetry_EmbeddingFailed() throws Exception {
             // Given
-            DealFileVO dealFileVO = new DealFileVO();
-            dealFileVO.setFileIds(Arrays.asList("1"));
-            dealFileVO.setTag("AIUI-RAG2");
+            DealFileVo dealFileVo = new DealFileVo();
+            dealFileVo.setFileIds(Arrays.asList("1"));
+            dealFileVo.setTag("AIUI-RAG2");
 
             SliceConfig sliceConfig = new SliceConfig();
             sliceConfig.setType(1);
-            dealFileVO.setSliceConfig(sliceConfig);
+            dealFileVo.setSliceConfig(sliceConfig);
 
             mockFileInfo.setStatus(ProjectContent.FILE_EMBEDDING_FAILED);
             mockFileInfo.setSource("AIUI-RAG2");
@@ -3023,7 +3023,7 @@ class FileInfoV2ServiceTest {
             when(fileInfoV2Mapper.updateById(any(FileInfoV2.class))).thenReturn(1);
 
             // When
-            fileInfoV2Service.retry(dealFileVO, mockRequest);
+            fileInfoV2Service.retry(dealFileVo, mockRequest);
 
             // Then - verify file status is updated (main thread action)
             // Note: fileDirectoryTreeMapper.updateById is called in async thread, so we don't verify it here
@@ -3037,15 +3037,15 @@ class FileInfoV2ServiceTest {
         @DisplayName("Retry - empty file list")
         void testRetry_EmptyFileList() throws Exception {
             // Given
-            DealFileVO dealFileVO = new DealFileVO();
-            dealFileVO.setFileIds(Collections.emptyList());
-            dealFileVO.setTag("AIUI-RAG2");
+            DealFileVo dealFileVo = new DealFileVo();
+            dealFileVo.setFileIds(Collections.emptyList());
+            dealFileVo.setTag("AIUI-RAG2");
 
             SliceConfig sliceConfig = new SliceConfig();
-            dealFileVO.setSliceConfig(sliceConfig);
+            dealFileVo.setSliceConfig(sliceConfig);
 
             // When
-            fileInfoV2Service.retry(dealFileVO, mockRequest);
+            fileInfoV2Service.retry(dealFileVo, mockRequest);
 
             // Then - no exception, method returns early
             verify(fileInfoV2Mapper, never()).listByIds(anyList());
@@ -3060,14 +3060,14 @@ class FileInfoV2ServiceTest {
             // Given
             spaceInfoUtilMock.when(SpaceInfoUtil::getSpaceId).thenReturn(123L);
 
-            DealFileVO dealFileVO = new DealFileVO();
-            dealFileVO.setFileIds(Arrays.asList("1"));
-            dealFileVO.setTag("AIUI-RAG2");
+            DealFileVo dealFileVo = new DealFileVo();
+            dealFileVo.setFileIds(Arrays.asList("1"));
+            dealFileVo.setTag("AIUI-RAG2");
 
             SliceConfig sliceConfig = new SliceConfig();
             sliceConfig.setType(1);
             sliceConfig.setLengthRange(Arrays.asList(100, 500));
-            dealFileVO.setSliceConfig(sliceConfig);
+            dealFileVo.setSliceConfig(sliceConfig);
 
             mockFileInfo.setStatus(ProjectContent.FILE_PARSE_FAILED);
             mockFileInfo.setRepoId(100L);
@@ -3083,7 +3083,7 @@ class FileInfoV2ServiceTest {
             when(fileInfoV2Mapper.updateById(any(FileInfoV2.class))).thenReturn(1);
 
             // When
-            fileInfoV2Service.retry(dealFileVO, mockRequest);
+            fileInfoV2Service.retry(dealFileVo, mockRequest);
 
             // Then
             verify(dataPermissionCheckTool, never()).checkFileBelong(any(FileInfoV2.class));
@@ -3224,11 +3224,11 @@ class FileInfoV2ServiceTest {
         @DisplayName("List preview knowledge - success (non-Spark)")
         void testListPreviewKnowledgeByPage_Success_NonSpark() {
             // Given
-            KnowledgeQueryVO queryVO = new KnowledgeQueryVO();
-            queryVO.setFileIds(Arrays.asList("1", "2"));
-            queryVO.setTag("AIUI-RAG2");
-            queryVO.setPageNo(1);
-            queryVO.setPageSize(10);
+            KnowledgeQueryVo queryVo = new KnowledgeQueryVo();
+            queryVo.setFileIds(Arrays.asList("1", "2"));
+            queryVo.setTag("AIUI-RAG2");
+            queryVo.setPageNo(1);
+            queryVo.setPageSize(10);
 
             FileInfoV2 file1 = new FileInfoV2();
             file1.setId(1L);
@@ -3270,7 +3270,7 @@ class FileInfoV2ServiceTest {
                     .thenReturn(file1, file2);
 
             // When
-            Object result = fileInfoV2Service.listPreviewKnowledgeByPage(queryVO);
+            Object result = fileInfoV2Service.listPreviewKnowledgeByPage(queryVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -3287,11 +3287,11 @@ class FileInfoV2ServiceTest {
         @DisplayName("List preview knowledge - empty result")
         void testListPreviewKnowledgeByPage_EmptyResult() {
             // Given
-            KnowledgeQueryVO queryVO = new KnowledgeQueryVO();
-            queryVO.setFileIds(Arrays.asList("1"));
-            queryVO.setTag("AIUI-RAG2");
-            queryVO.setPageNo(1);
-            queryVO.setPageSize(10);
+            KnowledgeQueryVo queryVo = new KnowledgeQueryVo();
+            queryVo.setFileIds(Arrays.asList("1"));
+            queryVo.setTag("AIUI-RAG2");
+            queryVo.setPageNo(1);
+            queryVo.setPageSize(10);
 
             FileInfoV2 file1 = new FileInfoV2();
             file1.setId(1L);
@@ -3306,7 +3306,7 @@ class FileInfoV2ServiceTest {
                     .thenReturn(Collections.emptyList());
 
             // When
-            Object result = fileInfoV2Service.listPreviewKnowledgeByPage(queryVO);
+            Object result = fileInfoV2Service.listPreviewKnowledgeByPage(queryVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -3322,11 +3322,11 @@ class FileInfoV2ServiceTest {
         @DisplayName("List preview knowledge - with audit block count")
         void testListPreviewKnowledgeByPage_WithAuditBlock() {
             // Given
-            KnowledgeQueryVO queryVO = new KnowledgeQueryVO();
-            queryVO.setFileIds(Arrays.asList("1"));
-            queryVO.setTag("AIUI-RAG2");
-            queryVO.setPageNo(1);
-            queryVO.setPageSize(10);
+            KnowledgeQueryVo queryVo = new KnowledgeQueryVo();
+            queryVo.setFileIds(Arrays.asList("1"));
+            queryVo.setTag("AIUI-RAG2");
+            queryVo.setPageNo(1);
+            queryVo.setPageSize(10);
 
             FileInfoV2 file1 = new FileInfoV2();
             file1.setId(1L);
@@ -3345,7 +3345,7 @@ class FileInfoV2ServiceTest {
                     .thenReturn(Collections.emptyList());
 
             // When
-            Object result = fileInfoV2Service.listPreviewKnowledgeByPage(queryVO);
+            Object result = fileInfoV2Service.listPreviewKnowledgeByPage(queryVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -3369,10 +3369,10 @@ class FileInfoV2ServiceTest {
         @DisplayName("List knowledge by page - success")
         void testListKnowledgeByPage_Success() {
             // Given
-            KnowledgeQueryVO queryVO = new KnowledgeQueryVO();
-            queryVO.setFileIds(Arrays.asList("1"));
-            queryVO.setPageNo(1);
-            queryVO.setPageSize(10);
+            KnowledgeQueryVo queryVo = new KnowledgeQueryVo();
+            queryVo.setFileIds(Arrays.asList("1"));
+            queryVo.setPageNo(1);
+            queryVo.setPageSize(10);
 
             FileInfoV2 file1 = new FileInfoV2();
             file1.setId(1L);
@@ -3395,7 +3395,7 @@ class FileInfoV2ServiceTest {
             when(fileInfoV2Mapper.selectOne(any(QueryWrapper.class), anyBoolean())).thenReturn(file1);
 
             // When
-            PageData<KnowledgeDto> result = fileInfoV2Service.listKnowledgeByPage(queryVO);
+            PageData<KnowledgeDto> result = fileInfoV2Service.listKnowledgeByPage(queryVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -3411,11 +3411,11 @@ class FileInfoV2ServiceTest {
         @DisplayName("List knowledge by page - with content query")
         void testListKnowledgeByPage_WithContentQuery() {
             // Given
-            KnowledgeQueryVO queryVO = new KnowledgeQueryVO();
-            queryVO.setFileIds(Arrays.asList("1"));
-            queryVO.setPageNo(1);
-            queryVO.setPageSize(10);
-            queryVO.setQuery("test");
+            KnowledgeQueryVo queryVo = new KnowledgeQueryVo();
+            queryVo.setFileIds(Arrays.asList("1"));
+            queryVo.setPageNo(1);
+            queryVo.setPageSize(10);
+            queryVo.setQuery("test");
 
             FileInfoV2 file1 = new FileInfoV2();
             file1.setId(1L);
@@ -3440,7 +3440,7 @@ class FileInfoV2ServiceTest {
             when(fileInfoV2Mapper.selectOne(any(QueryWrapper.class), anyBoolean())).thenReturn(file1);
 
             // When
-            PageData<KnowledgeDto> result = fileInfoV2Service.listKnowledgeByPage(queryVO);
+            PageData<KnowledgeDto> result = fileInfoV2Service.listKnowledgeByPage(queryVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -3455,11 +3455,11 @@ class FileInfoV2ServiceTest {
         @DisplayName("List knowledge by page - with audit type filter")
         void testListKnowledgeByPage_WithAuditType() {
             // Given
-            KnowledgeQueryVO queryVO = new KnowledgeQueryVO();
-            queryVO.setFileIds(Arrays.asList("1"));
-            queryVO.setPageNo(1);
-            queryVO.setPageSize(10);
-            queryVO.setAuditType(1);
+            KnowledgeQueryVo queryVo = new KnowledgeQueryVo();
+            queryVo.setFileIds(Arrays.asList("1"));
+            queryVo.setPageNo(1);
+            queryVo.setPageSize(10);
+            queryVo.setAuditType(1);
 
             FileInfoV2 file1 = new FileInfoV2();
             file1.setId(1L);
@@ -3482,7 +3482,7 @@ class FileInfoV2ServiceTest {
             when(fileInfoV2Mapper.selectOne(any(QueryWrapper.class), anyBoolean())).thenReturn(file1);
 
             // When
-            PageData<KnowledgeDto> result = fileInfoV2Service.listKnowledgeByPage(queryVO);
+            PageData<KnowledgeDto> result = fileInfoV2Service.listKnowledgeByPage(queryVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -3497,10 +3497,10 @@ class FileInfoV2ServiceTest {
         @DisplayName("List knowledge by page - empty result")
         void testListKnowledgeByPage_EmptyResult() {
             // Given
-            KnowledgeQueryVO queryVO = new KnowledgeQueryVO();
-            queryVO.setFileIds(Arrays.asList("1"));
-            queryVO.setPageNo(1);
-            queryVO.setPageSize(10);
+            KnowledgeQueryVo queryVo = new KnowledgeQueryVo();
+            queryVo.setFileIds(Arrays.asList("1"));
+            queryVo.setPageNo(1);
+            queryVo.setPageSize(10);
 
             FileInfoV2 file1 = new FileInfoV2();
             file1.setId(1L);
@@ -3514,7 +3514,7 @@ class FileInfoV2ServiceTest {
                     .thenReturn(Collections.emptyList());
 
             // When
-            PageData<KnowledgeDto> result = fileInfoV2Service.listKnowledgeByPage(queryVO);
+            PageData<KnowledgeDto> result = fileInfoV2Service.listKnowledgeByPage(queryVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -3531,10 +3531,10 @@ class FileInfoV2ServiceTest {
             // Given
             spaceInfoUtilMock.when(SpaceInfoUtil::getSpaceId).thenReturn(123L);
 
-            KnowledgeQueryVO queryVO = new KnowledgeQueryVO();
-            queryVO.setFileIds(Arrays.asList("1"));
-            queryVO.setPageNo(1);
-            queryVO.setPageSize(10);
+            KnowledgeQueryVo queryVo = new KnowledgeQueryVo();
+            queryVo.setFileIds(Arrays.asList("1"));
+            queryVo.setPageNo(1);
+            queryVo.setPageSize(10);
 
             FileInfoV2 file1 = new FileInfoV2();
             file1.setId(1L);
@@ -3548,7 +3548,7 @@ class FileInfoV2ServiceTest {
                     .thenReturn(Collections.emptyList());
 
             // When
-            PageData<KnowledgeDto> result = fileInfoV2Service.listKnowledgeByPage(queryVO);
+            PageData<KnowledgeDto> result = fileInfoV2Service.listKnowledgeByPage(queryVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -3604,9 +3604,9 @@ class FileInfoV2ServiceTest {
         @DisplayName("Download knowledge by violation - success (preview)")
         void testDownloadKnowledgeByViolation_Success_Preview() throws IOException {
             // Given
-            KnowledgeQueryVO queryVO = new KnowledgeQueryVO();
-            queryVO.setFileIds(Arrays.asList("1"));
-            queryVO.setSource(0);
+            KnowledgeQueryVo queryVo = new KnowledgeQueryVo();
+            queryVo.setFileIds(Arrays.asList("1"));
+            queryVo.setSource(0);
 
             FileInfoV2 file1 = new FileInfoV2();
             file1.setId(1L);
@@ -3630,7 +3630,7 @@ class FileInfoV2ServiceTest {
                     .thenReturn(Arrays.asList(knowledge));
 
             // When
-            fileInfoV2Service.downloadKnowledgeByViolation(response, queryVO);
+            fileInfoV2Service.downloadKnowledgeByViolation(response, queryVo);
 
             // Then
             verify(response, times(1)).reset();
@@ -3647,9 +3647,9 @@ class FileInfoV2ServiceTest {
         @DisplayName("Download knowledge by violation - success (formal)")
         void testDownloadKnowledgeByViolation_Success_Formal() throws IOException {
             // Given
-            KnowledgeQueryVO queryVO = new KnowledgeQueryVO();
-            queryVO.setFileIds(Arrays.asList("1"));
-            queryVO.setSource(1);
+            KnowledgeQueryVo queryVo = new KnowledgeQueryVo();
+            queryVo.setFileIds(Arrays.asList("1"));
+            queryVo.setSource(1);
 
             FileInfoV2 file1 = new FileInfoV2();
             file1.setId(1L);
@@ -3671,7 +3671,7 @@ class FileInfoV2ServiceTest {
                     .thenReturn(Arrays.asList(knowledge));
 
             // When
-            fileInfoV2Service.downloadKnowledgeByViolation(response, queryVO);
+            fileInfoV2Service.downloadKnowledgeByViolation(response, queryVo);
 
             // Then
             verify(response, times(1)).reset();
@@ -3689,13 +3689,13 @@ class FileInfoV2ServiceTest {
         @DisplayName("Download knowledge by violation - file not found")
         void testDownloadKnowledgeByViolation_FileNotFound() {
             // Given
-            KnowledgeQueryVO queryVO = new KnowledgeQueryVO();
-            queryVO.setFileIds(Arrays.asList("999"));
+            KnowledgeQueryVo queryVo = new KnowledgeQueryVo();
+            queryVo.setFileIds(Arrays.asList("999"));
 
             when(fileInfoV2Mapper.listByIds(anyList())).thenReturn(Collections.emptyList());
 
             // When & Then
-            assertThatThrownBy(() -> fileInfoV2Service.downloadKnowledgeByViolation(response, queryVO))
+            assertThatThrownBy(() -> fileInfoV2Service.downloadKnowledgeByViolation(response, queryVo))
                     .isInstanceOf(BusinessException.class)
                     .extracting("responseEnum")
                     .isEqualTo(ResponseEnum.REPO_FILE_NOT_EXIST);
@@ -3716,9 +3716,9 @@ class FileInfoV2ServiceTest {
         @DisplayName("Embedding back - success (non-Spark)")
         void testEmbeddingBack_Success_NonSpark() {
             // Given
-            DealFileVO dealFileVO = new DealFileVO();
-            dealFileVO.setFileIds(Arrays.asList("1"));
-            dealFileVO.setTag("AIUI-RAG2");
+            DealFileVo dealFileVo = new DealFileVo();
+            dealFileVo.setFileIds(Arrays.asList("1"));
+            dealFileVo.setTag("AIUI-RAG2");
 
             mockFileInfo.setStatus(ProjectContent.FILE_PARSE_SUCCESSED);
 
@@ -3733,7 +3733,7 @@ class FileInfoV2ServiceTest {
             doReturn(mockFileInfo).when(fileInfoV2Service).getById(1L);
 
             // When
-            fileInfoV2Service.embeddingBack(dealFileVO, mockRequest);
+            fileInfoV2Service.embeddingBack(dealFileVo, mockRequest);
 
             // Then
             verify(fileDirectoryTreeMapper, times(1)).updateById(any(FileDirectoryTree.class));
@@ -3746,14 +3746,14 @@ class FileInfoV2ServiceTest {
         @DisplayName("Embedding back - file not found")
         void testEmbeddingBack_FileNotFound() {
             // Given
-            DealFileVO dealFileVO = new DealFileVO();
-            dealFileVO.setFileIds(Arrays.asList("999"));
-            dealFileVO.setTag("AIUI-RAG2");
+            DealFileVo dealFileVo = new DealFileVo();
+            dealFileVo.setFileIds(Arrays.asList("999"));
+            dealFileVo.setTag("AIUI-RAG2");
 
             doReturn(null).when(fileInfoV2Service).getById(999L);
 
             // When
-            fileInfoV2Service.embeddingBack(dealFileVO, mockRequest);
+            fileInfoV2Service.embeddingBack(dealFileVo, mockRequest);
 
             // Then - method completes without error
             verify(fileDirectoryTreeMapper, never()).updateById(any(FileDirectoryTree.class));

@@ -25,7 +25,7 @@ import com.iflytek.astron.console.hub.mapper.knowledge.PreviewKnowledgeMapper;
 import com.iflytek.astron.console.hub.entity.pojo.*;
 import com.iflytek.astron.console.hub.entity.table.ConfigInfo;
 import com.iflytek.astron.console.hub.entity.table.repo.*;
-import com.iflytek.astron.console.hub.entity.vo.HtmlFileVO;
+import com.iflytek.astron.console.hub.entity.vo.HtmlFileVo;
 import com.iflytek.astron.console.hub.entity.vo.knowledge.SparkUploadVo;
 import com.iflytek.astron.console.hub.entity.vo.repo.*;
 import com.iflytek.astron.console.hub.handler.UserInfoManagerHandler;
@@ -429,21 +429,21 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
     /**
      * Create HTML file records in database
      *
-     * @param htmlFileVO HTML file creation parameters
+     * @param htmlFileVo HTML file creation parameters
      * @return list of created FileInfoV2 objects
      * @throws BusinessException if repository access is denied
      */
-    public List<FileInfoV2> createHtmlFile(HtmlFileVO htmlFileVO) {
-        Repo repo = repoService.getById(htmlFileVO.getRepoId());
+    public List<FileInfoV2> createHtmlFile(HtmlFileVo htmlFileVo) {
+        Repo repo = repoService.getById(htmlFileVo.getRepoId());
         dataPermissionCheckTool.checkRepoBelong(repo);
-        List<String> htmlAddressList = htmlFileVO.getHtmlAddressList();
+        List<String> htmlAddressList = htmlFileVo.getHtmlAddressList();
         List<FileInfoV2> fileInfoV2List = new ArrayList<>();
         for (String htmlAddress : htmlAddressList) {
             String htmlAddressTrim = htmlAddress.trim();
             FileInfoV2 fileInfoV2 = new FileInfoV2();
             fileInfoV2.setUuid(UUID.randomUUID().toString().replace("-", ""));
             fileInfoV2.setUid(UserInfoManagerHandler.getUserId());
-            fileInfoV2.setRepoId(htmlFileVO.getRepoId());
+            fileInfoV2.setRepoId(htmlFileVo.getRepoId());
             fileInfoV2.setName(truncateString(htmlAddressTrim, 30));
             fileInfoV2.setAddress(htmlAddressTrim);
             fileInfoV2.setSize(0L);
@@ -456,7 +456,7 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
             }
             fileInfoV2.setStatus(ProjectContent.FILE_UPLOAD_STATUS);
             fileInfoV2.setEnabled(0);
-            fileInfoV2.setPid(htmlFileVO.getParentId());
+            fileInfoV2.setPid(htmlFileVo.getParentId());
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             fileInfoV2.setCreateTime(timestamp);
             fileInfoV2.setUpdateTime(timestamp);
@@ -476,25 +476,25 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
     /**
      * Slice files into knowledge chunks
      *
-     * @param sliceFileVO file slicing parameters containing file IDs and slice configuration
+     * @param sliceFileVo file slicing parameters containing file IDs and slice configuration
      * @return Result indicating success or failure of slicing operation
      * @throws InterruptedException if thread execution is interrupted
      * @throws ExecutionException if execution fails
      * @throws BusinessException if files are currently being parsed or slice range is invalid
      */
-    public Boolean sliceFiles(DealFileVO sliceFileVO) throws InterruptedException, ExecutionException {
+    public Boolean sliceFiles(DealFileVo sliceFileVo) throws InterruptedException, ExecutionException {
         Long spaceId = SpaceInfoUtil.getSpaceId();
-        if (ProjectContent.isSparkRagCompatible(sliceFileVO.getTag())) {
-            if (sliceFileVO.getSliceConfig().getType().equals(1)) {
+        if (ProjectContent.isSparkRagCompatible(sliceFileVo.getTag())) {
+            if (sliceFileVo.getSliceConfig().getType().equals(1)) {
                 HashMap<String, String> header = new HashMap<>();
                 // Spark split interface
                 String url = sparkDocUrl + "/openapi/v1/file/split";
                 JSONObject params = new JSONObject();
-                params.put("fileIds", sliceFileVO.getFileIds());
+                params.put("fileIds", sliceFileVo.getFileIds());
                 params.put("isSplitDefault", false);
                 params.put("splitType", "wiki");
                 JSONObject wikiSplit = new JSONObject();
-                List<String> separator = sliceFileVO.getSliceConfig().getSeperator();
+                List<String> separator = sliceFileVo.getSliceConfig().getSeperator();
                 List<String> separatorBase64 = new ArrayList<>();
                 if (!separator.isEmpty()) {
                     for (String string : separator) {
@@ -503,8 +503,8 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
                     }
                 }
                 wikiSplit.put("chunkSeparators", separatorBase64);
-                wikiSplit.put("chunkSize", sliceFileVO.getSliceConfig().getLengthRange().get(1));
-                wikiSplit.put("minChunkSize", sliceFileVO.getSliceConfig().getLengthRange().get(0));
+                wikiSplit.put("chunkSize", sliceFileVo.getSliceConfig().getLengthRange().get(1));
+                wikiSplit.put("minChunkSize", sliceFileVo.getSliceConfig().getLengthRange().get(0));
                 params.put("wikiSplitExtends", wikiSplit);
                 String post = OkHttpUtil.post(url, header, params.toJSONString());
                 JSONObject jsonObject = JSONObject.parseObject(post);
@@ -515,7 +515,7 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
                 return true;
             }
         } else {
-            List<Long> fileIds = sliceFileVO.getFileIds()
+            List<Long> fileIds = sliceFileVo.getFileIds()
                     .stream()
                     .map(Long::valueOf)
                     .collect(Collectors.toList());
@@ -532,9 +532,9 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
                         throw new BusinessException(ResponseEnum.REPO_KNOWLEDGE_SPLITTING);
                     }
                     // Check slice default values and range
-                    if (sliceFileVO.getSliceConfig().getLengthRange() != null) {
+                    if (sliceFileVo.getSliceConfig().getLengthRange() != null) {
                         if (ProjectContent.isAiuiRagCompatible(fileInfoV2.getSource())) {
-                            if (sliceFileVO.getSliceConfig().getLengthRange().get(0) < 16 || sliceFileVO.getSliceConfig().getLengthRange().get(1) > 1024) {
+                            if (sliceFileVo.getSliceConfig().getLengthRange().get(0) < 16 || sliceFileVo.getSliceConfig().getLengthRange().get(1) > 1024) {
                                 throw new BusinessException(ResponseEnum.REPO_FILE_SLICE_RANGE_16_1024);
                             }
                         }
@@ -557,7 +557,7 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
                         fileDirectoryTreeMapper.insert(fileDirectoryTree);
                     }
                     // Update slice configuration
-                    SliceConfig sliceConfig = sliceFileVO.getSliceConfig();
+                    SliceConfig sliceConfig = sliceFileVo.getSliceConfig();
                     fileInfoV2.setSliceConfig(JSON.toJSONString(sliceConfig));
                     fileInfoV2.setCurrentSliceConfig(JSON.toJSONString(sliceConfig));
                     fileInfoV2.setStatus(ProjectContent.FILE_PARSE_DOING);
@@ -661,26 +661,26 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
     /**
      * List preview knowledge by page with pagination support
      *
-     * @param knowledgeQueryVO query parameters containing file IDs, pagination info, and tag
+     * @param knowledgeQueryVo query parameters containing file IDs, pagination info, and tag
      * @return PageData containing preview knowledge list and metadata
      * @throws BusinessException if failed to retrieve knowledge from Spark
      */
-    public Object listPreviewKnowledgeByPage(KnowledgeQueryVO knowledgeQueryVO) {
+    public Object listPreviewKnowledgeByPage(KnowledgeQueryVo knowledgeQueryVo) {
         Long spaceId = SpaceInfoUtil.getSpaceId();
         Map<String, Object> extMap = new HashMap<>();
         Map<String, Long> fileIdCountMap = new HashMap<>();
         List<PreviewKnowledgeDto> knowledgeDtoList;
         long totalCount;
 
-        if (ProjectContent.isSparkRagCompatible(knowledgeQueryVO.getTag())) {
+        if (ProjectContent.isSparkRagCompatible(knowledgeQueryVo.getTag())) {
             // Spark file processing
-            SparkResult sparkResult = handleSparkPreviewKnowledge(knowledgeQueryVO);
+            SparkResult sparkResult = handleSparkPreviewKnowledge(knowledgeQueryVo);
             knowledgeDtoList = sparkResult.knowledgeDtoList;
             fileIdCountMap = sparkResult.fileIdCountMap;
             totalCount = sparkResult.totalCount;
         } else {
             // MongoDB file processing
-            MongoResult mongoResult = handleMongoPreviewKnowledge(knowledgeQueryVO, spaceId);
+            MongoResult mongoResult = handleMongoPreviewKnowledge(knowledgeQueryVo, spaceId);
             knowledgeDtoList = mongoResult.knowledgeDtoList;
             extMap = mongoResult.extMap;
             totalCount = mongoResult.totalCount;
@@ -700,7 +700,7 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
         long totalCount;
     }
 
-    private SparkResult handleSparkPreviewKnowledge(KnowledgeQueryVO vo) {
+    private SparkResult handleSparkPreviewKnowledge(KnowledgeQueryVo vo) {
         SparkResult result = new SparkResult();
         result.knowledgeDtoList = new ArrayList<>();
         result.fileIdCountMap = new HashMap<>();
@@ -750,7 +750,7 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
         long totalCount;
     }
 
-    private MongoResult handleMongoPreviewKnowledge(KnowledgeQueryVO vo, Long spaceId) {
+    private MongoResult handleMongoPreviewKnowledge(KnowledgeQueryVo vo, Long spaceId) {
         MongoResult result = new MongoResult();
         result.knowledgeDtoList = new ArrayList<>();
         result.extMap = new HashMap<>();
@@ -876,22 +876,22 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
     /**
      * List knowledge by page with pagination and filtering support
      *
-     * @param knowledgeQueryVO query parameters containing file IDs, pagination info, content query, and
+     * @param knowledgeQueryVo query parameters containing file IDs, pagination info, content query, and
      *        audit type
      * @return PageData containing knowledge list with pagination metadata
      * @throws BusinessException if file access is denied
      */
-    public PageData<KnowledgeDto> listKnowledgeByPage(KnowledgeQueryVO knowledgeQueryVO) {
-        Integer pageNo = knowledgeQueryVO.getPageNo();
+    public PageData<KnowledgeDto> listKnowledgeByPage(KnowledgeQueryVo knowledgeQueryVo) {
+        Integer pageNo = knowledgeQueryVo.getPageNo();
         Long spaceId = SpaceInfoUtil.getSpaceId();
         if (pageNo == null) {
             pageNo = 1;
         }
-        Integer pageSize = knowledgeQueryVO.getPageSize();
+        Integer pageSize = knowledgeQueryVo.getPageSize();
         if (pageSize == null) {
             pageSize = 10;
         }
-        List<Long> fileIds = knowledgeQueryVO.getFileIds()
+        List<Long> fileIds = knowledgeQueryVo.getFileIds()
                 .stream()
                 .map(Long::valueOf)
                 .collect(Collectors.toList());
@@ -905,7 +905,7 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
             fileUuIds.add(fileInfoV2.getUuid());
         }
         // Use MySQL query to replace MongoDB query
-        String queryContent = knowledgeQueryVO.getQuery();
+        String queryContent = knowledgeQueryVo.getQuery();
         List<MysqlKnowledge> knowledges;
         if (!StringUtils.isEmpty(queryContent)) {
             knowledges = knowledgeMapper.findByFileIdInAndContentLike(fileUuIds, queryContent);
@@ -913,7 +913,7 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
             knowledges = knowledgeMapper.findByFileIdIn(fileUuIds);
         }
 
-        Integer auditType = knowledgeQueryVO.getAuditType();
+        Integer auditType = knowledgeQueryVo.getAuditType();
         if (auditType != null && auditType == 1) {
             knowledges = knowledgeMapper.findByFileIdInAndAuditType(fileUuIds, auditType);
         }
@@ -1008,17 +1008,17 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
     /**
      * Embed files to create vector representations for knowledge retrieval
      *
-     * @param sliceFileVO file embedding parameters containing file IDs and configuration
+     * @param sliceFileVo file embedding parameters containing file IDs and configuration
      * @param request HTTP servlet request for authentication and context
      * @throws BusinessException if embedding process fails or file access is denied
      */
-    public void embeddingFiles(DealFileVO sliceFileVO, HttpServletRequest request) {
-        if (ProjectContent.isSparkRagCompatible(sliceFileVO.getTag())) {
+    public void embeddingFiles(DealFileVo sliceFileVo, HttpServletRequest request) {
+        if (ProjectContent.isSparkRagCompatible(sliceFileVo.getTag())) {
             try {
                 String embeddingUrl = sparkDocUrl + "/openapi/v1/file/embedding";
                 HashMap<String, String> header = chatFileHttpClient.getSignForXinghuoDs();
                 Map<String, Object> params = new HashMap<>();
-                List<String> fileIds = sliceFileVO.getSparkFiles().stream().map(SparkFileVo::getFileId).collect(Collectors.toList());
+                List<String> fileIds = sliceFileVo.getSparkFiles().stream().map(SparkFileVo::getFileId).collect(Collectors.toList());
                 params.put("fileIds", String.join(",", fileIds));
                 String embeddingRsp = OkHttpUtil.postMultipart(embeddingUrl, header, null, params, null);
                 JSONObject jsonObject = JSONObject.parseObject(embeddingRsp);
@@ -1028,8 +1028,8 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
                     // Call document binding
 
                     JSONObject bindParams = new JSONObject();
-                    bindParams.put("datasetId", sliceFileVO.getRepoId());
-                    bindParams.put("files", sliceFileVO.getSparkFiles());
+                    bindParams.put("datasetId", sliceFileVo.getRepoId());
+                    bindParams.put("files", sliceFileVo.getSparkFiles());
                     HashMap<String, String> bindHeader = new HashMap<>();
                     String authorization = request.getHeader("Authorization");
                     if (StringUtils.isNotBlank(authorization)) {
@@ -1045,7 +1045,7 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
                 throw new BusinessException(ResponseEnum.REPO_FILE_EMBEDDING_FAILED);
             }
         } else {
-            List<Long> fileIds = sliceFileVO.getFileIds()
+            List<Long> fileIds = sliceFileVo.getFileIds()
                     .stream()
                     .map(Long::valueOf) // Convert String to Long
                     .collect(Collectors.toList());
@@ -1057,7 +1057,7 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
                         log.warn("embeddingFiles skip: file not found, id={}", fileId);
                         continue;
                     }
-                    if (sliceFileVO.getIsBackTask() == null) {
+                    if (sliceFileVo.getIsBackTask() == null) {
                         Long spaceId = SpaceInfoUtil.getSpaceId();
                         if (null == spaceId) {
                             dataPermissionCheckTool.checkFileBelong(fileInfo);
@@ -1168,17 +1168,17 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
     /**
      * Execute background embedding tasks for files
      *
-     * @param sliceFileVO file embedding parameters containing file IDs and configuration
+     * @param sliceFileVo file embedding parameters containing file IDs and configuration
      * @param request HTTP servlet request for authentication and context
      * @throws BusinessException if embedding process fails or file access is denied
      */
-    public void embeddingBack(DealFileVO sliceFileVO, HttpServletRequest request) {
-        if (ProjectContent.isSparkRagCompatible(sliceFileVO.getTag())) {
+    public void embeddingBack(DealFileVo sliceFileVo, HttpServletRequest request) {
+        if (ProjectContent.isSparkRagCompatible(sliceFileVo.getTag())) {
             try {
                 String embeddingUrl = sparkDocUrl + "/openapi/v1/file/embedding";
                 HashMap<String, String> header = chatFileHttpClient.getSignForXinghuoDs();
                 Map<String, Object> params = new HashMap<>();
-                List<String> fileIds = sliceFileVO.getSparkFiles().stream().map(SparkFileVo::getFileId).collect(Collectors.toList());
+                List<String> fileIds = sliceFileVo.getSparkFiles().stream().map(SparkFileVo::getFileId).collect(Collectors.toList());
                 params.put("fileIds", String.join(",", fileIds));
                 String embeddingRsp = OkHttpUtil.postMultipart(embeddingUrl, header, null, params, null);
                 JSONObject jsonObject = JSONObject.parseObject(embeddingRsp);
@@ -1187,8 +1187,8 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
                 } else {
                     // Call document binding
                     JSONObject bindParams = new JSONObject();
-                    bindParams.put("datasetId", sliceFileVO.getRepoId());
-                    bindParams.put("files", sliceFileVO.getSparkFiles());
+                    bindParams.put("datasetId", sliceFileVo.getRepoId());
+                    bindParams.put("files", sliceFileVo.getSparkFiles());
                     HashMap<String, String> bindHeader = new HashMap<>();
                     String authorization = request.getHeader("Authorization");
                     if (StringUtils.isNotBlank(authorization)) {
@@ -1204,7 +1204,7 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
                 throw new BusinessException(ResponseEnum.REPO_FILE_EMBEDDING_FAILED);
             }
         } else {
-            List<Long> fileIds = sliceFileVO.getFileIds()
+            List<Long> fileIds = sliceFileVo.getFileIds()
                     .stream()
                     .map(Long::valueOf) // Convert String to Long
                     .collect(Collectors.toList());
@@ -1216,7 +1216,7 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
                         log.warn("embeddingBack skip: file not found, id={}", fileId);
                         continue;
                     }
-                    if (sliceFileVO.getIsBackTask() == null) {
+                    if (sliceFileVo.getIsBackTask() == null) {
                         dataPermissionCheckTool.checkFileBelong(fileInfo);
                     }
 
@@ -1276,24 +1276,24 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
     /**
      * Retry failed file processing operations (parsing or embedding)
      *
-     * @param sliceFileVO retry parameters containing file IDs and slice configuration
+     * @param sliceFileVo retry parameters containing file IDs and slice configuration
      * @param request HTTP servlet request for authentication and context
      * @throws InterruptedException if thread execution is interrupted
      * @throws ExecutionException if execution fails
      * @throws BusinessException if files are currently being processed or configuration is invalid
      */
-    public void retry(DealFileVO sliceFileVO, HttpServletRequest request) throws InterruptedException, ExecutionException {
+    public void retry(DealFileVo sliceFileVo, HttpServletRequest request) throws InterruptedException, ExecutionException {
         Long spaceId = SpaceInfoUtil.getSpaceId();
 
         // 1) Spark: Retry with "custom splitting"
-        if (ProjectContent.isSparkRagCompatible(sliceFileVO.getTag())) {
-            retrySparkSplitIfNeeded(sliceFileVO);
+        if (ProjectContent.isSparkRagCompatible(sliceFileVo.getTag())) {
+            retrySparkSplitIfNeeded(sliceFileVo);
             return;
         }
 
         // 2) Non-Spark: Handle "parse failure retry (including auto-embedding) / embedding failure retry"
         // separately
-        List<Long> fileIds = sliceFileVO.getFileIds().stream().map(Long::valueOf).collect(Collectors.toList());
+        List<Long> fileIds = sliceFileVo.getFileIds().stream().map(Long::valueOf).collect(Collectors.toList());
         if (CollectionUtils.isEmpty(fileIds))
             return;
 
@@ -1301,9 +1301,9 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
         List<FileInfoV2> files = fileInfoV2Mapper.listByIds(fileIds);
         for (FileInfoV2 f : files) {
             if (Objects.equals(f.getStatus(), ProjectContent.FILE_PARSE_FAILED)) {
-                handleParseFailedRetry(f, sliceFileVO, spaceId, pool);
+                handleParseFailedRetry(f, sliceFileVo, spaceId, pool);
             } else if (Objects.equals(f.getStatus(), ProjectContent.FILE_EMBEDDING_FAILED)) {
-                handleEmbeddingFailedRetry(f, sliceFileVO, spaceId, pool);
+                handleEmbeddingFailedRetry(f, sliceFileVo, spaceId, pool);
             }
             // Other statuses: No processing (consistent with original logic)
         }
@@ -1318,7 +1318,7 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
      * @param vo deal file parameters containing slice configuration
      * @throws BusinessException if split operation fails
      */
-    private void retrySparkSplitIfNeeded(DealFileVO vo) {
+    private void retrySparkSplitIfNeeded(DealFileVo vo) {
         if (!Integer.valueOf(1).equals(vo.getSliceConfig().getType()))
             return;
 
@@ -1358,7 +1358,7 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
      * @param pool thread pool for async execution
      * @throws BusinessException if file is currently being parsed or range is invalid
      */
-    private void handleParseFailedRetry(FileInfoV2 file, DealFileVO vo, Long spaceId, ExecutorService pool) {
+    private void handleParseFailedRetry(FileInfoV2 file, DealFileVo vo, Long spaceId, ExecutorService pool) {
         // Auto separator fallback
         ensureSeparatorDefault(vo.getSliceConfig());
 
@@ -1397,7 +1397,7 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
      * @param spaceId space ID for permission checking
      * @param pool thread pool for async execution
      */
-    private void handleEmbeddingFailedRetry(FileInfoV2 file, DealFileVO vo, Long spaceId, ExecutorService pool) {
+    private void handleEmbeddingFailedRetry(FileInfoV2 file, DealFileVo vo, Long spaceId, ExecutorService pool) {
         // Only validate file ownership during foreground retry (consistent with original logic)
         if (vo.getIsBackTask() == null && spaceId == null) {
             dataPermissionCheckTool.checkFileBelong(file);
@@ -1565,12 +1565,12 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
         if (!CollectionUtils.isEmpty(embeddingTask)) {
             for (ExtractKnowledgeTask extractKnowledgeTask : embeddingTask) {
                 FileInfoV2 fileInfoV2 = this.getById(extractKnowledgeTask.getFileId());
-                DealFileVO dealFileVO = new DealFileVO();
-                dealFileVO.setFileIds(Arrays.asList(extractKnowledgeTask.getFileId().toString()));
-                dealFileVO.setTag(fileInfoV2.getSource());
-                dealFileVO.setRepoId(fileInfoV2.getRepoId());
-                dealFileVO.setIsBackTask(1);
-                embeddingFiles(dealFileVO, null);
+                DealFileVo dealFileVo = new DealFileVo();
+                dealFileVo.setFileIds(Arrays.asList(extractKnowledgeTask.getFileId().toString()));
+                dealFileVo.setTag(fileInfoV2.getSource());
+                dealFileVo.setRepoId(fileInfoV2.getRepoId());
+                dealFileVo.setIsBackTask(1);
+                embeddingFiles(dealFileVo, null);
             }
         }
         log.info("Knowledge base embedding task rerun completed");
@@ -1580,18 +1580,18 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
     /**
      * Get indexing status of files
      *
-     * @param sliceFileVO parameters containing file IDs and tag information
+     * @param sliceFileVo parameters containing file IDs and tag information
      * @return list of FileInfoV2Dto with indexing status and paragraph counts
      * @throws BusinessException if file access is denied
      */
-    public List<FileInfoV2Dto> getIndexingStatus(DealFileVO sliceFileVO) {
+    public List<FileInfoV2Dto> getIndexingStatus(DealFileVo sliceFileVo) {
         List<FileInfoV2Dto> fileInfoV2List = new ArrayList<>();
         Long spaceId = SpaceInfoUtil.getSpaceId();
 
-        if (ProjectContent.isSparkRagCompatible(sliceFileVO.getTag())) {
-            for (String fileId : sliceFileVO.getFileIds()) {
+        if (ProjectContent.isSparkRagCompatible(sliceFileVo.getTag())) {
+            for (String fileId : sliceFileVo.getFileIds()) {
                 FileInfoV2Dto fileInfoV2Dto = new FileInfoV2Dto();
-                if (sliceFileVO.getIndexType() == null || sliceFileVO.getIndexType().equals(0)) {
+                if (sliceFileVo.getIndexType() == null || sliceFileVo.getIndexType().equals(0)) {
                     fileInfoV2Dto.setStatus(2);
                 } else {
                     fileInfoV2Dto.setStatus(5);
@@ -1601,7 +1601,7 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
             }
             return fileInfoV2List;
         } else {
-            List<Long> fileIds = sliceFileVO.getFileIds()
+            List<Long> fileIds = sliceFileVo.getFileIds()
                     .stream()
                     .map(Long::valueOf) // Convert String to Long
                     .collect(Collectors.toList());
@@ -1627,18 +1627,18 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
     /**
      * Get file summary including knowledge count and character count
      *
-     * @param dealFileVO parameters containing file IDs, repository ID, and tag information
+     * @param dealFileVo parameters containing file IDs, repository ID, and tag information
      * @param request HTTP servlet request for authentication
      * @return FileSummary containing file information and knowledge statistics
      * @throws BusinessException if file access is denied
      */
-    public FileSummary getFileSummary(DealFileVO dealFileVO, HttpServletRequest request) {
+    public FileSummary getFileSummary(DealFileVo dealFileVo, HttpServletRequest request) {
         FileSummary fileSummary = new FileSummary();
         Long spaceId = SpaceInfoUtil.getSpaceId();
-        if (ProjectContent.isSparkRagCompatible(dealFileVO.getTag())) {
+        if (ProjectContent.isSparkRagCompatible(dealFileVo.getTag())) {
             List<RelatedDocDto> sparkCbgResponse = new ArrayList<RelatedDocDto>();
             RelatedDocDto fileInfo = new RelatedDocDto();
-            String url = apiUrl.getDatasetFileUrl().concat("?datasetId=").concat(dealFileVO.getRepoId().toString());
+            String url = apiUrl.getDatasetFileUrl().concat("?datasetId=").concat(dealFileVo.getRepoId().toString());
             log.info("getFileSummary request url:{}", url);
 
             Map<String, String> header = new HashMap<>();
@@ -1656,7 +1656,7 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
             long paraCount = 0L;
             if (!CollectionUtils.isEmpty(sparkCbgResponse)) {
                 for (RelatedDocDto relatedDocDto : sparkCbgResponse) {
-                    if (relatedDocDto.getDatasetIndex().equals(dealFileVO.getFileIds().get(0))) {
+                    if (relatedDocDto.getDatasetIndex().equals(dealFileVo.getFileIds().get(0))) {
                         fileInfo = relatedDocDto;
                         paraCount += fileInfo.getParaCount();
                         FileInfoV2 fileInfoV2 = new FileInfoV2();
@@ -1668,7 +1668,7 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
                 fileSummary.setKnowledgeCount(paraCount);
             }
         } else {
-            List<Long> fileIds = dealFileVO.getFileIds()
+            List<Long> fileIds = dealFileVo.getFileIds()
                     .stream()
                     .map(Long::valueOf) // Convert String to Long
                     .collect(Collectors.toList());
@@ -1818,12 +1818,12 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
     /**
      * Create a new folder in the repository
      *
-     * @param folderVO folder creation parameters containing name, repository ID, and parent ID
+     * @param folderVo folder creation parameters containing name, repository ID, and parent ID
      * @throws BusinessException if folder name is empty, contains illegal characters, or repository
      *         access is denied
      */
-    public void createFolder(CreateFolderVO folderVO) {
-        String name = folderVO.getName();
+    public void createFolder(CreateFolderVo folderVo) {
+        String name = folderVo.getName();
         Pattern pattern = Pattern.compile("[\\\\/:*?\"<>|]");
         if (ObjectIsNull.check(name)) {
             throw new BusinessException(ResponseEnum.REPO_FILE_NAME_CANNOT_EMPTY);
@@ -1833,9 +1833,9 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
                 throw new BusinessException(ResponseEnum.REPO_FOLDER_NAME_ILLEGAL);
             }
         }
-        Long parentId = folderVO.getParentId();
+        Long parentId = folderVo.getParentId();
 
-        Repo repo = repoService.getById(folderVO.getRepoId());
+        Repo repo = repoService.getById(folderVo.getRepoId());
         if (repo != null) {
             dataPermissionCheckTool.checkRepoBelong(repo);
         }
@@ -1850,7 +1850,7 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
         fileDirectoryTree = new FileDirectoryTree();
         fileDirectoryTree.setIsFile(0);
         fileDirectoryTree.setName(name);
-        fileDirectoryTree.setAppId(folderVO.getRepoId().toString());
+        fileDirectoryTree.setAppId(folderVo.getRepoId().toString());
         fileDirectoryTree.setParentId(parentId);
         fileDirectoryTree.setCreateTime(LocalDateTime.now());
         fileDirectoryTree.setStatus(1);
@@ -1862,12 +1862,12 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
     /**
      * Update existing folder name
      *
-     * @param folderVO folder update parameters containing ID, new name, and repository ID
+     * @param folderVo folder update parameters containing ID, new name, and repository ID
      * @throws BusinessException if folder name is empty, contains illegal characters, or repository
      *         access is denied
      */
-    public void updateFolder(CreateFolderVO folderVO) {
-        String name = folderVO.getName();
+    public void updateFolder(CreateFolderVo folderVo) {
+        String name = folderVo.getName();
         Pattern pattern = Pattern.compile("[\\\\/:*?\"<>|]");
         if (ObjectIsNull.check(name)) {
             throw new BusinessException(ResponseEnum.REPO_FILE_NAME_CANNOT_EMPTY);
@@ -1877,12 +1877,12 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
                 throw new BusinessException(ResponseEnum.REPO_FOLDER_NAME_ILLEGAL);
             }
         }
-        Repo repo = repoService.getById(folderVO.getRepoId());
+        Repo repo = repoService.getById(folderVo.getRepoId());
         if (repo != null) {
             dataPermissionCheckTool.checkRepoBelong(repo);
         }
-        FileDirectoryTree fileDirectoryTree = fileDirectoryTreeService.getById(folderVO.getId());
-        fileDirectoryTree.setName(folderVO.getName());
+        FileDirectoryTree fileDirectoryTree = fileDirectoryTreeService.getById(folderVo.getId());
+        fileDirectoryTree.setName(folderVo.getName());
         fileDirectoryTree.setUpdateTime(LocalDateTime.now());
         fileDirectoryTreeService.updateById(fileDirectoryTree);
     }
@@ -1891,12 +1891,12 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
     /**
      * Update file name in directory tree and file info table
      *
-     * @param folderVO file update parameters containing ID and new name
+     * @param folderVo file update parameters containing ID and new name
      * @throws RuntimeException if file is not found
      * @throws BusinessException if file access is denied
      */
-    public void updateFile(CreateFolderVO folderVO) {
-        FileDirectoryTree fileDirectoryTree = fileDirectoryTreeService.getById(folderVO.getId());
+    public void updateFile(CreateFolderVo folderVo) {
+        FileDirectoryTree fileDirectoryTree = fileDirectoryTreeService.getById(folderVo.getId());
         Long spaceId = SpaceInfoUtil.getSpaceId();
         if (fileDirectoryTree == null) {
             throw new RuntimeException("File not found");
@@ -1909,11 +1909,11 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
             dataPermissionCheckTool.checkFileBelong(fileInfoV2);
         }
 
-        fileDirectoryTree.setName(folderVO.getName());
+        fileDirectoryTree.setName(folderVo.getName());
         fileDirectoryTree.setUpdateTime(LocalDateTime.now());
         fileDirectoryTreeService.updateById(fileDirectoryTree);
 
-        fileInfoV2.setName(folderVO.getName());
+        fileInfoV2.setName(folderVo.getName());
         fileInfoV2.setUpdateTime(new Timestamp(System.currentTimeMillis()));
         this.updateById(fileInfoV2);
     }
@@ -2296,12 +2296,12 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
      * Download knowledge data that violates content policies as Excel file
      *
      * @param response HTTP response for file download
-     * @param knowledgeQueryVO query parameters containing file IDs and source type
+     * @param knowledgeQueryVo query parameters containing file IDs and source type
      * @throws BusinessException if file access is denied or export fails
      */
-    public void downloadKnowledgeByViolation(HttpServletResponse response, KnowledgeQueryVO knowledgeQueryVO) {
+    public void downloadKnowledgeByViolation(HttpServletResponse response, KnowledgeQueryVo knowledgeQueryVo) {
         // 1) Collect files and perform permission validation
-        RepoContext ctx = resolveRepoContext(knowledgeQueryVO);
+        RepoContext ctx = resolveRepoContext(knowledgeQueryVo);
 
         // 2) Build workbook/styles/headers
         HSSFWorkbook wb = new HSSFWorkbook();
@@ -2311,7 +2311,7 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
 
         // 3) Query violation data (preview or formal)
         // Query q = buildViolationQuery(ctx.fileUuids);
-        Integer source = knowledgeQueryVO.getSource();
+        Integer source = knowledgeQueryVo.getSource();
         if (source == null || source == 0) {
             // List<PreviewKnowledge> list = mongoTemplate.find(q, PreviewKnowledge.class);
             List<MysqlPreviewKnowledge> list = previewKnowledgeMapper.findByFileIdInAndAuditType(ctx.fileUuids, 1);
@@ -2332,7 +2332,7 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
         Repo repo;
     }
 
-    private RepoContext resolveRepoContext(KnowledgeQueryVO vo) {
+    private RepoContext resolveRepoContext(KnowledgeQueryVo vo) {
         RepoContext c = new RepoContext();
         List<Long> fileIds = vo.getFileIds().stream().map(Long::valueOf).collect(Collectors.toList());
         List<FileInfoV2> files = fileInfoV2Mapper.listByIds(fileIds);

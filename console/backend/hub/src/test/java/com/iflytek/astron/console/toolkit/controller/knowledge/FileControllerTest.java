@@ -11,10 +11,10 @@ import com.iflytek.astron.console.hub.entity.pojo.FileSummary;
 import com.iflytek.astron.console.hub.entity.pojo.SliceConfig;
 import com.iflytek.astron.console.hub.entity.table.repo.FileDirectoryTree;
 import com.iflytek.astron.console.hub.entity.table.repo.FileInfoV2;
-import com.iflytek.astron.console.hub.entity.vo.HtmlFileVO;
-import com.iflytek.astron.console.hub.entity.vo.repo.CreateFolderVO;
-import com.iflytek.astron.console.hub.entity.vo.repo.DealFileVO;
-import com.iflytek.astron.console.hub.entity.vo.repo.KnowledgeQueryVO;
+import com.iflytek.astron.console.hub.entity.vo.HtmlFileVo;
+import com.iflytek.astron.console.hub.entity.vo.repo.CreateFolderVo;
+import com.iflytek.astron.console.hub.entity.vo.repo.DealFileVo;
+import com.iflytek.astron.console.hub.entity.vo.repo.KnowledgeQueryVo;
 import com.iflytek.astron.console.hub.service.repo.impl.FileInfoV2Service;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -68,10 +68,10 @@ class FileControllerTest {
     private FileController fileController;
 
     private FileInfoV2 mockFileInfo;
-    private DealFileVO dealFileVO;
-    private CreateFolderVO createFolderVO;
-    private HtmlFileVO htmlFileVO;
-    private KnowledgeQueryVO knowledgeQueryVO;
+    private DealFileVo dealFileVo;
+    private CreateFolderVo createFolderVo;
+    private HtmlFileVo htmlFileVo;
+    private KnowledgeQueryVo knowledgeQueryVo;
 
     /**
      * Set up test fixtures before each test Initializes common test data including mock file info, VO
@@ -85,28 +85,28 @@ class FileControllerTest {
         mockFileInfo.setName("test-file.txt");
         mockFileInfo.setRepoId(100L);
 
-        dealFileVO = new DealFileVO();
-        dealFileVO.setRepoId(100L);
-        dealFileVO.setFileIds(Arrays.asList("1", "2", "3"));
+        dealFileVo = new DealFileVo();
+        dealFileVo.setRepoId(100L);
+        dealFileVo.setFileIds(Arrays.asList("1", "2", "3"));
         SliceConfig sliceConfig = new SliceConfig();
         sliceConfig.setSeperator(Collections.singletonList("\\n"));
-        dealFileVO.setSliceConfig(sliceConfig);
+        dealFileVo.setSliceConfig(sliceConfig);
 
-        createFolderVO = new CreateFolderVO();
-        createFolderVO.setId(1L);
-        createFolderVO.setRepoId(100L);
-        createFolderVO.setName("test-folder");
-        createFolderVO.setParentId(0L);
+        createFolderVo = new CreateFolderVo();
+        createFolderVo.setId(1L);
+        createFolderVo.setRepoId(100L);
+        createFolderVo.setName("test-folder");
+        createFolderVo.setParentId(0L);
 
-        htmlFileVO = new HtmlFileVO();
-        htmlFileVO.setRepoId(100L);
-        htmlFileVO.setParentId(0L);
-        htmlFileVO.setHtmlAddressList(Arrays.asList("http://example.com/page1.html"));
+        htmlFileVo = new HtmlFileVo();
+        htmlFileVo.setRepoId(100L);
+        htmlFileVo.setParentId(0L);
+        htmlFileVo.setHtmlAddressList(Arrays.asList("http://example.com/page1.html"));
 
-        knowledgeQueryVO = new KnowledgeQueryVO();
-        knowledgeQueryVO.setPageNo(1);
-        knowledgeQueryVO.setPageSize(10);
-        knowledgeQueryVO.setTag("test-tag");
+        knowledgeQueryVo = new KnowledgeQueryVo();
+        knowledgeQueryVo.setPageNo(1);
+        knowledgeQueryVo.setPageSize(10);
+        knowledgeQueryVo.setTag("test-tag");
     }
 
     /**
@@ -168,17 +168,17 @@ class FileControllerTest {
         void createHtmlFile_Success() {
             // Given
             List<FileInfoV2> expectedFiles = Arrays.asList(mockFileInfo);
-            when(fileInfoV2Service.createHtmlFile(htmlFileVO)).thenReturn(expectedFiles);
+            when(fileInfoV2Service.createHtmlFile(htmlFileVo)).thenReturn(expectedFiles);
 
             // When
-            ApiResult<List<FileInfoV2>> result = fileController.createHtmlFile(htmlFileVO);
+            ApiResult<List<FileInfoV2>> result = fileController.createHtmlFile(htmlFileVo);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
             assertThat(result.data()).hasSize(1);
             assertThat(result.data().get(0)).isEqualTo(mockFileInfo);
-            verify(fileInfoV2Service, times(1)).createHtmlFile(htmlFileVO);
+            verify(fileInfoV2Service, times(1)).createHtmlFile(htmlFileVo);
         }
 
         /**
@@ -189,17 +189,17 @@ class FileControllerTest {
         @DisplayName("Create HTML file - Empty address list")
         void createHtmlFile_EmptyAddressList() {
             // Given
-            htmlFileVO.setHtmlAddressList(Collections.emptyList());
-            when(fileInfoV2Service.createHtmlFile(htmlFileVO)).thenReturn(Collections.emptyList());
+            htmlFileVo.setHtmlAddressList(Collections.emptyList());
+            when(fileInfoV2Service.createHtmlFile(htmlFileVo)).thenReturn(Collections.emptyList());
 
             // When
-            ApiResult<List<FileInfoV2>> result = fileController.createHtmlFile(htmlFileVO);
+            ApiResult<List<FileInfoV2>> result = fileController.createHtmlFile(htmlFileVo);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
             assertThat(result.data()).isEmpty();
-            verify(fileInfoV2Service, times(1)).createHtmlFile(htmlFileVO);
+            verify(fileInfoV2Service, times(1)).createHtmlFile(htmlFileVo);
         }
     }
 
@@ -221,16 +221,16 @@ class FileControllerTest {
         @DisplayName("Slice files successfully - With separator")
         void sliceFiles_Success_WithSeparator() throws InterruptedException, ExecutionException {
             // Given
-            when(fileInfoV2Service.sliceFiles(dealFileVO)).thenReturn(true);
+            when(fileInfoV2Service.sliceFiles(dealFileVo)).thenReturn(true);
 
             // When
-            ApiResult<Boolean> result = fileController.sliceFiles(dealFileVO);
+            ApiResult<Boolean> result = fileController.sliceFiles(dealFileVo);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
             assertThat(result.data()).isTrue();
-            verify(fileInfoV2Service, times(1)).sliceFiles(dealFileVO);
+            verify(fileInfoV2Service, times(1)).sliceFiles(dealFileVo);
         }
 
         /**
@@ -244,18 +244,18 @@ class FileControllerTest {
         @DisplayName("Slice files successfully - Empty separator defaults to newline")
         void sliceFiles_Success_EmptySeparatorDefaultsToNewline() throws InterruptedException, ExecutionException {
             // Given
-            dealFileVO.getSliceConfig().setSeperator(Collections.singletonList(""));
-            when(fileInfoV2Service.sliceFiles(dealFileVO)).thenReturn(true);
+            dealFileVo.getSliceConfig().setSeperator(Collections.singletonList(""));
+            when(fileInfoV2Service.sliceFiles(dealFileVo)).thenReturn(true);
 
             // When
-            ApiResult<Boolean> result = fileController.sliceFiles(dealFileVO);
+            ApiResult<Boolean> result = fileController.sliceFiles(dealFileVo);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
             assertThat(result.data()).isTrue();
-            assertThat(dealFileVO.getSliceConfig().getSeperator()).containsExactly("\n");
-            verify(fileInfoV2Service, times(1)).sliceFiles(dealFileVO);
+            assertThat(dealFileVo.getSliceConfig().getSeperator()).containsExactly("\n");
+            verify(fileInfoV2Service, times(1)).sliceFiles(dealFileVo);
         }
 
         /**
@@ -269,17 +269,17 @@ class FileControllerTest {
         @DisplayName("Slice files successfully - Null separator defaults to newline")
         void sliceFiles_Success_NullSeparatorDefaultsToNewline() throws InterruptedException, ExecutionException {
             // Given
-            dealFileVO.getSliceConfig().setSeperator(Collections.singletonList(null));
-            when(fileInfoV2Service.sliceFiles(dealFileVO)).thenReturn(true);
+            dealFileVo.getSliceConfig().setSeperator(Collections.singletonList(null));
+            when(fileInfoV2Service.sliceFiles(dealFileVo)).thenReturn(true);
 
             // When
-            ApiResult<Boolean> result = fileController.sliceFiles(dealFileVO);
+            ApiResult<Boolean> result = fileController.sliceFiles(dealFileVo);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
-            assertThat(dealFileVO.getSliceConfig().getSeperator()).containsExactly("\n");
-            verify(fileInfoV2Service, times(1)).sliceFiles(dealFileVO);
+            assertThat(dealFileVo.getSliceConfig().getSeperator()).containsExactly("\n");
+            verify(fileInfoV2Service, times(1)).sliceFiles(dealFileVo);
         }
 
         /**
@@ -293,16 +293,16 @@ class FileControllerTest {
         @DisplayName("Slice files - Returns false")
         void sliceFiles_ReturnsFalse() throws InterruptedException, ExecutionException {
             // Given
-            when(fileInfoV2Service.sliceFiles(dealFileVO)).thenReturn(false);
+            when(fileInfoV2Service.sliceFiles(dealFileVo)).thenReturn(false);
 
             // When
-            ApiResult<Boolean> result = fileController.sliceFiles(dealFileVO);
+            ApiResult<Boolean> result = fileController.sliceFiles(dealFileVo);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
             assertThat(result.data()).isFalse();
-            verify(fileInfoV2Service, times(1)).sliceFiles(dealFileVO);
+            verify(fileInfoV2Service, times(1)).sliceFiles(dealFileVo);
         }
 
         /**
@@ -316,13 +316,13 @@ class FileControllerTest {
         @DisplayName("Slice files - Throws InterruptedException")
         void sliceFiles_ThrowsInterruptedException() throws InterruptedException, ExecutionException {
             // Given
-            when(fileInfoV2Service.sliceFiles(dealFileVO)).thenThrow(new InterruptedException("Thread interrupted"));
+            when(fileInfoV2Service.sliceFiles(dealFileVo)).thenThrow(new InterruptedException("Thread interrupted"));
 
             // When & Then
-            assertThatThrownBy(() -> fileController.sliceFiles(dealFileVO))
+            assertThatThrownBy(() -> fileController.sliceFiles(dealFileVo))
                     .isInstanceOf(InterruptedException.class)
                     .hasMessage("Thread interrupted");
-            verify(fileInfoV2Service, times(1)).sliceFiles(dealFileVO);
+            verify(fileInfoV2Service, times(1)).sliceFiles(dealFileVo);
         }
     }
 
@@ -343,15 +343,15 @@ class FileControllerTest {
         @DisplayName("Embedding files successfully")
         void embeddingFiles_Success() throws ExecutionException, InterruptedException {
             // Given
-            doNothing().when(fileInfoV2Service).embeddingFiles(dealFileVO, request);
+            doNothing().when(fileInfoV2Service).embeddingFiles(dealFileVo, request);
 
             // When
-            ApiResult<Void> result = fileController.embeddingFiles(dealFileVO, request);
+            ApiResult<Void> result = fileController.embeddingFiles(dealFileVo, request);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
-            verify(fileInfoV2Service, times(1)).embeddingFiles(dealFileVO, request);
+            verify(fileInfoV2Service, times(1)).embeddingFiles(dealFileVo, request);
         }
 
         /**
@@ -367,13 +367,13 @@ class FileControllerTest {
             // Given
             doThrow(new RuntimeException("Embedding failed"))
                     .when(fileInfoV2Service)
-                    .embeddingFiles(dealFileVO, request);
+                    .embeddingFiles(dealFileVo, request);
 
             // When & Then
-            assertThatThrownBy(() -> fileController.embeddingFiles(dealFileVO, request))
+            assertThatThrownBy(() -> fileController.embeddingFiles(dealFileVo, request))
                     .isInstanceOf(RuntimeException.class)
                     .hasMessage("Embedding failed");
-            verify(fileInfoV2Service, times(1)).embeddingFiles(dealFileVO, request);
+            verify(fileInfoV2Service, times(1)).embeddingFiles(dealFileVo, request);
         }
 
         /**
@@ -387,15 +387,15 @@ class FileControllerTest {
         @DisplayName("Background embedding successfully")
         void embeddingBack_Success() throws ExecutionException, InterruptedException {
             // Given
-            doNothing().when(fileInfoV2Service).embeddingBack(dealFileVO, request);
+            doNothing().when(fileInfoV2Service).embeddingBack(dealFileVo, request);
 
             // When
-            ApiResult<Void> result = fileController.embeddingBack(dealFileVO, request);
+            ApiResult<Void> result = fileController.embeddingBack(dealFileVo, request);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
-            verify(fileInfoV2Service, times(1)).embeddingBack(dealFileVO, request);
+            verify(fileInfoV2Service, times(1)).embeddingBack(dealFileVo, request);
         }
 
         /**
@@ -408,15 +408,15 @@ class FileControllerTest {
         @DisplayName("Retry failed files")
         void retry_Success() throws ExecutionException, InterruptedException {
             // Given
-            doNothing().when(fileInfoV2Service).retry(dealFileVO, request);
+            doNothing().when(fileInfoV2Service).retry(dealFileVo, request);
 
             // When
-            ApiResult<Void> result = fileController.retry(dealFileVO, request);
+            ApiResult<Void> result = fileController.retry(dealFileVo, request);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
-            verify(fileInfoV2Service, times(1)).retry(dealFileVO, request);
+            verify(fileInfoV2Service, times(1)).retry(dealFileVo, request);
         }
     }
 
@@ -435,16 +435,16 @@ class FileControllerTest {
         void getIndexingStatus_Success() {
             // Given
             List<FileInfoV2Dto> expectedStatus = Arrays.asList(new FileInfoV2Dto(), new FileInfoV2Dto());
-            when(fileInfoV2Service.getIndexingStatus(dealFileVO)).thenReturn(expectedStatus);
+            when(fileInfoV2Service.getIndexingStatus(dealFileVo)).thenReturn(expectedStatus);
 
             // When
-            ApiResult<List<FileInfoV2Dto>> result = fileController.getIndexingStatus(dealFileVO);
+            ApiResult<List<FileInfoV2Dto>> result = fileController.getIndexingStatus(dealFileVo);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
             assertThat(result.data()).hasSize(2);
-            verify(fileInfoV2Service, times(1)).getIndexingStatus(dealFileVO);
+            verify(fileInfoV2Service, times(1)).getIndexingStatus(dealFileVo);
         }
 
         /**
@@ -456,16 +456,16 @@ class FileControllerTest {
         void getFileSummary_Success() {
             // Given
             FileSummary expectedSummary = new FileSummary();
-            when(fileInfoV2Service.getFileSummary(dealFileVO, request)).thenReturn(expectedSummary);
+            when(fileInfoV2Service.getFileSummary(dealFileVo, request)).thenReturn(expectedSummary);
 
             // When
-            ApiResult<FileSummary> result = fileController.getFileSummary(dealFileVO, request);
+            ApiResult<FileSummary> result = fileController.getFileSummary(dealFileVo, request);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
             assertThat(result.data()).isEqualTo(expectedSummary);
-            verify(fileInfoV2Service, times(1)).getFileSummary(dealFileVO, request);
+            verify(fileInfoV2Service, times(1)).getFileSummary(dealFileVo, request);
         }
 
         /**
@@ -506,15 +506,15 @@ class FileControllerTest {
         void listPreviewKnowledgeByPage_Success() {
             // Given
             Object expectedResult = new Object();
-            when(fileInfoV2Service.listPreviewKnowledgeByPage(knowledgeQueryVO)).thenReturn(expectedResult);
+            when(fileInfoV2Service.listPreviewKnowledgeByPage(knowledgeQueryVo)).thenReturn(expectedResult);
 
             // When
-            Object result = fileController.listPreviewKnowledgeByPage(knowledgeQueryVO);
+            Object result = fileController.listPreviewKnowledgeByPage(knowledgeQueryVo);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result).isEqualTo(expectedResult);
-            verify(fileInfoV2Service, times(1)).listPreviewKnowledgeByPage(knowledgeQueryVO);
+            verify(fileInfoV2Service, times(1)).listPreviewKnowledgeByPage(knowledgeQueryVo);
         }
 
         /**
@@ -526,16 +526,16 @@ class FileControllerTest {
             // Given
             PageData<KnowledgeDto> expectedPage = new PageData<>();
             expectedPage.setTotalCount(10L);
-            when(fileInfoV2Service.listKnowledgeByPage(knowledgeQueryVO)).thenReturn(expectedPage);
+            when(fileInfoV2Service.listKnowledgeByPage(knowledgeQueryVo)).thenReturn(expectedPage);
 
             // When
-            ApiResult<PageData<KnowledgeDto>> result = fileController.listKnowledgeByPage(knowledgeQueryVO);
+            ApiResult<PageData<KnowledgeDto>> result = fileController.listKnowledgeByPage(knowledgeQueryVo);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
             assertThat(result.data().getTotalCount()).isEqualTo(10L);
-            verify(fileInfoV2Service, times(1)).listKnowledgeByPage(knowledgeQueryVO);
+            verify(fileInfoV2Service, times(1)).listKnowledgeByPage(knowledgeQueryVo);
         }
 
         /**
@@ -546,13 +546,13 @@ class FileControllerTest {
         @DisplayName("Download knowledge by violation")
         void downloadKnowledgeByViolation_Success() {
             // Given
-            doNothing().when(fileInfoV2Service).downloadKnowledgeByViolation(response, knowledgeQueryVO);
+            doNothing().when(fileInfoV2Service).downloadKnowledgeByViolation(response, knowledgeQueryVo);
 
             // When
-            fileController.downloadKnowledgeByViolation(response, knowledgeQueryVO);
+            fileController.downloadKnowledgeByViolation(response, knowledgeQueryVo);
 
             // Then
-            verify(fileInfoV2Service, times(1)).downloadKnowledgeByViolation(response, knowledgeQueryVO);
+            verify(fileInfoV2Service, times(1)).downloadKnowledgeByViolation(response, knowledgeQueryVo);
         }
     }
 
@@ -677,16 +677,16 @@ class FileControllerTest {
         @DisplayName("Create folder successfully - No tags")
         void createFolder_Success_NoTags() {
             // Given
-            createFolderVO.setTags(null);
-            doNothing().when(fileInfoV2Service).createFolder(createFolderVO);
+            createFolderVo.setTags(null);
+            doNothing().when(fileInfoV2Service).createFolder(createFolderVo);
 
             // When
-            ApiResult<Void> result = fileController.createFolder(createFolderVO);
+            ApiResult<Void> result = fileController.createFolder(createFolderVo);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
-            verify(fileInfoV2Service, times(1)).createFolder(createFolderVO);
+            verify(fileInfoV2Service, times(1)).createFolder(createFolderVo);
         }
 
         /**
@@ -697,16 +697,16 @@ class FileControllerTest {
         @DisplayName("Create folder successfully - With valid tags")
         void createFolder_Success_WithValidTags() {
             // Given
-            createFolderVO.setTags(Arrays.asList("tag1", "tag2", "tag3"));
-            doNothing().when(fileInfoV2Service).createFolder(createFolderVO);
+            createFolderVo.setTags(Arrays.asList("tag1", "tag2", "tag3"));
+            doNothing().when(fileInfoV2Service).createFolder(createFolderVo);
 
             // When
-            ApiResult<Void> result = fileController.createFolder(createFolderVO);
+            ApiResult<Void> result = fileController.createFolder(createFolderVo);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
-            verify(fileInfoV2Service, times(1)).createFolder(createFolderVO);
+            verify(fileInfoV2Service, times(1)).createFolder(createFolderVo);
         }
 
         /**
@@ -718,16 +718,16 @@ class FileControllerTest {
         void createFolder_Success_WithMaxLengthTag() {
             // Given
             String maxLengthTag = "a".repeat(30);
-            createFolderVO.setTags(Collections.singletonList(maxLengthTag));
-            doNothing().when(fileInfoV2Service).createFolder(createFolderVO);
+            createFolderVo.setTags(Collections.singletonList(maxLengthTag));
+            doNothing().when(fileInfoV2Service).createFolder(createFolderVo);
 
             // When
-            ApiResult<Void> result = fileController.createFolder(createFolderVO);
+            ApiResult<Void> result = fileController.createFolder(createFolderVo);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
-            verify(fileInfoV2Service, times(1)).createFolder(createFolderVO);
+            verify(fileInfoV2Service, times(1)).createFolder(createFolderVo);
         }
 
         /**
@@ -739,10 +739,10 @@ class FileControllerTest {
         void createFolder_Failure_TagTooLong() {
             // Given
             String tooLongTag = "a".repeat(31);
-            createFolderVO.setTags(Collections.singletonList(tooLongTag));
+            createFolderVo.setTags(Collections.singletonList(tooLongTag));
 
             // When & Then
-            assertThatThrownBy(() -> fileController.createFolder(createFolderVO))
+            assertThatThrownBy(() -> fileController.createFolder(createFolderVo))
                     .isInstanceOf(BusinessException.class)
                     .hasFieldOrPropertyWithValue("responseEnum", ResponseEnum.REPO_KNOWLEDGE_TAG_TOO_LONG);
             verify(fileInfoV2Service, never()).createFolder(any());
@@ -756,10 +756,10 @@ class FileControllerTest {
         @DisplayName("Create folder failure - One of many tags too long")
         void createFolder_Failure_OneOfManyTagsTooLong() {
             // Given
-            createFolderVO.setTags(Arrays.asList("tag1", "tag2", "a".repeat(31)));
+            createFolderVo.setTags(Arrays.asList("tag1", "tag2", "a".repeat(31)));
 
             // When & Then
-            assertThatThrownBy(() -> fileController.createFolder(createFolderVO))
+            assertThatThrownBy(() -> fileController.createFolder(createFolderVo))
                     .isInstanceOf(BusinessException.class);
             verify(fileInfoV2Service, never()).createFolder(any());
         }
@@ -772,16 +772,16 @@ class FileControllerTest {
         @DisplayName("Create folder successfully - Empty tag list")
         void createFolder_Success_EmptyTagList() {
             // Given
-            createFolderVO.setTags(Collections.emptyList());
-            doNothing().when(fileInfoV2Service).createFolder(createFolderVO);
+            createFolderVo.setTags(Collections.emptyList());
+            doNothing().when(fileInfoV2Service).createFolder(createFolderVo);
 
             // When
-            ApiResult<Void> result = fileController.createFolder(createFolderVO);
+            ApiResult<Void> result = fileController.createFolder(createFolderVo);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
-            verify(fileInfoV2Service, times(1)).createFolder(createFolderVO);
+            verify(fileInfoV2Service, times(1)).createFolder(createFolderVo);
         }
 
         /**
@@ -791,15 +791,15 @@ class FileControllerTest {
         @DisplayName("Update folder successfully")
         void updateFolder_Success() {
             // Given
-            doNothing().when(fileInfoV2Service).updateFolder(createFolderVO);
+            doNothing().when(fileInfoV2Service).updateFolder(createFolderVo);
 
             // When
-            ApiResult<Void> result = fileController.updateFolder(createFolderVO);
+            ApiResult<Void> result = fileController.updateFolder(createFolderVo);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
-            verify(fileInfoV2Service, times(1)).updateFolder(createFolderVO);
+            verify(fileInfoV2Service, times(1)).updateFolder(createFolderVo);
         }
 
         /**
@@ -836,15 +836,15 @@ class FileControllerTest {
         @DisplayName("Update file successfully")
         void updateFile_Success() {
             // Given
-            doNothing().when(fileInfoV2Service).updateFile(createFolderVO);
+            doNothing().when(fileInfoV2Service).updateFile(createFolderVo);
 
             // When
-            ApiResult<Void> result = fileController.updateFile(createFolderVO);
+            ApiResult<Void> result = fileController.updateFile(createFolderVo);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
-            verify(fileInfoV2Service, times(1)).updateFile(createFolderVO);
+            verify(fileInfoV2Service, times(1)).updateFile(createFolderVo);
         }
 
         /**
@@ -971,10 +971,10 @@ class FileControllerTest {
         @DisplayName("sliceFiles - Empty separator list")
         void sliceFiles_EmptySeparatorList() throws InterruptedException, ExecutionException {
             // Given
-            dealFileVO.getSliceConfig().setSeperator(Collections.emptyList());
+            dealFileVo.getSliceConfig().setSeperator(Collections.emptyList());
 
             // When & Then - Verify edge condition
-            assertThatThrownBy(() -> fileController.sliceFiles(dealFileVO))
+            assertThatThrownBy(() -> fileController.sliceFiles(dealFileVo))
                     .isInstanceOf(IndexOutOfBoundsException.class);
         }
 
@@ -1055,18 +1055,18 @@ class FileControllerTest {
             String tag30 = "a".repeat(30);
 
             // 29 characters should succeed
-            createFolderVO.setTags(Collections.singletonList(tag29));
-            doNothing().when(fileInfoV2Service).createFolder(createFolderVO);
+            createFolderVo.setTags(Collections.singletonList(tag29));
+            doNothing().when(fileInfoV2Service).createFolder(createFolderVo);
 
-            ApiResult<Void> result1 = fileController.createFolder(createFolderVO);
+            ApiResult<Void> result1 = fileController.createFolder(createFolderVo);
             assertThat(result1.code()).isEqualTo(0);
 
             // 30 characters should succeed
-            createFolderVO.setTags(Collections.singletonList(tag30));
-            ApiResult<Void> result2 = fileController.createFolder(createFolderVO);
+            createFolderVo.setTags(Collections.singletonList(tag30));
+            ApiResult<Void> result2 = fileController.createFolder(createFolderVo);
             assertThat(result2.code()).isEqualTo(0);
 
-            verify(fileInfoV2Service, times(2)).createFolder(createFolderVO);
+            verify(fileInfoV2Service, times(2)).createFolder(createFolderVo);
         }
     }
 
@@ -1106,10 +1106,10 @@ class FileControllerTest {
             // Given
             doThrow(new BusinessException(ResponseEnum.REPO_FILE_EMBEDDING_FAILED))
                     .when(fileInfoV2Service)
-                    .embeddingFiles(dealFileVO, request);
+                    .embeddingFiles(dealFileVo, request);
 
             // When & Then
-            assertThatThrownBy(() -> fileController.embeddingFiles(dealFileVO, request))
+            assertThatThrownBy(() -> fileController.embeddingFiles(dealFileVo, request))
                     .isInstanceOf(BusinessException.class);
         }
 
@@ -1159,11 +1159,11 @@ class FileControllerTest {
         @DisplayName("sliceFiles - RuntimeException")
         void sliceFiles_RuntimeException() throws InterruptedException, ExecutionException {
             // Given
-            when(fileInfoV2Service.sliceFiles(dealFileVO))
+            when(fileInfoV2Service.sliceFiles(dealFileVo))
                     .thenThrow(new RuntimeException("Slice processing failed"));
 
             // When & Then
-            assertThatThrownBy(() -> fileController.sliceFiles(dealFileVO))
+            assertThatThrownBy(() -> fileController.sliceFiles(dealFileVo))
                     .isInstanceOf(RuntimeException.class)
                     .hasMessage("Slice processing failed");
         }
@@ -1176,11 +1176,11 @@ class FileControllerTest {
         @DisplayName("createHtmlFile - Service throws exception")
         void createHtmlFile_ServiceThrowsException() {
             // Given
-            when(fileInfoV2Service.createHtmlFile(htmlFileVO))
+            when(fileInfoV2Service.createHtmlFile(htmlFileVo))
                     .thenThrow(new BusinessException(ResponseEnum.REPO_FILE_UPLOAD_FAILED));
 
             // When & Then
-            assertThatThrownBy(() -> fileController.createHtmlFile(htmlFileVO))
+            assertThatThrownBy(() -> fileController.createHtmlFile(htmlFileVo))
                     .isInstanceOf(BusinessException.class);
         }
     }
@@ -1205,13 +1205,13 @@ class FileControllerTest {
             // Given
             when(fileInfoV2Service.uploadFile(multipartFile, 0L, 100L, "tag", request))
                     .thenReturn(mockFileInfo);
-            when(fileInfoV2Service.sliceFiles(dealFileVO)).thenReturn(true);
-            doNothing().when(fileInfoV2Service).embeddingFiles(dealFileVO, request);
+            when(fileInfoV2Service.sliceFiles(dealFileVo)).thenReturn(true);
+            doNothing().when(fileInfoV2Service).embeddingFiles(dealFileVo, request);
 
             // When
             ApiResult<FileInfoV2> uploadResult = fileController.uploadFile(multipartFile, 0L, 100L, "tag", request);
-            ApiResult<Boolean> sliceResultApi = fileController.sliceFiles(dealFileVO);
-            ApiResult<Void> embeddingResult = fileController.embeddingFiles(dealFileVO, request);
+            ApiResult<Boolean> sliceResultApi = fileController.sliceFiles(dealFileVo);
+            ApiResult<Void> embeddingResult = fileController.embeddingFiles(dealFileVo, request);
 
             // Then
             assertThat(uploadResult.code()).isEqualTo(0);
@@ -1219,8 +1219,8 @@ class FileControllerTest {
             assertThat(embeddingResult.code()).isEqualTo(0);
 
             verify(fileInfoV2Service, times(1)).uploadFile(multipartFile, 0L, 100L, "tag", request);
-            verify(fileInfoV2Service, times(1)).sliceFiles(dealFileVO);
-            verify(fileInfoV2Service, times(1)).embeddingFiles(dealFileVO, request);
+            verify(fileInfoV2Service, times(1)).sliceFiles(dealFileVo);
+            verify(fileInfoV2Service, times(1)).embeddingFiles(dealFileVo, request);
         }
 
         /**
@@ -1231,13 +1231,13 @@ class FileControllerTest {
         @DisplayName("Folder operations flow - Create, update, delete")
         void folderOperationsFlow() {
             // Given
-            doNothing().when(fileInfoV2Service).createFolder(createFolderVO);
-            doNothing().when(fileInfoV2Service).updateFolder(createFolderVO);
+            doNothing().when(fileInfoV2Service).createFolder(createFolderVo);
+            doNothing().when(fileInfoV2Service).updateFolder(createFolderVo);
             doNothing().when(fileInfoV2Service).deleteFolder(anyLong());
 
             // When
-            ApiResult<Void> createResult = fileController.createFolder(createFolderVO);
-            ApiResult<Void> updateResult = fileController.updateFolder(createFolderVO);
+            ApiResult<Void> createResult = fileController.createFolder(createFolderVo);
+            ApiResult<Void> updateResult = fileController.updateFolder(createFolderVo);
             ApiResult<Void> deleteResult = fileController.deleteFolder(1L);
 
             // Then
@@ -1245,8 +1245,8 @@ class FileControllerTest {
             assertThat(updateResult.code()).isEqualTo(0);
             assertThat(deleteResult.code()).isEqualTo(0);
 
-            verify(fileInfoV2Service, times(1)).createFolder(createFolderVO);
-            verify(fileInfoV2Service, times(1)).updateFolder(createFolderVO);
+            verify(fileInfoV2Service, times(1)).createFolder(createFolderVo);
+            verify(fileInfoV2Service, times(1)).updateFolder(createFolderVo);
             verify(fileInfoV2Service, times(1)).deleteFolder(1L);
         }
     }

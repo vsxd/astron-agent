@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.entity.table.group.GroupVisibility;
-import com.iflytek.astron.console.hub.entity.vo.group.GroupUserTagVO;
+import com.iflytek.astron.console.hub.entity.vo.group.GroupUserTagVo;
 import com.iflytek.astron.console.hub.handler.UserInfoManagerHandler;
 import com.iflytek.astron.console.hub.mapper.group.GroupVisibilityMapper;
 import jakarta.annotation.Resource;
@@ -87,9 +87,9 @@ public class GroupVisibilityService extends ServiceImpl<GroupVisibilityMapper, G
      *
      * @param type The type of resource (repository, tool, etc.)
      * @param id The resource ID to query access for
-     * @return List of GroupUserTagVO containing user information and tags
+     * @return List of GroupUserTagVo containing user information and tags
      */
-    public List<GroupUserTagVO> listUser(Long type, Long id) {
+    public List<GroupUserTagVo> listUser(Long type, Long id) {
         return groupVisibilityMapper.listUser(UserInfoManagerHandler.getUserId(), type, id);
     }
 

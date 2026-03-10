@@ -2,7 +2,7 @@ package com.iflytek.astron.console.hub.service.space.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.iflytek.astron.console.hub.data.UserInfoDataService;
-import com.iflytek.astron.console.hub.dto.space.EnterpriseVO;
+import com.iflytek.astron.console.hub.dto.space.EnterpriseVo;
 import com.iflytek.astron.console.hub.entity.space.Enterprise;
 import com.iflytek.astron.console.hub.entity.space.EnterpriseUser;
 import com.iflytek.astron.console.hub.entity.user.UserInfo;
@@ -62,7 +62,7 @@ class EnterpriseServiceImplTest {
     private Enterprise mockEnterprise;
     private UserInfo mockUserInfo;
     private EnterpriseUser mockEnterpriseUser;
-    private EnterpriseVO mockEnterpriseVO;
+    private EnterpriseVo mockEnterpriseVo;
 
     @BeforeEach
     void setUp() {
@@ -94,12 +94,12 @@ class EnterpriseServiceImplTest {
         mockEnterpriseUser.setUid("test-uid");
         mockEnterpriseUser.setRole(1); // 1 = super admin
 
-        mockEnterpriseVO = new EnterpriseVO();
-        mockEnterpriseVO.setId(1L);
-        mockEnterpriseVO.setUid("test-uid");
-        mockEnterpriseVO.setName("Test Enterprise");
-        mockEnterpriseVO.setOfficerName("Test User");
-        mockEnterpriseVO.setRole(1); // 1 = super admin
+        mockEnterpriseVo = new EnterpriseVo();
+        mockEnterpriseVo.setId(1L);
+        mockEnterpriseVo.setUid("test-uid");
+        mockEnterpriseVo.setName("Test Enterprise");
+        mockEnterpriseVo.setOfficerName("Test User");
+        mockEnterpriseVo.setRole(1); // 1 = super admin
     }
 
     @Test
@@ -360,7 +360,7 @@ class EnterpriseServiceImplTest {
 
     @Test
     @DisplayName("Should return enterprise detail successfully")
-    void detail_WithValidData_ShouldReturnEnterpriseVO() {
+    void detail_WithValidData_ShouldReturnEnterpriseVo() {
         // Given
         String uid = "test-uid";
         Long enterpriseId = 1L;
@@ -376,7 +376,7 @@ class EnterpriseServiceImplTest {
             when(enterpriseUserService.getEnterpriseUserByUid(enterpriseId, uid)).thenReturn(mockEnterpriseUser);
 
             // When
-            EnterpriseVO result = enterpriseService.detail();
+            EnterpriseVo result = enterpriseService.detail();
 
             // Then
             assertNotNull(result);
@@ -399,7 +399,7 @@ class EnterpriseServiceImplTest {
             mockedEnterpriseInfo.when(EnterpriseInfoUtil::getEnterpriseId).thenReturn(null);
 
             // When
-            EnterpriseVO result = enterpriseService.detail();
+            EnterpriseVo result = enterpriseService.detail();
 
             // Then
             assertNull(result);
@@ -422,7 +422,7 @@ class EnterpriseServiceImplTest {
             when(enterpriseMapper.selectById(enterpriseId)).thenReturn(null);
 
             // When
-            EnterpriseVO result = enterpriseService.detail();
+            EnterpriseVo result = enterpriseService.detail();
 
             // Then
             assertNull(result);
@@ -431,10 +431,10 @@ class EnterpriseServiceImplTest {
 
     @Test
     @DisplayName("Should return join list successfully")
-    void joinList_ShouldReturnEnterpriseVOList() {
+    void joinList_ShouldReturnEnterpriseVoList() {
         // Given
         String uid = "test-uid";
-        List<EnterpriseVO> expectedList = Arrays.asList(mockEnterpriseVO);
+        List<EnterpriseVo> expectedList = Arrays.asList(mockEnterpriseVo);
 
         try (MockedStatic<RequestContextUtil> mockedRequestContext = mockStatic(RequestContextUtil.class)) {
             mockedRequestContext.when(RequestContextUtil::getUID).thenReturn(uid);
@@ -442,7 +442,7 @@ class EnterpriseServiceImplTest {
             when(enterpriseMapper.selectByJoinUid(uid)).thenReturn(expectedList);
 
             // When
-            List<EnterpriseVO> result = enterpriseService.joinList();
+            List<EnterpriseVo> result = enterpriseService.joinList();
 
             // Then
             assertNotNull(result);

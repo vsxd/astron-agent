@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class DeleteGroupUserVO {
+public class DeleteGroupUserVo {
     private Long tagId;
     private List<String> uids;
 }

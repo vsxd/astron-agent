@@ -13,8 +13,8 @@ import com.iflytek.astron.console.hub.enums.space.SpaceRoleEnum;
 import com.iflytek.astron.console.hub.properties.SpaceLimitProperties;
 import com.iflytek.astron.console.hub.service.space.EnterpriseUserBizService;
 import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;
-import com.iflytek.astron.console.hub.dto.space.SpaceVO;
-import com.iflytek.astron.console.hub.dto.space.UserLimitVO;
+import com.iflytek.astron.console.hub.dto.space.SpaceVo;
+import com.iflytek.astron.console.hub.dto.space.UserLimitVo;
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -122,7 +122,7 @@ public class EnterpriseUserBizServiceImpl implements EnterpriseUserBizService {
      * @return
      */
     @Override
-    public UserLimitVO getUserLimit(Long enterpriseId) {
+    public UserLimitVo getUserLimit(Long enterpriseId) {
         Enterprise enterprise = enterpriseService.getEnterpriseById(enterpriseId);
         // Get user limits
         Integer userCount = 0;
@@ -131,7 +131,7 @@ public class EnterpriseUserBizServiceImpl implements EnterpriseUserBizService {
         } else if (Objects.equals(enterprise.getServiceType(), EnterpriseServiceTypeEnum.TEAM.getCode())) {
             userCount = spaceLimitProperties.getTeam().getUserCount();
         }
-        UserLimitVO vo = new UserLimitVO();
+        UserLimitVo vo = new UserLimitVo();
         vo.setTotal(userCount);
         // Used = team user count + inviting user count
         long used = enterpriseUserService.countByEnterpriseId(enterpriseId)
@@ -149,20 +149,20 @@ public class EnterpriseUserBizServiceImpl implements EnterpriseUserBizService {
      */
     private boolean removeEnterpriseUser(EnterpriseUser enterpriseUser) {
         // Get user's spaces
-        List<SpaceVO> spaceVOS = spaceService.listByEnterpriseIdAndUid(enterpriseUser.getEnterpriseId(),
+        List<SpaceVo> spaceVos = spaceService.listByEnterpriseIdAndUid(enterpriseUser.getEnterpriseId(),
                 enterpriseUser.getUid());
 
         String uid = enterpriseService.getUidByEnterpriseId(enterpriseUser.getEnterpriseId());
-        if (CollectionUtil.isNotEmpty(spaceVOS)) {
+        if (CollectionUtil.isNotEmpty(spaceVos)) {
             // If user is space owner, set super admin as space owner
-            for (SpaceVO spaceVO : spaceVOS) {
-                if (Objects.equals(spaceVO.getUserRole(), SpaceRoleEnum.OWNER.getCode())) {
-                    spaceUserService.addSpaceUser(spaceVO.getId(), uid, SpaceRoleEnum.OWNER);
+            for (SpaceVo spaceVo : spaceVos) {
+                if (Objects.equals(spaceVo.getUserRole(), SpaceRoleEnum.OWNER.getCode())) {
+                    spaceUserService.addSpaceUser(spaceVo.getId(), uid, SpaceRoleEnum.OWNER);
                 }
             }
             // Remove all space users
-            spaceUserService.removeByUid(spaceVOS.stream()
-                    .map(SpaceVO::getId)
+            spaceUserService.removeByUid(spaceVos.stream()
+                    .map(SpaceVo::getId)
                     .collect(Collectors.toSet()), enterpriseUser.getUid());
         }
         // Delete team user

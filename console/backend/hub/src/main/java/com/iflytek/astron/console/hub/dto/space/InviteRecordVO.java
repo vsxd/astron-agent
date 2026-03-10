@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Schema(name = "Invitation record")
-public class InviteRecordVO {
+public class InviteRecordVo {
 
     //
     @Schema(description = "Invitation record ID")

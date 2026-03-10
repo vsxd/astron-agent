@@ -3,7 +3,7 @@ package com.iflytek.astron.console.hub.mapper.bot;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.pagehelper.Page;
-import com.iflytek.astron.console.hub.entity.dto.SparkBotVO;
+import com.iflytek.astron.console.hub.entity.dto.SparkBotVo;
 import com.iflytek.astron.console.hub.entity.table.bot.SparkBot;
 import com.iflytek.astron.console.hub.entity.vo.bot.SparkBotSquaerVo;
 import org.apache.ibatis.annotations.Mapper;
@@ -17,15 +17,15 @@ import java.util.*;
 public interface SparkBotMapper extends BaseMapper<SparkBot> {
     int updateBotFloatedStatus(@Param("uid") String uid, @Param("excludeId") Long excludeId);
 
-    List<SparkBotVO> listSparkBotByRepoId(@Param("repoId") Long repoId, @Param("uid") String uid);
+    List<SparkBotVo> listSparkBotByRepoId(@Param("repoId") Long repoId, @Param("uid") String uid);
 
     List<SparkBot> listSparkBotByToolId(@Param("toolId") String toolId, @Param("uid") String uid);
 
     List<SparkBotSquaerVo> listSparkBotSquareByToolId();
 
-    Page<SparkBotVO> listSparkBotByCondition(@Param("content") String content, @Param("uid") String uid);
+    Page<SparkBotVo> listSparkBotByCondition(@Param("content") String content, @Param("uid") String uid);
 
-    List<SparkBotVO> botSquareByCondition(
+    List<SparkBotVo> botSquareByCondition(
             @Param("content") String content,
             @Param("uid") String uid,
             @Param("favorites") Set<Long> favorites,
@@ -56,7 +56,7 @@ public interface SparkBotMapper extends BaseMapper<SparkBot> {
      */
     Optional<SparkBot> isPersonal(@Param("botId") Long botId, @Param("userId") String userId);
 
-    Page<SparkBotVO> getBotsContainPubAndPriv(@Param("content") String content, @Param("userId") String userId, @Param("favorites") Set<Long> favorites);
+    Page<SparkBotVo> getBotsContainPubAndPriv(@Param("content") String content, @Param("userId") String userId, @Param("favorites") Set<Long> favorites);
 
     /**
      * Whether model is being referenced

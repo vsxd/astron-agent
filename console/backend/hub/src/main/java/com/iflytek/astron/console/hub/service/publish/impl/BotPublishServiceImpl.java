@@ -9,10 +9,10 @@ import com.iflytek.astron.console.hub.dto.PageResponse;
 import com.iflytek.astron.console.hub.dto.bot.BotListRequestDto;
 import com.iflytek.astron.console.hub.dto.publish.BotPublishInfoDto;
 import com.iflytek.astron.console.hub.dto.publish.BotDetailResponseDto;
-import com.iflytek.astron.console.hub.dto.publish.BotVersionVO;
-import com.iflytek.astron.console.hub.dto.publish.BotSummaryStatsVO;
+import com.iflytek.astron.console.hub.dto.publish.BotVersionVo;
+import com.iflytek.astron.console.hub.dto.publish.BotSummaryStatsVo;
 import com.iflytek.astron.console.hub.dto.publish.BotTimeSeriesResponseDto;
-import com.iflytek.astron.console.hub.dto.publish.BotTimeSeriesStatsVO;
+import com.iflytek.astron.console.hub.dto.publish.BotTimeSeriesStatsVo;
 import com.iflytek.astron.console.hub.dto.publish.WechatAuthUrlResponseDto;
 import com.iflytek.astron.console.hub.dto.publish.BotTraceRequestDto;
 import com.iflytek.astron.console.hub.dto.publish.UnifiedPrepareDto;
@@ -181,7 +181,7 @@ public class BotPublishServiceImpl implements BotPublishService {
     // ==================== Version Management ====================
 
     @Override
-    public PageResponse<BotVersionVO> getBotVersions(Integer botId, Integer page, Integer size, String uid, Long spaceId) {
+    public PageResponse<BotVersionVo> getBotVersions(Integer botId, Integer page, Integer size, String uid, Long spaceId) {
         log.info("Query workflow version list: botId={}, page={}, size={}, uid={}, spaceId={}",
                 botId, page, size, uid, spaceId);
 
@@ -201,7 +201,7 @@ public class BotPublishServiceImpl implements BotPublishService {
 
         // 4. Use MapStruct batch conversion to VO
         List<WorkflowVersion> versions = resultPage.getRecords();
-        List<BotVersionVO> versionList = workflowVersionConverter.toVersionVOList(versions);
+        List<BotVersionVo> versionList = workflowVersionConverter.toVersionVoList(versions);
 
         log.info("Query workflow version list successful: botId={}, flowId={}, total={}", botId, flowId, resultPage.getTotal());
         return PageResponse.of(page, size, resultPage.getTotal(), versionList);
@@ -210,7 +210,7 @@ public class BotPublishServiceImpl implements BotPublishService {
     // ==================== Statistics Data ====================
 
     @Override
-    public BotSummaryStatsVO getBotSummaryStats(Integer botId, String currentUid, Long currentSpaceId) {
+    public BotSummaryStatsVo getBotSummaryStats(Integer botId, String currentUid, Long currentSpaceId) {
         log.info("Get bot summary statistics: botId={}, uid={}, spaceId={}",
                 botId, currentUid, currentSpaceId);
 
@@ -221,10 +221,10 @@ public class BotPublishServiceImpl implements BotPublishService {
         }
 
         // 2. Query summary statistics data
-        BotSummaryStatsVO summaryStats = botConversationStatsMapper.selectSummaryStats(botId, null, null);
+        BotSummaryStatsVo summaryStats = botConversationStatsMapper.selectSummaryStats(botId, null, null);
         if (summaryStats == null) {
             // If no statistics data, return default values (using primitive type long, will be 0 automatically)
-            summaryStats = new BotSummaryStatsVO();
+            summaryStats = new BotSummaryStatsVo();
         }
 
         log.info("Bot summary statistics query completed: botId={}, totalChats={}, totalUsers={}",
@@ -247,7 +247,7 @@ public class BotPublishServiceImpl implements BotPublishService {
 
         // 2. Query time series statistics data
         LocalDate startDate = LocalDate.now().minusDays(overviewDays);
-        List<BotTimeSeriesStatsVO> timeSeriesStats = botConversationStatsMapper.selectTimeSeriesStats(
+        List<BotTimeSeriesStatsVo> timeSeriesStats = botConversationStatsMapper.selectTimeSeriesStats(
                 botId, startDate, null, null);
 
         // 3. Build time series data response
@@ -353,7 +353,7 @@ public class BotPublishServiceImpl implements BotPublishService {
      * Convert time series data items
      */
     private List<BotTimeSeriesResponseDto.TimeSeriesItem> convertToTimeSeriesItems(
-            List<BotTimeSeriesStatsVO> timeSeriesStats, String type) {
+            List<BotTimeSeriesStatsVo> timeSeriesStats, String type) {
         return timeSeriesStats.stream()
                 .map(stats -> {
                     Integer count = switch (type) {
@@ -373,7 +373,7 @@ public class BotPublishServiceImpl implements BotPublishService {
      * Calculate average messages per conversation
      */
     private List<BotTimeSeriesResponseDto.TimeSeriesItem> calculateAvgMessages(
-            List<BotTimeSeriesStatsVO> timeSeriesStats) {
+            List<BotTimeSeriesStatsVo> timeSeriesStats) {
         return timeSeriesStats.stream()
                 .map(stats -> {
                     Integer avgCount = stats.getChatCount() > 0

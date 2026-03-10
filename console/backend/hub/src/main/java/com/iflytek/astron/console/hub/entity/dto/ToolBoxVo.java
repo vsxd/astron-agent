@@ -12,7 +12,7 @@ public class ToolBoxVo extends ToolBox {
     private static final long serialVersionUID = 1L;
     String address;
 
-    List<SparkBotVO> bots;
+    List<SparkBotVo> bots;
 
     Boolean isFavorite;
 

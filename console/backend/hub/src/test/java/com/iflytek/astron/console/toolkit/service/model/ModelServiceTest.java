@@ -9,7 +9,7 @@ import com.iflytek.astron.console.hub.entity.biz.modelconfig.*;
 import com.iflytek.astron.console.hub.entity.table.ConfigInfo;
 import com.iflytek.astron.console.hub.entity.table.model.Model;
 import com.iflytek.astron.console.hub.entity.table.model.ModelCommon;
-import com.iflytek.astron.console.hub.entity.vo.CategoryTreeVO;
+import com.iflytek.astron.console.hub.entity.vo.CategoryTreeVo;
 import com.iflytek.astron.console.hub.entity.vo.LLMInfoVo;
 import com.iflytek.astron.console.hub.entity.vo.ModelCategoryReq;
 import com.iflytek.astron.console.hub.mapper.ConfigInfoMapper;
@@ -292,7 +292,7 @@ class ModelServiceTest {
      */
     @Test
     void testGetAllCategoryTree_filters() {
-        List<CategoryTreeVO> all = new ArrayList<>();
+        List<CategoryTreeVo> all = new ArrayList<>();
         all.add(vo("modelCategory"));
         all.add(vo("languageSupport"));
         all.add(vo("contextLengthTag"));
@@ -300,7 +300,7 @@ class ModelServiceTest {
         all.add(vo("otherKey")); // Should be filtered out
         when(modelCategoryService.getAllCategoryTree()).thenReturn(all);
 
-        List<CategoryTreeVO> filtered = modelService.getAllCategoryTree();
+        List<CategoryTreeVo> filtered = modelService.getAllCategoryTree();
         assertEquals(4, filtered.size());
         assertTrue(filtered.stream().allMatch(v -> Set.of("modelCategory", "languageSupport", "contextLengthTag", "modelScenario").contains(v.getKey())));
     }
@@ -424,8 +424,8 @@ class ModelServiceTest {
      * @return a {@link CategoryTreeVO} instance with key set
      * @since 1.0
      */
-    private static CategoryTreeVO vo(String k) {
-        CategoryTreeVO v = new CategoryTreeVO();
+    private static CategoryTreeVo vo(String k) {
+        CategoryTreeVo v = new CategoryTreeVo();
         v.setKey(k);
         return v;
     }

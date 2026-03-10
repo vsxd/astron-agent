@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Schema(name = "Enterprise information")
-public class EnterpriseVO {
+public class EnterpriseVo {
 
     @Schema(description = "Enterprise ID")
     private Long id;

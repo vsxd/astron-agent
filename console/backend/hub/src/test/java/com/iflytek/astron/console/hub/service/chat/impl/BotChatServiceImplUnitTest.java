@@ -23,7 +23,7 @@ import com.iflytek.astron.console.hub.service.PromptChatService;
 import com.iflytek.astron.console.hub.service.SparkChatService;
 import com.iflytek.astron.console.hub.service.chat.ChatListService;
 import com.iflytek.astron.console.hub.service.knowledge.KnowledgeService;
-import com.iflytek.astron.console.hub.entity.vo.CategoryTreeVO;
+import com.iflytek.astron.console.hub.entity.vo.CategoryTreeVo;
 import com.iflytek.astron.console.hub.entity.vo.LLMInfoVo;
 import com.iflytek.astron.console.hub.service.model.impl.ModelService;
 import org.junit.jupiter.api.BeforeEach;
@@ -531,8 +531,8 @@ class BotChatServiceImplUnitTest {
         llmInfoVo.setDomain("test-domain");
         llmInfoVo.setConfig("[]");
 
-        List<CategoryTreeVO> categoryTree = new ArrayList<>();
-        CategoryTreeVO contextLengthTag = new CategoryTreeVO();
+        List<CategoryTreeVo> categoryTree = new ArrayList<>();
+        CategoryTreeVo contextLengthTag = new CategoryTreeVo();
         contextLengthTag.setKey("contextLengthTag");
         contextLengthTag.setName("32k");
         categoryTree.add(contextLengthTag);

@@ -11,7 +11,7 @@ import com.iflytek.astron.console.hub.entity.dto.KnowledgeDto;
 import com.iflytek.astron.console.hub.entity.pojo.FileSummary;
 import com.iflytek.astron.console.hub.entity.table.repo.FileDirectoryTree;
 import com.iflytek.astron.console.hub.entity.table.repo.FileInfoV2;
-import com.iflytek.astron.console.hub.entity.vo.HtmlFileVO;
+import com.iflytek.astron.console.hub.entity.vo.HtmlFileVo;
 import com.iflytek.astron.console.hub.entity.vo.repo.*;
 import com.iflytek.astron.console.hub.service.repo.impl.FileInfoV2Service;
 import jakarta.annotation.Resource;
@@ -67,32 +67,32 @@ public class FileController {
     /**
      * Create HTML file from provided content and metadata
      *
-     * @param htmlFileVO the HTML file creation request object containing content and metadata
+     * @param htmlFileVo the HTML file creation request object containing content and metadata
      * @return ApiResult containing list of created file information with their details
      * @throws BusinessException when HTML file creation fails or validation errors occur
      */
     @PostMapping("/create-html-file")
     @SpacePreAuth(key = "FileController_createHtmlFile_POST",
             module = "File", point = "Create HTML File", description = "Create HTML File")
-    public ApiResult<List<FileInfoV2>> createHtmlFile(@RequestBody HtmlFileVO htmlFileVO) {
-        return ApiResult.success(fileInfoV2Service.createHtmlFile(htmlFileVO));
+    public ApiResult<List<FileInfoV2>> createHtmlFile(@RequestBody HtmlFileVo htmlFileVo) {
+        return ApiResult.success(fileInfoV2Service.createHtmlFile(htmlFileVo));
     }
 
     /**
      * Slice files into smaller chunks based on specified configuration Sets default separator to
      * newline if not provided
      *
-     * @param sliceFileVO the file slicing request object containing file IDs and slice configuration
+     * @param sliceFileVo the file slicing request object containing file IDs and slice configuration
      * @return ApiResult containing Boolean indicating whether slicing operation succeeded
      * @throws InterruptedException if the current thread is interrupted during execution
      * @throws ExecutionException if the computation threw an exception during async processing
      */
     @PostMapping("/slice")
-    public ApiResult<Boolean> sliceFiles(@RequestBody DealFileVO sliceFileVO) throws InterruptedException, ExecutionException {
-        if (StringUtils.isEmpty(sliceFileVO.getSliceConfig().getSeperator().get(0))) {
-            sliceFileVO.getSliceConfig().setSeperator(Collections.singletonList("\n"));
+    public ApiResult<Boolean> sliceFiles(@RequestBody DealFileVo sliceFileVo) throws InterruptedException, ExecutionException {
+        if (StringUtils.isEmpty(sliceFileVo.getSliceConfig().getSeperator().get(0))) {
+            sliceFileVo.getSliceConfig().setSeperator(Collections.singletonList("\n"));
         }
-        Boolean result = fileInfoV2Service.sliceFiles(sliceFileVO);
+        Boolean result = fileInfoV2Service.sliceFiles(sliceFileVo);
         return ApiResult.success(result);
     }
 
@@ -100,7 +100,7 @@ public class FileController {
      * Perform knowledge embedding on specified files to create vector representations This is a
      * synchronous operation that processes files immediately
      *
-     * @param dealFileVO the file processing request object containing file IDs and processing
+     * @param dealFileVo the file processing request object containing file IDs and processing
      *        parameters
      * @param request HTTP servlet request containing user authentication and context information
      * @return ApiResult with void data indicating operation completion status
@@ -108,8 +108,8 @@ public class FileController {
      * @throws InterruptedException if the current thread is interrupted during execution
      */
     @PostMapping("/embedding")
-    public ApiResult<Void> embeddingFiles(@RequestBody DealFileVO dealFileVO, HttpServletRequest request) throws ExecutionException, InterruptedException {
-        fileInfoV2Service.embeddingFiles(dealFileVO, request);
+    public ApiResult<Void> embeddingFiles(@RequestBody DealFileVo dealFileVo, HttpServletRequest request) throws ExecutionException, InterruptedException {
+        fileInfoV2Service.embeddingFiles(dealFileVo, request);
         return ApiResult.success();
     }
 
@@ -117,7 +117,7 @@ public class FileController {
      * Perform background knowledge embedding on specified files This is an asynchronous operation that
      * processes files in background tasks
      *
-     * @param dealFileVO the file processing request object containing file IDs and processing
+     * @param dealFileVo the file processing request object containing file IDs and processing
      *        parameters
      * @param request HTTP servlet request containing user authentication and context information
      * @return ApiResult with void data indicating operation was successfully queued
@@ -125,8 +125,8 @@ public class FileController {
      * @throws InterruptedException if the current thread is interrupted during execution
      */
     @PostMapping("/embedding-back")
-    public ApiResult<Void> embeddingBack(@RequestBody DealFileVO dealFileVO, HttpServletRequest request) throws ExecutionException, InterruptedException {
-        fileInfoV2Service.embeddingBack(dealFileVO, request);
+    public ApiResult<Void> embeddingBack(@RequestBody DealFileVo dealFileVo, HttpServletRequest request) throws ExecutionException, InterruptedException {
+        fileInfoV2Service.embeddingBack(dealFileVo, request);
         return ApiResult.success();
     }
 
@@ -134,15 +134,15 @@ public class FileController {
      * Retry failed file processing operations Attempts to reprocess files that previously failed during
      * slicing or embedding
      *
-     * @param dealFileVO the file processing request object containing file IDs to retry
+     * @param dealFileVo the file processing request object containing file IDs to retry
      * @param request HTTP servlet request containing user authentication and context information
      * @return ApiResult with void data indicating retry operation was initiated
      * @throws ExecutionException if the computation threw an exception during async processing
      * @throws InterruptedException if the current thread is interrupted during execution
      */
     @PostMapping("/retry")
-    public ApiResult<Void> retry(@RequestBody DealFileVO dealFileVO, HttpServletRequest request) throws ExecutionException, InterruptedException {
-        fileInfoV2Service.retry(dealFileVO, request);
+    public ApiResult<Void> retry(@RequestBody DealFileVo dealFileVo, HttpServletRequest request) throws ExecutionException, InterruptedException {
+        fileInfoV2Service.retry(dealFileVo, request);
         return ApiResult.success();
     }
 
@@ -151,58 +151,58 @@ public class FileController {
      * Retrieve the current indexing status for specified files Shows progress and state of file
      * processing operations
      *
-     * @param dealFileVO the file processing request object containing file IDs to check status for
+     * @param dealFileVo the file processing request object containing file IDs to check status for
      * @return ApiResult containing list of FileInfoV2Dto with indexing status details
      * @throws BusinessException when status retrieval fails or files are not found
      */
     @PostMapping("/file-indexing-status")
     @SpacePreAuth(key = "FileController_getIndexingStatus_POST",
             module = "File", point = "File Indexing Status", description = "File Indexing Status")
-    public ApiResult<List<FileInfoV2Dto>> getIndexingStatus(@RequestBody DealFileVO dealFileVO) {
-        return ApiResult.success(fileInfoV2Service.getIndexingStatus(dealFileVO));
+    public ApiResult<List<FileInfoV2Dto>> getIndexingStatus(@RequestBody DealFileVo dealFileVo) {
+        return ApiResult.success(fileInfoV2Service.getIndexingStatus(dealFileVo));
     }
 
     /**
      * Generate and retrieve summary information for specified files Provides statistical data about
      * file content and processing status
      *
-     * @param dealFileVO the file processing request object containing file IDs to summarize
+     * @param dealFileVo the file processing request object containing file IDs to summarize
      * @param request HTTP servlet request containing user authentication and context information
      * @return ApiResult containing FileSummary with aggregated file statistics
      * @throws BusinessException when summary generation fails or files are not accessible
      */
     @PostMapping("/file-summary")
-    public ApiResult<FileSummary> getFileSummary(@RequestBody DealFileVO dealFileVO, HttpServletRequest request) {
-        return ApiResult.success(fileInfoV2Service.getFileSummary(dealFileVO, request));
+    public ApiResult<FileSummary> getFileSummary(@RequestBody DealFileVo dealFileVo, HttpServletRequest request) {
+        return ApiResult.success(fileInfoV2Service.getFileSummary(dealFileVo, request));
     }
 
     /**
      * List preview knowledge entries with pagination support Returns a preview of knowledge content
      * before full processing
      *
-     * @param knowledgeQueryVO the knowledge query request object containing search criteria and
+     * @param knowledgeQueryVo the knowledge query request object containing search criteria and
      *        pagination parameters
      * @return Object containing paginated preview knowledge data (specific return type depends on
      *         implementation)
      * @throws BusinessException when knowledge preview retrieval fails or query parameters are invalid
      */
     @PostMapping("/list-preview-knowledge-by-page")
-    public ApiResult<Object> listPreviewKnowledgeByPage(@RequestBody KnowledgeQueryVO knowledgeQueryVO) {
-        return ApiResult.success(fileInfoV2Service.listPreviewKnowledgeByPage(knowledgeQueryVO));
+    public ApiResult<Object> listPreviewKnowledgeByPage(@RequestBody KnowledgeQueryVo knowledgeQueryVo) {
+        return ApiResult.success(fileInfoV2Service.listPreviewKnowledgeByPage(knowledgeQueryVo));
     }
 
     /**
      * List processed knowledge entries with pagination support Returns fully processed knowledge
      * content with metadata
      *
-     * @param knowledgeQueryVO the knowledge query request object containing search criteria and
+     * @param knowledgeQueryVo the knowledge query request object containing search criteria and
      *        pagination parameters
      * @return ApiResult containing PageData with KnowledgeDto entries and pagination information
      * @throws BusinessException when knowledge retrieval fails or query parameters are invalid
      */
     @PostMapping("/list-knowledge-by-page")
-    public ApiResult<PageData<KnowledgeDto>> listKnowledgeByPage(@RequestBody KnowledgeQueryVO knowledgeQueryVO) {
-        return ApiResult.success(fileInfoV2Service.listKnowledgeByPage(knowledgeQueryVO));
+    public ApiResult<PageData<KnowledgeDto>> listKnowledgeByPage(@RequestBody KnowledgeQueryVo knowledgeQueryVo) {
+        return ApiResult.success(fileInfoV2Service.listKnowledgeByPage(knowledgeQueryVo));
     }
 
     /**
@@ -210,13 +210,13 @@ public class FileController {
      * don't meet quality standards for review
      *
      * @param response HTTP servlet response to write the download data to
-     * @param knowledgeQueryVO the knowledge query request object containing filter criteria for
+     * @param knowledgeQueryVo the knowledge query request object containing filter criteria for
      *        violation detection
      * @throws BusinessException when download generation fails or no violations are found
      */
     @PostMapping("/download-knowledge-by-violation")
-    public void downloadKnowledgeByViolation(HttpServletResponse response, @RequestBody KnowledgeQueryVO knowledgeQueryVO) {
-        fileInfoV2Service.downloadKnowledgeByViolation(response, knowledgeQueryVO);
+    public void downloadKnowledgeByViolation(HttpServletResponse response, @RequestBody KnowledgeQueryVo knowledgeQueryVo) {
+        fileInfoV2Service.downloadKnowledgeByViolation(response, knowledgeQueryVo);
     }
 
 
@@ -251,34 +251,34 @@ public class FileController {
      * Create a new folder in the specified repository and parent directory Validates that tag length
      * does not exceed 30 characters
      *
-     * @param folderVO the folder creation request object containing folder name, parent ID, and tags
+     * @param folderVo the folder creation request object containing folder name, parent ID, and tags
      * @return ApiResult with void data indicating successful folder creation
      * @throws BusinessException when tag length exceeds 30 characters or folder creation fails
      */
     @PostMapping("/create-folder")
-    public ApiResult<Void> createFolder(@RequestBody CreateFolderVO folderVO) {
-        if (CollectionUtils.isNotEmpty(folderVO.getTags())) {
-            for (String tag : folderVO.getTags()) {
+    public ApiResult<Void> createFolder(@RequestBody CreateFolderVo folderVo) {
+        if (CollectionUtils.isNotEmpty(folderVo.getTags())) {
+            for (String tag : folderVo.getTags()) {
                 if (tag.length() > 30) {
                     throw new BusinessException(ResponseEnum.REPO_KNOWLEDGE_TAG_TOO_LONG);
                 }
             }
         }
 
-        fileInfoV2Service.createFolder(folderVO);
+        fileInfoV2Service.createFolder(folderVo);
         return ApiResult.success();
     }
 
     /**
      * Update existing folder properties such as name, tags, or metadata
      *
-     * @param folderVO the folder update request object containing folder ID and updated properties
+     * @param folderVo the folder update request object containing folder ID and updated properties
      * @return ApiResult with void data indicating successful folder update
      * @throws BusinessException when folder update fails or folder is not found
      */
     @PostMapping("/update-folder")
-    public ApiResult<Void> updateFolder(@RequestBody CreateFolderVO folderVO) {
-        fileInfoV2Service.updateFolder(folderVO);
+    public ApiResult<Void> updateFolder(@RequestBody CreateFolderVo folderVo) {
+        fileInfoV2Service.updateFolder(folderVo);
         return ApiResult.success();
     }
 
@@ -299,13 +299,13 @@ public class FileController {
     /**
      * Update existing file properties such as name, tags, or metadata
      *
-     * @param folderVO the file update request object containing file ID and updated properties
+     * @param folderVo the file update request object containing file ID and updated properties
      * @return ApiResult with void data indicating successful file update
      * @throws BusinessException when file update fails or file is not found
      */
     @PostMapping("/update-file")
-    public ApiResult<Void> updateFile(@RequestBody CreateFolderVO folderVO) {
-        fileInfoV2Service.updateFile(folderVO);
+    public ApiResult<Void> updateFile(@RequestBody CreateFolderVo folderVo) {
+        fileInfoV2Service.updateFile(folderVo);
         return ApiResult.success();
     }
 

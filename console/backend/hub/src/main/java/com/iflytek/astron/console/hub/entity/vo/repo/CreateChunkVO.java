@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class CreateChunkVO {
+public class CreateChunkVo {
     private String app_id;
     private String bot_id;
     private String repo_id;

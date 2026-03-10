@@ -1,7 +1,7 @@
 package com.iflytek.astron.console.hub.service.space.impl;
 
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
-import com.iflytek.astron.console.hub.dto.space.UserLimitVO;
+import com.iflytek.astron.console.hub.dto.space.UserLimitVo;
 import com.iflytek.astron.console.hub.entity.space.Enterprise;
 import com.iflytek.astron.console.hub.entity.space.EnterpriseUser;
 import com.iflytek.astron.console.hub.entity.space.Space;
@@ -666,7 +666,7 @@ class SpaceUserBizServiceImplTest {
             when(inviteRecordService.countJoiningBySpaceId(TEST_SPACE_ID)).thenReturn(2L);
 
             // Act
-            UserLimitVO result = spaceUserBizService.getUserLimit();
+            UserLimitVo result = spaceUserBizService.getUserLimit();
 
             // Assert
             assertNotNull(result);
@@ -688,7 +688,7 @@ class SpaceUserBizServiceImplTest {
             when(inviteRecordService.countJoiningByUid(TEST_UID, SpaceTypeEnum.FREE)).thenReturn(1L);
 
             // Act
-            UserLimitVO result = spaceUserBizService.getUserLimit();
+            UserLimitVo result = spaceUserBizService.getUserLimit();
 
             // Assert
             assertNotNull(result);
@@ -712,7 +712,7 @@ class SpaceUserBizServiceImplTest {
             when(inviteRecordService.countJoiningBySpaceId(TEST_SPACE_ID)).thenReturn(1L);
 
             // Act
-            UserLimitVO result = spaceUserBizService.getUserLimit();
+            UserLimitVo result = spaceUserBizService.getUserLimit();
 
             // Assert
             assertNotNull(result);
@@ -735,7 +735,7 @@ class SpaceUserBizServiceImplTest {
             when(inviteRecordService.countJoiningByUid(TEST_UID, SpaceTypeEnum.PRO)).thenReturn(1L);
 
             // Act
-            UserLimitVO result = spaceUserBizService.getUserLimit(TEST_UID);
+            UserLimitVo result = spaceUserBizService.getUserLimit(TEST_UID);
 
             // Assert
             assertNotNull(result);
@@ -756,7 +756,7 @@ class SpaceUserBizServiceImplTest {
             when(inviteRecordService.countJoiningByUid(TEST_UID, SpaceTypeEnum.FREE)).thenReturn(2L);
 
             // Act
-            UserLimitVO result = spaceUserBizService.getUserLimit(TEST_UID);
+            UserLimitVo result = spaceUserBizService.getUserLimit(TEST_UID);
 
             // Assert
             assertNotNull(result);
@@ -766,10 +766,10 @@ class SpaceUserBizServiceImplTest {
         }
     }
 
-    // ==================== getUserLimitVO() method tests ====================
+    // ==================== getUserLimitVo() method tests ====================
 
     @Test
-    @DisplayName("getUserLimitVO - Should return free space limits")
+    @DisplayName("getUserLimitVo - Should return free space limits")
     void getUserLimitVO_Success_WhenFreeSpaceType() {
         // Arrange
         when(spaceLimitProperties.getFree()).thenReturn(spaceLimit);
@@ -777,7 +777,7 @@ class SpaceUserBizServiceImplTest {
         when(inviteRecordService.countJoiningByUid(TEST_UID, SpaceTypeEnum.FREE)).thenReturn(1L);
 
         // Act
-        UserLimitVO result = spaceUserBizService.getUserLimitVO(SpaceTypeEnum.FREE.getCode(), TEST_UID);
+        UserLimitVo result = spaceUserBizService.getUserLimitVo(SpaceTypeEnum.FREE.getCode(), TEST_UID);
 
         // Assert
         assertNotNull(result);
@@ -787,7 +787,7 @@ class SpaceUserBizServiceImplTest {
     }
 
     @Test
-    @DisplayName("getUserLimitVO - Should return pro space limits")
+    @DisplayName("getUserLimitVo - Should return pro space limits")
     void getUserLimitVO_Success_WhenProSpaceType() {
         // Arrange
         when(spaceLimitProperties.getPro()).thenReturn(spaceLimit);
@@ -795,7 +795,7 @@ class SpaceUserBizServiceImplTest {
         when(inviteRecordService.countJoiningByUid(TEST_UID, SpaceTypeEnum.PRO)).thenReturn(2L);
 
         // Act
-        UserLimitVO result = spaceUserBizService.getUserLimitVO(SpaceTypeEnum.PRO.getCode(), TEST_UID);
+        UserLimitVo result = spaceUserBizService.getUserLimitVo(SpaceTypeEnum.PRO.getCode(), TEST_UID);
 
         // Assert
         assertNotNull(result);
@@ -805,7 +805,7 @@ class SpaceUserBizServiceImplTest {
     }
 
     @Test
-    @DisplayName("getUserLimitVO - Should return pro space limits for non-free type")
+    @DisplayName("getUserLimitVo - Should return pro space limits for non-free type")
     void getUserLimitVO_Success_WhenNonFreeSpaceType() {
         // Arrange
         when(spaceLimitProperties.getPro()).thenReturn(spaceLimit);
@@ -813,7 +813,7 @@ class SpaceUserBizServiceImplTest {
         when(inviteRecordService.countJoiningByUid(TEST_UID, SpaceTypeEnum.PRO)).thenReturn(1L);
 
         // Act
-        UserLimitVO result = spaceUserBizService.getUserLimitVO(SpaceTypeEnum.ENTERPRISE.getCode(), TEST_UID);
+        UserLimitVo result = spaceUserBizService.getUserLimitVo(SpaceTypeEnum.ENTERPRISE.getCode(), TEST_UID);
 
         // Assert
         assertNotNull(result);

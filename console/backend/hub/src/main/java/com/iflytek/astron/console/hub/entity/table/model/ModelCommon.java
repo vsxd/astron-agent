@@ -2,7 +2,7 @@ package com.iflytek.astron.console.hub.entity.table.model;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.iflytek.astron.console.hub.entity.vo.CategoryTreeVO;
+import com.iflytek.astron.console.hub.entity.vo.CategoryTreeVo;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -113,7 +113,7 @@ public class ModelCommon implements Serializable {
     private Date shelfOffTime;
 
     @TableField(exist = false)
-    private List<CategoryTreeVO> categoryTree;
+    private List<CategoryTreeVo> categoryTree;
 
 
 }

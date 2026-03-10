@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Schema(name = "Space information")
-public class SpaceVO {
+public class SpaceVo {
 
     //
     @Schema(description = "Space ID")

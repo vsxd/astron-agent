@@ -12,7 +12,7 @@ public class RepoDto extends Repo {
     private static final long serialVersionUID = 1L;
     private String address;
     private List<TagDto> tagDtoList;
-    private List<SparkBotVO> bots;
+    private List<SparkBotVo> bots;
     private Long fileCount;
     private Long charCount;
     private Long knowledgeCount;

@@ -1,8 +1,8 @@
 package com.iflytek.astron.console.hub.service.space;
 
 
-import com.iflytek.astron.console.hub.dto.space.EnterpriseSpaceCountVO;
-import com.iflytek.astron.console.hub.dto.space.SpaceVO;
+import com.iflytek.astron.console.hub.dto.space.EnterpriseSpaceCountVo;
+import com.iflytek.astron.console.hub.dto.space.SpaceVo;
 import com.iflytek.astron.console.hub.entity.space.Space;
 import com.iflytek.astron.console.hub.enums.space.SpaceTypeEnum;
 
@@ -13,23 +13,23 @@ import java.util.List;
  */
 public interface SpaceService {
 
-    List<SpaceVO> recentVisitList();
+    List<SpaceVo> recentVisitList();
 
-    List<SpaceVO> personalList(String name);
+    List<SpaceVo> personalList(String name);
 
-    List<SpaceVO> personalSelfList(String name);
+    List<SpaceVo> personalSelfList(String name);
 
-    List<SpaceVO> corporateJoinList(String name);
+    List<SpaceVo> corporateJoinList(String name);
 
-    List<SpaceVO> corporateList(String name);
+    List<SpaceVo> corporateList(String name);
 
-    EnterpriseSpaceCountVO corporateCount();
+    EnterpriseSpaceCountVo corporateCount();
 
-    SpaceVO getSpaceVO();
+    SpaceVo getSpaceVo();
 
     void setLastVisitPersonalSpaceTime();
 
-    SpaceVO getLastVisitSpace();
+    SpaceVo getLastVisitSpace();
 
     Long countByEnterpriseId(Long enterpriseId);
 
@@ -37,7 +37,7 @@ public interface SpaceService {
 
     Space getSpaceById(Long id);
 
-    List<SpaceVO> listByEnterpriseIdAndUid(Long enterpriseId, String uid);
+    List<SpaceVo> listByEnterpriseIdAndUid(Long enterpriseId, String uid);
 
     boolean checkExistByName(String name, Long id);
 

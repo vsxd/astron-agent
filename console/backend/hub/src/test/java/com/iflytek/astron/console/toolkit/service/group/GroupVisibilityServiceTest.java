@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.iflytek.astron.console.hub.entity.table.group.GroupVisibility;
-import com.iflytek.astron.console.hub.entity.vo.group.GroupUserTagVO;
+import com.iflytek.astron.console.hub.entity.vo.group.GroupUserTagVo;
 import com.iflytek.astron.console.hub.handler.UserInfoManagerHandler;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.mapper.group.GroupVisibilityMapper;
@@ -120,10 +120,10 @@ class GroupVisibilityServiceTest {
         try (MockedStatic<UserInfoManagerHandler> user = mockStatic(UserInfoManagerHandler.class)) {
             user.when(UserInfoManagerHandler::getUserId).thenReturn("u-1");
 
-            List<GroupUserTagVO> rows = Arrays.asList(new GroupUserTagVO(), new GroupUserTagVO());
+            List<GroupUserTagVo> rows = Arrays.asList(new GroupUserTagVo(), new GroupUserTagVo());
             when(groupVisibilityMapper.listUser("u-1", 5L, 7L)).thenReturn(rows);
 
-            List<GroupUserTagVO> out = service.listUser(5L, 7L);
+            List<GroupUserTagVo> out = service.listUser(5L, 7L);
 
             assertThat(out).isSameAs(rows);
             verify(groupVisibilityMapper).listUser("u-1", 5L, 7L);

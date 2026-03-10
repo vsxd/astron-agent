@@ -6,7 +6,7 @@ import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.entity.biz.modelconfig.*;
-import com.iflytek.astron.console.hub.entity.vo.CategoryTreeVO;
+import com.iflytek.astron.console.hub.entity.vo.CategoryTreeVo;
 import com.iflytek.astron.console.hub.handler.UserInfoManagerHandler;
 import com.iflytek.astron.console.hub.service.model.impl.ModelService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -93,7 +93,7 @@ public class ModelController {
      * For creating models dropdown: Full official category tree
      */
     @GetMapping("/category-tree")
-    public ApiResult<List<CategoryTreeVO>> getAllCategoryTree() {
+    public ApiResult<List<CategoryTreeVo>> getAllCategoryTree() {
         return ApiResult.success(modelService.getAllCategoryTree());
     }
 

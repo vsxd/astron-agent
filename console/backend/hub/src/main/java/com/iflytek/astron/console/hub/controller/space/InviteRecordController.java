@@ -8,9 +8,9 @@ import com.iflytek.astron.console.commons.annotation.space.SpacePreAuth;
 import com.iflytek.astron.console.hub.dto.space.InviteRecordAddDto;
 import com.iflytek.astron.console.hub.dto.space.InviteRecordParam;
 import com.iflytek.astron.console.hub.enums.space.InviteRecordTypeEnum;
-import com.iflytek.astron.console.hub.dto.space.BatchChatUserVO;
-import com.iflytek.astron.console.hub.dto.space.ChatUserVO;
-import com.iflytek.astron.console.hub.dto.space.InviteRecordVO;
+import com.iflytek.astron.console.hub.dto.space.BatchChatUserVo;
+import com.iflytek.astron.console.hub.dto.space.ChatUserVo;
+import com.iflytek.astron.console.hub.dto.space.InviteRecordVo;
 import com.iflytek.astron.console.hub.service.space.InviteRecordService;
 import com.iflytek.astron.console.hub.service.space.InviteRecordBizService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,7 +41,7 @@ public class InviteRecordController {
 
     @GetMapping("/get-invite-by-param")
     @Operation(summary = "Get invitation record by parameter")
-    public ApiResult<InviteRecordVO> getInviteByParam(@RequestParam("param") String param) {
+    public ApiResult<InviteRecordVo> getInviteByParam(@RequestParam("param") String param) {
         try {
             return ApiResult.success(inviteRecordBizService.getRecordByParam(param));
         } catch (RuntimeException e) {
@@ -52,14 +52,14 @@ public class InviteRecordController {
     @GetMapping("/space-search-user")
     @SpacePreAuth(module = "Invitation Management", description = "Space invitation search user", requireSpaceId = true, key = "InviteRecordController_spaceSearchUser_GET")
     @Operation(summary = "Space invitation search user")
-    public ApiResult<List<ChatUserVO>> spaceSearchUser(@RequestParam("mobile") String mobile) {
+    public ApiResult<List<ChatUserVo>> spaceSearchUser(@RequestParam("mobile") String mobile) {
         return ApiResult.success(inviteRecordBizService.searchUser(mobile, InviteRecordTypeEnum.SPACE));
     }
 
     @GetMapping("/space-search-username")
     @SpacePreAuth(module = "Invitation Management", description = "Space invitation search username", requireSpaceId = true, key = "InviteRecordController_spaceSearchUsername_GET")
     @Operation(summary = "Space invitation search username")
-    public ApiResult<List<ChatUserVO>> spaceSearchUsername(@RequestParam("username") @NotEmpty String username) {
+    public ApiResult<List<ChatUserVo>> spaceSearchUsername(@RequestParam("username") @NotEmpty String username) {
         return ApiResult.success(inviteRecordBizService.searchUsername(username, InviteRecordTypeEnum.SPACE));
     }
 
@@ -74,35 +74,35 @@ public class InviteRecordController {
     @PostMapping("/space-invite-list")
     @SpacePreAuth(module = "Invitation Management", description = "Space invitation list", requireSpaceId = true, key = "InviteRecordController_spaceInviteList_POST")
     @Operation(summary = "Space invitation list")
-    public ApiResult<Page<InviteRecordVO>> spaceInviteList(@RequestBody @Valid InviteRecordParam param) {
+    public ApiResult<Page<InviteRecordVo>> spaceInviteList(@RequestBody @Valid InviteRecordParam param) {
         return ApiResult.success(inviteRecordService.inviteList(param, InviteRecordTypeEnum.SPACE));
     }
 
     @GetMapping("/enterprise-search-user")
     @EnterprisePreAuth(module = "Invitation Management", description = "Enterprise invitation search user", key = "InviteRecordController_enterpriseSearchUser_GET")
     @Operation(summary = "Enterprise invitation search user")
-    public ApiResult<List<ChatUserVO>> enterpriseSearchUser(@RequestParam("mobile") String mobile) {
+    public ApiResult<List<ChatUserVo>> enterpriseSearchUser(@RequestParam("mobile") String mobile) {
         return ApiResult.success(inviteRecordBizService.searchUser(mobile, InviteRecordTypeEnum.ENTERPRISE));
     }
 
     @GetMapping("/enterprise-search-username")
     @EnterprisePreAuth(module = "Invitation Management", description = "Enterprise invitation search username", key = "InviteRecordController_enterpriseSearchUsername_GET")
     @Operation(summary = "Enterprise invitation search username")
-    public ApiResult<List<ChatUserVO>> enterpriseSearchUsername(@RequestParam("username") @NotEmpty String username) {
+    public ApiResult<List<ChatUserVo>> enterpriseSearchUsername(@RequestParam("username") @NotEmpty String username) {
         return ApiResult.success(inviteRecordBizService.searchUsername(username, InviteRecordTypeEnum.ENTERPRISE));
     }
 
     @PostMapping("/enterprise-batch-search-user")
     @EnterprisePreAuth(module = "Invitation Management", description = "Enterprise invitation batch search user", key = "InviteRecordController_enterpriseBatchSearchUser_POST")
     @Operation(summary = "Enterprise invitation batch search user")
-    public ApiResult<BatchChatUserVO> enterpriseBatchSearchUser(@RequestParam MultipartFile file) {
+    public ApiResult<BatchChatUserVo> enterpriseBatchSearchUser(@RequestParam MultipartFile file) {
         return inviteRecordBizService.searchUserBatch(file);
     }
 
     @PostMapping("/enterprise-batch-search-username")
     @EnterprisePreAuth(module = "Invitation Management", description = "Enterprise invitation batch search username", key = "InviteRecordController_enterpriseBatchSearchUsername_POST")
     @Operation(summary = "Enterprise invitation batch search username")
-    public ApiResult<BatchChatUserVO> enterpriseBatchSearchUsername(@RequestParam MultipartFile file) {
+    public ApiResult<BatchChatUserVo> enterpriseBatchSearchUsername(@RequestParam MultipartFile file) {
         return inviteRecordBizService.searchUsernameBatch(file);
     }
 
@@ -117,7 +117,7 @@ public class InviteRecordController {
     @PostMapping("/enterprise-invite-list")
     @EnterprisePreAuth(module = "Invitation Management", description = "Enterprise team invitation list", key = "InviteRecordController_enterpriseInviteList_POST")
     @Operation(summary = "Enterprise team invitation list")
-    public ApiResult<Page<InviteRecordVO>> enterpriseInviteList(@RequestBody @Valid InviteRecordParam param) {
+    public ApiResult<Page<InviteRecordVo>> enterpriseInviteList(@RequestBody @Valid InviteRecordParam param) {
         return ApiResult.success(inviteRecordService.inviteList(param, InviteRecordTypeEnum.ENTERPRISE));
     }
 

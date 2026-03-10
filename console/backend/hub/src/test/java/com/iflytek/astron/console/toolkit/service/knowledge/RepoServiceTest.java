@@ -20,13 +20,13 @@ import com.iflytek.astron.console.hub.entity.table.repo.FileInfoV2;
 import com.iflytek.astron.console.hub.entity.table.repo.HitTestHistory;
 import com.iflytek.astron.console.hub.entity.table.repo.FileDirectoryTree;
 import com.iflytek.astron.console.hub.entity.dto.RepoDto;
-import com.iflytek.astron.console.hub.entity.dto.SparkBotVO;
+import com.iflytek.astron.console.hub.entity.dto.SparkBotVo;
 import com.iflytek.astron.console.hub.entity.common.PageData;
 import com.iflytek.astron.console.hub.entity.core.knowledge.QueryRequest;
 import com.iflytek.astron.console.hub.entity.core.knowledge.KnowledgeResponse;
 import com.iflytek.astron.console.hub.entity.core.knowledge.QueryRespData;
 import com.iflytek.astron.console.hub.entity.core.knowledge.ChunkInfo;
-import com.iflytek.astron.console.hub.entity.vo.knowledge.RepoVO;
+import com.iflytek.astron.console.hub.entity.vo.knowledge.RepoVo;
 import com.iflytek.astron.console.hub.handler.KnowledgeV2ServiceCallHandler;
 import com.iflytek.astron.console.hub.handler.UserInfoManagerHandler;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
@@ -156,7 +156,7 @@ class RepoServiceTest {
     @InjectMocks
     private RepoService repoService;
 
-    private RepoVO mockRepoVO;
+    private RepoVo mockRepoVo;
     private Repo mockRepo;
     private MockHttpServletRequest mockRequest;
 
@@ -176,16 +176,16 @@ class RepoServiceTest {
         ReflectionTestUtils.setField(repoService, "baseMapper", repoMapper);
 
         // Initialize mock RepoVO
-        mockRepoVO = new RepoVO();
-        mockRepoVO.setName("Test Repository");
-        mockRepoVO.setDesc("Test Description");
-        mockRepoVO.setTag("AIUI-RAG2"); // Use correct tag value for validation
-        mockRepoVO.setAvatarIcon("icon-url");
-        mockRepoVO.setAvatarColor("#FF0000");
-        mockRepoVO.setVisibility(0);
-        mockRepoVO.setAppId("app-001");
-        mockRepoVO.setSource(0);
-        mockRepoVO.setUids(new ArrayList<>());
+        mockRepoVo = new RepoVo();
+        mockRepoVo.setName("Test Repository");
+        mockRepoVo.setDesc("Test Description");
+        mockRepoVo.setTag("AIUI-RAG2"); // Use correct tag value for validation
+        mockRepoVo.setAvatarIcon("icon-url");
+        mockRepoVo.setAvatarColor("#FF0000");
+        mockRepoVo.setVisibility(0);
+        mockRepoVo.setAppId("app-001");
+        mockRepoVo.setSource(0);
+        mockRepoVo.setUids(new ArrayList<>());
 
         // Initialize mock Repo
         mockRepo = new Repo();
@@ -237,7 +237,7 @@ class RepoServiceTest {
                 spaceMock.when(SpaceInfoUtil::getSpaceId).thenReturn(null);
 
                 // Given
-                mockRepoVO.setTag("AIUI-RAG2");
+                mockRepoVo.setTag("AIUI-RAG2");
 
                 // Mock selectOne with two parameters (wrapper, throwEx) - MyBatis-Plus uses this signature
                 when(repoMapper.selectOne(any(), anyBoolean())).thenReturn(null);
@@ -249,7 +249,7 @@ class RepoServiceTest {
                 doNothing().when(groupVisibilityService).setRepoVisibility(anyLong(), anyInt(), anyInt(), anyList());
 
                 // When
-                Repo result = repoService.createRepo(mockRepoVO);
+                Repo result = repoService.createRepo(mockRepoVo);
 
                 // Then
                 assertThat(result).isNotNull();
@@ -275,7 +275,7 @@ class RepoServiceTest {
                 spaceMock.when(SpaceInfoUtil::getSpaceId).thenReturn(null);
 
                 // Given
-                mockRepoVO.setTag("CBG-RAG");
+                mockRepoVo.setTag("CBG-RAG");
 
                 when(repoMapper.selectOne(any(), anyBoolean())).thenReturn(null);
                 when(repoMapper.insert(any(Repo.class))).thenAnswer(invocation -> {
@@ -286,7 +286,7 @@ class RepoServiceTest {
                 doNothing().when(groupVisibilityService).setRepoVisibility(anyLong(), anyInt(), anyInt(), anyList());
 
                 // When
-                Repo result = repoService.createRepo(mockRepoVO);
+                Repo result = repoService.createRepo(mockRepoVo);
 
                 // Then
                 assertThat(result).isNotNull();
@@ -316,7 +316,7 @@ class RepoServiceTest {
                 when(repoMapper.selectOne(any(), anyBoolean())).thenReturn(existingRepo);
 
                 // When & Then
-                assertThatThrownBy(() -> repoService.createRepo(mockRepoVO))
+                assertThatThrownBy(() -> repoService.createRepo(mockRepoVo))
                         .isInstanceOf(BusinessException.class)
                         .extracting("responseEnum")
                         .isEqualTo(ResponseEnum.REPO_NAME_DUPLICATE);
@@ -339,12 +339,12 @@ class RepoServiceTest {
                 spaceMock.when(SpaceInfoUtil::getSpaceId).thenReturn(null);
 
                 // Given
-                mockRepoVO.setTag("INVALID_TAG");
+                mockRepoVo.setTag("INVALID_TAG");
 
                 when(repoMapper.selectOne(any(), anyBoolean())).thenReturn(null);
 
                 // When & Then
-                assertThatThrownBy(() -> repoService.createRepo(mockRepoVO))
+                assertThatThrownBy(() -> repoService.createRepo(mockRepoVo))
                         .isInstanceOf(BusinessException.class)
                         .extracting("responseEnum")
                         .isEqualTo(ResponseEnum.REPO_TYPE_NOT_MATCH);
@@ -367,7 +367,7 @@ class RepoServiceTest {
                 spaceMock.when(SpaceInfoUtil::getSpaceId).thenReturn(null);
 
                 // Given
-                mockRepoVO.setOuterRepoId("custom-repo-id");
+                mockRepoVo.setOuterRepoId("custom-repo-id");
 
                 when(repoMapper.selectOne(any(), anyBoolean())).thenReturn(null);
                 when(repoMapper.insert(any(Repo.class))).thenAnswer(invocation -> {
@@ -378,7 +378,7 @@ class RepoServiceTest {
                 doNothing().when(groupVisibilityService).setRepoVisibility(anyLong(), anyInt(), anyInt(), anyList());
 
                 // When
-                Repo result = repoService.createRepo(mockRepoVO);
+                Repo result = repoService.createRepo(mockRepoVo);
 
                 // Then
                 assertThat(result).isNotNull();
@@ -402,8 +402,8 @@ class RepoServiceTest {
                 spaceMock.when(SpaceInfoUtil::getSpaceId).thenReturn(null);
 
                 // Given
-                mockRepoVO.setVisibility(1);
-                mockRepoVO.setUids(Arrays.asList("user-001", "user-002"));
+                mockRepoVo.setVisibility(1);
+                mockRepoVo.setUids(Arrays.asList("user-001", "user-002"));
 
                 when(repoMapper.selectOne(any(), anyBoolean())).thenReturn(null);
                 when(repoMapper.insert(any(Repo.class))).thenAnswer(invocation -> {
@@ -414,7 +414,7 @@ class RepoServiceTest {
                 doNothing().when(groupVisibilityService).setRepoVisibility(anyLong(), anyInt(), anyInt(), anyList());
 
                 // When
-                Repo result = repoService.createRepo(mockRepoVO);
+                Repo result = repoService.createRepo(mockRepoVo);
 
                 // Then
                 assertThat(result).isNotNull();
@@ -437,7 +437,7 @@ class RepoServiceTest {
                 spaceMock.when(SpaceInfoUtil::getSpaceId).thenReturn(null);
 
                 // Given
-                mockRepoVO.setSource(null);
+                mockRepoVo.setSource(null);
 
                 when(repoMapper.selectOne(any(), anyBoolean())).thenReturn(null);
                 when(repoMapper.insert(any(Repo.class))).thenAnswer(invocation -> {
@@ -449,7 +449,7 @@ class RepoServiceTest {
                 doNothing().when(groupVisibilityService).setRepoVisibility(anyLong(), anyInt(), anyInt(), anyList());
 
                 // When
-                Repo result = repoService.createRepo(mockRepoVO);
+                Repo result = repoService.createRepo(mockRepoVo);
 
                 // Then
                 assertThat(result).isNotNull();
@@ -557,11 +557,11 @@ class RepoServiceTest {
     class EdgeCaseTests {
 
         /**
-         * Test createRepo with null RepoVO.
+         * Test createRepo with null RepoVo.
          */
         @Test
         @DisplayName("Create repository - null RepoVO")
-        void testCreateRepo_NullRepoVO() {
+        void testCreateRepo_NullRepoVo() {
             // When & Then
             assertThatThrownBy(() -> repoService.createRepo(null))
                     .isInstanceOf(NullPointerException.class);
@@ -581,7 +581,7 @@ class RepoServiceTest {
                 spaceMock.when(SpaceInfoUtil::getSpaceId).thenReturn(null);
 
                 // Given
-                mockRepoVO.setName("");
+                mockRepoVo.setName("");
 
                 when(repoMapper.selectOne(any(), anyBoolean())).thenReturn(null);
                 when(repoMapper.insert(any(Repo.class))).thenAnswer(invocation -> {
@@ -592,7 +592,7 @@ class RepoServiceTest {
                 doNothing().when(groupVisibilityService).setRepoVisibility(anyLong(), anyInt(), anyInt(), anyList());
 
                 // When
-                Repo result = repoService.createRepo(mockRepoVO);
+                Repo result = repoService.createRepo(mockRepoVo);
 
                 // Then
                 assertThat(result).isNotNull();
@@ -614,7 +614,7 @@ class RepoServiceTest {
                 spaceMock.when(SpaceInfoUtil::getSpaceId).thenReturn(null);
 
                 // Given
-                mockRepoVO.setName("A".repeat(500));
+                mockRepoVo.setName("A".repeat(500));
 
                 when(repoMapper.selectOne(any(), anyBoolean())).thenReturn(null);
                 when(repoMapper.insert(any(Repo.class))).thenAnswer(invocation -> {
@@ -625,7 +625,7 @@ class RepoServiceTest {
                 doNothing().when(groupVisibilityService).setRepoVisibility(anyLong(), anyInt(), anyInt(), anyList());
 
                 // When
-                Repo result = repoService.createRepo(mockRepoVO);
+                Repo result = repoService.createRepo(mockRepoVo);
 
                 // Then
                 assertThat(result).isNotNull();
@@ -647,12 +647,12 @@ class RepoServiceTest {
                 spaceMock.when(SpaceInfoUtil::getSpaceId).thenReturn(null);
 
                 // Given
-                mockRepoVO.setTag(null);
+                mockRepoVo.setTag(null);
 
                 when(repoMapper.selectOne(any(), anyBoolean())).thenReturn(null);
 
                 // When & Then
-                assertThatThrownBy(() -> repoService.createRepo(mockRepoVO))
+                assertThatThrownBy(() -> repoService.createRepo(mockRepoVo))
                         .isInstanceOf(BusinessException.class);
 
                 verify(repoMapper, never()).insert(any(Repo.class));
@@ -685,7 +685,7 @@ class RepoServiceTest {
                 when(repoMapper.insert(any(Repo.class))).thenThrow(new RuntimeException("Database error"));
 
                 // When & Then
-                assertThatThrownBy(() -> repoService.createRepo(mockRepoVO))
+                assertThatThrownBy(() -> repoService.createRepo(mockRepoVo))
                         .isInstanceOf(RuntimeException.class)
                         .hasMessageContaining("Database error");
 
@@ -718,7 +718,7 @@ class RepoServiceTest {
                         .setRepoVisibility(anyLong(), anyInt(), anyInt(), anyList());
 
                 // When & Then
-                assertThatThrownBy(() -> repoService.createRepo(mockRepoVO))
+                assertThatThrownBy(() -> repoService.createRepo(mockRepoVo))
                         .isInstanceOf(RuntimeException.class)
                         .hasMessageContaining("Visibility service error");
 
@@ -760,9 +760,9 @@ class RepoServiceTest {
         @DisplayName("Update repository successfully")
         void testUpdateRepo_Success() {
             // Given
-            mockRepoVO.setId(1L);
-            mockRepoVO.setName("Updated Repository");
-            mockRepoVO.setDesc("Updated Description");
+            mockRepoVo.setId(1L);
+            mockRepoVo.setName("Updated Repository");
+            mockRepoVo.setDesc("Updated Description");
 
             when(repoMapper.selectById(1L)).thenReturn(mockRepo);
             doNothing().when(dataPermissionCheckTool).checkRepoBelong(any(Repo.class));
@@ -771,7 +771,7 @@ class RepoServiceTest {
             doNothing().when(groupVisibilityService).setRepoVisibility(anyLong(), anyInt(), anyInt(), anyList());
 
             // When
-            Repo result = repoService.updateRepo(mockRepoVO);
+            Repo result = repoService.updateRepo(mockRepoVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -788,12 +788,12 @@ class RepoServiceTest {
         @DisplayName("Update repository - repository not exist")
         void testUpdateRepo_RepoNotExist() {
             // Given
-            mockRepoVO.setId(999L);
+            mockRepoVo.setId(999L);
 
             when(repoMapper.selectById(999L)).thenReturn(null);
 
             // When & Then
-            assertThatThrownBy(() -> repoService.updateRepo(mockRepoVO))
+            assertThatThrownBy(() -> repoService.updateRepo(mockRepoVo))
                     .isInstanceOf(BusinessException.class)
                     .extracting("responseEnum")
                     .isEqualTo(ResponseEnum.REPO_NOT_EXIST);
@@ -808,8 +808,8 @@ class RepoServiceTest {
         @DisplayName("Update repository - duplicate name")
         void testUpdateRepo_DuplicateName() {
             // Given
-            mockRepoVO.setId(1L);
-            mockRepoVO.setName("Duplicate Name");
+            mockRepoVo.setId(1L);
+            mockRepoVo.setName("Duplicate Name");
 
             Repo anotherRepo = new Repo();
             anotherRepo.setId(2L);
@@ -820,7 +820,7 @@ class RepoServiceTest {
             when(repoMapper.selectOne(any(), anyBoolean())).thenReturn(anotherRepo);
 
             // When & Then
-            assertThatThrownBy(() -> repoService.updateRepo(mockRepoVO))
+            assertThatThrownBy(() -> repoService.updateRepo(mockRepoVo))
                     .isInstanceOf(BusinessException.class)
                     .extracting("responseEnum")
                     .isEqualTo(ResponseEnum.REPO_NAME_DUPLICATE);
@@ -835,8 +835,8 @@ class RepoServiceTest {
         @DisplayName("Update repository - same name as self")
         void testUpdateRepo_SameNameAsSelf() {
             // Given
-            mockRepoVO.setId(1L);
-            mockRepoVO.setName("Test Repository");
+            mockRepoVo.setId(1L);
+            mockRepoVo.setName("Test Repository");
 
             when(repoMapper.selectById(1L)).thenReturn(mockRepo);
             doNothing().when(dataPermissionCheckTool).checkRepoBelong(any(Repo.class));
@@ -845,7 +845,7 @@ class RepoServiceTest {
             doNothing().when(groupVisibilityService).setRepoVisibility(anyLong(), anyInt(), anyInt(), anyList());
 
             // When
-            Repo result = repoService.updateRepo(mockRepoVO);
+            Repo result = repoService.updateRepo(mockRepoVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -859,9 +859,9 @@ class RepoServiceTest {
         @DisplayName("Update repository - change visibility")
         void testUpdateRepo_ChangeVisibility() {
             // Given
-            mockRepoVO.setId(1L);
-            mockRepoVO.setVisibility(1);
-            mockRepoVO.setUids(Arrays.asList("user-002", "user-003"));
+            mockRepoVo.setId(1L);
+            mockRepoVo.setVisibility(1);
+            mockRepoVo.setUids(Arrays.asList("user-002", "user-003"));
 
             when(repoMapper.selectById(1L)).thenReturn(mockRepo);
             doNothing().when(dataPermissionCheckTool).checkRepoBelong(any(Repo.class));
@@ -870,7 +870,7 @@ class RepoServiceTest {
             doNothing().when(groupVisibilityService).setRepoVisibility(anyLong(), anyInt(), anyInt(), anyList());
 
             // When
-            Repo result = repoService.updateRepo(mockRepoVO);
+            Repo result = repoService.updateRepo(mockRepoVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -1200,10 +1200,10 @@ class RepoServiceTest {
         @DisplayName("updateRepoStatus - returns true")
         void testUpdateRepoStatus_ReturnsTrue() {
             // Given
-            mockRepoVO.setOperType(2);
+            mockRepoVo.setOperType(2);
 
             // When
-            boolean result = repoService.updateRepoStatus(mockRepoVO);
+            boolean result = repoService.updateRepoStatus(mockRepoVo);
 
             // Then
             assertThat(result).isTrue();
@@ -1276,8 +1276,8 @@ class RepoServiceTest {
         @DisplayName("getRepoUseStatus - in use")
         void testGetRepoUseStatus_InUse() {
             // Given
-            List<SparkBotVO> mockBots = new ArrayList<>();
-            SparkBotVO bot = new SparkBotVO();
+            List<SparkBotVo> mockBots = new ArrayList<>();
+            SparkBotVo bot = new SparkBotVo();
             bot.setUuid("bot-001");
             mockBots.add(bot);
 
@@ -1591,7 +1591,7 @@ class RepoServiceTest {
                 userMock.when(UserInfoManagerHandler::getUserId).thenReturn("user-001");
                 spaceMock.when(SpaceInfoUtil::getSpaceId).thenReturn(100L);
 
-                mockRepoVO.setName("Test Repo with Space");
+                mockRepoVo.setName("Test Repo with Space");
 
                 when(repoMapper.selectOne(any(), anyBoolean())).thenReturn(null);
                 when(repoMapper.insert(any(Repo.class))).thenAnswer(invocation -> {
@@ -1603,7 +1603,7 @@ class RepoServiceTest {
                 doNothing().when(groupVisibilityService).setRepoVisibility(anyLong(), anyInt(), anyInt(), anyList());
 
                 // When
-                Repo result = repoService.createRepo(mockRepoVO);
+                Repo result = repoService.createRepo(mockRepoVo);
 
                 // Then
                 assertThat(result).isNotNull();
@@ -1621,7 +1621,7 @@ class RepoServiceTest {
                 userMock.when(UserInfoManagerHandler::getUserId).thenReturn("user-001");
                 spaceMock.when(SpaceInfoUtil::getSpaceId).thenReturn(100L);
 
-                mockRepoVO.setName("Duplicate Repo");
+                mockRepoVo.setName("Duplicate Repo");
 
                 Repo existingRepo = new Repo();
                 existingRepo.setId(1L);
@@ -1631,7 +1631,7 @@ class RepoServiceTest {
                 when(repoMapper.selectOne(any(), anyBoolean())).thenReturn(existingRepo);
 
                 // When & Then
-                assertThatThrownBy(() -> repoService.createRepo(mockRepoVO))
+                assertThatThrownBy(() -> repoService.createRepo(mockRepoVo))
                         .isInstanceOf(BusinessException.class)
                         .extracting("responseEnum")
                         .isEqualTo(ResponseEnum.REPO_NAME_DUPLICATE);
@@ -1653,8 +1653,8 @@ class RepoServiceTest {
 
                 spaceMock.when(SpaceInfoUtil::getSpaceId).thenReturn(100L);
 
-                mockRepoVO.setId(1L);
-                mockRepoVO.setName("Updated Repo");
+                mockRepoVo.setId(1L);
+                mockRepoVo.setName("Updated Repo");
                 mockRepo.setSpaceId(100L);
 
                 when(repoMapper.selectById(1L)).thenReturn(mockRepo);
@@ -1664,7 +1664,7 @@ class RepoServiceTest {
                 doNothing().when(groupVisibilityService).setRepoVisibility(anyLong(), anyInt(), anyInt(), anyList());
 
                 // When
-                Repo result = repoService.updateRepo(mockRepoVO);
+                Repo result = repoService.updateRepo(mockRepoVo);
 
                 // Then
                 assertThat(result).isNotNull();

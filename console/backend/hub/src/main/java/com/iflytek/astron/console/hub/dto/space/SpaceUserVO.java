@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Schema(name = "Space user")
-public class SpaceUserVO {
+public class SpaceUserVo {
 
     //
     private Long id;

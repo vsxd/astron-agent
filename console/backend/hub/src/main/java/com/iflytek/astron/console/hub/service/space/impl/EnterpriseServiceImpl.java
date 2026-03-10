@@ -13,7 +13,7 @@ import com.iflytek.astron.console.hub.mapper.space.EnterpriseMapper;
 import com.iflytek.astron.console.hub.service.space.EnterpriseService;
 import com.iflytek.astron.console.hub.service.space.EnterpriseUserService;
 import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;
-import com.iflytek.astron.console.hub.dto.space.EnterpriseVO;
+import com.iflytek.astron.console.hub.dto.space.EnterpriseVo;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -101,7 +101,7 @@ public class EnterpriseServiceImpl extends ServiceImpl<EnterpriseMapper, Enterpr
     }
 
     @Override
-    public EnterpriseVO detail() {
+    public EnterpriseVo detail() {
         String uid = RequestContextUtil.getUID();
         Long enterpriseId = EnterpriseInfoUtil.getEnterpriseId();
         if (enterpriseId == null) {
@@ -111,7 +111,7 @@ public class EnterpriseServiceImpl extends ServiceImpl<EnterpriseMapper, Enterpr
         if (enterprise == null) {
             return null;
         }
-        EnterpriseVO vo = new EnterpriseVO();
+        EnterpriseVo vo = new EnterpriseVo();
         BeanUtils.copyProperties(enterprise, vo);
         UserInfo userInfo = userInfoDataService.findByUid(vo.getUid()).orElseThrow();
         vo.setOfficerName(userInfo.getNickname());
@@ -121,7 +121,7 @@ public class EnterpriseServiceImpl extends ServiceImpl<EnterpriseMapper, Enterpr
     }
 
     @Override
-    public List<EnterpriseVO> joinList() {
+    public List<EnterpriseVo> joinList() {
         String uid = RequestContextUtil.getUID();
         return this.baseMapper.selectByJoinUid(uid);
     }

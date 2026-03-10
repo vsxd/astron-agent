@@ -7,7 +7,7 @@ import com.iflytek.astron.console.hub.entity.common.PageData;
 import com.iflytek.astron.console.hub.entity.dto.RepoDto;
 import com.iflytek.astron.console.hub.entity.table.repo.HitTestHistory;
 import com.iflytek.astron.console.hub.entity.table.repo.Repo;
-import com.iflytek.astron.console.hub.entity.vo.knowledge.RepoVO;
+import com.iflytek.astron.console.hub.entity.vo.knowledge.RepoVo;
 import com.iflytek.astron.console.hub.service.repo.impl.RepoService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
@@ -40,7 +40,7 @@ public class RepoController {
      * repository will be initialized with default settings and made available for file uploads.
      * </p>
      *
-     * @param repoVO the repository creation request object containing repository configuration
+     * @param repoVo the repository creation request object containing repository configuration
      * @return ApiResult containing the created repository information with generated ID and timestamps
      * @throws IllegalArgumentException if the repository configuration is invalid
      * @throws RuntimeException if repository creation fails due to system error
@@ -48,8 +48,8 @@ public class RepoController {
     @PostMapping("/create-repo")
     @SpacePreAuth(key = "RepoController_createRepo_POST",
             module = "Knowledge Base", point = "Create Repository", description = "Create Repository")
-    public ApiResult<Repo> createRepo(@RequestBody RepoVO repoVO) {
-        return ApiResult.success(repoService.createRepo(repoVO));
+    public ApiResult<Repo> createRepo(@RequestBody RepoVo repoVo) {
+        return ApiResult.success(repoService.createRepo(repoVo));
     }
 
     /**
@@ -59,7 +59,7 @@ public class RepoController {
      * the request object will be updated.
      * </p>
      *
-     * @param repoVO the repository update request object containing updated configuration
+     * @param repoVo the repository update request object containing updated configuration
      * @return ApiResult containing the updated repository information
      * @throws IllegalArgumentException if the repository ID is invalid or update data is malformed
      * @throws RuntimeException if repository update fails due to system error
@@ -67,8 +67,8 @@ public class RepoController {
     @PostMapping("/update-repo")
     @SpacePreAuth(key = "RepoController_updateRepo_POST",
             module = "Knowledge Base", point = "Update Repository", description = "Update Repository")
-    public ApiResult<Repo> updateRepo(@RequestBody RepoVO repoVO) {
-        return ApiResult.success(repoService.updateRepo(repoVO));
+    public ApiResult<Repo> updateRepo(@RequestBody RepoVo repoVo) {
+        return ApiResult.success(repoService.updateRepo(repoVo));
     }
 
     /**
@@ -78,14 +78,14 @@ public class RepoController {
      * the repository's availability for queries and operations.
      * </p>
      *
-     * @param repoVO the repository update request object containing status information
+     * @param repoVo the repository update request object containing status information
      * @return ApiResult containing boolean result indicating success or failure of the status update
      * @throws IllegalArgumentException if the repository ID is invalid or status value is not supported
      * @throws RuntimeException if status update fails due to system error
      */
     @PutMapping("/update-repo-status")
-    public ApiResult<Boolean> updateRepoStatus(@RequestBody RepoVO repoVO) {
-        return ApiResult.success(repoService.updateRepoStatus(repoVO));
+    public ApiResult<Boolean> updateRepoStatus(@RequestBody RepoVo repoVo) {
+        return ApiResult.success(repoService.updateRepoStatus(repoVo));
     }
 
     /**

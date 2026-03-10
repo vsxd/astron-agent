@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Schema(name = "Application record for joining space/enterprise")
-public class ApplyRecordVO {
+public class ApplyRecordVo {
 
     //
     @Schema(description = "Application ID")

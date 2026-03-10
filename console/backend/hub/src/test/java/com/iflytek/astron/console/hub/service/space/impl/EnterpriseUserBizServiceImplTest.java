@@ -1,8 +1,8 @@
 package com.iflytek.astron.console.hub.service.space.impl;
 
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
-import com.iflytek.astron.console.hub.dto.space.SpaceVO;
-import com.iflytek.astron.console.hub.dto.space.UserLimitVO;
+import com.iflytek.astron.console.hub.dto.space.SpaceVo;
+import com.iflytek.astron.console.hub.dto.space.UserLimitVo;
 import com.iflytek.astron.console.hub.entity.space.Enterprise;
 import com.iflytek.astron.console.hub.entity.space.EnterpriseUser;
 import com.iflytek.astron.console.hub.enums.space.EnterpriseRoleEnum;
@@ -72,7 +72,7 @@ class EnterpriseUserBizServiceImplTest {
     private Enterprise testEnterprise;
     private EnterpriseUser testEnterpriseUser;
     private EnterpriseUser officerUser;
-    private SpaceVO testSpaceVO;
+    private SpaceVo testSpaceVo;
     private SpaceLimitProperties.SpaceLimit enterpriseLimit;
     private SpaceLimitProperties.SpaceLimit teamLimit;
 
@@ -102,9 +102,9 @@ class EnterpriseUserBizServiceImplTest {
                 .build();
 
         // Initialize test space
-        testSpaceVO = new SpaceVO();
-        testSpaceVO.setId(TEST_SPACE_ID);
-        testSpaceVO.setUserRole(SpaceRoleEnum.OWNER.getCode());
+        testSpaceVo = new SpaceVo();
+        testSpaceVo.setId(TEST_SPACE_ID);
+        testSpaceVo.setUserRole(SpaceRoleEnum.OWNER.getCode());
 
         // Initialize space limits
         enterpriseLimit = new SpaceLimitProperties.SpaceLimit();
@@ -209,7 +209,7 @@ class EnterpriseUserBizServiceImplTest {
     void remove_Success_WhenUserHasSpaces() {
         try (MockedStatic<EnterpriseInfoUtil> mockedEnterpriseInfo = mockStatic(EnterpriseInfoUtil.class)) {
             // Arrange
-            List<SpaceVO> userSpaces = Arrays.asList(testSpaceVO);
+            List<SpaceVo> userSpaces = Arrays.asList(testSpaceVo);
             mockedEnterpriseInfo.when(EnterpriseInfoUtil::getEnterpriseId).thenReturn(TEST_ENTERPRISE_ID);
             when(enterpriseUserService.getEnterpriseUserByUid(TEST_ENTERPRISE_ID, TEST_UID))
                     .thenReturn(testEnterpriseUser);
@@ -421,7 +421,7 @@ class EnterpriseUserBizServiceImplTest {
         when(inviteRecordService.countJoiningByEnterpriseId(TEST_ENTERPRISE_ID)).thenReturn(5L);
 
         // Act
-        UserLimitVO result = enterpriseUserBizService.getUserLimit(TEST_ENTERPRISE_ID);
+        UserLimitVo result = enterpriseUserBizService.getUserLimit(TEST_ENTERPRISE_ID);
 
         // Assert
         assertNotNull(result);
@@ -443,7 +443,7 @@ class EnterpriseUserBizServiceImplTest {
         when(inviteRecordService.countJoiningByEnterpriseId(TEST_ENTERPRISE_ID)).thenReturn(3L);
 
         // Act
-        UserLimitVO result = enterpriseUserBizService.getUserLimit(TEST_ENTERPRISE_ID);
+        UserLimitVo result = enterpriseUserBizService.getUserLimit(TEST_ENTERPRISE_ID);
 
         // Assert
         assertNotNull(result);
@@ -463,7 +463,7 @@ class EnterpriseUserBizServiceImplTest {
         when(inviteRecordService.countJoiningByEnterpriseId(TEST_ENTERPRISE_ID)).thenReturn(2L);
 
         // Act
-        UserLimitVO result = enterpriseUserBizService.getUserLimit(TEST_ENTERPRISE_ID);
+        UserLimitVo result = enterpriseUserBizService.getUserLimit(TEST_ENTERPRISE_ID);
 
         // Assert
         assertNotNull(result);
@@ -483,7 +483,7 @@ class EnterpriseUserBizServiceImplTest {
         when(inviteRecordService.countJoiningByEnterpriseId(TEST_ENTERPRISE_ID)).thenReturn(0L);
 
         // Act
-        UserLimitVO result = enterpriseUserBizService.getUserLimit(TEST_ENTERPRISE_ID);
+        UserLimitVo result = enterpriseUserBizService.getUserLimit(TEST_ENTERPRISE_ID);
 
         // Assert
         assertNotNull(result);

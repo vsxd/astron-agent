@@ -9,8 +9,8 @@ import com.iflytek.astron.console.hub.dto.space.SpaceAddDto;
 import com.iflytek.astron.console.hub.dto.space.SpaceUpdateDto;
 import com.iflytek.astron.console.hub.entity.space.Space;
 import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;
-import com.iflytek.astron.console.hub.dto.space.EnterpriseSpaceCountVO;
-import com.iflytek.astron.console.hub.dto.space.SpaceVO;
+import com.iflytek.astron.console.hub.dto.space.EnterpriseSpaceCountVo;
+import com.iflytek.astron.console.hub.dto.space.SpaceVo;
 import com.iflytek.astron.console.hub.service.space.SpaceService;
 import com.iflytek.astron.console.hub.service.space.SpaceBizService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -51,33 +51,33 @@ public class SpaceController {
 
     @GetMapping("/recent-visit-list")
     @Operation(summary = "Recent visit list")
-    public ApiResult<List<SpaceVO>> recentVisitList() {
+    public ApiResult<List<SpaceVo>> recentVisitList() {
         return ApiResult.success(spaceService.recentVisitList());
     }
 
     @GetMapping("/get-last-visit-space")
     @Operation(summary = "Recently visited space")
-    public ApiResult<SpaceVO> getLastVisitSpace() {
+    public ApiResult<SpaceVo> getLastVisitSpace() {
         return ApiResult.success(spaceService.getLastVisitSpace());
     }
 
     @GetMapping("/personal-list")
     @Operation(summary = "Personal all spaces")
-    public ApiResult<List<SpaceVO>> personalList(@RequestParam(value = "name", required = false) String name) {
+    public ApiResult<List<SpaceVo>> personalList(@RequestParam(value = "name", required = false) String name) {
         return ApiResult.success(spaceService.personalList(name));
     }
 
     @GetMapping("/personal-self-list")
     @Operation(summary = "Personal created by me")
-    public ApiResult<List<SpaceVO>> personalSelfList(@RequestParam(value = "name", required = false) String name) {
+    public ApiResult<List<SpaceVo>> personalSelfList(@RequestParam(value = "name", required = false) String name) {
         return ApiResult.success(spaceService.personalSelfList(name));
     }
 
     @GetMapping("/detail")
     @Operation(summary = "Space details")
     @SpacePreAuth(key = "SpaceController_detail_GET", requireSpaceId = true, module = "Space Management", point = "Get space details", description = "Get space details")
-    public ApiResult<SpaceVO> detail() {
-        return ApiResult.success(spaceService.getSpaceVO());
+    public ApiResult<SpaceVo> detail() {
+        return ApiResult.success(spaceService.getSpaceVo());
     }
 
     @GetMapping("/send-message-code")
@@ -149,21 +149,21 @@ public class SpaceController {
     @GetMapping("/corporate-list")
     @Operation(summary = "Enterprise all spaces")
     @EnterprisePreAuth(key = "SpaceController_corporateList_GET", module = "Team/Enterprise Level Space Management", description = "Enterprise all spaces")
-    public ApiResult<List<SpaceVO>> corporateList(@RequestParam(value = "name", required = false) String name) {
+    public ApiResult<List<SpaceVo>> corporateList(@RequestParam(value = "name", required = false) String name) {
         return ApiResult.success(spaceService.corporateList(name));
     }
 
     @GetMapping("/corporate-count")
     @Operation(summary = "Enterprise all spaces count")
     @EnterprisePreAuth(key = "SpaceController_corporateCount_GET", module = "Team/Enterprise Level Space Management", description = "Enterprise all spaces count")
-    public ApiResult<EnterpriseSpaceCountVO> corporateCount() {
+    public ApiResult<EnterpriseSpaceCountVo> corporateCount() {
         return ApiResult.success(spaceService.corporateCount());
     }
 
     @GetMapping("/corporate-join-list")
     @Operation(summary = "Enterprise my spaces")
     @EnterprisePreAuth(key = "SpaceController_corporateJoinList_GET", module = "Team/Enterprise Level Space Management", description = "Enterprise my spaces")
-    public ApiResult<List<SpaceVO>> corporateJoinList(@RequestParam(value = "name", required = false) String name) {
+    public ApiResult<List<SpaceVo>> corporateJoinList(@RequestParam(value = "name", required = false) String name) {
         return ApiResult.success(spaceService.corporateJoinList(name));
     }
 

@@ -8,7 +8,7 @@ import com.iflytek.astron.console.hub.entity.space.ApplyRecord;
 import com.iflytek.astron.console.hub.mapper.space.ApplyRecordMapper;
 import com.iflytek.astron.console.hub.service.space.ApplyRecordService;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
-import com.iflytek.astron.console.hub.dto.space.ApplyRecordVO;
+import com.iflytek.astron.console.hub.dto.space.ApplyRecordVo;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,7 +19,7 @@ public class ApplyRecordServiceImpl extends ServiceImpl<ApplyRecordMapper, Apply
 
 
     @Override
-    public Page<ApplyRecordVO> page(ApplyRecordParam param) {
+    public Page<ApplyRecordVo> page(ApplyRecordParam param) {
         Page<ApplyRecord> page = new Page<>();
         page.setSize(param.getPageSize());
         page.setCurrent(param.getPageNum());
@@ -27,7 +27,7 @@ public class ApplyRecordServiceImpl extends ServiceImpl<ApplyRecordMapper, Apply
         if (spaceId == null) {
             return Page.of(param.getPageNum(), param.getPageSize());
         }
-        return this.baseMapper.selectVOPageByParam(page, spaceId, null, param.getNickname(), param.getStatus());
+        return this.baseMapper.selectVoPageByParam(page, spaceId, null, param.getNickname(), param.getStatus());
     }
 
     @Override

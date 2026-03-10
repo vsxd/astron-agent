@@ -1,7 +1,7 @@
 package com.iflytek.astron.console.hub.converter;
 
 import com.iflytek.astron.console.hub.enums.PublishChannelEnum;
-import com.iflytek.astron.console.hub.dto.publish.BotVersionVO;
+import com.iflytek.astron.console.hub.dto.publish.BotVersionVo;
 import com.iflytek.astron.console.hub.entity.table.workflow.WorkflowVersion;
 import org.mapstruct.*;
 
@@ -36,12 +36,12 @@ public interface WorkflowVersionConverter {
     @Mapping(target = "flowId", source = "flowId")
     @Mapping(target = "data", source = "data")
     @Mapping(target = "sysData", source = "sysData")
-    BotVersionVO toVersionVO(WorkflowVersion workflowVersion);
+    BotVersionVo toVersionVo(WorkflowVersion workflowVersion);
 
     /**
      * Batch convert to version VO list
      */
-    List<BotVersionVO> toVersionVOList(List<WorkflowVersion> workflowVersions);
+    List<BotVersionVo> toVersionVoList(List<WorkflowVersion> workflowVersions);
 
     /**
      * Convert isCurrent field

@@ -16,7 +16,7 @@ import com.iflytek.astron.console.hub.service.space.EnterpriseUserBizService;
 import com.iflytek.astron.console.hub.service.space.SpaceUserBizService;
 import com.iflytek.astron.console.hub.util.space.OrderInfoUtil;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
-import com.iflytek.astron.console.hub.dto.space.UserLimitVO;
+import com.iflytek.astron.console.hub.dto.space.UserLimitVo;
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -208,11 +208,11 @@ public class SpaceUserBizServiceImpl implements SpaceUserBizService {
      * @return
      */
     @Override
-    public UserLimitVO getUserLimit() {
+    public UserLimitVo getUserLimit() {
         Long spaceId = SpaceInfoUtil.getSpaceId();
         Space space = spaceService.getSpaceById(spaceId);
         if (space.getEnterpriseId() == null) {
-            return getUserLimitVO(space.getType(), space.getUid());
+            return getUserLimitVo(space.getType(), space.getUid());
         } else {
             Enterprise enterprise = enterpriseService.getEnterpriseById(space.getEnterpriseId());
             Integer total = 0;
@@ -221,7 +221,7 @@ public class SpaceUserBizServiceImpl implements SpaceUserBizService {
             } else if (Objects.equals(enterprise.getServiceType(), EnterpriseServiceTypeEnum.TEAM.getCode())) {
                 total = spaceLimitProperties.getTeam().getUserCount();
             }
-            UserLimitVO vo = new UserLimitVO();
+            UserLimitVo vo = new UserLimitVo();
             vo.setTotal(total);
             long used = spaceUserService.countBySpaceId(spaceId)
                     + inviteRecordService.countJoiningBySpaceId(spaceId);
@@ -232,11 +232,11 @@ public class SpaceUserBizServiceImpl implements SpaceUserBizService {
     }
 
     @Override
-    public UserLimitVO getUserLimit(String uid) {
+    public UserLimitVo getUserLimit(String uid) {
         if (OrderInfoUtil.existValidProOrder(uid)) {
-            return getUserLimitVO(SpaceTypeEnum.PRO.getCode(), uid);
+            return getUserLimitVo(SpaceTypeEnum.PRO.getCode(), uid);
         } else {
-            return getUserLimitVO(SpaceTypeEnum.FREE.getCode(), uid);
+            return getUserLimitVo(SpaceTypeEnum.FREE.getCode(), uid);
         }
     }
 
@@ -246,8 +246,8 @@ public class SpaceUserBizServiceImpl implements SpaceUserBizService {
      * @return
      */
     @Override
-    public UserLimitVO getUserLimitVO(Integer type, String uid) {
-        UserLimitVO vo = new UserLimitVO();
+    public UserLimitVo getUserLimitVo(Integer type, String uid) {
+        UserLimitVo vo = new UserLimitVo();
         if (Objects.equals(type, SpaceTypeEnum.FREE.getCode())) {
             vo.setTotal(spaceLimitProperties.getFree().getUserCount());
             long used = spaceUserService.countFreeSpaceUser(uid)

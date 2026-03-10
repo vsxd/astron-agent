@@ -3934,11 +3934,11 @@ public class WorkflowService extends ServiceImpl<WorkflowMapper, Workflow> {
         }
     }
 
-    public McpServerToolDetailVO getServerToolDetailLocally(String serverId) {
+    public McpServerToolDetailVo getServerToolDetailLocally(String serverId) {
         // Get directly from cache
         JSONObject jsonObject = MCP_SERVER_CACHE.get(serverId);
         if (jsonObject != null) {
-            return convertJson2DetailVO(jsonObject);
+            return convertJson2DetailVo(jsonObject);
         }
         return null;
     }
@@ -3946,32 +3946,32 @@ public class WorkflowService extends ServiceImpl<WorkflowMapper, Workflow> {
     /**
      * Convert JSON object to McpServerToolDetailVO
      */
-    private McpServerToolDetailVO convertJson2DetailVO(JSONObject jsonObject) {
-        McpServerToolDetailVO detailVO = new McpServerToolDetailVO();
+    private McpServerToolDetailVo convertJson2DetailVo(JSONObject jsonObject) {
+        McpServerToolDetailVo detailVo = new McpServerToolDetailVo();
 
         // Set root level properties
-        detailVO.setId(jsonObject.getString("id"));
+        detailVo.setId(jsonObject.getString("id"));
 
         // Handle mcp object
         JSONObject mcpObject = jsonObject.getJSONObject("mcp");
         if (mcpObject != null) {
-            detailVO.setTools(mcpObject.getJSONArray("tools"));
-            setBasicProperties(detailVO, mcpObject);
+            detailVo.setTools(mcpObject.getJSONArray("tools"));
+            setBasicProperties(detailVo, mcpObject);
         }
 
-        return detailVO;
+        return detailVo;
     }
 
     /**
      * Set basic properties
      */
-    private void setBasicProperties(McpServerToolDetailVO detailVO, JSONObject mcpObject) {
-        detailVO.setBrief(mcpObject.getString("brief"));
-        detailVO.setOverview(mcpObject.getString("overview"));
-        detailVO.setCreator(mcpObject.getString("creator"));
-        detailVO.setCreateTime(mcpObject.getString("createTime"));
-        detailVO.setLogoUrl(mcpObject.getString("logo"));
-        detailVO.setMcpType(mcpObject.getString("mcpType"));
+    private void setBasicProperties(McpServerToolDetailVo detailVo, JSONObject mcpObject) {
+        detailVo.setBrief(mcpObject.getString("brief"));
+        detailVo.setOverview(mcpObject.getString("overview"));
+        detailVo.setCreator(mcpObject.getString("creator"));
+        detailVo.setCreateTime(mcpObject.getString("createTime"));
+        detailVo.setLogoUrl(mcpObject.getString("logo"));
+        detailVo.setMcpType(mcpObject.getString("mcpType"));
 
         // Handle content field with proper unescaping for markdown rendering
         String content = mcpObject.getString("content");
@@ -3984,15 +3984,15 @@ public class WorkflowService extends ServiceImpl<WorkflowMapper, Workflow> {
                     .replace("\\'", "'")
                     .replace("\\\\", "\\");
         }
-        detailVO.setContent(content);
+        detailVo.setContent(content);
 
         JSONArray tags = mcpObject.getJSONArray("tags");
         if (tags != null) {
-            detailVO.setTags(tags.toJavaList(String.class));
+            detailVo.setTags(tags.toJavaList(String.class));
         }
-        detailVO.setRecordId(mcpObject.getString("recordId"));
-        detailVO.setName(mcpObject.getString("name"));
-        detailVO.setServerUrl(mcpObject.getString("server"));
+        detailVo.setRecordId(mcpObject.getString("recordId"));
+        detailVo.setName(mcpObject.getString("name"));
+        detailVo.setServerUrl(mcpObject.getString("server"));
     }
 
 

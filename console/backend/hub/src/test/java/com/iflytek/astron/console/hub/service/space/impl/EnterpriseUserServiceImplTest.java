@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.iflytek.astron.console.hub.data.UserInfoDataService;
 import com.iflytek.astron.console.hub.dto.space.EnterpriseUserParam;
-import com.iflytek.astron.console.hub.dto.space.EnterpriseUserVO;
+import com.iflytek.astron.console.hub.dto.space.EnterpriseUserVo;
 import com.iflytek.astron.console.hub.entity.space.EnterpriseUser;
 import com.iflytek.astron.console.hub.entity.user.UserInfo;
 import com.iflytek.astron.console.hub.enums.space.EnterpriseRoleEnum;
@@ -47,9 +47,9 @@ class EnterpriseUserServiceImplTest {
     private EnterpriseUser mockEnterpriseUser;
     private UserInfo mockUserInfo;
     private EnterpriseUserParam mockParam;
-    private EnterpriseUserVO mockEnterpriseUserVO;
+    private EnterpriseUserVo mockEnterpriseUserVo;
     private List<EnterpriseUser> mockEnterpriseUserList;
-    private Page<EnterpriseUserVO> mockVOPage;
+    private Page<EnterpriseUserVo> mockVOPage;
 
     @BeforeEach
     void setUp() {
@@ -78,12 +78,12 @@ class EnterpriseUserServiceImplTest {
         mockParam.setNickname("Test");
         mockParam.setRole(EnterpriseRoleEnum.OFFICER.getCode());
 
-        mockEnterpriseUserVO = new EnterpriseUserVO();
-        mockEnterpriseUserVO.setId(1L);
-        mockEnterpriseUserVO.setUid("test-uid");
-        mockEnterpriseUserVO.setNickname("Test User");
-        mockEnterpriseUserVO.setUsername("testuser");
-        mockEnterpriseUserVO.setRole(EnterpriseRoleEnum.OFFICER.getCode());
+        mockEnterpriseUserVo = new EnterpriseUserVo();
+        mockEnterpriseUserVo.setId(1L);
+        mockEnterpriseUserVo.setUid("test-uid");
+        mockEnterpriseUserVo.setNickname("Test User");
+        mockEnterpriseUserVo.setUsername("testuser");
+        mockEnterpriseUserVo.setRole(EnterpriseRoleEnum.OFFICER.getCode());
 
         mockEnterpriseUserList = Arrays.asList(
                 mockEnterpriseUser,
@@ -98,7 +98,7 @@ class EnterpriseUserServiceImplTest {
                         .build());
 
         mockVOPage = new Page<>();
-        mockVOPage.setRecords(Arrays.asList(mockEnterpriseUserVO));
+        mockVOPage.setRecords(Arrays.asList(mockEnterpriseUserVo));
         mockVOPage.setTotal(1L);
         mockVOPage.setCurrent(1L);
         mockVOPage.setSize(10L);
@@ -414,23 +414,23 @@ class EnterpriseUserServiceImplTest {
 
         try (MockedStatic<EnterpriseInfoUtil> mockedStatic = mockStatic(EnterpriseInfoUtil.class)) {
             mockedStatic.when(EnterpriseInfoUtil::getEnterpriseId).thenReturn(enterpriseId);
-            when(enterpriseUserMapper.selectVOPageByParam(any(Page.class), eq(enterpriseId),
+            when(enterpriseUserMapper.selectVoPageByParam(any(Page.class), eq(enterpriseId),
                     eq("Test"), eq(EnterpriseRoleEnum.OFFICER.getCode()))).thenReturn(mockVOPage);
             when(userInfoDataService.findByUid("test-uid")).thenReturn(Optional.of(mockUserInfo));
 
             // When
-            Page<EnterpriseUserVO> result = enterpriseUserService.page(mockParam);
+            Page<EnterpriseUserVo> result = enterpriseUserService.page(mockParam);
 
             // Then
             assertNotNull(result);
             assertEquals(1L, result.getTotal());
             assertEquals(1, result.getRecords().size());
 
-            EnterpriseUserVO vo = result.getRecords().get(0);
+            EnterpriseUserVo vo = result.getRecords().get(0);
             assertEquals("testuser", vo.getUsername());
             assertEquals("Test User", vo.getNickname());
 
-            verify(enterpriseUserMapper).selectVOPageByParam(any(Page.class), eq(enterpriseId),
+            verify(enterpriseUserMapper).selectVoPageByParam(any(Page.class), eq(enterpriseId),
                     eq("Test"), eq(EnterpriseRoleEnum.OFFICER.getCode()));
             verify(userInfoDataService).findByUid("test-uid");
         }
@@ -444,7 +444,7 @@ class EnterpriseUserServiceImplTest {
             mockedStatic.when(EnterpriseInfoUtil::getEnterpriseId).thenReturn(null);
 
             // When
-            Page<EnterpriseUserVO> result = enterpriseUserService.page(mockParam);
+            Page<EnterpriseUserVo> result = enterpriseUserService.page(mockParam);
 
             // Then
             assertNotNull(result);
@@ -452,7 +452,7 @@ class EnterpriseUserServiceImplTest {
             assertEquals(10L, result.getSize());
             assertTrue(result.getRecords().isEmpty());
 
-            verify(enterpriseUserMapper, never()).selectVOPageByParam(any(), any(), any(), any());
+            verify(enterpriseUserMapper, never()).selectVoPageByParam(any(), any(), any(), any());
         }
     }
 
@@ -469,17 +469,17 @@ class EnterpriseUserServiceImplTest {
 
         try (MockedStatic<EnterpriseInfoUtil> mockedStatic = mockStatic(EnterpriseInfoUtil.class)) {
             mockedStatic.when(EnterpriseInfoUtil::getEnterpriseId).thenReturn(enterpriseId);
-            when(enterpriseUserMapper.selectVOPageByParam(any(Page.class), eq(enterpriseId),
+            when(enterpriseUserMapper.selectVoPageByParam(any(Page.class), eq(enterpriseId),
                     isNull(), isNull())).thenReturn(mockVOPage);
             when(userInfoDataService.findByUid("test-uid")).thenReturn(Optional.of(mockUserInfo));
 
             // When
-            Page<EnterpriseUserVO> result = enterpriseUserService.page(nullParam);
+            Page<EnterpriseUserVo> result = enterpriseUserService.page(nullParam);
 
             // Then
             assertNotNull(result);
             assertEquals(1L, result.getTotal());
-            verify(enterpriseUserMapper).selectVOPageByParam(any(Page.class), eq(enterpriseId), isNull(), isNull());
+            verify(enterpriseUserMapper).selectVoPageByParam(any(Page.class), eq(enterpriseId), isNull(), isNull());
         }
     }
 
@@ -491,7 +491,7 @@ class EnterpriseUserServiceImplTest {
 
         try (MockedStatic<EnterpriseInfoUtil> mockedStatic = mockStatic(EnterpriseInfoUtil.class)) {
             mockedStatic.when(EnterpriseInfoUtil::getEnterpriseId).thenReturn(enterpriseId);
-            when(enterpriseUserMapper.selectVOPageByParam(any(Page.class), eq(enterpriseId),
+            when(enterpriseUserMapper.selectVoPageByParam(any(Page.class), eq(enterpriseId),
                     eq("Test"), eq(EnterpriseRoleEnum.OFFICER.getCode()))).thenReturn(mockVOPage);
             when(userInfoDataService.findByUid("test-uid")).thenReturn(Optional.empty());
 
@@ -710,16 +710,16 @@ class EnterpriseUserServiceImplTest {
                 testParam.setPageNum(1);
                 testParam.setPageSize(pageSize);
 
-                Page<EnterpriseUserVO> testPage = new Page<>();
+                Page<EnterpriseUserVo> testPage = new Page<>();
                 testPage.setSize(pageSize);
                 testPage.setCurrent(1);
                 testPage.setRecords(Collections.emptyList());
 
-                when(enterpriseUserMapper.selectVOPageByParam(any(Page.class), eq(enterpriseId),
+                when(enterpriseUserMapper.selectVoPageByParam(any(Page.class), eq(enterpriseId),
                         isNull(), isNull())).thenReturn(testPage);
 
                 // When
-                Page<EnterpriseUserVO> result = enterpriseUserService.page(testParam);
+                Page<EnterpriseUserVo> result = enterpriseUserService.page(testParam);
 
                 // Then
                 assertEquals(pageSize, result.getSize(), "Page size should match for size: " + pageSize);

@@ -7,8 +7,8 @@ import com.iflytek.astron.console.commons.annotation.RateLimit;
 import com.iflytek.astron.console.commons.annotation.space.SpacePreAuth;
 import com.iflytek.astron.console.hub.dto.space.SpaceUserParam;
 import com.iflytek.astron.console.hub.entity.space.SpaceUser;
-import com.iflytek.astron.console.hub.dto.space.SpaceUserVO;
-import com.iflytek.astron.console.hub.dto.space.UserLimitVO;
+import com.iflytek.astron.console.hub.dto.space.SpaceUserVo;
+import com.iflytek.astron.console.hub.dto.space.UserLimitVo;
 import com.iflytek.astron.console.hub.service.space.SpaceUserService;
 import com.iflytek.astron.console.hub.service.space.SpaceUserBizService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -59,7 +59,7 @@ public class SpaceUserController {
     @PostMapping("/page")
     @SpacePreAuth(module = "Space User Management", description = "Space user list", requireSpaceId = true, key = "SpaceUserController_page_POST")
     @Operation(summary = "Space User List")
-    public ApiResult<Page<SpaceUserVO>> page(@RequestBody SpaceUserParam param) {
+    public ApiResult<Page<SpaceUserVo>> page(@RequestBody SpaceUserParam param) {
         return ApiResult.success(spaceUserService.page(param));
     }
 
@@ -89,7 +89,7 @@ public class SpaceUserController {
     @GetMapping("/get-user-limit")
     @SpacePreAuth(module = "Space User Management", description = "Get user limit", requireSpaceId = true, key = "SpaceUserController_getUserLimit_GET")
     @Operation(summary = "Get User Limit")
-    public ApiResult<UserLimitVO> getUserLimit() {
+    public ApiResult<UserLimitVo> getUserLimit() {
         return ApiResult.success(spaceUserBizService.getUserLimit());
     }
 }

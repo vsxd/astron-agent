@@ -4,8 +4,8 @@ import com.iflytek.astron.console.hub.dto.PageResponse;
 import com.iflytek.astron.console.hub.dto.bot.BotListRequestDto;
 import com.iflytek.astron.console.hub.dto.publish.BotPublishInfoDto;
 import com.iflytek.astron.console.hub.dto.publish.BotDetailResponseDto;
-import com.iflytek.astron.console.hub.dto.publish.BotVersionVO;
-import com.iflytek.astron.console.hub.dto.publish.BotSummaryStatsVO;
+import com.iflytek.astron.console.hub.dto.publish.BotVersionVo;
+import com.iflytek.astron.console.hub.dto.publish.BotSummaryStatsVo;
 import com.iflytek.astron.console.hub.dto.publish.BotTimeSeriesResponseDto;
 import com.iflytek.astron.console.hub.dto.publish.WechatAuthUrlResponseDto;
 import com.iflytek.astron.console.hub.dto.publish.BotTraceRequestDto;
@@ -60,7 +60,7 @@ public interface BotPublishService {
      * @param spaceId Space ID
      * @return Version list
      */
-    PageResponse<BotVersionVO> getBotVersions(Integer botId, Integer page, Integer size, String uid, Long spaceId);
+    PageResponse<BotVersionVo> getBotVersions(Integer botId, Integer page, Integer size, String uid, Long spaceId);
 
     // ==================== Statistics Data ====================
 
@@ -72,7 +72,7 @@ public interface BotPublishService {
      * @param currentSpaceId Current space ID
      * @return Summary statistics data
      */
-    BotSummaryStatsVO getBotSummaryStats(Integer botId, String currentUid, Long currentSpaceId);
+    BotSummaryStatsVo getBotSummaryStats(Integer botId, String currentUid, Long currentSpaceId);
 
     /**
      * Get bot time series statistics

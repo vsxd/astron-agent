@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BotTimeSeriesStatsVO {
+public class BotTimeSeriesStatsVo {
 
     /**
      * Statistics date

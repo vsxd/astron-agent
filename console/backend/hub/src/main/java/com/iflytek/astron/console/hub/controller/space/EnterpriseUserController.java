@@ -6,8 +6,8 @@ import com.iflytek.astron.console.commons.annotation.RateLimit;
 import com.iflytek.astron.console.commons.annotation.space.EnterprisePreAuth;
 import com.iflytek.astron.console.hub.dto.space.EnterpriseUserParam;
 import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;
-import com.iflytek.astron.console.hub.dto.space.EnterpriseUserVO;
-import com.iflytek.astron.console.hub.dto.space.UserLimitVO;
+import com.iflytek.astron.console.hub.dto.space.EnterpriseUserVo;
+import com.iflytek.astron.console.hub.dto.space.UserLimitVo;
 import com.iflytek.astron.console.hub.service.space.EnterpriseUserService;
 import com.iflytek.astron.console.hub.service.space.EnterpriseUserBizService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -54,7 +54,7 @@ public class EnterpriseUserController {
     @PostMapping("/page")
     @EnterprisePreAuth(module = "Enterprise Team User Management", description = "Team user list", key = "EnterpriseUserController_page_POST")
     @Operation(summary = "Team User List")
-    public ApiResult<Page<EnterpriseUserVO>> page(@RequestBody @Valid EnterpriseUserParam param) {
+    public ApiResult<Page<EnterpriseUserVo>> page(@RequestBody @Valid EnterpriseUserParam param) {
         return ApiResult.success(enterpriseUserService.page(param));
     }
 
@@ -70,7 +70,7 @@ public class EnterpriseUserController {
     @GetMapping("/get-user-limit")
     @EnterprisePreAuth(module = "Enterprise Team User Management", description = "Get user limit", key = "EnterpriseUserController_getUserLimit_GET")
     @Operation(summary = "Get User Limit")
-    public ApiResult<UserLimitVO> getUserLimit() {
+    public ApiResult<UserLimitVo> getUserLimit() {
         return ApiResult.success(enterpriseUserBizService.getUserLimit(EnterpriseInfoUtil.getEnterpriseId()));
     }
 }

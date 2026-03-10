@@ -2,11 +2,11 @@ package com.iflytek.astron.console.hub.service.space.impl;
 
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.hub.data.UserInfoDataService;
-import com.iflytek.astron.console.hub.dto.space.BatchChatUserVO;
-import com.iflytek.astron.console.hub.dto.space.ChatUserVO;
+import com.iflytek.astron.console.hub.dto.space.BatchChatUserVo;
+import com.iflytek.astron.console.hub.dto.space.ChatUserVo;
 import com.iflytek.astron.console.hub.dto.space.InviteRecordAddDto;
-import com.iflytek.astron.console.hub.dto.space.InviteRecordVO;
-import com.iflytek.astron.console.hub.dto.space.UserLimitVO;
+import com.iflytek.astron.console.hub.dto.space.InviteRecordVo;
+import com.iflytek.astron.console.hub.dto.space.UserLimitVo;
 import com.iflytek.astron.console.hub.entity.space.Enterprise;
 import com.iflytek.astron.console.hub.entity.space.InviteRecord;
 import com.iflytek.astron.console.hub.entity.space.Space;
@@ -609,18 +609,18 @@ class InviteRecordBizServiceImplTest {
         try (MockedStatic<AESUtil> mockedAES = mockStatic(AESUtil.class)) {
             // Arrange
             String encryptedParam = "encrypted-param";
-            InviteRecordVO inviteRecordVO = new InviteRecordVO();
-            inviteRecordVO.setId(TEST_INVITE_ID);
-            inviteRecordVO.setType(InviteRecordTypeEnum.SPACE.getCode());
-            inviteRecordVO.setSpaceId(TEST_SPACE_ID);
-            inviteRecordVO.setInviterUid("inviter-uid");
-            inviteRecordVO.setInviteeUid(TEST_UID);
+            InviteRecordVo inviteRecordVo = new InviteRecordVo();
+            inviteRecordVo.setId(TEST_INVITE_ID);
+            inviteRecordVo.setType(InviteRecordTypeEnum.SPACE.getCode());
+            inviteRecordVo.setSpaceId(TEST_SPACE_ID);
+            inviteRecordVo.setInviterUid("inviter-uid");
+            inviteRecordVo.setInviteeUid(TEST_UID);
 
             SpaceUser spaceOwner = new SpaceUser();
             spaceOwner.setUid("owner-uid");
 
             mockedAES.when(() -> AESUtil.decrypt(eq(encryptedParam), any())).thenReturn(TEST_INVITE_ID.toString());
-            when(inviteRecordService.selectVOById(TEST_INVITE_ID)).thenReturn(inviteRecordVO);
+            when(inviteRecordService.selectVoById(TEST_INVITE_ID)).thenReturn(inviteRecordVo);
             when(userInfoDataService.findByUid("inviter-uid")).thenReturn(Optional.of(testUserInfo));
             when(spaceUserService.getSpaceOwner(TEST_SPACE_ID)).thenReturn(spaceOwner);
             when(userInfoDataService.findByUid("owner-uid")).thenReturn(Optional.of(testUserInfo));
@@ -628,7 +628,7 @@ class InviteRecordBizServiceImplTest {
             when(spaceUserService.getSpaceUserByUid(TEST_SPACE_ID, TEST_UID)).thenReturn(null);
 
             // Act
-            InviteRecordVO result = inviteRecordBizService.getRecordByParam(encryptedParam);
+            InviteRecordVo result = inviteRecordBizService.getRecordByParam(encryptedParam);
 
             // Assert
             assertNotNull(result);
@@ -661,7 +661,7 @@ class InviteRecordBizServiceImplTest {
             // Arrange
             String encryptedParam = "encrypted-param";
             mockedAES.when(() -> AESUtil.decrypt(eq(encryptedParam), any())).thenReturn(TEST_INVITE_ID.toString());
-            when(inviteRecordService.selectVOById(TEST_INVITE_ID)).thenReturn(null);
+            when(inviteRecordService.selectVoById(TEST_INVITE_ID)).thenReturn(null);
 
             // Act & Assert
             BusinessException exception = assertThrows(BusinessException.class,
@@ -687,12 +687,12 @@ class InviteRecordBizServiceImplTest {
             when(inviteRecordService.getInvitingUids(InviteRecordTypeEnum.SPACE)).thenReturn(Collections.emptySet());
 
             // Act
-            List<ChatUserVO> result = inviteRecordBizService.searchUser(TEST_MOBILE, InviteRecordTypeEnum.SPACE);
+            List<ChatUserVo> result = inviteRecordBizService.searchUser(TEST_MOBILE, InviteRecordTypeEnum.SPACE);
 
             // Assert
             assertNotNull(result);
             assertEquals(1, result.size());
-            ChatUserVO chatUser = result.get(0);
+            ChatUserVo chatUser = result.get(0);
             assertEquals(TEST_UID, chatUser.getUid());
             assertEquals(TEST_MOBILE, chatUser.getMobile());
             assertEquals(0, chatUser.getStatus()); // Not joined, not inviting
@@ -706,7 +706,7 @@ class InviteRecordBizServiceImplTest {
         when(userInfoDataService.findUsersByMobile(TEST_MOBILE)).thenReturn(Collections.emptyList());
 
         // Act
-        List<ChatUserVO> result = inviteRecordBizService.searchUser(TEST_MOBILE, InviteRecordTypeEnum.SPACE);
+        List<ChatUserVo> result = inviteRecordBizService.searchUser(TEST_MOBILE, InviteRecordTypeEnum.SPACE);
 
         // Assert
         assertNotNull(result);
@@ -730,7 +730,7 @@ class InviteRecordBizServiceImplTest {
             when(inviteRecordService.getInvitingUids(InviteRecordTypeEnum.SPACE)).thenReturn(Collections.emptySet());
 
             // Act
-            List<ChatUserVO> result = inviteRecordBizService.searchUsername(TEST_USERNAME, InviteRecordTypeEnum.SPACE);
+            List<ChatUserVo> result = inviteRecordBizService.searchUsername(TEST_USERNAME, InviteRecordTypeEnum.SPACE);
 
             // Assert
             assertNotNull(result);
@@ -750,7 +750,7 @@ class InviteRecordBizServiceImplTest {
             String excelContent = "mobile\n13800138000\n13800138001";
             InputStream inputStream = new ByteArrayInputStream(excelContent.getBytes());
 
-            UserLimitVO userLimit = new UserLimitVO();
+            UserLimitVo userLimit = new UserLimitVo();
             userLimit.setRemain(100);
 
             mockedEnterpriseInfo.when(EnterpriseInfoUtil::getEnterpriseId).thenReturn(TEST_ENTERPRISE_ID);
@@ -762,7 +762,7 @@ class InviteRecordBizServiceImplTest {
             when(s3ClientUtil.uploadObject(anyString(), anyString(), any(InputStream.class))).thenReturn("http://s3.amazonaws.com/result.xlsx");
 
             // Act
-            ApiResult<BatchChatUserVO> result = inviteRecordBizService.searchUserBatch(mockFile);
+            ApiResult<BatchChatUserVo> result = inviteRecordBizService.searchUserBatch(mockFile);
 
             // Assert
             assertNotNull(result);
@@ -783,7 +783,7 @@ class InviteRecordBizServiceImplTest {
         when(mockFile.getInputStream()).thenReturn(inputStream);
 
         // Act
-        ApiResult<BatchChatUserVO> result = inviteRecordBizService.searchUserBatch(mockFile);
+        ApiResult<BatchChatUserVo> result = inviteRecordBizService.searchUserBatch(mockFile);
 
         // Assert
         assertNotNull(result);
@@ -798,7 +798,7 @@ class InviteRecordBizServiceImplTest {
         when(mockFile.getInputStream()).thenThrow(new IOException("File read error"));
 
         // Act
-        ApiResult<BatchChatUserVO> result = inviteRecordBizService.searchUserBatch(mockFile);
+        ApiResult<BatchChatUserVo> result = inviteRecordBizService.searchUserBatch(mockFile);
 
         // Assert
         assertNotNull(result);
@@ -816,7 +816,7 @@ class InviteRecordBizServiceImplTest {
             String excelContent = "username\ntestuser1\ntestuser2";
             InputStream inputStream = new ByteArrayInputStream(excelContent.getBytes());
 
-            UserLimitVO userLimit = new UserLimitVO();
+            UserLimitVo userLimit = new UserLimitVo();
             userLimit.setRemain(100);
 
             mockedEnterpriseInfo.when(EnterpriseInfoUtil::getEnterpriseId).thenReturn(TEST_ENTERPRISE_ID);
@@ -828,7 +828,7 @@ class InviteRecordBizServiceImplTest {
             when(s3ClientUtil.uploadObject(anyString(), anyString(), any(InputStream.class))).thenReturn("http://s3.amazonaws.com/result.xlsx");
 
             // Act
-            ApiResult<BatchChatUserVO> result = inviteRecordBizService.searchUsernameBatch(mockFile);
+            ApiResult<BatchChatUserVo> result = inviteRecordBizService.searchUsernameBatch(mockFile);
 
             // Assert
             assertNotNull(result);
@@ -848,7 +848,7 @@ class InviteRecordBizServiceImplTest {
         when(mockFile.getInputStream()).thenReturn(inputStream);
 
         // Act
-        ApiResult<BatchChatUserVO> result = inviteRecordBizService.searchUsernameBatch(mockFile);
+        ApiResult<BatchChatUserVo> result = inviteRecordBizService.searchUsernameBatch(mockFile);
 
         // Assert
         assertNotNull(result);

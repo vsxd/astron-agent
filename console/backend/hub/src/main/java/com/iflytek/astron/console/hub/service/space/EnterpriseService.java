@@ -1,6 +1,6 @@
 package com.iflytek.astron.console.hub.service.space;
 
-import com.iflytek.astron.console.hub.dto.space.EnterpriseVO;
+import com.iflytek.astron.console.hub.dto.space.EnterpriseVo;
 import com.iflytek.astron.console.hub.entity.space.Enterprise;
 
 import java.time.LocalDateTime;
@@ -21,9 +21,9 @@ public interface EnterpriseService {
 
     boolean checkCertification();
 
-    EnterpriseVO detail();
+    EnterpriseVo detail();
 
-    List<EnterpriseVO> joinList();
+    List<EnterpriseVo> joinList();
 
     boolean checkExistByName(String name, Long id);
 

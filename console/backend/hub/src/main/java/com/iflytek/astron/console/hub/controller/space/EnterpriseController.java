@@ -4,7 +4,7 @@ import com.iflytek.astron.console.commons.annotation.RateLimit;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.commons.annotation.space.EnterprisePreAuth;
 import com.iflytek.astron.console.hub.dto.space.EnterpriseAddDto;
-import com.iflytek.astron.console.hub.dto.space.EnterpriseVO;
+import com.iflytek.astron.console.hub.dto.space.EnterpriseVo;
 import com.iflytek.astron.console.hub.service.space.EnterpriseService;
 import com.iflytek.astron.console.hub.service.space.EnterpriseBizService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -89,13 +89,13 @@ public class EnterpriseController {
     @GetMapping("/detail")
     @Operation(summary = "Team details")
     @EnterprisePreAuth(key = "EnterpriseController_detail_GET", module = "Team/Enterprise Information View", description = "View team/enterprise details")
-    public ApiResult<EnterpriseVO> detail() {
+    public ApiResult<EnterpriseVo> detail() {
         return ApiResult.success(enterpriseService.detail());
     }
 
     @GetMapping("/join-list")
     @Operation(summary = "All teams")
-    public ApiResult<List<EnterpriseVO>> joinList() {
+    public ApiResult<List<EnterpriseVo>> joinList() {
         return ApiResult.success(enterpriseService.joinList());
     }
 

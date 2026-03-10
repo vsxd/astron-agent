@@ -7,7 +7,7 @@ import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.entity.biz.modelconfig.LocalModelDto;
 import com.iflytek.astron.console.hub.entity.biz.modelconfig.ModelDto;
 import com.iflytek.astron.console.hub.entity.biz.modelconfig.ModelValidationRequest;
-import com.iflytek.astron.console.hub.entity.vo.CategoryTreeVO;
+import com.iflytek.astron.console.hub.entity.vo.CategoryTreeVo;
 import com.iflytek.astron.console.hub.entity.vo.LLMInfoVo;
 import com.iflytek.astron.console.hub.handler.UserInfoManagerHandler;
 import com.iflytek.astron.console.hub.service.model.impl.ModelService;
@@ -298,7 +298,7 @@ class ModelControllerTest {
     @DisplayName("getAllCategoryTree - normal: should wrap service list as ApiResult.success")
     void getAllCategoryTree_shouldWrap() {
         try (MockedStatic<ApiResult> api = mockStatic(ApiResult.class)) {
-            List<CategoryTreeVO> list = Arrays.asList(new CategoryTreeVO(), new CategoryTreeVO());
+            List<CategoryTreeVo> list = Arrays.asList(new CategoryTreeVo(), new CategoryTreeVo());
             when(modelService.getAllCategoryTree()).thenReturn(list);
 
             ApiResult<?> sentinel = mock(ApiResult.class);

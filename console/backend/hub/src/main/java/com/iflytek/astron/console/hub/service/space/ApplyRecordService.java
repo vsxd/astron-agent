@@ -2,7 +2,7 @@ package com.iflytek.astron.console.hub.service.space;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.iflytek.astron.console.hub.dto.space.ApplyRecordParam;
-import com.iflytek.astron.console.hub.dto.space.ApplyRecordVO;
+import com.iflytek.astron.console.hub.dto.space.ApplyRecordVo;
 import com.iflytek.astron.console.hub.entity.space.ApplyRecord;
 
 /**
@@ -11,7 +11,7 @@ import com.iflytek.astron.console.hub.entity.space.ApplyRecord;
 public interface ApplyRecordService {
 
 
-    Page<ApplyRecordVO> page(ApplyRecordParam param);
+    Page<ApplyRecordVo> page(ApplyRecordParam param);
 
     ApplyRecord getByUidAndSpaceId(String uid, Long spaceId);
 

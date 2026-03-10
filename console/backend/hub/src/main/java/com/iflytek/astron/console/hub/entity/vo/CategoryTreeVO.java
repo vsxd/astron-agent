@@ -11,12 +11,12 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoryTreeVO {
+public class CategoryTreeVo {
     private Long id;
     private String key;
     private String name;
     private Integer sortOrder;
-    private List<CategoryTreeVO> children;
+    private List<CategoryTreeVo> children;
     /**
      * SYSTEM / CUSTOM, used by frontend to identify source
      */

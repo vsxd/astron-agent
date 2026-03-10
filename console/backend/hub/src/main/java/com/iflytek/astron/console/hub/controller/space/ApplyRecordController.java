@@ -7,7 +7,7 @@ import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.commons.annotation.space.EnterprisePreAuth;
 import com.iflytek.astron.console.commons.annotation.space.SpacePreAuth;
 import com.iflytek.astron.console.hub.dto.space.ApplyRecordParam;
-import com.iflytek.astron.console.hub.dto.space.ApplyRecordVO;
+import com.iflytek.astron.console.hub.dto.space.ApplyRecordVo;
 import com.iflytek.astron.console.hub.service.space.ApplyRecordService;
 import com.iflytek.astron.console.hub.service.space.ApplyRecordBizService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -55,7 +55,7 @@ public class ApplyRecordController {
     @PostMapping("/page")
     @SpacePreAuth(module = "Application Management", description = "Application list", requireSpaceId = true, key = "ApplyRecordController_page_POST")
     @Operation(summary = "Application list")
-    public ApiResult<Page<ApplyRecordVO>> page(@RequestBody ApplyRecordParam param) {
+    public ApiResult<Page<ApplyRecordVo>> page(@RequestBody ApplyRecordParam param) {
         return ApiResult.success(applyRecordService.page(param));
     }
 

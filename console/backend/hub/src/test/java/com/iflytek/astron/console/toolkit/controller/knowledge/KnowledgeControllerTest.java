@@ -4,7 +4,7 @@ import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.entity.mongo.Knowledge;
-import com.iflytek.astron.console.hub.entity.vo.repo.KnowledgeVO;
+import com.iflytek.astron.console.hub.entity.vo.repo.KnowledgeVo;
 import com.iflytek.astron.console.hub.service.repo.impl.KnowledgeRepoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -59,11 +59,11 @@ class KnowledgeControllerTest {
     private KnowledgeController knowledgeController;
 
     private Knowledge mockKnowledge;
-    private KnowledgeVO knowledgeVO;
+    private KnowledgeVo knowledgeVo;
 
     /**
      * Set up test fixtures before each test method. Initializes common test data including mock
-     * Knowledge entity and KnowledgeVO.
+     * Knowledge entity and KnowledgeVo.
      */
     @BeforeEach
     void setUp() {
@@ -79,10 +79,10 @@ class KnowledgeControllerTest {
                 .coreRepoName("test-repo")
                 .build();
 
-        knowledgeVO = new KnowledgeVO();
-        knowledgeVO.setId("knowledge-001");
-        knowledgeVO.setFileId(1L);
-        knowledgeVO.setContent("Test knowledge content");
+        knowledgeVo = new KnowledgeVo();
+        knowledgeVo.setId("knowledge-001");
+        knowledgeVo.setFileId(1L);
+        knowledgeVo.setContent("Test knowledge content");
     }
 
     /**
@@ -103,10 +103,10 @@ class KnowledgeControllerTest {
         @DisplayName("Create knowledge successfully with valid input")
         void testCreateKnowledge_Success() throws ExecutionException, InterruptedException {
             // Given
-            when(knowledgeService.createKnowledge(any(KnowledgeVO.class))).thenReturn(mockKnowledge);
+            when(knowledgeService.createKnowledge(any(KnowledgeVo.class))).thenReturn(mockKnowledge);
 
             // When
-            ApiResult<Knowledge> result = knowledgeController.createKnowledge(knowledgeVO);
+            ApiResult<Knowledge> result = knowledgeController.createKnowledge(knowledgeVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -116,7 +116,7 @@ class KnowledgeControllerTest {
             assertThat(result.data().getFileId()).isEqualTo("file-001");
             assertThat(result.data().getCharCount()).isEqualTo(1000L);
 
-            verify(knowledgeService, times(1)).createKnowledge(any(KnowledgeVO.class));
+            verify(knowledgeService, times(1)).createKnowledge(any(KnowledgeVo.class));
         }
 
         /**
@@ -127,21 +127,21 @@ class KnowledgeControllerTest {
          */
         @Test
         @DisplayName("Create knowledge with empty VO object")
-        void testCreateKnowledge_EmptyVO() throws ExecutionException, InterruptedException {
+        void testCreateKnowledge_EmptyVo() throws ExecutionException, InterruptedException {
             // Given
-            KnowledgeVO emptyVO = new KnowledgeVO();
+            KnowledgeVo emptyVo = new KnowledgeVo();
             Knowledge emptyKnowledge = Knowledge.builder().build();
-            when(knowledgeService.createKnowledge(any(KnowledgeVO.class))).thenReturn(emptyKnowledge);
+            when(knowledgeService.createKnowledge(any(KnowledgeVo.class))).thenReturn(emptyKnowledge);
 
             // When
-            ApiResult<Knowledge> result = knowledgeController.createKnowledge(emptyVO);
+            ApiResult<Knowledge> result = knowledgeController.createKnowledge(emptyVo);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
             assertThat(result.data()).isNotNull();
 
-            verify(knowledgeService, times(1)).createKnowledge(any(KnowledgeVO.class));
+            verify(knowledgeService, times(1)).createKnowledge(any(KnowledgeVo.class));
         }
 
         /**
@@ -151,15 +151,15 @@ class KnowledgeControllerTest {
         @DisplayName("Create knowledge - service throws RuntimeException")
         void testCreateKnowledge_ServiceThrowsRuntimeException() {
             // Given
-            when(knowledgeService.createKnowledge(any(KnowledgeVO.class)))
+            when(knowledgeService.createKnowledge(any(KnowledgeVo.class)))
                     .thenThrow(new RuntimeException("Service error"));
 
             // When & Then
-            assertThatThrownBy(() -> knowledgeController.createKnowledge(knowledgeVO))
+            assertThatThrownBy(() -> knowledgeController.createKnowledge(knowledgeVo))
                     .isInstanceOf(RuntimeException.class)
                     .hasMessageContaining("Service error");
 
-            verify(knowledgeService, times(1)).createKnowledge(any(KnowledgeVO.class));
+            verify(knowledgeService, times(1)).createKnowledge(any(KnowledgeVo.class));
         }
 
         /**
@@ -169,16 +169,16 @@ class KnowledgeControllerTest {
         @DisplayName("Create knowledge - service throws BusinessException")
         void testCreateKnowledge_ServiceThrowsBusinessException() {
             // Given
-            when(knowledgeService.createKnowledge(any(KnowledgeVO.class)))
+            when(knowledgeService.createKnowledge(any(KnowledgeVo.class)))
                     .thenThrow(new BusinessException(ResponseEnum.DATA_NOT_FOUND));
 
             // When & Then
-            assertThatThrownBy(() -> knowledgeController.createKnowledge(knowledgeVO))
+            assertThatThrownBy(() -> knowledgeController.createKnowledge(knowledgeVo))
                     .isInstanceOf(BusinessException.class)
                     .extracting("responseEnum")
                     .isEqualTo(ResponseEnum.DATA_NOT_FOUND);
 
-            verify(knowledgeService, times(1)).createKnowledge(any(KnowledgeVO.class));
+            verify(knowledgeService, times(1)).createKnowledge(any(KnowledgeVo.class));
         }
 
         /**
@@ -191,17 +191,17 @@ class KnowledgeControllerTest {
         @DisplayName("Create knowledge - service returns null")
         void testCreateKnowledge_ServiceReturnsNull() throws ExecutionException, InterruptedException {
             // Given
-            when(knowledgeService.createKnowledge(any(KnowledgeVO.class))).thenReturn(null);
+            when(knowledgeService.createKnowledge(any(KnowledgeVo.class))).thenReturn(null);
 
             // When
-            ApiResult<Knowledge> result = knowledgeController.createKnowledge(knowledgeVO);
+            ApiResult<Knowledge> result = knowledgeController.createKnowledge(knowledgeVo);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
             assertThat(result.data()).isNull();
 
-            verify(knowledgeService, times(1)).createKnowledge(any(KnowledgeVO.class));
+            verify(knowledgeService, times(1)).createKnowledge(any(KnowledgeVo.class));
         }
     }
 
@@ -223,11 +223,11 @@ class KnowledgeControllerTest {
         @DisplayName("Update knowledge successfully without tags")
         void testUpdateKnowledge_NoTags_Success() throws ExecutionException, InterruptedException {
             // Given
-            knowledgeVO.setTags(null);
-            when(knowledgeService.updateKnowledge(any(KnowledgeVO.class))).thenReturn(mockKnowledge);
+            knowledgeVo.setTags(null);
+            when(knowledgeService.updateKnowledge(any(KnowledgeVo.class))).thenReturn(mockKnowledge);
 
             // When
-            ApiResult<Knowledge> result = knowledgeController.updateKnowledge(knowledgeVO);
+            ApiResult<Knowledge> result = knowledgeController.updateKnowledge(knowledgeVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -235,7 +235,7 @@ class KnowledgeControllerTest {
             assertThat(result.data()).isNotNull();
             assertThat(result.data().getId()).isEqualTo("knowledge-001");
 
-            verify(knowledgeService, times(1)).updateKnowledge(any(KnowledgeVO.class));
+            verify(knowledgeService, times(1)).updateKnowledge(any(KnowledgeVo.class));
         }
 
         /**
@@ -248,18 +248,18 @@ class KnowledgeControllerTest {
         @DisplayName("Update knowledge successfully with empty tags list")
         void testUpdateKnowledge_EmptyTags_Success() throws ExecutionException, InterruptedException {
             // Given
-            knowledgeVO.setTags(Collections.emptyList());
-            when(knowledgeService.updateKnowledge(any(KnowledgeVO.class))).thenReturn(mockKnowledge);
+            knowledgeVo.setTags(Collections.emptyList());
+            when(knowledgeService.updateKnowledge(any(KnowledgeVo.class))).thenReturn(mockKnowledge);
 
             // When
-            ApiResult<Knowledge> result = knowledgeController.updateKnowledge(knowledgeVO);
+            ApiResult<Knowledge> result = knowledgeController.updateKnowledge(knowledgeVo);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
             assertThat(result.data()).isNotNull();
 
-            verify(knowledgeService, times(1)).updateKnowledge(any(KnowledgeVO.class));
+            verify(knowledgeService, times(1)).updateKnowledge(any(KnowledgeVo.class));
         }
 
         /**
@@ -273,18 +273,18 @@ class KnowledgeControllerTest {
         void testUpdateKnowledge_TagLengthEquals30_Success() throws ExecutionException, InterruptedException {
             // Given - Tag with exactly 30 characters
             String tag30Chars = "123456789012345678901234567890"; // 30 characters
-            knowledgeVO.setTags(Collections.singletonList(tag30Chars));
-            when(knowledgeService.updateKnowledge(any(KnowledgeVO.class))).thenReturn(mockKnowledge);
+            knowledgeVo.setTags(Collections.singletonList(tag30Chars));
+            when(knowledgeService.updateKnowledge(any(KnowledgeVo.class))).thenReturn(mockKnowledge);
 
             // When
-            ApiResult<Knowledge> result = knowledgeController.updateKnowledge(knowledgeVO);
+            ApiResult<Knowledge> result = knowledgeController.updateKnowledge(knowledgeVo);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
             assertThat(result.data()).isNotNull();
 
-            verify(knowledgeService, times(1)).updateKnowledge(any(KnowledgeVO.class));
+            verify(knowledgeService, times(1)).updateKnowledge(any(KnowledgeVo.class));
         }
 
         /**
@@ -298,17 +298,17 @@ class KnowledgeControllerTest {
         void testUpdateKnowledge_TagLengthEquals29_Success() throws ExecutionException, InterruptedException {
             // Given - Tag with 29 characters
             String tag29Chars = "12345678901234567890123456789"; // 29 characters
-            knowledgeVO.setTags(Collections.singletonList(tag29Chars));
-            when(knowledgeService.updateKnowledge(any(KnowledgeVO.class))).thenReturn(mockKnowledge);
+            knowledgeVo.setTags(Collections.singletonList(tag29Chars));
+            when(knowledgeService.updateKnowledge(any(KnowledgeVo.class))).thenReturn(mockKnowledge);
 
             // When
-            ApiResult<Knowledge> result = knowledgeController.updateKnowledge(knowledgeVO);
+            ApiResult<Knowledge> result = knowledgeController.updateKnowledge(knowledgeVo);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
 
-            verify(knowledgeService, times(1)).updateKnowledge(any(KnowledgeVO.class));
+            verify(knowledgeService, times(1)).updateKnowledge(any(KnowledgeVo.class));
         }
 
         /**
@@ -319,15 +319,15 @@ class KnowledgeControllerTest {
         void testUpdateKnowledge_TagLengthExceeds30_ThrowsException() {
             // Given - Tag with 31 characters
             String tag31Chars = "1234567890123456789012345678901"; // 31 characters
-            knowledgeVO.setTags(Collections.singletonList(tag31Chars));
+            knowledgeVo.setTags(Collections.singletonList(tag31Chars));
 
             // When & Then
-            assertThatThrownBy(() -> knowledgeController.updateKnowledge(knowledgeVO))
+            assertThatThrownBy(() -> knowledgeController.updateKnowledge(knowledgeVo))
                     .isInstanceOf(BusinessException.class)
                     .extracting("responseEnum")
                     .isEqualTo(ResponseEnum.REPO_KNOWLEDGE_TAG_TOO_LONG);
 
-            verify(knowledgeService, never()).updateKnowledge(any(KnowledgeVO.class));
+            verify(knowledgeService, never()).updateKnowledge(any(KnowledgeVo.class));
         }
 
         /**
@@ -342,15 +342,15 @@ class KnowledgeControllerTest {
                     "validTag2",
                     "1234567890123456789012345678901" // 31 characters, too long
             );
-            knowledgeVO.setTags(tags);
+            knowledgeVo.setTags(tags);
 
             // When & Then
-            assertThatThrownBy(() -> knowledgeController.updateKnowledge(knowledgeVO))
+            assertThatThrownBy(() -> knowledgeController.updateKnowledge(knowledgeVo))
                     .isInstanceOf(BusinessException.class)
                     .extracting("responseEnum")
                     .isEqualTo(ResponseEnum.REPO_KNOWLEDGE_TAG_TOO_LONG);
 
-            verify(knowledgeService, never()).updateKnowledge(any(KnowledgeVO.class));
+            verify(knowledgeService, never()).updateKnowledge(any(KnowledgeVo.class));
         }
 
         /**
@@ -363,15 +363,15 @@ class KnowledgeControllerTest {
             List<String> tags = Arrays.asList(
                     "1234567890123456789012345678901", // 31 characters, too long
                     "validTag");
-            knowledgeVO.setTags(tags);
+            knowledgeVo.setTags(tags);
 
             // When & Then
-            assertThatThrownBy(() -> knowledgeController.updateKnowledge(knowledgeVO))
+            assertThatThrownBy(() -> knowledgeController.updateKnowledge(knowledgeVo))
                     .isInstanceOf(BusinessException.class)
                     .extracting("responseEnum")
                     .isEqualTo(ResponseEnum.REPO_KNOWLEDGE_TAG_TOO_LONG);
 
-            verify(knowledgeService, never()).updateKnowledge(any(KnowledgeVO.class));
+            verify(knowledgeService, never()).updateKnowledge(any(KnowledgeVo.class));
         }
 
         /**
@@ -385,17 +385,17 @@ class KnowledgeControllerTest {
         void testUpdateKnowledge_TagsContainEmptyString_Success() throws ExecutionException, InterruptedException {
             // Given
             List<String> tags = Arrays.asList("tag1", "", "tag3");
-            knowledgeVO.setTags(tags);
-            when(knowledgeService.updateKnowledge(any(KnowledgeVO.class))).thenReturn(mockKnowledge);
+            knowledgeVo.setTags(tags);
+            when(knowledgeService.updateKnowledge(any(KnowledgeVo.class))).thenReturn(mockKnowledge);
 
             // When
-            ApiResult<Knowledge> result = knowledgeController.updateKnowledge(knowledgeVO);
+            ApiResult<Knowledge> result = knowledgeController.updateKnowledge(knowledgeVo);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
 
-            verify(knowledgeService, times(1)).updateKnowledge(any(KnowledgeVO.class));
+            verify(knowledgeService, times(1)).updateKnowledge(any(KnowledgeVo.class));
         }
 
         /**
@@ -409,17 +409,17 @@ class KnowledgeControllerTest {
         void testUpdateKnowledge_TagsContainSingleChar_Success() throws ExecutionException, InterruptedException {
             // Given
             List<String> tags = Collections.singletonList("x");
-            knowledgeVO.setTags(tags);
-            when(knowledgeService.updateKnowledge(any(KnowledgeVO.class))).thenReturn(mockKnowledge);
+            knowledgeVo.setTags(tags);
+            when(knowledgeService.updateKnowledge(any(KnowledgeVo.class))).thenReturn(mockKnowledge);
 
             // When
-            ApiResult<Knowledge> result = knowledgeController.updateKnowledge(knowledgeVO);
+            ApiResult<Knowledge> result = knowledgeController.updateKnowledge(knowledgeVo);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
 
-            verify(knowledgeService, times(1)).updateKnowledge(any(KnowledgeVO.class));
+            verify(knowledgeService, times(1)).updateKnowledge(any(KnowledgeVo.class));
         }
 
         /**
@@ -429,16 +429,16 @@ class KnowledgeControllerTest {
         @DisplayName("Update knowledge - service throws RuntimeException")
         void testUpdateKnowledge_ServiceThrowsRuntimeException() {
             // Given
-            knowledgeVO.setTags(Collections.singletonList("validTag"));
-            when(knowledgeService.updateKnowledge(any(KnowledgeVO.class)))
+            knowledgeVo.setTags(Collections.singletonList("validTag"));
+            when(knowledgeService.updateKnowledge(any(KnowledgeVo.class)))
                     .thenThrow(new RuntimeException("Update failed"));
 
             // When & Then
-            assertThatThrownBy(() -> knowledgeController.updateKnowledge(knowledgeVO))
+            assertThatThrownBy(() -> knowledgeController.updateKnowledge(knowledgeVo))
                     .isInstanceOf(RuntimeException.class)
                     .hasMessageContaining("Update failed");
 
-            verify(knowledgeService, times(1)).updateKnowledge(any(KnowledgeVO.class));
+            verify(knowledgeService, times(1)).updateKnowledge(any(KnowledgeVo.class));
         }
 
         /**
@@ -448,17 +448,17 @@ class KnowledgeControllerTest {
         @DisplayName("Update knowledge - service throws BusinessException")
         void testUpdateKnowledge_ServiceThrowsBusinessException() {
             // Given
-            knowledgeVO.setTags(Collections.singletonList("validTag"));
-            when(knowledgeService.updateKnowledge(any(KnowledgeVO.class)))
+            knowledgeVo.setTags(Collections.singletonList("validTag"));
+            when(knowledgeService.updateKnowledge(any(KnowledgeVo.class)))
                     .thenThrow(new BusinessException(ResponseEnum.REPO_KNOWLEDGE_NOT_EXIST));
 
             // When & Then
-            assertThatThrownBy(() -> knowledgeController.updateKnowledge(knowledgeVO))
+            assertThatThrownBy(() -> knowledgeController.updateKnowledge(knowledgeVo))
                     .isInstanceOf(BusinessException.class)
                     .extracting("responseEnum")
                     .isEqualTo(ResponseEnum.REPO_KNOWLEDGE_NOT_EXIST);
 
-            verify(knowledgeService, times(1)).updateKnowledge(any(KnowledgeVO.class));
+            verify(knowledgeService, times(1)).updateKnowledge(any(KnowledgeVo.class));
         }
 
         /**
@@ -469,14 +469,14 @@ class KnowledgeControllerTest {
         void testUpdateKnowledge_TagTooLong_ServiceNotCalled() {
             // Given
             String longTag = "x".repeat(31); // 31 characters
-            knowledgeVO.setTags(Collections.singletonList(longTag));
+            knowledgeVo.setTags(Collections.singletonList(longTag));
 
             // When & Then
-            assertThatThrownBy(() -> knowledgeController.updateKnowledge(knowledgeVO))
+            assertThatThrownBy(() -> knowledgeController.updateKnowledge(knowledgeVo))
                     .isInstanceOf(BusinessException.class);
 
             // Verify service method was not called
-            verify(knowledgeService, never()).updateKnowledge(any(KnowledgeVO.class));
+            verify(knowledgeService, never()).updateKnowledge(any(KnowledgeVo.class));
         }
 
         /**
@@ -490,17 +490,17 @@ class KnowledgeControllerTest {
         void testUpdateKnowledge_ValidTags_Success() throws ExecutionException, InterruptedException {
             // Given - 10 characters
             String validTag = "TestTag123"; // 10 characters
-            knowledgeVO.setTags(Collections.singletonList(validTag));
-            when(knowledgeService.updateKnowledge(any(KnowledgeVO.class))).thenReturn(mockKnowledge);
+            knowledgeVo.setTags(Collections.singletonList(validTag));
+            when(knowledgeService.updateKnowledge(any(KnowledgeVo.class))).thenReturn(mockKnowledge);
 
             // When
-            ApiResult<Knowledge> result = knowledgeController.updateKnowledge(knowledgeVO);
+            ApiResult<Knowledge> result = knowledgeController.updateKnowledge(knowledgeVo);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
 
-            verify(knowledgeService, times(1)).updateKnowledge(any(KnowledgeVO.class));
+            verify(knowledgeService, times(1)).updateKnowledge(any(KnowledgeVo.class));
         }
 
         /**
@@ -512,15 +512,15 @@ class KnowledgeControllerTest {
             // Given - 31 characters
             String longTag = "VeryLongTagForBoundaryTest12345"; // 31 characters
             assertThat(longTag.length()).isEqualTo(31); // Verify it's indeed 31 characters
-            knowledgeVO.setTags(Collections.singletonList(longTag));
+            knowledgeVo.setTags(Collections.singletonList(longTag));
 
             // When & Then
-            assertThatThrownBy(() -> knowledgeController.updateKnowledge(knowledgeVO))
+            assertThatThrownBy(() -> knowledgeController.updateKnowledge(knowledgeVo))
                     .isInstanceOf(BusinessException.class)
                     .extracting("responseEnum")
                     .isEqualTo(ResponseEnum.REPO_KNOWLEDGE_TAG_TOO_LONG);
 
-            verify(knowledgeService, never()).updateKnowledge(any(KnowledgeVO.class));
+            verify(knowledgeService, never()).updateKnowledge(any(KnowledgeVo.class));
         }
 
         /**
@@ -537,17 +537,17 @@ class KnowledgeControllerTest {
             for (int i = 0; i < 100; i++) {
                 tags.add("tag" + i); // Each tag does not exceed 30 characters
             }
-            knowledgeVO.setTags(tags);
-            when(knowledgeService.updateKnowledge(any(KnowledgeVO.class))).thenReturn(mockKnowledge);
+            knowledgeVo.setTags(tags);
+            when(knowledgeService.updateKnowledge(any(KnowledgeVo.class))).thenReturn(mockKnowledge);
 
             // When
-            ApiResult<Knowledge> result = knowledgeController.updateKnowledge(knowledgeVO);
+            ApiResult<Knowledge> result = knowledgeController.updateKnowledge(knowledgeVo);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isEqualTo(0);
 
-            verify(knowledgeService, times(1)).updateKnowledge(any(KnowledgeVO.class));
+            verify(knowledgeService, times(1)).updateKnowledge(any(KnowledgeVo.class));
         }
     }
 
@@ -967,8 +967,8 @@ class KnowledgeControllerTest {
         void testFullLifecycle() throws ExecutionException, InterruptedException {
             // Given
             String knowledgeId = "knowledge-full-test";
-            KnowledgeVO createVO = new KnowledgeVO();
-            createVO.setContent("Initial content");
+            KnowledgeVo createVo = new KnowledgeVo();
+            createVo.setContent("Initial content");
 
             Knowledge createdKnowledge = Knowledge.builder()
                     .id(knowledgeId)
@@ -980,22 +980,22 @@ class KnowledgeControllerTest {
                     .enabled(0)
                     .build();
 
-            when(knowledgeService.createKnowledge(any(KnowledgeVO.class))).thenReturn(createdKnowledge);
-            when(knowledgeService.updateKnowledge(any(KnowledgeVO.class))).thenReturn(updatedKnowledge);
+            when(knowledgeService.createKnowledge(any(KnowledgeVo.class))).thenReturn(createdKnowledge);
+            when(knowledgeService.updateKnowledge(any(KnowledgeVo.class))).thenReturn(updatedKnowledge);
             when(knowledgeService.enableKnowledge(anyString(), anyInt())).thenReturn("enabled");
             doNothing().when(knowledgeService).deleteKnowledge(anyString());
 
             // When - Create
-            ApiResult<Knowledge> createResult = knowledgeController.createKnowledge(createVO);
+            ApiResult<Knowledge> createResult = knowledgeController.createKnowledge(createVo);
             assertThat(createResult.code()).isEqualTo(0);
             assertThat(createResult.data().getId()).isEqualTo(knowledgeId);
 
             // When - Update
-            KnowledgeVO updateVO = new KnowledgeVO();
-            updateVO.setId(knowledgeId);
-            updateVO.setContent("Updated content");
-            updateVO.setTags(Arrays.asList("tag1", "tag2"));
-            ApiResult<Knowledge> updateResult = knowledgeController.updateKnowledge(updateVO);
+            KnowledgeVo updateVo = new KnowledgeVo();
+            updateVo.setId(knowledgeId);
+            updateVo.setContent("Updated content");
+            updateVo.setTags(Arrays.asList("tag1", "tag2"));
+            ApiResult<Knowledge> updateResult = knowledgeController.updateKnowledge(updateVo);
             assertThat(updateResult.code()).isEqualTo(0);
 
             // When - Enable
@@ -1007,8 +1007,8 @@ class KnowledgeControllerTest {
             assertThat(deleteResult.code()).isEqualTo(0);
 
             // Then - Verify all invocations
-            verify(knowledgeService, times(1)).createKnowledge(any(KnowledgeVO.class));
-            verify(knowledgeService, times(1)).updateKnowledge(any(KnowledgeVO.class));
+            verify(knowledgeService, times(1)).createKnowledge(any(KnowledgeVo.class));
+            verify(knowledgeService, times(1)).updateKnowledge(any(KnowledgeVo.class));
             verify(knowledgeService, times(1)).enableKnowledge(eq(knowledgeId), eq(1));
             verify(knowledgeService, times(1)).deleteKnowledge(eq(knowledgeId));
         }
@@ -1028,15 +1028,15 @@ class KnowledgeControllerTest {
                     "abcdefghijklmnopqrstuvwxyz1234", // 30 chars
                     "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234" // 30 chars
             );
-            knowledgeVO.setTags(tags);
-            when(knowledgeService.updateKnowledge(any(KnowledgeVO.class))).thenReturn(mockKnowledge);
+            knowledgeVo.setTags(tags);
+            when(knowledgeService.updateKnowledge(any(KnowledgeVo.class))).thenReturn(mockKnowledge);
 
             // When
-            ApiResult<Knowledge> result = knowledgeController.updateKnowledge(knowledgeVO);
+            ApiResult<Knowledge> result = knowledgeController.updateKnowledge(knowledgeVo);
 
             // Then
             assertThat(result.code()).isEqualTo(0);
-            verify(knowledgeService, times(1)).updateKnowledge(any(KnowledgeVO.class));
+            verify(knowledgeService, times(1)).updateKnowledge(any(KnowledgeVo.class));
         }
 
         /**
@@ -1046,10 +1046,10 @@ class KnowledgeControllerTest {
         @DisplayName("Error scenario - tag validation fails and service is not called")
         void testErrorScenario_TagValidationFailsNoServiceCall() {
             // Given
-            knowledgeVO.setTags(Collections.singletonList("x".repeat(31)));
+            knowledgeVo.setTags(Collections.singletonList("x".repeat(31)));
 
             // When & Then
-            assertThatThrownBy(() -> knowledgeController.updateKnowledge(knowledgeVO))
+            assertThatThrownBy(() -> knowledgeController.updateKnowledge(knowledgeVo))
                     .isInstanceOf(BusinessException.class);
 
             // Ensure service method is never called
@@ -1094,15 +1094,15 @@ class KnowledgeControllerTest {
         @DisplayName("updateKnowledge with all VO fields being null")
         void testUpdateKnowledge_AllFieldsNull() throws ExecutionException, InterruptedException {
             // Given
-            KnowledgeVO emptyVO = new KnowledgeVO();
-            when(knowledgeService.updateKnowledge(any(KnowledgeVO.class))).thenReturn(mockKnowledge);
+            KnowledgeVo emptyVo = new KnowledgeVo();
+            when(knowledgeService.updateKnowledge(any(KnowledgeVo.class))).thenReturn(mockKnowledge);
 
             // When
-            ApiResult<Knowledge> result = knowledgeController.updateKnowledge(emptyVO);
+            ApiResult<Knowledge> result = knowledgeController.updateKnowledge(emptyVo);
 
             // Then
             assertThat(result.code()).isEqualTo(0);
-            verify(knowledgeService, times(1)).updateKnowledge(any(KnowledgeVO.class));
+            verify(knowledgeService, times(1)).updateKnowledge(any(KnowledgeVo.class));
         }
 
         /**

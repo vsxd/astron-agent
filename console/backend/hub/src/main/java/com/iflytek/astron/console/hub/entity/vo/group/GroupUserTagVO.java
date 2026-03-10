@@ -3,7 +3,7 @@ package com.iflytek.astron.console.hub.entity.vo.group;
 import lombok.Data;
 
 @Data
-public class GroupUserTagVO {
+public class GroupUserTagVo {
     private String uid;
     private String login;
     private String nickname;

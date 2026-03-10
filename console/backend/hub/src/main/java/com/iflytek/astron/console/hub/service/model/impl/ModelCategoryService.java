@@ -6,7 +6,7 @@ import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.hub.entity.table.model.ModelCategory;
 import com.iflytek.astron.console.hub.entity.table.model.ModelCustomCategory;
-import com.iflytek.astron.console.hub.entity.vo.CategoryTreeVO;
+import com.iflytek.astron.console.hub.entity.vo.CategoryTreeVo;
 import com.iflytek.astron.console.hub.entity.vo.ModelCategoryReq;
 import com.iflytek.astron.console.hub.mapper.model.ModelCategoryMapper;
 import com.iflytek.astron.console.hub.mapper.model.ModelCustomCategoryMapper;
@@ -30,13 +30,13 @@ public class ModelCategoryService extends ServiceImpl<ModelCategoryMapper, Model
     private final ModelCategoryMapper categoryMapper;
     private final ModelCustomCategoryMapper modelCustomCategoryMapper;
 
-    public List<CategoryTreeVO> getTree(Long modelId) {
+    public List<CategoryTreeVo> getTree(Long modelId) {
         List<ModelCategory> items = this.getBaseMapper().listByModelId(modelId);
         return listToTree(items);
     }
 
     @NotNull
-    private List<CategoryTreeVO> listToTree(List<ModelCategory> list) {
+    private List<CategoryTreeVo> listToTree(List<ModelCategory> list) {
         if (list == null || list.isEmpty()) {
             return Collections.emptyList();
         }
@@ -49,14 +49,14 @@ public class ModelCategoryService extends ServiceImpl<ModelCategoryMapper, Model
                         (a, b) -> a,
                         LinkedHashMap::new));
         // 2) Construct all node maps
-        Map<Long, CategoryTreeVO> nodeMap = new LinkedHashMap<>(uniq.size());
+        Map<Long, CategoryTreeVo> nodeMap = new LinkedHashMap<>(uniq.size());
         Map<Long, Long> id2pid = new HashMap<>(uniq.size());
         for (ModelCategory e : uniq.values()) {
             Long id = e.getId();
             Long pid = e.getPid() == null ? 0L : e.getPid();
             id2pid.put(id, pid);
 
-            CategoryTreeVO vo = new CategoryTreeVO(
+            CategoryTreeVo vo = new CategoryTreeVo(
                     id,
                     e.getKey(),
                     e.getName(),
@@ -68,17 +68,17 @@ public class ModelCategoryService extends ServiceImpl<ModelCategoryMapper, Model
         }
 
         // 3) Mount each node to its parent node
-        List<CategoryTreeVO> roots = new ArrayList<>();
-        for (Map.Entry<Long, CategoryTreeVO> entry : nodeMap.entrySet()) {
+        List<CategoryTreeVo> roots = new ArrayList<>();
+        for (Map.Entry<Long, CategoryTreeVo> entry : nodeMap.entrySet()) {
             Long id = entry.getKey();
             Long pid = id2pid.get(id);
-            CategoryTreeVO cur = entry.getValue();
+            CategoryTreeVo cur = entry.getValue();
 
             if (pid == null || pid == 0L) {
                 // Root node
                 roots.add(cur);
             } else {
-                CategoryTreeVO parent = nodeMap.get(pid);
+                CategoryTreeVo parent = nodeMap.get(pid);
                 if (parent != null) {
                     parent.getChildren().add(cur);
                 } else {
@@ -89,15 +89,15 @@ public class ModelCategoryService extends ServiceImpl<ModelCategoryMapper, Model
         }
 
         // 4) Unified sorting
-        Comparator<CategoryTreeVO> cmp = Comparator
-                .comparingInt(CategoryTreeVO::getSortOrder)
+        Comparator<CategoryTreeVo> cmp = Comparator
+                .comparingInt(CategoryTreeVo::getSortOrder)
                 .reversed()
-                .thenComparing((CategoryTreeVO x) -> x.getId(), Comparator.reverseOrder());
+                .thenComparing((CategoryTreeVo x) -> x.getId(), Comparator.reverseOrder());
 
         // Depth-first sort for each branch
-        Deque<CategoryTreeVO> stack = new ArrayDeque<>(roots);
+        Deque<CategoryTreeVo> stack = new ArrayDeque<>(roots);
         while (!stack.isEmpty()) {
-            CategoryTreeVO node = stack.pop();
+            CategoryTreeVo node = stack.pop();
             if (node.getChildren() != null && !node.getChildren().isEmpty()) {
                 node.getChildren().sort(cmp);
                 // Push child nodes to stack, continue drilling down
@@ -384,7 +384,7 @@ public class ModelCategoryService extends ServiceImpl<ModelCategoryMapper, Model
      * Used when creating models: return complete official category tree (excluding custom) No query
      * parameters; only filter is_delete = 0
      */
-    public List<CategoryTreeVO> getAllCategoryTree() {
+    public List<CategoryTreeVo> getAllCategoryTree() {
         List<ModelCategory> rows = categoryMapper.listAllTree();
         return toTree(rows);
     }
@@ -396,7 +396,7 @@ public class ModelCategoryService extends ServiceImpl<ModelCategoryMapper, Model
      * parent nodes are missing, avoid data loss
      */
     @NotNull
-    private List<CategoryTreeVO> toTree(List<ModelCategory> list) {
+    private List<CategoryTreeVo> toTree(List<ModelCategory> list) {
         if (list == null || list.isEmpty()) {
             return Collections.emptyList();
         }
@@ -407,13 +407,13 @@ public class ModelCategoryService extends ServiceImpl<ModelCategoryMapper, Model
                         Collectors.toMap(ModelCategory::getId, x -> x, (a, b) -> a, LinkedHashMap::new));
 
         // 2) Create all nodes first (without mounting)
-        Map<Long, CategoryTreeVO> nodeMap = new LinkedHashMap<>(uniq.size());
+        Map<Long, CategoryTreeVo> nodeMap = new LinkedHashMap<>(uniq.size());
         Map<Long, Long> id2pid = new HashMap<>(uniq.size());
         for (ModelCategory e : uniq.values()) {
             Long id = e.getId();
             Long pid = e.getPid() == null ? 0L : e.getPid();
             id2pid.put(id, pid);
-            nodeMap.put(id, new CategoryTreeVO(
+            nodeMap.put(id, new CategoryTreeVo(
                     id,
                     e.getKey(),
                     e.getName(),
@@ -423,16 +423,16 @@ public class ModelCategoryService extends ServiceImpl<ModelCategoryMapper, Model
         }
 
         // 3) Mount under parent nodes
-        List<CategoryTreeVO> roots = new ArrayList<>();
-        for (Map.Entry<Long, CategoryTreeVO> entry : nodeMap.entrySet()) {
+        List<CategoryTreeVo> roots = new ArrayList<>();
+        for (Map.Entry<Long, CategoryTreeVo> entry : nodeMap.entrySet()) {
             Long id = entry.getKey();
             Long pid = id2pid.get(id);
-            CategoryTreeVO cur = entry.getValue();
+            CategoryTreeVo cur = entry.getValue();
 
             if (pid == null || pid == 0L) {
                 roots.add(cur);
             } else {
-                CategoryTreeVO parent = nodeMap.get(pid);
+                CategoryTreeVo parent = nodeMap.get(pid);
                 if (parent != null) {
                     parent.getChildren().add(cur);
                 } else {
@@ -443,14 +443,14 @@ public class ModelCategoryService extends ServiceImpl<ModelCategoryMapper, Model
         }
 
         // 4) Unified sorting (parent/child)
-        Comparator<CategoryTreeVO> cmp = Comparator
-                .comparingInt(CategoryTreeVO::getSortOrder)
+        Comparator<CategoryTreeVo> cmp = Comparator
+                .comparingInt(CategoryTreeVo::getSortOrder)
                 .reversed()
-                .thenComparing((CategoryTreeVO x) -> x.getId(), Comparator.reverseOrder());
+                .thenComparing((CategoryTreeVo x) -> x.getId(), Comparator.reverseOrder());
 
-        Deque<CategoryTreeVO> stack = new ArrayDeque<>(roots);
+        Deque<CategoryTreeVo> stack = new ArrayDeque<>(roots);
         while (!stack.isEmpty()) {
-            CategoryTreeVO n = stack.pop();
+            CategoryTreeVo n = stack.pop();
             if (n.getChildren() != null && !n.getChildren().isEmpty()) {
                 n.getChildren().sort(cmp);
                 // Depth-first sort all levels

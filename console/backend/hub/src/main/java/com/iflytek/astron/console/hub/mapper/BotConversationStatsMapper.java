@@ -2,8 +2,8 @@ package com.iflytek.astron.console.hub.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.iflytek.astron.console.hub.entity.BotConversationStats;
-import com.iflytek.astron.console.hub.dto.publish.BotSummaryStatsVO;
-import com.iflytek.astron.console.hub.dto.publish.BotTimeSeriesStatsVO;
+import com.iflytek.astron.console.hub.dto.publish.BotSummaryStatsVo;
+import com.iflytek.astron.console.hub.dto.publish.BotTimeSeriesStatsVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -26,7 +26,7 @@ public interface BotConversationStatsMapper extends BaseMapper<BotConversationSt
      * @param spaceId space ID (nullable)
      * @return summary statistics
      */
-    BotSummaryStatsVO selectSummaryStats(@Param("botId") Integer botId,
+    BotSummaryStatsVo selectSummaryStats(@Param("botId") Integer botId,
             @Param("uid") String uid,
             @Param("spaceId") Long spaceId);
 
@@ -39,7 +39,7 @@ public interface BotConversationStatsMapper extends BaseMapper<BotConversationSt
      * @param spaceId space ID (nullable)
      * @return time series statistics list
      */
-    List<BotTimeSeriesStatsVO> selectTimeSeriesStats(@Param("botId") Integer botId,
+    List<BotTimeSeriesStatsVo> selectTimeSeriesStats(@Param("botId") Integer botId,
             @Param("startDate") LocalDate startDate,
             @Param("uid") String uid,
             @Param("spaceId") Long spaceId);

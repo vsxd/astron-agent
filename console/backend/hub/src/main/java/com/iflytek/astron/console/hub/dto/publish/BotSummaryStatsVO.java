@@ -8,7 +8,7 @@ import lombok.Data;
  * consumption (k), total number of messages
  */
 @Data
-public class BotSummaryStatsVO {
+public class BotSummaryStatsVo {
 
     /**
      * Total number of sessions

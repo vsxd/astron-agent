@@ -13,7 +13,7 @@ import com.iflytek.astron.console.hub.mapper.space.InviteRecordMapper;
 import com.iflytek.astron.console.hub.service.space.InviteRecordService;
 import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
-import com.iflytek.astron.console.hub.dto.space.InviteRecordVO;
+import com.iflytek.astron.console.hub.dto.space.InviteRecordVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 public class InviteRecordServiceImpl extends ServiceImpl<InviteRecordMapper, InviteRecord> implements InviteRecordService {
 
     @Override
-    public Page<InviteRecordVO> inviteList(InviteRecordParam param, InviteRecordTypeEnum type) {
+    public Page<InviteRecordVo> inviteList(InviteRecordParam param, InviteRecordTypeEnum type) {
         Page<InviteRecord> page = new Page<>();
         page.setSize(param.getPageSize());
         page.setCurrent(param.getPageNum());
@@ -49,7 +49,7 @@ public class InviteRecordServiceImpl extends ServiceImpl<InviteRecordMapper, Inv
         if (spaceId == null && enterpriseId == null) {
             return Page.of(param.getPageNum(), param.getPageSize());
         }
-        return this.baseMapper.selectVOPageByParam(page,
+        return this.baseMapper.selectVoPageByParam(page,
                 recordType, spaceId, enterpriseId,
                 param.getNickname(), param.getStatus());
     }
@@ -105,8 +105,8 @@ public class InviteRecordServiceImpl extends ServiceImpl<InviteRecordMapper, Inv
     }
 
     @Override
-    public InviteRecordVO selectVOById(Long id) {
-        return this.baseMapper.selectVOById(id);
+    public InviteRecordVo selectVoById(Long id) {
+        return this.baseMapper.selectVoById(id);
     }
 
     @Override

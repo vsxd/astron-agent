@@ -18,8 +18,8 @@ import com.iflytek.astron.console.hub.service.space.SpaceService;
 import com.iflytek.astron.console.hub.service.space.SpaceUserService;
 import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
-import com.iflytek.astron.console.hub.dto.space.EnterpriseSpaceCountVO;
-import com.iflytek.astron.console.hub.dto.space.SpaceVO;
+import com.iflytek.astron.console.hub.dto.space.EnterpriseSpaceCountVo;
+import com.iflytek.astron.console.hub.dto.space.SpaceVo;
 import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +47,7 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space> implements
     private final EnterpriseService enterpriseService;
 
     @Override
-    public List<SpaceVO> recentVisitList() {
+    public List<SpaceVo> recentVisitList() {
         String uid = RequestContextUtil.getUID();
         return this.baseMapper.recentVisitList(
                 uid,
@@ -55,30 +55,30 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space> implements
     }
 
     @Override
-    public List<SpaceVO> personalList(String name) {
+    public List<SpaceVo> personalList(String name) {
         String uid = RequestContextUtil.getUID();
-        List<SpaceVO> spaceVOS = this.baseMapper.joinList(
+        List<SpaceVo> spaceVos = this.baseMapper.joinList(
                 uid,
                 EnterpriseInfoUtil.getEnterpriseId(), name);
-        setSpaceVOExtraInfo(spaceVOS);
-        return spaceVOS;
+        setSpaceVoExtraInfo(spaceVos);
+        return spaceVos;
     }
 
-    private void setSpaceVOExtraInfo(List<SpaceVO> spaceVOS) {
-        if (CollectionUtil.isNotEmpty(spaceVOS)) {
-            List<SpaceUser> allSpaceUsers = spaceUserService.getAllSpaceUsers(spaceVOS.stream().map(SpaceVO::getId).collect(Collectors.toList()));
+    private void setSpaceVoExtraInfo(List<SpaceVo> spaceVos) {
+        if (CollectionUtil.isNotEmpty(spaceVos)) {
+            List<SpaceUser> allSpaceUsers = spaceUserService.getAllSpaceUsers(spaceVos.stream().map(SpaceVo::getId).collect(Collectors.toList()));
             Map<Long, List<SpaceUser>> collect = allSpaceUsers.stream().collect(Collectors.groupingBy(SpaceUser::getSpaceId, Collectors.toList()));
-            for (SpaceVO spaceVO : spaceVOS) {
-                List<SpaceUser> spaceUsers = collect.get(spaceVO.getId());
+            for (SpaceVo spaceVo : spaceVos) {
+                List<SpaceUser> spaceUsers = collect.get(spaceVo.getId());
                 if (spaceUsers != null) {
-                    spaceVO.setMemberCount(spaceUsers.size());
+                    spaceVo.setMemberCount(spaceUsers.size());
                     SpaceUser spaceUser = spaceUsers.stream()
                             .filter(user -> Objects.equals(user.getRole(), SpaceRoleEnum.OWNER.getCode()))
                             .findFirst()
                             .orElse(null);
                     if (spaceUser != null) {
                         UserInfo userInfo = userInfoDataService.findByUid(spaceUser.getUid()).orElseThrow();
-                        spaceVO.setOwnerName(userInfo.getNickname());
+                        spaceVo.setOwnerName(userInfo.getNickname());
                     }
                 }
             }
@@ -86,58 +86,58 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space> implements
     }
 
     @Override
-    public List<SpaceVO> personalSelfList(String name) {
-        List<SpaceVO> spaceVOS = this.baseMapper.selfList(
+    public List<SpaceVo> personalSelfList(String name) {
+        List<SpaceVo> spaceVos = this.baseMapper.selfList(
                 RequestContextUtil.getUID(),
                 SpaceRoleEnum.OWNER.getCode(),
                 EnterpriseInfoUtil.getEnterpriseId(), name);
-        setSpaceVOExtraInfo(spaceVOS);
-        return spaceVOS;
+        setSpaceVoExtraInfo(spaceVos);
+        return spaceVos;
     }
 
     @Override
-    public List<SpaceVO> corporateJoinList(String name) {
-        List<SpaceVO> spaceVOS = this.baseMapper.joinList(
+    public List<SpaceVo> corporateJoinList(String name) {
+        List<SpaceVo> spaceVos = this.baseMapper.joinList(
                 RequestContextUtil.getUID(),
                 EnterpriseInfoUtil.getEnterpriseId(), name);
-        setSpaceVOExtraInfo(spaceVOS);
-        return spaceVOS;
+        setSpaceVoExtraInfo(spaceVos);
+        return spaceVos;
     }
 
 
     @Override
-    public List<SpaceVO> corporateList(String name) {
-        List<SpaceVO> spaceVOS = this.baseMapper.corporateList(
+    public List<SpaceVo> corporateList(String name) {
+        List<SpaceVo> spaceVos = this.baseMapper.corporateList(
                 RequestContextUtil.getUID(),
                 EnterpriseInfoUtil.getEnterpriseId(), name);
-        setSpaceVOExtraInfo(spaceVOS);
-        return spaceVOS;
+        setSpaceVoExtraInfo(spaceVos);
+        return spaceVos;
     }
 
     @Override
-    public EnterpriseSpaceCountVO corporateCount() {
+    public EnterpriseSpaceCountVo corporateCount() {
         Long enterpriseId = EnterpriseInfoUtil.getEnterpriseId();
         String uid = RequestContextUtil.getUID();
         return this.baseMapper.corporateCount(uid, enterpriseId);
     }
 
     @Override
-    public SpaceVO getSpaceVO() {
-        SpaceVO spaceVO = this.baseMapper.getByUidAndId(RequestContextUtil.getUID(), SpaceInfoUtil.getSpaceId());
-        if (spaceVO == null) {
+    public SpaceVo getSpaceVo() {
+        SpaceVo spaceVo = this.baseMapper.getByUidAndId(RequestContextUtil.getUID(), SpaceInfoUtil.getSpaceId());
+        if (spaceVo == null) {
             return null;
         }
-        List<SpaceUser> allSpaceUsers = spaceUserService.getAllSpaceUsers(spaceVO.getId());
-        spaceVO.setMemberCount(allSpaceUsers.size());
+        List<SpaceUser> allSpaceUsers = spaceUserService.getAllSpaceUsers(spaceVo.getId());
+        spaceVo.setMemberCount(allSpaceUsers.size());
         SpaceUser spaceUser = allSpaceUsers.stream()
                 .filter(user -> Objects.equals(user.getRole(), SpaceRoleEnum.OWNER.getCode()))
                 .findFirst()
                 .orElse(null);
         if (spaceUser != null) {
             UserInfo userInfo = userInfoDataService.findByUid(spaceUser.getUid()).orElseThrow();
-            spaceVO.setOwnerName(userInfo.getNickname());
+            spaceVo.setOwnerName(userInfo.getNickname());
         }
-        return spaceVO;
+        return spaceVo;
     }
 
     @Override
@@ -147,33 +147,33 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space> implements
     }
 
     @Override
-    public SpaceVO getLastVisitSpace() {
+    public SpaceVo getLastVisitSpace() {
         String uid = RequestContextUtil.getUID();
         Long enterpriseId = EnterpriseInfoUtil.getEnterpriseId();
         // If user does not provide enterpriseId, get the last visited enterprise id
         if (enterpriseId == null) {
             enterpriseId = enterpriseService.getLastVisitEnterpriseId();
         }
-        List<SpaceVO> spaceVOS = this.baseMapper.recentVisitList(uid, enterpriseId);
-        if (CollectionUtil.isEmpty(spaceVOS)) {
+        List<SpaceVo> spaceVos = this.baseMapper.recentVisitList(uid, enterpriseId);
+        if (CollectionUtil.isEmpty(spaceVos)) {
             // If enterpriseId is not null, return a space object containing only enterpriseId
             if (enterpriseId != null) {
-                SpaceVO spaceVO = new SpaceVO();
-                spaceVO.setEnterpriseId(enterpriseId);
-                return spaceVO;
+                SpaceVo spaceVo = new SpaceVo();
+                spaceVo.setEnterpriseId(enterpriseId);
+                return spaceVo;
             }
             return null;
         }
         Object timestampObj = redissonClient.getBucket(USER_LAST_VISIT_PERSONAL_SPACE_TIME + uid).get();
         String timestamp = timestampObj == null ? null : timestampObj.toString();
         if (StringUtils.isBlank(timestamp)) {
-            return this.baseMapper.getByUidAndId(uid, spaceVOS.get(0).getId());
+            return this.baseMapper.getByUidAndId(uid, spaceVos.get(0).getId());
         } else {
             LocalDateTime dateTime = Instant.ofEpochMilli(Long.parseLong(timestamp)).atZone(ZoneId.systemDefault()).toLocalDateTime();
-            if (dateTime.isAfter(spaceVOS.get(0).getLastVisitTime())) {
+            if (dateTime.isAfter(spaceVos.get(0).getLastVisitTime())) {
                 return null;
             } else {
-                return this.baseMapper.getByUidAndId(uid, spaceVOS.get(0).getId());
+                return this.baseMapper.getByUidAndId(uid, spaceVos.get(0).getId());
             }
         }
     }
@@ -198,7 +198,7 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space> implements
     }
 
     @Override
-    public List<SpaceVO> listByEnterpriseIdAndUid(Long enterpriseId, String uid) {
+    public List<SpaceVo> listByEnterpriseIdAndUid(Long enterpriseId, String uid) {
         return this.baseMapper.joinList(uid, enterpriseId, null);
     }
 

@@ -34,7 +34,7 @@ import com.iflytek.astron.console.hub.service.bot.PersonalityConfigService;
 import com.iflytek.astron.console.hub.service.chat.BotChatService;
 import com.iflytek.astron.console.hub.service.chat.ChatListService;
 import com.iflytek.astron.console.hub.service.knowledge.KnowledgeService;
-import com.iflytek.astron.console.hub.entity.vo.CategoryTreeVO;
+import com.iflytek.astron.console.hub.entity.vo.CategoryTreeVo;
 import com.iflytek.astron.console.hub.entity.vo.LLMInfoVo;
 import com.iflytek.astron.console.hub.service.model.impl.LLMService;
 import com.iflytek.astron.console.hub.service.model.impl.ModelService;
@@ -256,11 +256,11 @@ public class BotChatServiceImpl implements BotChatService {
         }
 
         int maxInputTokens = this.maxInputTokens;
-        List<CategoryTreeVO> categoryTree = llmInfoVo.getCategoryTree();
+        List<CategoryTreeVo> categoryTree = llmInfoVo.getCategoryTree();
         if (!categoryTree.isEmpty()) {
-            for (CategoryTreeVO categoryTreeVO : categoryTree) {
-                if ("contextLengthTag".equals(categoryTreeVO.getKey())) {
-                    maxInputTokens = Integer.parseInt(categoryTreeVO.getName().replace("k", "")) * 1000;
+            for (CategoryTreeVo categoryTreeVo : categoryTree) {
+                if ("contextLengthTag".equals(categoryTreeVo.getKey())) {
+                    maxInputTokens = Integer.parseInt(categoryTreeVo.getName().replace("k", "")) * 1000;
                     break;
                 }
             }

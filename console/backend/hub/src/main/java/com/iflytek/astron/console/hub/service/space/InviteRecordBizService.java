@@ -3,9 +3,9 @@ package com.iflytek.astron.console.hub.service.space;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.dto.space.InviteRecordAddDto;
 import com.iflytek.astron.console.hub.enums.space.InviteRecordTypeEnum;
-import com.iflytek.astron.console.hub.dto.space.BatchChatUserVO;
-import com.iflytek.astron.console.hub.dto.space.ChatUserVO;
-import com.iflytek.astron.console.hub.dto.space.InviteRecordVO;
+import com.iflytek.astron.console.hub.dto.space.BatchChatUserVo;
+import com.iflytek.astron.console.hub.dto.space.ChatUserVo;
+import com.iflytek.astron.console.hub.dto.space.InviteRecordVo;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -24,13 +24,13 @@ public interface InviteRecordBizService {
 
     ApiResult<String> revokeSpaceInvite(Long inviteId);
 
-    InviteRecordVO getRecordByParam(String param);
+    InviteRecordVo getRecordByParam(String param);
 
-    List<ChatUserVO> searchUser(String mobile, InviteRecordTypeEnum type);
+    List<ChatUserVo> searchUser(String mobile, InviteRecordTypeEnum type);
 
-    List<ChatUserVO> searchUsername(String username, InviteRecordTypeEnum type);
+    List<ChatUserVo> searchUsername(String username, InviteRecordTypeEnum type);
 
-    ApiResult<BatchChatUserVO> searchUserBatch(MultipartFile file);
+    ApiResult<BatchChatUserVo> searchUserBatch(MultipartFile file);
 
-    ApiResult<BatchChatUserVO> searchUsernameBatch(MultipartFile file);
+    ApiResult<BatchChatUserVo> searchUsernameBatch(MultipartFile file);
 }

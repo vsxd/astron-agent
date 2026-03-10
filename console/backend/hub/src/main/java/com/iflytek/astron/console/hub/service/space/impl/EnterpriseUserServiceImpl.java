@@ -11,7 +11,7 @@ import com.iflytek.astron.console.hub.enums.space.EnterpriseRoleEnum;
 import com.iflytek.astron.console.hub.mapper.space.EnterpriseUserMapper;
 import com.iflytek.astron.console.hub.service.space.EnterpriseUserService;
 import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;
-import com.iflytek.astron.console.hub.dto.space.EnterpriseUserVO;
+import com.iflytek.astron.console.hub.dto.space.EnterpriseUserVo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -75,7 +75,7 @@ public class EnterpriseUserServiceImpl extends ServiceImpl<EnterpriseUserMapper,
     }
 
     @Override
-    public Page<EnterpriseUserVO> page(EnterpriseUserParam param) {
+    public Page<EnterpriseUserVo> page(EnterpriseUserParam param) {
         Page<EnterpriseUser> page = new Page<>();
         page.setSize(param.getPageSize());
         page.setCurrent(param.getPageNum());
@@ -83,8 +83,8 @@ public class EnterpriseUserServiceImpl extends ServiceImpl<EnterpriseUserMapper,
         if (enterpriseId == null) {
             return Page.of(param.getPageNum(), param.getPageSize());
         }
-        Page<EnterpriseUserVO> result = this.baseMapper.selectVOPageByParam(page, enterpriseId, param.getNickname(), param.getRole());
-        for (EnterpriseUserVO vo : result.getRecords()) {
+        Page<EnterpriseUserVo> result = this.baseMapper.selectVoPageByParam(page, enterpriseId, param.getNickname(), param.getRole());
+        for (EnterpriseUserVo vo : result.getRecords()) {
             UserInfo userInfo = userInfoDataService.findByUid(vo.getUid()).orElseThrow();
             vo.setUsername(userInfo.getUsername());
             vo.setNickname(userInfo.getNickname());

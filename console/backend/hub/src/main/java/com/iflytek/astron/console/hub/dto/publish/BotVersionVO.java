@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Schema(description = "Workflow version information")
-public class BotVersionVO {
+public class BotVersionVo {
 
     @Schema(description = "Version record ID", example = "12345")
     private Long id;

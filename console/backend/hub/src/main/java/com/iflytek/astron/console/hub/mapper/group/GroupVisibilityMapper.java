@@ -3,7 +3,7 @@ package com.iflytek.astron.console.hub.mapper.group;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.iflytek.astron.console.hub.entity.table.group.GroupVisibility;
-import com.iflytek.astron.console.hub.entity.vo.group.GroupUserTagVO;
+import com.iflytek.astron.console.hub.entity.vo.group.GroupUserTagVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -22,7 +22,7 @@ import java.util.List;
 
 public interface GroupVisibilityMapper extends BaseMapper<GroupVisibility> {
 
-    List<GroupUserTagVO> listUser(@Param("uid") String uid, @Param("type") Long type, @Param("id") Long id);
+    List<GroupUserTagVo> listUser(@Param("uid") String uid, @Param("type") Long type, @Param("id") Long id);
 
     List<GroupVisibility> getRepoVisibilityList(@Param("uid") String userId, @Param("spaceId") Long spaceId);
 

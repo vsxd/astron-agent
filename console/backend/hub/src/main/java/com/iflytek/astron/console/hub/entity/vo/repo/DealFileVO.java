@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class DealFileVO {
+public class DealFileVo {
 
     private Long repoId;
     // Files to be sliced list

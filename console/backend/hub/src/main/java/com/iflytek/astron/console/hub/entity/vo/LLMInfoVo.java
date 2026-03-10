@@ -33,7 +33,7 @@ public class LLMInfoVo extends LLMServerInfo {
     String desc;
     private Date createTime;
     private Date updateTime;
-    private List<CategoryTreeVO> categoryTree;
+    private List<CategoryTreeVo> categoryTree;
     Boolean enabled = true;
     String userName;
     String apiKey;

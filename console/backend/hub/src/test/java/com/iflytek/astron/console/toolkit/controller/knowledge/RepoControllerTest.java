@@ -5,7 +5,7 @@ import com.iflytek.astron.console.hub.entity.common.PageData;
 import com.iflytek.astron.console.hub.entity.dto.RepoDto;
 import com.iflytek.astron.console.hub.entity.table.repo.HitTestHistory;
 import com.iflytek.astron.console.hub.entity.table.repo.Repo;
-import com.iflytek.astron.console.hub.entity.vo.knowledge.RepoVO;
+import com.iflytek.astron.console.hub.entity.vo.knowledge.RepoVo;
 import com.iflytek.astron.console.hub.service.repo.impl.RepoService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.BeforeEach;
@@ -84,7 +84,7 @@ class RepoControllerTest {
 
     // Argument Captors for verification
     @Captor
-    private ArgumentCaptor<RepoVO> repoVOCaptor;
+    private ArgumentCaptor<RepoVo> repoVOCaptor;
 
     @Captor
     private ArgumentCaptor<Long> longCaptor;
@@ -96,7 +96,7 @@ class RepoControllerTest {
     private ArgumentCaptor<String> stringCaptor;
 
     // Test data fixtures
-    private RepoVO validRepoVO;
+    private RepoVo validRepoVo;
     private Repo validRepo;
     private RepoDto validRepoDto;
     private PageData<RepoDto> validPageData;
@@ -105,7 +105,7 @@ class RepoControllerTest {
 
     @BeforeEach
     void setUp() {
-        validRepoVO = createValidRepoVO();
+        validRepoVo = createValidRepoVo();
         validRepo = createValidRepo();
         validRepoDto = createValidRepoDto();
         validPageData = createValidPageData();
@@ -116,12 +116,12 @@ class RepoControllerTest {
     // ==================== Test Data Builder Methods ====================
 
     /**
-     * Creates a valid RepoVO object with all required fields populated.
+     * Creates a valid RepoVo object with all required fields populated.
      *
-     * @return a fully populated RepoVO instance for testing
+     * @return a fully populated RepoVo instance for testing
      */
-    private RepoVO createValidRepoVO() {
-        RepoVO vo = new RepoVO();
+    private RepoVo createValidRepoVo() {
+        RepoVo vo = new RepoVo();
         vo.setId(VALID_REPO_ID);
         vo.setName(VALID_NAME);
         vo.setDesc(VALID_DESC);
@@ -249,10 +249,10 @@ class RepoControllerTest {
         @DisplayName("Create repository - successful flow")
         void createRepo_Success() {
             // Given
-            when(repoService.createRepo(any(RepoVO.class))).thenReturn(validRepo);
+            when(repoService.createRepo(any(RepoVo.class))).thenReturn(validRepo);
 
             // When
-            ApiResult<Repo> result = controller.createRepo(validRepoVO);
+            ApiResult<Repo> result = controller.createRepo(validRepoVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -262,8 +262,8 @@ class RepoControllerTest {
             assertThat(result.data().getName()).isEqualTo(VALID_NAME);
 
             verify(repoService, times(1)).createRepo(repoVOCaptor.capture());
-            RepoVO capturedVO = repoVOCaptor.getValue();
-            assertThat(capturedVO.getName()).isEqualTo(VALID_NAME);
+            RepoVo capturedVo = repoVOCaptor.getValue();
+            assertThat(capturedVo.getName()).isEqualTo(VALID_NAME);
         }
 
         /**
@@ -272,21 +272,21 @@ class RepoControllerTest {
          */
         @Test
         @DisplayName("Create repository - with empty VO")
-        void createRepo_WithEmptyVO() {
+        void createRepo_WithEmptyVo() {
             // Given
-            RepoVO emptyVO = new RepoVO();
+            RepoVo emptyVo = new RepoVo();
             Repo expectedRepo = new Repo();
             expectedRepo.setId(999L);
-            when(repoService.createRepo(any(RepoVO.class))).thenReturn(expectedRepo);
+            when(repoService.createRepo(any(RepoVo.class))).thenReturn(expectedRepo);
 
             // When
-            ApiResult<Repo> result = controller.createRepo(emptyVO);
+            ApiResult<Repo> result = controller.createRepo(emptyVo);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isZero();
             assertThat(result.data().getId()).isEqualTo(999L);
-            verify(repoService, times(1)).createRepo(emptyVO);
+            verify(repoService, times(1)).createRepo(emptyVo);
         }
 
         /**
@@ -297,15 +297,15 @@ class RepoControllerTest {
         @DisplayName("Create repository - service throws exception")
         void createRepo_ServiceThrowsException() {
             // Given
-            when(repoService.createRepo(any(RepoVO.class)))
+            when(repoService.createRepo(any(RepoVo.class)))
                     .thenThrow(new RuntimeException("Creation failed"));
 
             // When & Then
-            assertThatThrownBy(() -> controller.createRepo(validRepoVO))
+            assertThatThrownBy(() -> controller.createRepo(validRepoVo))
                     .isInstanceOf(RuntimeException.class)
                     .hasMessage("Creation failed");
 
-            verify(repoService, times(1)).createRepo(any(RepoVO.class));
+            verify(repoService, times(1)).createRepo(any(RepoVo.class));
         }
 
         /**
@@ -316,18 +316,18 @@ class RepoControllerTest {
         @DisplayName("Create repository - with all optional fields")
         void createRepo_WithAllOptionalFields() {
             // Given
-            validRepoVO.setEnableAudit(false);
-            validRepoVO.setVisibility(1);
-            validRepoVO.setOperType(3);
-            when(repoService.createRepo(any(RepoVO.class))).thenReturn(validRepo);
+            validRepoVo.setEnableAudit(false);
+            validRepoVo.setVisibility(1);
+            validRepoVo.setOperType(3);
+            when(repoService.createRepo(any(RepoVo.class))).thenReturn(validRepo);
 
             // When
-            ApiResult<Repo> result = controller.createRepo(validRepoVO);
+            ApiResult<Repo> result = controller.createRepo(validRepoVo);
 
             // Then
             assertThat(result.code()).isZero();
             verify(repoService).createRepo(repoVOCaptor.capture());
-            RepoVO captured = repoVOCaptor.getValue();
+            RepoVo captured = repoVOCaptor.getValue();
             assertThat(captured.getEnableAudit()).isFalse();
             assertThat(captured.getVisibility()).isEqualTo(1);
             assertThat(captured.getOperType()).isEqualTo(3);
@@ -349,17 +349,17 @@ class RepoControllerTest {
         void updateRepo_Success() {
             // Given
             validRepo.setName("Updated Name");
-            when(repoService.updateRepo(any(RepoVO.class))).thenReturn(validRepo);
+            when(repoService.updateRepo(any(RepoVo.class))).thenReturn(validRepo);
 
             // When
-            ApiResult<Repo> result = controller.updateRepo(validRepoVO);
+            ApiResult<Repo> result = controller.updateRepo(validRepoVo);
 
             // Then
             assertThat(result).isNotNull();
             assertThat(result.code()).isZero();
             assertThat(result.data()).isNotNull();
             assertThat(result.data().getName()).isEqualTo("Updated Name");
-            verify(repoService, times(1)).updateRepo(any(RepoVO.class));
+            verify(repoService, times(1)).updateRepo(any(RepoVo.class));
         }
 
         /**
@@ -370,13 +370,13 @@ class RepoControllerTest {
         @DisplayName("Update repository - partial update")
         void updateRepo_PartialUpdate() {
             // Given
-            RepoVO partialVO = new RepoVO();
-            partialVO.setId(VALID_REPO_ID);
-            partialVO.setName("New Name");
-            when(repoService.updateRepo(any(RepoVO.class))).thenReturn(validRepo);
+            RepoVo partialVo = new RepoVo();
+            partialVo.setId(VALID_REPO_ID);
+            partialVo.setName("New Name");
+            when(repoService.updateRepo(any(RepoVo.class))).thenReturn(validRepo);
 
             // When
-            ApiResult<Repo> result = controller.updateRepo(partialVO);
+            ApiResult<Repo> result = controller.updateRepo(partialVo);
 
             // Then
             assertThat(result.code()).isZero();
@@ -392,12 +392,12 @@ class RepoControllerTest {
         @DisplayName("Update repository - non-existent ID")
         void updateRepo_NonExistentId() {
             // Given
-            validRepoVO.setId(999L);
-            when(repoService.updateRepo(any(RepoVO.class)))
+            validRepoVo.setId(999L);
+            when(repoService.updateRepo(any(RepoVo.class)))
                     .thenThrow(new IllegalArgumentException("Repository not found"));
 
             // When & Then
-            assertThatThrownBy(() -> controller.updateRepo(validRepoVO))
+            assertThatThrownBy(() -> controller.updateRepo(validRepoVo))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessageContaining("Repository not found");
         }
@@ -410,10 +410,10 @@ class RepoControllerTest {
         @DisplayName("Update repository - service returns null")
         void updateRepo_ServiceReturnsNull() {
             // Given
-            when(repoService.updateRepo(any(RepoVO.class))).thenReturn(null);
+            when(repoService.updateRepo(any(RepoVo.class))).thenReturn(null);
 
             // When
-            ApiResult<Repo> result = controller.updateRepo(validRepoVO);
+            ApiResult<Repo> result = controller.updateRepo(validRepoVo);
 
             // Then
             assertThat(result.code()).isZero();
@@ -435,15 +435,15 @@ class RepoControllerTest {
         @DisplayName("Update status - success")
         void updateRepoStatus_Success() {
             // Given
-            when(repoService.updateRepoStatus(any(RepoVO.class))).thenReturn(true);
+            when(repoService.updateRepoStatus(any(RepoVo.class))).thenReturn(true);
 
             // When
-            ApiResult<Boolean> result = controller.updateRepoStatus(validRepoVO);
+            ApiResult<Boolean> result = controller.updateRepoStatus(validRepoVo);
 
             // Then
             assertThat(result.code()).isZero();
             assertThat(result.data()).isTrue();
-            verify(repoService, times(1)).updateRepoStatus(any(RepoVO.class));
+            verify(repoService, times(1)).updateRepoStatus(any(RepoVo.class));
         }
 
         /**
@@ -454,10 +454,10 @@ class RepoControllerTest {
         @DisplayName("Update status - failure")
         void updateRepoStatus_Failure() {
             // Given
-            when(repoService.updateRepoStatus(any(RepoVO.class))).thenReturn(false);
+            when(repoService.updateRepoStatus(any(RepoVo.class))).thenReturn(false);
 
             // When
-            ApiResult<Boolean> result = controller.updateRepoStatus(validRepoVO);
+            ApiResult<Boolean> result = controller.updateRepoStatus(validRepoVo);
 
             // Then
             assertThat(result.code()).isZero();
@@ -475,11 +475,11 @@ class RepoControllerTest {
         @DisplayName("Update status - different status values")
         void updateRepoStatus_DifferentStatuses(int status) {
             // Given
-            validRepoVO.setOperType(status);
-            when(repoService.updateRepoStatus(any(RepoVO.class))).thenReturn(true);
+            validRepoVo.setOperType(status);
+            when(repoService.updateRepoStatus(any(RepoVo.class))).thenReturn(true);
 
             // When
-            ApiResult<Boolean> result = controller.updateRepoStatus(validRepoVO);
+            ApiResult<Boolean> result = controller.updateRepoStatus(validRepoVo);
 
             // Then
             assertThat(result.code()).isZero();
@@ -495,11 +495,11 @@ class RepoControllerTest {
         @DisplayName("Update status - service throws exception")
         void updateRepoStatus_ServiceThrowsException() {
             // Given
-            when(repoService.updateRepoStatus(any(RepoVO.class)))
+            when(repoService.updateRepoStatus(any(RepoVo.class)))
                     .thenThrow(new RuntimeException("Status update failed"));
 
             // When & Then
-            assertThatThrownBy(() -> controller.updateRepoStatus(validRepoVO))
+            assertThatThrownBy(() -> controller.updateRepoStatus(validRepoVo))
                     .isInstanceOf(RuntimeException.class)
                     .hasMessage("Status update failed");
         }
@@ -1809,8 +1809,8 @@ class RepoControllerTest {
         @DisplayName("Full workflow - create, query, update, delete")
         void fullWorkflow_CreateQueryUpdateDelete() {
             // 1. Create
-            when(repoService.createRepo(any(RepoVO.class))).thenReturn(validRepo);
-            ApiResult<Repo> createResult = controller.createRepo(validRepoVO);
+            when(repoService.createRepo(any(RepoVo.class))).thenReturn(validRepo);
+            ApiResult<Repo> createResult = controller.createRepo(validRepoVo);
             assertThat(createResult.code()).isZero();
 
             // 2. Query
@@ -1820,8 +1820,8 @@ class RepoControllerTest {
             assertThat(detailResult.code()).isZero();
 
             // 3. Update
-            when(repoService.updateRepo(any(RepoVO.class))).thenReturn(validRepo);
-            ApiResult<Repo> updateResult = controller.updateRepo(validRepoVO);
+            when(repoService.updateRepo(any(RepoVo.class))).thenReturn(validRepo);
+            ApiResult<Repo> updateResult = controller.updateRepo(validRepoVo);
             assertThat(updateResult.code()).isZero();
 
             // 4. Delete
@@ -1831,9 +1831,9 @@ class RepoControllerTest {
             assertThat(deleteResult).isNotNull();
 
             // Verify all interactions
-            verify(repoService).createRepo(any(RepoVO.class));
+            verify(repoService).createRepo(any(RepoVo.class));
             verify(repoService).getDetail(eq(VALID_REPO_ID), anyString(), any(HttpServletRequest.class));
-            verify(repoService).updateRepo(any(RepoVO.class));
+            verify(repoService).updateRepo(any(RepoVo.class));
             verify(repoService).deleteRepo(eq(VALID_REPO_ID), isNull(), any(HttpServletRequest.class));
         }
 
@@ -1920,14 +1920,14 @@ class RepoControllerTest {
         @DisplayName("Verify argument capture")
         void verifyArgumentCapture() {
             // Given
-            when(repoService.createRepo(any(RepoVO.class))).thenReturn(validRepo);
+            when(repoService.createRepo(any(RepoVo.class))).thenReturn(validRepo);
 
             // When
-            controller.createRepo(validRepoVO);
+            controller.createRepo(validRepoVo);
 
             // Then
             verify(repoService).createRepo(repoVOCaptor.capture());
-            RepoVO captured = repoVOCaptor.getValue();
+            RepoVo captured = repoVOCaptor.getValue();
             assertThat(captured.getName()).isEqualTo(VALID_NAME);
             assertThat(captured.getDesc()).isEqualTo(VALID_DESC);
             assertThat(captured.getTags()).containsExactly("tag1", "tag2");
@@ -1941,19 +1941,19 @@ class RepoControllerTest {
         @DisplayName("Verify method invocation order")
         void verifyMethodInvocationOrder() {
             // Given
-            when(repoService.createRepo(any(RepoVO.class))).thenReturn(validRepo);
-            when(repoService.updateRepo(any(RepoVO.class))).thenReturn(validRepo);
+            when(repoService.createRepo(any(RepoVo.class))).thenReturn(validRepo);
+            when(repoService.updateRepo(any(RepoVo.class))).thenReturn(validRepo);
             doNothing().when(repoService).setTop(anyLong());
 
             // When
-            controller.createRepo(validRepoVO);
-            controller.updateRepo(validRepoVO);
+            controller.createRepo(validRepoVo);
+            controller.updateRepo(validRepoVo);
             controller.setTop(VALID_REPO_ID);
 
             // Then
             var inOrder = inOrder(repoService);
-            inOrder.verify(repoService).createRepo(any(RepoVO.class));
-            inOrder.verify(repoService).updateRepo(any(RepoVO.class));
+            inOrder.verify(repoService).createRepo(any(RepoVo.class));
+            inOrder.verify(repoService).updateRepo(any(RepoVo.class));
             inOrder.verify(repoService).setTop(VALID_REPO_ID);
         }
 

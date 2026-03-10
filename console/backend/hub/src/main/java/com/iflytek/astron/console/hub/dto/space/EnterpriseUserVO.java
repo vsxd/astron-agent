@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Schema(name = "Enterprise team user")
-public class EnterpriseUserVO {
+public class EnterpriseUserVo {
 
     //
     @Schema(description = "ID")

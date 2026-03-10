@@ -37,10 +37,10 @@ import com.iflytek.astron.console.hub.util.AESUtil;
 import com.iflytek.astron.console.hub.util.NameUtil;
 import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
-import com.iflytek.astron.console.hub.dto.space.BatchChatUserVO;
-import com.iflytek.astron.console.hub.dto.space.ChatUserVO;
-import com.iflytek.astron.console.hub.dto.space.InviteRecordVO;
-import com.iflytek.astron.console.hub.dto.space.UserLimitVO;
+import com.iflytek.astron.console.hub.dto.space.BatchChatUserVo;
+import com.iflytek.astron.console.hub.dto.space.ChatUserVo;
+import com.iflytek.astron.console.hub.dto.space.InviteRecordVo;
+import com.iflytek.astron.console.hub.dto.space.UserLimitVo;
 import jakarta.annotation.Resource;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
@@ -383,7 +383,7 @@ public class InviteRecordBizServiceImpl implements InviteRecordBizService {
      * @return
      */
     @Override
-    public InviteRecordVO getRecordByParam(String param) {
+    public InviteRecordVo getRecordByParam(String param) {
         long id = 0;
         try {
             String decrypt = AESUtil.decrypt(param, AES_KEY);
@@ -393,7 +393,7 @@ public class InviteRecordBizServiceImpl implements InviteRecordBizService {
             log.error("Failed to parse invitation parameters", e);
             throw new BusinessException(ResponseEnum.INVITE_PARAMETER_EXCEPTION);
         }
-        InviteRecordVO vo = inviteRecordService.selectVOById(id);
+        InviteRecordVo vo = inviteRecordService.selectVoById(id);
         if (vo == null) {
             throw new BusinessException(ResponseEnum.INVITE_RECORD_NOT_FOUND);
         }
@@ -456,18 +456,18 @@ public class InviteRecordBizServiceImpl implements InviteRecordBizService {
      * @return
      */
     @Override
-    public List<ChatUserVO> searchUser(String mobile, InviteRecordTypeEnum type) {
+    public List<ChatUserVo> searchUser(String mobile, InviteRecordTypeEnum type) {
         List<UserInfo> userInfos = userInfoDataService.findUsersByMobile(mobile);
-        return getChatUserVOS(type, userInfos);
+        return getChatUserVos(type, userInfos);
     }
 
     @Override
-    public List<ChatUserVO> searchUsername(String username, InviteRecordTypeEnum type) {
+    public List<ChatUserVo> searchUsername(String username, InviteRecordTypeEnum type) {
         List<UserInfo> userInfos = userInfoDataService.findUsersByUsername(username);
-        return getChatUserVOS(type, userInfos);
+        return getChatUserVos(type, userInfos);
     }
 
-    private @NotNull List<ChatUserVO> getChatUserVOS(InviteRecordTypeEnum type, List<UserInfo> userInfos) {
+    private @NotNull List<ChatUserVo> getChatUserVos(InviteRecordTypeEnum type, List<UserInfo> userInfos) {
         if (CollectionUtil.isNotEmpty(userInfos)) {
             Set<String> joinedUids = getJoinedUids(type);
             Set<String> invitingUids = inviteRecordService.getInvitingUids(type);
@@ -475,20 +475,20 @@ public class InviteRecordBizServiceImpl implements InviteRecordBizService {
                     .filter(i -> i.getUid() != null)
                     .collect(Collectors.toMap(UserInfo::getUid, i -> i.getMobile() != null ? i.getMobile() : ""));
             return userInfos.stream().map(i -> {
-                ChatUserVO chatUserVO = new ChatUserVO();
-                chatUserVO.setMobile(mobileMap.get(i.getUid()));
-                chatUserVO.setUsername(i.getUsername());
-                chatUserVO.setNickname(i.getNickname());
-                chatUserVO.setUid(i.getUid());
-                chatUserVO.setAvatar(i.getAvatar());
+                ChatUserVo chatUserVo = new ChatUserVo();
+                chatUserVo.setMobile(mobileMap.get(i.getUid()));
+                chatUserVo.setUsername(i.getUsername());
+                chatUserVo.setNickname(i.getNickname());
+                chatUserVo.setUid(i.getUid());
+                chatUserVo.setAvatar(i.getAvatar());
                 if (joinedUids.contains(i.getUid())) {
-                    chatUserVO.setStatus(1);
+                    chatUserVo.setStatus(1);
                 } else if (invitingUids.contains(i.getUid())) {
-                    chatUserVO.setStatus(2);
+                    chatUserVo.setStatus(2);
                 } else {
-                    chatUserVO.setStatus(0);
+                    chatUserVo.setStatus(0);
                 }
-                return chatUserVO;
+                return chatUserVo;
 
             }).collect(Collectors.toList());
         } else {
@@ -497,15 +497,15 @@ public class InviteRecordBizServiceImpl implements InviteRecordBizService {
     }
 
     @Override
-    public ApiResult<BatchChatUserVO> searchUserBatch(MultipartFile file) {
+    public ApiResult<BatchChatUserVo> searchUserBatch(MultipartFile file) {
         try (InputStream inputStream = file.getInputStream()) {
-            BatchChatUserVO batchChatUserVO = new BatchChatUserVO();
+            BatchChatUserVo batchChatUserVo = new BatchChatUserVo();
             // Read file
             List<String> mobiles = readMobilesFromExcel(inputStream);
             if (mobiles.isEmpty()) {
                 return ApiResult.error(ResponseEnum.INVITE_PLEASE_UPLOAD_PHONE_NUMBERS);
             }
-            UserLimitVO userLimit = enterpriseUserBizService.getUserLimit(EnterpriseInfoUtil.getEnterpriseId());
+            UserLimitVo userLimit = enterpriseUserBizService.getUserLimit(EnterpriseInfoUtil.getEnterpriseId());
             if (mobiles.size() > userLimit.getRemain()) {
                 return ApiResult.error(ResponseEnum.INVITE_EXCEED_BATCH_IMPORT_LIMIT);
             }
@@ -514,15 +514,15 @@ public class InviteRecordBizServiceImpl implements InviteRecordBizService {
                     mobiles.stream()
                             .filter(i -> StringUtils.isNumeric(i) && i.length() == 11)
                             .collect(Collectors.toSet()));
-            List<ChatUserVO> chatUserVOS = getChatUserVOS(InviteRecordTypeEnum.ENTERPRISE, userInfos);
-            if (CollectionUtil.isEmpty(chatUserVOS)) {
+            List<ChatUserVo> chatUserVos = getChatUserVos(InviteRecordTypeEnum.ENTERPRISE, userInfos);
+            if (CollectionUtil.isEmpty(chatUserVos)) {
                 return ApiResult.error(ResponseEnum.INVITE_NO_CORRESPONDING_USERS_FOUND);
             }
             // Upload result file
-            String resultUrl = uploadResultExcelFile(chatUserVOS, mobiles);
-            batchChatUserVO.setResultUrl(resultUrl);
-            batchChatUserVO.setChatUserVOS(chatUserVOS);
-            return ApiResult.success(batchChatUserVO);
+            String resultUrl = uploadResultExcelFile(chatUserVos, mobiles);
+            batchChatUserVo.setResultUrl(resultUrl);
+            batchChatUserVo.setChatUserVos(chatUserVos);
+            return ApiResult.success(batchChatUserVo);
         } catch (IOException e) {
             log.error("Failed to read uploaded file", e);
             return ApiResult.error(ResponseEnum.INVITE_READ_UPLOAD_FILE_FAILED);
@@ -530,15 +530,15 @@ public class InviteRecordBizServiceImpl implements InviteRecordBizService {
     }
 
     @Override
-    public ApiResult<BatchChatUserVO> searchUsernameBatch(MultipartFile file) {
+    public ApiResult<BatchChatUserVo> searchUsernameBatch(MultipartFile file) {
         try (InputStream inputStream = file.getInputStream()) {
-            BatchChatUserVO batchChatUserVO = new BatchChatUserVO();
+            BatchChatUserVo batchChatUserVo = new BatchChatUserVo();
             // Read file
             List<String> usernames = readUsernamesFromExcel(inputStream);
             if (usernames.isEmpty()) {
                 return ApiResult.error(ResponseEnum.INVITE_PLEASE_UPLOAD_USERNAMES);
             }
-            UserLimitVO userLimit = enterpriseUserBizService.getUserLimit(EnterpriseInfoUtil.getEnterpriseId());
+            UserLimitVo userLimit = enterpriseUserBizService.getUserLimit(EnterpriseInfoUtil.getEnterpriseId());
             if (usernames.size() > userLimit.getRemain()) {
                 return ApiResult.error(ResponseEnum.INVITE_EXCEED_BATCH_IMPORT_LIMIT);
             }
@@ -547,23 +547,23 @@ public class InviteRecordBizServiceImpl implements InviteRecordBizService {
                     usernames.stream()
                             .filter(username -> username != null && !username.trim().isEmpty())
                             .collect(Collectors.toSet()));
-            List<ChatUserVO> chatUserVOS = getChatUserVOS(InviteRecordTypeEnum.ENTERPRISE, userInfos);
-            if (CollectionUtil.isEmpty(chatUserVOS)) {
+            List<ChatUserVo> chatUserVos = getChatUserVos(InviteRecordTypeEnum.ENTERPRISE, userInfos);
+            if (CollectionUtil.isEmpty(chatUserVos)) {
                 return ApiResult.error(ResponseEnum.INVITE_NO_CORRESPONDING_USERS_FOUND);
             }
             // Upload result file
-            String resultUrl = uploadResultExcelFileForUsernames(chatUserVOS, usernames);
-            batchChatUserVO.setResultUrl(resultUrl);
-            batchChatUserVO.setChatUserVOS(chatUserVOS);
-            return ApiResult.success(batchChatUserVO);
+            String resultUrl = uploadResultExcelFileForUsernames(chatUserVos, usernames);
+            batchChatUserVo.setResultUrl(resultUrl);
+            batchChatUserVo.setChatUserVos(chatUserVos);
+            return ApiResult.success(batchChatUserVo);
         } catch (IOException e) {
             log.error("Failed to read uploaded file", e);
             return ApiResult.error(ResponseEnum.INVITE_READ_UPLOAD_FILE_FAILED);
         }
     }
 
-    private @NotNull String uploadResultExcelFile(List<ChatUserVO> chatUserVOS, List<String> mobiles) {
-        List<UserInfoResultExcelDto> userInfoResultExcelDtos = getUserInfoResultDtos(chatUserVOS, mobiles);
+    private @NotNull String uploadResultExcelFile(List<ChatUserVo> chatUserVos, List<String> mobiles) {
+        List<UserInfoResultExcelDto> userInfoResultExcelDtos = getUserInfoResultDtos(chatUserVos, mobiles);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         EasyExcel.write(outputStream, UserInfoResultExcelDto.class)
                 .registerWriteHandler(new CellWriteHandler() {
@@ -604,10 +604,10 @@ public class InviteRecordBizServiceImpl implements InviteRecordBizService {
                 new ByteArrayInputStream(outputStream.toByteArray()));
     }
 
-    private @NotNull List<UserInfoResultExcelDto> getUserInfoResultDtos(List<ChatUserVO> chatUserVOS, List<String> mobiles) {
+    private @NotNull List<UserInfoResultExcelDto> getUserInfoResultDtos(List<ChatUserVo> chatUserVos, List<String> mobiles) {
         List<UserInfoResultExcelDto> userInfoResultExcelDtos = new ArrayList<>();
-        Map<String, ChatUserVO> collect = chatUserVOS.stream()
-                .collect(Collectors.toMap(ChatUserVO::getMobile, i -> i));
+        Map<String, ChatUserVo> collect = chatUserVos.stream()
+                .collect(Collectors.toMap(ChatUserVo::getMobile, i -> i));
         for (String mobile : mobiles) {
             UserInfoResultExcelDto userInfoResultExcelDto = new UserInfoResultExcelDto();
             userInfoResultExcelDto.setMobile(mobile);
@@ -663,8 +663,8 @@ public class InviteRecordBizServiceImpl implements InviteRecordBizService {
         return usernames;
     }
 
-    private @NotNull String uploadResultExcelFileForUsernames(List<ChatUserVO> chatUserVOS, List<String> usernames) {
-        List<UserInfoResultExcelDto> userInfoResultExcelDtos = getUserInfoResultDtosForUsernames(chatUserVOS, usernames);
+    private @NotNull String uploadResultExcelFileForUsernames(List<ChatUserVo> chatUserVos, List<String> usernames) {
+        List<UserInfoResultExcelDto> userInfoResultExcelDtos = getUserInfoResultDtosForUsernames(chatUserVos, usernames);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         EasyExcel.write(outputStream, UserInfoResultExcelDto.class)
                 .registerWriteHandler(new CellWriteHandler() {
@@ -703,11 +703,11 @@ public class InviteRecordBizServiceImpl implements InviteRecordBizService {
                 new ByteArrayInputStream(outputStream.toByteArray()));
     }
 
-    private @NotNull List<UserInfoResultExcelDto> getUserInfoResultDtosForUsernames(List<ChatUserVO> chatUserVOS, List<String> usernames) {
+    private @NotNull List<UserInfoResultExcelDto> getUserInfoResultDtosForUsernames(List<ChatUserVo> chatUserVos, List<String> usernames) {
         List<UserInfoResultExcelDto> userInfoResultExcelDtos = new ArrayList<>();
-        Map<String, ChatUserVO> collect = chatUserVOS.stream()
+        Map<String, ChatUserVo> collect = chatUserVos.stream()
                 .filter(chatUser -> chatUser.getUid() != null)
-                .collect(Collectors.toMap(ChatUserVO::getUid, i -> i));
+                .collect(Collectors.toMap(ChatUserVo::getUid, i -> i));
         for (String username : usernames) {
             UserInfoResultExcelDto userInfoResultExcelDto = new UserInfoResultExcelDto();
             userInfoResultExcelDto.setUsername(username);

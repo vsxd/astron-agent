@@ -6,7 +6,7 @@ import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.entity.mongo.Knowledge;
-import com.iflytek.astron.console.hub.entity.vo.repo.KnowledgeVO;
+import com.iflytek.astron.console.hub.entity.vo.repo.KnowledgeVo;
 import com.iflytek.astron.console.hub.service.repo.impl.KnowledgeRepoService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +34,7 @@ public class KnowledgeController {
     /**
      * Create knowledge
      *
-     * @param knowledgeVO knowledge creation request object containing knowledge details
+     * @param knowledgeVo knowledge creation request object containing knowledge details
      * @return ApiResult<Knowledge> containing the created knowledge information
      * @throws ExecutionException if the computation threw an exception
      * @throws InterruptedException if the thread is interrupted
@@ -42,14 +42,14 @@ public class KnowledgeController {
     @PostMapping("/create-knowledge")
     @SpacePreAuth(key = "KnowledgeController_createKnowledge_POST",
             module = "Knowledge", point = "Create Knowledge", description = "Create Knowledge")
-    public ApiResult<Knowledge> createKnowledge(@RequestBody KnowledgeVO knowledgeVO) throws ExecutionException, InterruptedException {
-        return ApiResult.success(knowledgeService.createKnowledge(knowledgeVO));
+    public ApiResult<Knowledge> createKnowledge(@RequestBody KnowledgeVo knowledgeVo) throws ExecutionException, InterruptedException {
+        return ApiResult.success(knowledgeService.createKnowledge(knowledgeVo));
     }
 
     /**
      * Update knowledge
      *
-     * @param knowledgeVO knowledge update request object containing updated knowledge details
+     * @param knowledgeVo knowledge update request object containing updated knowledge details
      * @return ApiResult<Knowledge> containing the updated knowledge information
      * @throws ExecutionException if the computation threw an exception
      * @throws InterruptedException if the thread is interrupted
@@ -58,15 +58,15 @@ public class KnowledgeController {
     @PostMapping("/update-knowledge")
     @SpacePreAuth(key = "KnowledgeController_updateKnowledge_POST",
             module = "Knowledge", point = "Update Knowledge", description = "Update Knowledge")
-    public ApiResult<Knowledge> updateKnowledge(@RequestBody KnowledgeVO knowledgeVO) throws ExecutionException, InterruptedException {
-        if (CollectionUtils.isNotEmpty(knowledgeVO.getTags())) {
-            for (String tag : knowledgeVO.getTags()) {
+    public ApiResult<Knowledge> updateKnowledge(@RequestBody KnowledgeVo knowledgeVo) throws ExecutionException, InterruptedException {
+        if (CollectionUtils.isNotEmpty(knowledgeVo.getTags())) {
+            for (String tag : knowledgeVo.getTags()) {
                 if (tag.length() > 30) {
                     throw new BusinessException(ResponseEnum.REPO_KNOWLEDGE_TAG_TOO_LONG);
                 }
             }
         }
-        return ApiResult.success(knowledgeService.updateKnowledge(knowledgeVO));
+        return ApiResult.success(knowledgeService.updateKnowledge(knowledgeVo));
     }
 
     /**

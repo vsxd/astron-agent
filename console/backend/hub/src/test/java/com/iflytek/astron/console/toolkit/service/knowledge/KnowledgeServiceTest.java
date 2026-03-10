@@ -16,7 +16,7 @@ import com.iflytek.astron.console.hub.entity.pojo.SliceConfig;
 import com.iflytek.astron.console.hub.entity.table.knowledge.MysqlKnowledge;
 import com.iflytek.astron.console.hub.entity.table.knowledge.MysqlPreviewKnowledge;
 import com.iflytek.astron.console.hub.entity.table.repo.*;
-import com.iflytek.astron.console.hub.entity.vo.repo.KnowledgeVO;
+import com.iflytek.astron.console.hub.entity.vo.repo.KnowledgeVo;
 import com.iflytek.astron.console.hub.handler.KnowledgeV2ServiceCallHandler;
 import com.iflytek.astron.console.hub.mapper.knowledge.KnowledgeMapper;
 import com.iflytek.astron.console.hub.mapper.knowledge.PreviewKnowledgeMapper;
@@ -97,7 +97,7 @@ class KnowledgeServiceTest {
     @InjectMocks
     private KnowledgeRepoService knowledgeService;
 
-    private KnowledgeVO mockKnowledgeVO;
+    private KnowledgeVo mockKnowledgeVo;
     private MysqlKnowledge mockMysqlKnowledge;
     private Knowledge mockKnowledge;
     private FileInfoV2 mockFileInfo;
@@ -140,9 +140,9 @@ class KnowledgeServiceTest {
         mockRepo.setUpdateTime(new Date());
 
         // Initialize mock KnowledgeVO
-        mockKnowledgeVO = new KnowledgeVO();
-        mockKnowledgeVO.setFileId(1L);
-        mockKnowledgeVO.setContent("Test knowledge content");
+        mockKnowledgeVo = new KnowledgeVo();
+        mockKnowledgeVo.setFileId(1L);
+        mockKnowledgeVo.setContent("Test knowledge content");
 
         // Initialize mock MysqlKnowledge
         mockMysqlKnowledge = new MysqlKnowledge();
@@ -221,7 +221,7 @@ class KnowledgeServiceTest {
             });
 
             // When
-            Knowledge result = knowledgeService.createKnowledge(mockKnowledgeVO);
+            Knowledge result = knowledgeService.createKnowledge(mockKnowledgeVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -263,7 +263,7 @@ class KnowledgeServiceTest {
             when(knowledgeMapper.insert(any(MysqlKnowledge.class))).thenReturn(1);
 
             // When
-            Knowledge result = knowledgeService.createKnowledge(mockKnowledgeVO);
+            Knowledge result = knowledgeService.createKnowledge(mockKnowledgeVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -292,7 +292,7 @@ class KnowledgeServiceTest {
             when(knowledgeMapper.insert(any(MysqlKnowledge.class))).thenReturn(1);
 
             // When
-            Knowledge result = knowledgeService.createKnowledge(mockKnowledgeVO);
+            Knowledge result = knowledgeService.createKnowledge(mockKnowledgeVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -308,7 +308,7 @@ class KnowledgeServiceTest {
         void testCreateKnowledge_WithAuditFail() {
             // Given
             mockRepo.setEnableAudit(true);
-            mockKnowledgeVO.setContent("违规内容");
+            mockKnowledgeVo.setContent("违规内容");
 
             when(fileInfoV2Service.getById(anyLong())).thenReturn(mockFileInfo);
             when(repoService.getById(anyLong())).thenReturn(mockRepo); // Add mock for preCheck
@@ -324,7 +324,7 @@ class KnowledgeServiceTest {
             when(knowledgeMapper.insert(any(MysqlKnowledge.class))).thenReturn(1);
 
             // When
-            Knowledge result = knowledgeService.createKnowledge(mockKnowledgeVO);
+            Knowledge result = knowledgeService.createKnowledge(mockKnowledgeVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -348,7 +348,7 @@ class KnowledgeServiceTest {
                     .thenThrow(new RuntimeException("Save chunk failed"));
 
             // When & Then
-            assertThatThrownBy(() -> knowledgeService.createKnowledge(mockKnowledgeVO))
+            assertThatThrownBy(() -> knowledgeService.createKnowledge(mockKnowledgeVo))
                     .isInstanceOf(RuntimeException.class)
                     .hasMessageContaining("Save chunk failed");
         }
@@ -369,8 +369,8 @@ class KnowledgeServiceTest {
         @DisplayName("Update knowledge successfully")
         void testUpdateKnowledge_Success() {
             // Given
-            mockKnowledgeVO.setId("knowledge-001");
-            mockKnowledgeVO.setContent("Updated content");
+            mockKnowledgeVo.setId("knowledge-001");
+            mockKnowledgeVo.setContent("Updated content");
 
             when(knowledgeMapper.selectById(anyString())).thenReturn(mockMysqlKnowledge);
             when(fileInfoV2Service.getById(anyLong())).thenReturn(mockFileInfo);
@@ -385,7 +385,7 @@ class KnowledgeServiceTest {
             when(knowledgeMapper.updateById(any(MysqlKnowledge.class))).thenReturn(1);
 
             // When
-            Knowledge result = knowledgeService.updateKnowledge(mockKnowledgeVO);
+            Knowledge result = knowledgeService.updateKnowledge(mockKnowledgeVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -401,15 +401,15 @@ class KnowledgeServiceTest {
         @DisplayName("Update knowledge with same content returns without update")
         void testUpdateKnowledge_SameContent_NoUpdate() {
             // Given
-            mockKnowledgeVO.setId("knowledge-001");
-            mockKnowledgeVO.setContent("Test knowledge content");
+            mockKnowledgeVo.setId("knowledge-001");
+            mockKnowledgeVo.setContent("Test knowledge content");
 
             when(knowledgeMapper.selectById(anyString())).thenReturn(mockMysqlKnowledge);
             when(fileInfoV2Service.getById(anyLong())).thenReturn(mockFileInfo);
             when(repoService.getById(anyLong())).thenReturn(mockRepo); // Add mock for preCheck
 
             // When
-            Knowledge result = knowledgeService.updateKnowledge(mockKnowledgeVO);
+            Knowledge result = knowledgeService.updateKnowledge(mockKnowledgeVo);
 
             // Then
             assertThat(result).isNotNull();
@@ -424,11 +424,11 @@ class KnowledgeServiceTest {
         @DisplayName("Update knowledge fails when knowledge not found")
         void testUpdateKnowledge_Failure_NotFound() {
             // Given
-            mockKnowledgeVO.setId("knowledge-001");
+            mockKnowledgeVo.setId("knowledge-001");
             when(knowledgeMapper.selectById(anyString())).thenReturn(null);
 
             // When & Then
-            assertThatThrownBy(() -> knowledgeService.updateKnowledge(mockKnowledgeVO))
+            assertThatThrownBy(() -> knowledgeService.updateKnowledge(mockKnowledgeVo))
                     .isInstanceOf(BusinessException.class)
                     .hasFieldOrPropertyWithValue("responseEnum", ResponseEnum.REPO_KNOWLEDGE_NOT_EXIST);
         }
@@ -441,8 +441,8 @@ class KnowledgeServiceTest {
         void testUpdateKnowledge_WithAudit() {
             // Given
             mockRepo.setEnableAudit(true);
-            mockKnowledgeVO.setId("knowledge-001");
-            mockKnowledgeVO.setContent("Updated content with audit");
+            mockKnowledgeVo.setId("knowledge-001");
+            mockKnowledgeVo.setContent("Updated content with audit");
 
             when(knowledgeMapper.selectById(anyString())).thenReturn(mockMysqlKnowledge);
             when(fileInfoV2Service.getById(anyLong())).thenReturn(mockFileInfo);
@@ -459,7 +459,7 @@ class KnowledgeServiceTest {
             when(knowledgeMapper.updateById(any(MysqlKnowledge.class))).thenReturn(1);
 
             // When
-            Knowledge result = knowledgeService.updateKnowledge(mockKnowledgeVO);
+            Knowledge result = knowledgeService.updateKnowledge(mockKnowledgeVo);
 
             // Then
             assertThat(result).isNotNull();

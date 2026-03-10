@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.iflytek.astron.console.hub.mapper.space.InviteRecordMapper">
 
-<select id="selectVOById" resultType="com.iflytek.astron.console.hub.dto.space.InviteRecordVO">
+<select id="selectVoById" resultType="com.iflytek.astron.console.hub.dto.space.InviteRecordVo">
         select i.* from agent_invite_record i
         where i.id = #{id}
     </select>
 
-    <select id="selectVOPageByParam" resultType="com.iflytek.astron.console.hub.dto.space.InviteRecordVO">
+    <select id="selectVoPageByParam" resultType="com.iflytek.astron.console.hub.dto.space.InviteRecordVo">
         select i.* from agent_invite_record i
         <where>
             <if test="type != null">

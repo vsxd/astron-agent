@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Schema(name = "User limit")
-public class UserLimitVO {
+public class UserLimitVo {
 
     @Schema(description = "Total")
     private Integer total;

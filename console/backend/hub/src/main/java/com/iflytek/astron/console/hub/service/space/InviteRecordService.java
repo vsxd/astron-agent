@@ -2,7 +2,7 @@ package com.iflytek.astron.console.hub.service.space;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.iflytek.astron.console.hub.dto.space.InviteRecordParam;
-import com.iflytek.astron.console.hub.dto.space.InviteRecordVO;
+import com.iflytek.astron.console.hub.dto.space.InviteRecordVo;
 import com.iflytek.astron.console.hub.entity.space.InviteRecord;
 import com.iflytek.astron.console.hub.enums.space.InviteRecordTypeEnum;
 import com.iflytek.astron.console.hub.enums.space.SpaceTypeEnum;
@@ -16,7 +16,7 @@ import java.util.Set;
  */
 public interface InviteRecordService {
 
-    Page<InviteRecordVO> inviteList(InviteRecordParam param, InviteRecordTypeEnum type);
+    Page<InviteRecordVo> inviteList(InviteRecordParam param, InviteRecordTypeEnum type);
 
     Long countBySpaceIdAndUids(Long spaceId, List<String> uids);
 
@@ -36,7 +36,7 @@ public interface InviteRecordService {
 
     boolean updateById(InviteRecord entity);
 
-    InviteRecordVO selectVOById(Long id);
+    InviteRecordVo selectVoById(Long id);
 
     int updateExpireRecord();
 

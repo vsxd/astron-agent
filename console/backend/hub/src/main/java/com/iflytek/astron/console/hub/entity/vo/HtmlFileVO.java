@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class HtmlFileVO {
+public class HtmlFileVo {
     private List<String> htmlAddressList;
     private Long repoId;
     private Long parentId;

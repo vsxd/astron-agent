@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class KnowledgeQueryVO {
+public class KnowledgeQueryVo {
     private List<String> fileIds;
     private Integer source;// 0:knowledge extraction 1:knowledge embedding
     private Integer pageNo;

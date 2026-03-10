@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class KnowledgeVO {
+public class KnowledgeVo {
     private String id;
     private Long fileId;
     private String content;

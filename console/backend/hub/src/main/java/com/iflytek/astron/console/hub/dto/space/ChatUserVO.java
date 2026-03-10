@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Schema(name = "User Information")
-public class ChatUserVO {
+public class ChatUserVo {
 
     @Schema(description = "Mobile number")
     private String mobile;

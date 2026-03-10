@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class FileStatusVO {
+public class FileStatusVo {
     private String app_id;
     private String repo_id;
     private List<String> file_ids;

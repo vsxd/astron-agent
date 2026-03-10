@@ -12,7 +12,7 @@ import com.iflytek.astron.console.hub.enums.space.SpaceTypeEnum;
 import com.iflytek.astron.console.hub.mapper.space.SpaceUserMapper;
 import com.iflytek.astron.console.hub.service.space.SpaceUserService;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
-import com.iflytek.astron.console.hub.dto.space.SpaceUserVO;
+import com.iflytek.astron.console.hub.dto.space.SpaceUserVo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -125,7 +125,7 @@ public class SpaceUserServiceImpl extends ServiceImpl<SpaceUserMapper, SpaceUser
     }
 
     @Override
-    public Page<SpaceUserVO> page(SpaceUserParam param) {
+    public Page<SpaceUserVo> page(SpaceUserParam param) {
         Page<SpaceUser> page = new Page<>();
         page.setSize(param.getPageSize());
         page.setCurrent(param.getPageNum());
@@ -133,7 +133,7 @@ public class SpaceUserServiceImpl extends ServiceImpl<SpaceUserMapper, SpaceUser
         if (spaceId == null) {
             return Page.of(param.getPageNum(), param.getPageSize());
         }
-        return this.baseMapper.selectVOPageByParam(page, spaceId, param.getNickname(), param.getRole());
+        return this.baseMapper.selectVoPageByParam(page, spaceId, param.getNickname(), param.getRole());
     }
 
     @Override

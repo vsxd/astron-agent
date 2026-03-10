@@ -18,7 +18,7 @@ import com.iflytek.astron.console.hub.mapper.knowledge.KnowledgeMapper;
 import com.iflytek.astron.console.hub.mapper.knowledge.PreviewKnowledgeMapper;
 import com.iflytek.astron.console.hub.entity.pojo.SliceConfig;
 import com.iflytek.astron.console.hub.entity.table.repo.*;
-import com.iflytek.astron.console.hub.entity.vo.repo.KnowledgeVO;
+import com.iflytek.astron.console.hub.entity.vo.repo.KnowledgeVo;
 import com.iflytek.astron.console.hub.handler.KnowledgeV2ServiceCallHandler;
 import com.iflytek.astron.console.hub.mapper.repo.FileInfoV2Mapper;
 import com.iflytek.astron.console.hub.service.task.impl.ExtractKnowledgeTaskService;
@@ -90,21 +90,21 @@ public class KnowledgeRepoService {
     /**
      * Create knowledge entry
      *
-     * @param knowledgeVO knowledge value object
+     * @param knowledgeVo knowledge value object
      * @return created Knowledge object
      * @throws BusinessException if validation fails or knowledge creation fails
      */
     @Transactional
-    public Knowledge createKnowledge(KnowledgeVO knowledgeVO) {
-        List<String> uuids = preCheck(knowledgeVO.getFileId());
+    public Knowledge createKnowledge(KnowledgeVo knowledgeVo) {
+        List<String> uuids = preCheck(knowledgeVo.getFileId());
         Repo repo = repoService.getOnly(Wrappers.lambdaQuery(Repo.class).eq(Repo::getCoreRepoId, uuids.get(1)));
         dataPermissionCheckTool.checkRepoBelong(repo);
         // Create knowledge
-        Knowledge knowledge = this.getKnowledgePojo(knowledgeVO, uuids.getFirst());
+        Knowledge knowledge = this.getKnowledgePojo(knowledgeVo, uuids.getFirst());
 
         String auditSuggest = null;
         // Query current document enabled status
-        FileInfoV2 fileInfoById = fileInfoV2Service.getById(knowledgeVO.getFileId());
+        FileInfoV2 fileInfoById = fileInfoV2Service.getById(knowledgeVo.getFileId());
         knowledge.setEnabled(fileInfoById.getEnabled());
         if (repo.getEnableAudit()) {
             JSONObject content = knowledge.getContent();
@@ -160,27 +160,27 @@ public class KnowledgeRepoService {
     /**
      * Update knowledge entry
      *
-     * @param knowledgeVO knowledge value object
+     * @param knowledgeVo knowledge value object
      * @return updated Knowledge object
      * @throws BusinessException if knowledge not found or update fails
      */
     @Transactional
-    public Knowledge updateKnowledge(KnowledgeVO knowledgeVO) {
-        MysqlKnowledge mysqlKnowledge = knowledgeMapper.selectById(knowledgeVO.getId());
+    public Knowledge updateKnowledge(KnowledgeVo knowledgeVo) {
+        MysqlKnowledge mysqlKnowledge = knowledgeMapper.selectById(knowledgeVo.getId());
         if (mysqlKnowledge == null) {
             throw new BusinessException(ResponseEnum.REPO_KNOWLEDGE_NOT_EXIST);
         }
         Knowledge knowledge = new Knowledge();
         BeanUtils.copyProperties(mysqlKnowledge, knowledge);
-        List<String> uuids = preCheck(knowledgeVO.getFileId());
+        List<String> uuids = preCheck(knowledgeVo.getFileId());
 
         String originKnowledge = knowledge.getContent().getString("content");
-        boolean notNeedUpdate = originKnowledge.equals(knowledgeVO.getContent());
+        boolean notNeedUpdate = originKnowledge.equals(knowledgeVo.getContent());
         if (notNeedUpdate) {
             return knowledge;
         }
 
-        knowledge.getContent().put("content", knowledgeVO.getContent());
+        knowledge.getContent().put("content", knowledgeVo.getContent());
         knowledge.setUpdatedAt(LocalDateTime.now());
         Repo repo = repoService.getOnly(Wrappers.lambdaQuery(Repo.class).eq(Repo::getCoreRepoId, uuids.get(1)));
         dataPermissionCheckTool.checkRepoBelong(repo);
@@ -203,7 +203,7 @@ public class KnowledgeRepoService {
             JSONArray updateKnowledgeArray = new JSONArray();
             if (!repo.getEnableAudit() || StringUtils.isEmpty(auditSuggest) || "pass".equals(auditSuggest)) {
                 // Query current document enabled status
-                FileInfoV2 fileInfoById = fileInfoV2Service.getById(knowledgeVO.getFileId());
+                FileInfoV2 fileInfoById = fileInfoV2Service.getById(knowledgeVo.getFileId());
                 knowledge.setEnabled(fileInfoById.getEnabled());
                 updateKnowledgeArray.add(this.convertKnowledge2Object(knowledge, knowledge.getFileId()));
             }
@@ -1468,17 +1468,17 @@ public class KnowledgeRepoService {
     }
 
     /**
-     * Create a Knowledge POJO from KnowledgeVO with default settings
+     * Create a Knowledge POJO from KnowledgeVo with default settings
      *
-     * @param knowledgeVO the knowledge value object containing user input
+     * @param knowledgeVo the knowledge value object containing user input
      * @param fileId the file UUID associated with this knowledge
      * @return Knowledge object with populated default values
      */
-    private Knowledge getKnowledgePojo(KnowledgeVO knowledgeVO, String fileId) {
+    private Knowledge getKnowledgePojo(KnowledgeVo knowledgeVo, String fileId) {
         Knowledge knowledge = new Knowledge();
         knowledge.setFileId(fileId);
-        knowledge.setContent(this.getKnowledgeDefaultConfig(knowledgeVO.getContent()));
-        knowledge.setCharCount((long) knowledgeVO.getContent().length());
+        knowledge.setContent(this.getKnowledgeDefaultConfig(knowledgeVo.getContent()));
+        knowledge.setCharCount((long) knowledgeVo.getContent().length());
         knowledge.setEnabled(1);
         // Source is manual creation
         knowledge.setSource(1);

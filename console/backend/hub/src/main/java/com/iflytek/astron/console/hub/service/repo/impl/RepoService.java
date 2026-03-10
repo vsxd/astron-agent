@@ -24,7 +24,7 @@ import com.iflytek.astron.console.hub.entity.table.group.GroupVisibility;
 import com.iflytek.astron.console.hub.entity.table.relation.BotRepoRel;
 import com.iflytek.astron.console.hub.entity.table.relation.FlowRepoRel;
 import com.iflytek.astron.console.hub.entity.table.repo.*;
-import com.iflytek.astron.console.hub.entity.vo.knowledge.RepoVO;
+import com.iflytek.astron.console.hub.entity.vo.knowledge.RepoVo;
 import com.iflytek.astron.console.hub.handler.*;
 import com.iflytek.astron.console.hub.mapper.ConfigInfoMapper;
 import com.iflytek.astron.console.hub.mapper.bot.SparkBotMapper;
@@ -141,61 +141,61 @@ public class RepoService extends ServiceImpl<RepoMapper, Repo> {
      * Create a new repository with the provided repository information. Validates repository name
      * uniqueness, tag validity, and creates the repository record.
      *
-     * @param repoVO repository value object containing repository creation information
+     * @param repoVo repository value object containing repository creation information
      * @return created Repo object with generated IDs and default settings
      * @throws BusinessException if repository name is duplicate or tag is invalid
      */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public Repo createRepo(RepoVO repoVO) {
+    public Repo createRepo(RepoVo repoVo) {
         Long spaceId = SpaceInfoUtil.getSpaceId();
         Repo existRepo;
         if (spaceId == null) {
-            existRepo = this.getOnly(Wrappers.lambdaQuery(Repo.class).eq(Repo::getUserId, UserInfoManagerHandler.getUserId()).eq(Repo::getName, repoVO.getName()).eq(Repo::getDeleted, 0));
+            existRepo = this.getOnly(Wrappers.lambdaQuery(Repo.class).eq(Repo::getUserId, UserInfoManagerHandler.getUserId()).eq(Repo::getName, repoVo.getName()).eq(Repo::getDeleted, 0));
         } else {
-            existRepo = this.getOnly(Wrappers.lambdaQuery(Repo.class).eq(Repo::getSpaceId, spaceId).eq(Repo::getName, repoVO.getName()).eq(Repo::getDeleted, 0));
+            existRepo = this.getOnly(Wrappers.lambdaQuery(Repo.class).eq(Repo::getSpaceId, spaceId).eq(Repo::getName, repoVo.getName()).eq(Repo::getDeleted, 0));
         }
         if (existRepo != null) {
             throw new BusinessException(ResponseEnum.REPO_NAME_DUPLICATE);
         }
 
         // Check tag
-        if (!ProjectContent.isCbgRagCompatible(repoVO.getTag()) && !ProjectContent.isAiuiRagCompatible(repoVO.getTag())) {
+        if (!ProjectContent.isCbgRagCompatible(repoVo.getTag()) && !ProjectContent.isAiuiRagCompatible(repoVo.getTag())) {
             throw new BusinessException(ResponseEnum.REPO_TYPE_NOT_MATCH);
         }
         // 1. Create knowledge base
         Repo repo = new Repo();
-        repo.setAppId(repoVO.getAppId());
-        repo.setSource(repoVO.getSource() == null ? 0 : repoVO.getSource());
-        repo.setName(repoVO.getName());
+        repo.setAppId(repoVo.getAppId());
+        repo.setSource(repoVo.getSource() == null ? 0 : repoVo.getSource());
+        repo.setName(repoVo.getName());
         repo.setUserId(UserInfoManagerHandler.getUserId());
-        if (StringUtils.isEmpty(repoVO.getOuterRepoId())) {
+        if (StringUtils.isEmpty(repoVo.getOuterRepoId())) {
             String uuid = UUID.randomUUID().toString().replace("-", "");
             repo.setCoreRepoId(uuid);
             repo.setOuterRepoId(uuid);
         } else {
-            repo.setCoreRepoId(repoVO.getOuterRepoId());
-            repo.setOuterRepoId(repoVO.getOuterRepoId());
+            repo.setCoreRepoId(repoVo.getOuterRepoId());
+            repo.setOuterRepoId(repoVo.getOuterRepoId());
         }
-        // Boolean enableAudit = repoVO.getEnableAudit();
+        // Boolean enableAudit = repoVo.getEnableAudit();
         // repo.setEnableAudit(enableAudit == null || enableAudit);
         repo.setEnableAudit(false);
-        repo.setIcon(repoVO.getAvatarIcon());
-        repo.setDescription(repoVO.getDesc());
-        repo.setColor(repoVO.getAvatarColor());
+        repo.setIcon(repoVo.getAvatarIcon());
+        repo.setDescription(repoVo.getDesc());
+        repo.setColor(repoVo.getAvatarColor());
         repo.setStatus(ProjectContent.REPO_STATUS_CREATED);
         repo.setDeleted(false);
-        Integer visibility = repoVO.getVisibility() == null ? 0 : repoVO.getVisibility();
+        Integer visibility = repoVo.getVisibility() == null ? 0 : repoVo.getVisibility();
         repo.setVisibility(visibility);
         Date now = new Date();
         repo.setCreateTime(now);
         repo.setUpdateTime(now);
-        repo.setTag(repoVO.getTag());
+        repo.setTag(repoVo.getTag());
         if (spaceId != null) {
             repo.setSpaceId(spaceId);
         }
         this.save(repo);
 
-        groupVisibilityService.setRepoVisibility(repo.getId(), 1, visibility, repoVO.getUids());
+        groupVisibilityService.setRepoVisibility(repo.getId(), 1, visibility, repoVo.getUids());
 
         // 3. Core system knowledge base creation - removed knowledge base creation
         /*
@@ -217,14 +217,14 @@ public class RepoService extends ServiceImpl<RepoMapper, Repo> {
      * Update an existing repository with new information. Validates repository existence, ownership,
      * and name uniqueness before updating.
      *
-     * @param repoVO repository value object containing update information
+     * @param repoVo repository value object containing update information
      * @return updated Repo object
      * @throws BusinessException if repository does not exist, user has no permission, or name is
      *         duplicate
      */
     @Transactional
-    public Repo updateRepo(RepoVO repoVO) {
-        Repo model = this.getById(repoVO.getId());
+    public Repo updateRepo(RepoVo repoVo) {
+        Repo model = this.getById(repoVo.getId());
         if (model == null) {
             throw new BusinessException(ResponseEnum.REPO_NOT_EXIST);
         }
@@ -232,25 +232,25 @@ public class RepoService extends ServiceImpl<RepoMapper, Repo> {
         Long spaceId = SpaceInfoUtil.getSpaceId();
         Repo existRepo;
         if (spaceId == null) {
-            existRepo = this.getOnly(Wrappers.lambdaQuery(Repo.class).eq(Repo::getUserId, UserInfoManagerHandler.getUserId()).eq(Repo::getName, repoVO.getName()).eq(Repo::getDeleted, 0));
+            existRepo = this.getOnly(Wrappers.lambdaQuery(Repo.class).eq(Repo::getUserId, UserInfoManagerHandler.getUserId()).eq(Repo::getName, repoVo.getName()).eq(Repo::getDeleted, 0));
         } else {
-            existRepo = this.getOnly(Wrappers.lambdaQuery(Repo.class).eq(Repo::getSpaceId, spaceId).eq(Repo::getName, repoVO.getName()).eq(Repo::getDeleted, 0));
+            existRepo = this.getOnly(Wrappers.lambdaQuery(Repo.class).eq(Repo::getSpaceId, spaceId).eq(Repo::getName, repoVo.getName()).eq(Repo::getDeleted, 0));
         }
         if (existRepo != null) {
-            if (!Objects.equals(existRepo.getId(), repoVO.getId())) {
+            if (!Objects.equals(existRepo.getId(), repoVo.getId())) {
                 throw new BusinessException(ResponseEnum.REPO_NAME_DUPLICATE);
             }
 
         }
-        Integer visibility = repoVO.getVisibility() == null ? 0 : repoVO.getVisibility();
+        Integer visibility = repoVo.getVisibility() == null ? 0 : repoVo.getVisibility();
         model.setVisibility(visibility);
-        model.setName(repoVO.getName());
-        model.setDescription(repoVO.getDesc());
-        model.setColor(repoVO.getAvatarColor());
-        model.setIcon(repoVO.getAvatarIcon());
+        model.setName(repoVo.getName());
+        model.setDescription(repoVo.getDesc());
+        model.setColor(repoVo.getAvatarColor());
+        model.setIcon(repoVo.getAvatarIcon());
         model.setUpdateTime(new Date());
         this.updateById(model);
-        groupVisibilityService.setRepoVisibility(model.getId(), 1, visibility, repoVO.getUids());
+        groupVisibilityService.setRepoVisibility(model.getId(), 1, visibility, repoVo.getUids());
         return model;
     }
 
@@ -259,18 +259,18 @@ public class RepoService extends ServiceImpl<RepoMapper, Repo> {
      * Update repository status (publish/unpublish/delete). Currently returns true as the actual status
      * update logic is commented out.
      *
-     * @param repoVO repository value object containing operation type
+     * @param repoVo repository value object containing operation type
      * @return always returns true
      */
     @Transactional
-    public boolean updateRepoStatus(RepoVO repoVO) {
+    public boolean updateRepoStatus(RepoVo repoVo) {
         /*
-         * Integer operType = repoVO.getOperType(); String repoOperate = ""; switch (operType) { case 2:
+         * Integer operType = repoVo.getOperType(); String repoOperate = ""; switch (operType) { case 2:
          * repoOperate = ProjectContent.REPO_OPERATE_PUBLISHED; break; case 3: repoOperate =
          * ProjectContent.REPO_OPERATE_UNPUBLISHED; break; case 4: repoOperate =
          * ProjectContent.REPO_OPERATE_DELETE; break; default: throw new
          * CustomException("Repository operation type is invalid"); } Repo model =
-         * this.getModel(repoVO.getId()); JSONObject repoRequestObject = this.getRepoRequestObject();
+         * this.getModel(repoVo.getId()); JSONObject repoRequestObject = this.getRepoRequestObject();
          * repoRequestObject.getJSONObject("header").put("businessId",repoAuthorizedConfig.getBusinessId());
          * repoRequestObject.getJSONObject("parameter").put("type", repoOperate);
          * repoRequestObject.getJSONObject("parameter").put("repoId", model.getCoreRepoId()); JSONObject
@@ -278,7 +278,7 @@ public class RepoService extends ServiceImpl<RepoMapper, Repo> {
          * (jsonObject.getJSONObject("header").getInteger("code") !=0) {
          * log.error("Repository publish failed, message:{}",
          * jsonObject.getJSONObject("header").getString("message")); throw new
-         * CustomException("Repository operation failed"); } model.setStatus(repoVO.getOperType());
+         * CustomException("Repository operation failed"); } model.setStatus(repoVo.getOperType());
          * model.setUpdateTime(new Timestamp(System.currentTimeMillis())); this.updateModel(model);
          */
         return true;
@@ -438,15 +438,15 @@ public class RepoService extends ServiceImpl<RepoMapper, Repo> {
                 repoDto.setTagDtoList(null);
                 repoDto.setCorner(personalIconAddress);
                 JSONArray botList = itemB.getJSONArray("botList");
-                List<SparkBotVO> bots = new ArrayList<>();
+                List<SparkBotVo> bots = new ArrayList<>();
                 if (!CollectionUtils.isEmpty(botList)) {
                     for (int j = 0; j < botList.size(); j++) {
                         // Get each bot object
                         JSONObject bot = botList.getJSONObject(j);
-                        SparkBotVO botVO = new SparkBotVO();
-                        botVO.setName(bot.getString("name"));
-                        botVO.setUuid(bot.getString("botId"));
-                        bots.add(botVO);
+                        SparkBotVo botVo = new SparkBotVo();
+                        botVo.setName(bot.getString("name"));
+                        botVo.setUuid(bot.getString("botId"));
+                        bots.add(botVo);
                     }
                 }
                 repoDto.setBots(bots);
@@ -561,9 +561,9 @@ public class RepoService extends ServiceImpl<RepoMapper, Repo> {
             repoDto.setAddress(address);
 
             // Agent Bots
-            List<SparkBotVO> sparkBotVOList = sparkBotMapper.listSparkBotByRepoId(repoDto.getId(), repoDto.getUserId());
-            if (!CollectionUtils.isEmpty(sparkBotVOList)) {
-                sparkBotVOList.forEach(e -> e.setAddress(address));
+            List<SparkBotVo> sparkBotVoList = sparkBotMapper.listSparkBotByRepoId(repoDto.getId(), repoDto.getUserId());
+            if (!CollectionUtils.isEmpty(sparkBotVoList)) {
+                sparkBotVoList.forEach(e -> e.setAddress(address));
             }
 
             // Workflow-bound "Bots"
@@ -571,21 +571,21 @@ public class RepoService extends ServiceImpl<RepoMapper, Repo> {
                     new LambdaQueryWrapper<FlowRepoRel>().eq(FlowRepoRel::getRepoId, repoDto.getCoreRepoId()));
             if (!CollectionUtils.isEmpty(rels)) {
                 for (FlowRepoRel rel : rels) {
-                    SparkBotVO bot = new SparkBotVO();
+                    SparkBotVo bot = new SparkBotVo();
                     bot.setUuid(rel.getFlowId());
-                    sparkBotVOList.add(bot);
+                    sparkBotVoList.add(bot);
                 }
             }
 
             // Compatible with extended sources (reserved)
             List<JSONObject> sparkBots = new ArrayList<>();
             for (JSONObject sparkBot : sparkBots) {
-                SparkBotVO bot = new SparkBotVO();
+                SparkBotVo bot = new SparkBotVo();
                 bot.setName(sparkBot.getString("name"));
                 bot.setUuid(sparkBot.getString("botId"));
-                sparkBotVOList.add(bot);
+                sparkBotVoList.add(bot);
             }
-            repoDto.setBots(sparkBotVOList);
+            repoDto.setBots(sparkBotVoList);
         }
     }
 
@@ -694,10 +694,10 @@ public class RepoService extends ServiceImpl<RepoMapper, Repo> {
             BeanUtils.copyProperties(repo, repoDto);
             String address = s3UtilClient.getS3Prefix();
             repoDto.setAddress(address);
-            List<SparkBotVO> sparkBotVOList = sparkBotMapper.listSparkBotByRepoId(id, UserInfoManagerHandler.getUserId());
+            List<SparkBotVo> sparkBotVoList = sparkBotMapper.listSparkBotByRepoId(id, UserInfoManagerHandler.getUserId());
 
-            if (!CollectionUtils.isEmpty(sparkBotVOList)) {
-                sparkBotVOList.forEach(e -> e.setAddress(address));
+            if (!CollectionUtils.isEmpty(sparkBotVoList)) {
+                sparkBotVoList.forEach(e -> e.setAddress(address));
             }
 
 
@@ -709,7 +709,7 @@ public class RepoService extends ServiceImpl<RepoMapper, Repo> {
                 // Query(Criteria.where("fileId").in(fileInfoV2.getUuid())), Knowledge.class);
                 knowledgeCount += knowledgeMapper.countByFileId(fileInfoV2.getUuid());
             }
-            repoDto.setBots(sparkBotVOList);
+            repoDto.setBots(sparkBotVoList);
         }
 
         repoDto.setCharCount(charCount);
@@ -863,17 +863,17 @@ public class RepoService extends ServiceImpl<RepoMapper, Repo> {
             throw new BusinessException(ResponseEnum.REPO_NOT_EXIST);
         }
         dataPermissionCheckTool.checkRepoBelong(repo);
-        RepoVO repoVO = new RepoVO();
-        repoVO.setId(id);
+        RepoVo repoVo = new RepoVo();
+        repoVo.setId(id);
         if ((Objects.equals(repo.getStatus(), ProjectContent.REPO_STATUS_CREATED)
                 || Objects.equals(repo.getStatus(), ProjectContent.REPO_STATUS_PUBLISHED)) && enabled == 0) {
-            repoVO.setOperType(ProjectContent.REPO_STATUS_UNPUBLISHED);
+            repoVo.setOperType(ProjectContent.REPO_STATUS_UNPUBLISHED);
         } else if (Objects.equals(repo.getStatus(), ProjectContent.REPO_STATUS_UNPUBLISHED) && enabled == 1) {
-            repoVO.setOperType(ProjectContent.REPO_STATUS_PUBLISHED);
+            repoVo.setOperType(ProjectContent.REPO_STATUS_PUBLISHED);
         } else {
             throw new BusinessException(ResponseEnum.REPO_STATUS_ILLEGAL);
         }
-        this.updateRepoStatus(repoVO);
+        this.updateRepoStatus(repoVo);
     }
 
 
@@ -930,10 +930,10 @@ public class RepoService extends ServiceImpl<RepoMapper, Repo> {
             fileInfoV2Service.fileCostRollback(fileInfoV2.getUuid());
         }
 
-        RepoVO repoVO = new RepoVO();
-        repoVO.setId(id);
-        repoVO.setOperType(ProjectContent.REPO_STATUS_DELETE);
-        return this.updateRepoStatus(repoVO);
+        RepoVo repoVo = new RepoVo();
+        repoVo.setId(id);
+        repoVo.setOperType(ProjectContent.REPO_STATUS_DELETE);
+        return this.updateRepoStatus(repoVo);
     }
 
     // private JSONObject getKnowledgeQueryObject(String group, Integer topN, String query) {
@@ -1014,27 +1014,27 @@ public class RepoService extends ServiceImpl<RepoMapper, Repo> {
     public Object getRepoUseStatus(Long repoId, HttpServletRequest request) {
         Repo repo = getById(repoId);
         // Get agent list
-        List<SparkBotVO> sparkBotVOList = sparkBotMapper.listSparkBotByRepoId(repoId, UserInfoManagerHandler.getUserId());
+        List<SparkBotVo> sparkBotVoList = sparkBotMapper.listSparkBotByRepoId(repoId, UserInfoManagerHandler.getUserId());
 
         // Get workflow list that associates with knowledge base
-        List<FlowRepoRel> flowBotRelVOList = flowRepoRelMapper.selectList(
+        List<FlowRepoRel> flowBotRelVoList = flowRepoRelMapper.selectList(
                 new LambdaQueryWrapper<FlowRepoRel>()
                         .eq(FlowRepoRel::getRepoId, repo.getCoreRepoId()));
-        if (!CollectionUtils.isEmpty(flowBotRelVOList)) {
-            for (FlowRepoRel flowRepoRel : flowBotRelVOList) {
-                SparkBotVO sparkBotVO = new SparkBotVO();
-                sparkBotVO.setUuid(flowRepoRel.getFlowId());
-                sparkBotVOList.add(sparkBotVO);
+        if (!CollectionUtils.isEmpty(flowBotRelVoList)) {
+            for (FlowRepoRel flowRepoRel : flowBotRelVoList) {
+                SparkBotVo sparkBotVo = new SparkBotVo();
+                sparkBotVo.setUuid(flowRepoRel.getFlowId());
+                sparkBotVoList.add(sparkBotVo);
             }
         }
 
         List<DatasetStats> sparkBots = datasetFileService.getMaasDataset(repoId);
         for (DatasetStats sparkBot : sparkBots) {
-            SparkBotVO sparkBotVO = new SparkBotVO();
-            sparkBotVO.setName(sparkBot.getName());
-            sparkBotVO.setUuid(sparkBot.getBotId());
-            sparkBotVOList.add(sparkBotVO);
+            SparkBotVo sparkBotVo = new SparkBotVo();
+            sparkBotVo.setName(sparkBot.getName());
+            sparkBotVo.setUuid(sparkBot.getBotId());
+            sparkBotVoList.add(sparkBotVo);
         }
-        return !sparkBotVOList.isEmpty();
+        return !sparkBotVoList.isEmpty();
     }
 }

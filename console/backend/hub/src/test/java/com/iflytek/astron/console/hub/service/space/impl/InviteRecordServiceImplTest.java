@@ -3,7 +3,7 @@ package com.iflytek.astron.console.hub.service.space.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.iflytek.astron.console.hub.dto.space.InviteRecordParam;
-import com.iflytek.astron.console.hub.dto.space.InviteRecordVO;
+import com.iflytek.astron.console.hub.dto.space.InviteRecordVo;
 import com.iflytek.astron.console.hub.entity.space.InviteRecord;
 import com.iflytek.astron.console.hub.enums.space.InviteRecordStatusEnum;
 import com.iflytek.astron.console.hub.enums.space.InviteRecordTypeEnum;
@@ -45,8 +45,8 @@ class InviteRecordServiceImplTest {
 
     private InviteRecord mockInviteRecord;
     private InviteRecordParam mockParam;
-    private InviteRecordVO mockInviteRecordVO;
-    private Page<InviteRecordVO> mockVOPage;
+    private InviteRecordVo mockInviteRecordVo;
+    private Page<InviteRecordVo> mockVOPage;
     private List<InviteRecord> mockInviteRecordList;
 
     @BeforeEach
@@ -73,15 +73,15 @@ class InviteRecordServiceImplTest {
         mockParam.setNickname("Test User");
         mockParam.setStatus(InviteRecordStatusEnum.INIT.getCode());
 
-        mockInviteRecordVO = new InviteRecordVO();
-        mockInviteRecordVO.setId(1L);
-        mockInviteRecordVO.setInviterUid("inviter-uid");
-        mockInviteRecordVO.setInviteeUid("invitee-uid");
-        mockInviteRecordVO.setStatus(InviteRecordStatusEnum.INIT.getCode());
-        mockInviteRecordVO.setType(InviteRecordTypeEnum.SPACE.getCode());
+        mockInviteRecordVo = new InviteRecordVo();
+        mockInviteRecordVo.setId(1L);
+        mockInviteRecordVo.setInviterUid("inviter-uid");
+        mockInviteRecordVo.setInviteeUid("invitee-uid");
+        mockInviteRecordVo.setStatus(InviteRecordStatusEnum.INIT.getCode());
+        mockInviteRecordVo.setType(InviteRecordTypeEnum.SPACE.getCode());
 
         mockVOPage = new Page<>();
-        mockVOPage.setRecords(Arrays.asList(mockInviteRecordVO));
+        mockVOPage.setRecords(Arrays.asList(mockInviteRecordVo));
         mockVOPage.setTotal(1L);
         mockVOPage.setCurrent(1L);
         mockVOPage.setSize(10L);
@@ -119,20 +119,20 @@ class InviteRecordServiceImplTest {
 
         try (MockedStatic<SpaceInfoUtil> mockedStatic = mockStatic(SpaceInfoUtil.class)) {
             mockedStatic.when(SpaceInfoUtil::getSpaceId).thenReturn(spaceId);
-            when(inviteRecordMapper.selectVOPageByParam(any(Page.class), eq(type.getCode()),
+            when(inviteRecordMapper.selectVoPageByParam(any(Page.class), eq(type.getCode()),
                     eq(spaceId), isNull(), eq("Test User"), eq(InviteRecordStatusEnum.INIT.getCode())))
                     .thenReturn(mockVOPage);
 
             // When
-            Page<InviteRecordVO> result = inviteRecordService.inviteList(mockParam, type);
+            Page<InviteRecordVo> result = inviteRecordService.inviteList(mockParam, type);
 
             // Then
             assertNotNull(result);
             assertEquals(1L, result.getTotal());
             assertEquals(1, result.getRecords().size());
-            assertEquals(mockInviteRecordVO.getId(), result.getRecords().get(0).getId());
+            assertEquals(mockInviteRecordVo.getId(), result.getRecords().get(0).getId());
 
-            verify(inviteRecordMapper).selectVOPageByParam(any(Page.class), eq(type.getCode()),
+            verify(inviteRecordMapper).selectVoPageByParam(any(Page.class), eq(type.getCode()),
                     eq(spaceId), isNull(), eq("Test User"), eq(InviteRecordStatusEnum.INIT.getCode()));
         }
     }
@@ -146,19 +146,19 @@ class InviteRecordServiceImplTest {
 
         try (MockedStatic<EnterpriseInfoUtil> mockedStatic = mockStatic(EnterpriseInfoUtil.class)) {
             mockedStatic.when(EnterpriseInfoUtil::getEnterpriseId).thenReturn(enterpriseId);
-            when(inviteRecordMapper.selectVOPageByParam(any(Page.class), isNull(),
+            when(inviteRecordMapper.selectVoPageByParam(any(Page.class), isNull(),
                     isNull(), eq(enterpriseId), eq("Test User"), eq(InviteRecordStatusEnum.INIT.getCode())))
                     .thenReturn(mockVOPage);
 
             // When
-            Page<InviteRecordVO> result = inviteRecordService.inviteList(mockParam, type);
+            Page<InviteRecordVo> result = inviteRecordService.inviteList(mockParam, type);
 
             // Then
             assertNotNull(result);
             assertEquals(1L, result.getTotal());
             assertEquals(1, result.getRecords().size());
 
-            verify(inviteRecordMapper).selectVOPageByParam(any(Page.class), isNull(),
+            verify(inviteRecordMapper).selectVoPageByParam(any(Page.class), isNull(),
                     isNull(), eq(enterpriseId), eq("Test User"), eq(InviteRecordStatusEnum.INIT.getCode()));
         }
     }
@@ -173,7 +173,7 @@ class InviteRecordServiceImplTest {
             mockedStatic.when(SpaceInfoUtil::getSpaceId).thenReturn(null);
 
             // When
-            Page<InviteRecordVO> result = inviteRecordService.inviteList(mockParam, type);
+            Page<InviteRecordVo> result = inviteRecordService.inviteList(mockParam, type);
 
             // Then
             assertNotNull(result);
@@ -181,7 +181,7 @@ class InviteRecordServiceImplTest {
             assertEquals(10L, result.getSize());
             assertTrue(result.getRecords().isEmpty());
 
-            verify(inviteRecordMapper, never()).selectVOPageByParam(any(), any(), any(), any(), any(), any());
+            verify(inviteRecordMapper, never()).selectVoPageByParam(any(), any(), any(), any(), any(), any());
         }
     }
 
@@ -516,37 +516,37 @@ class InviteRecordServiceImplTest {
 
     @Test
     @DisplayName("Should select invite record VO by ID successfully")
-    void selectVOById_WithValidId_ShouldReturnInviteRecordVO() {
+    void selectVoById_WithValidId_ShouldReturnInviteRecordVo() {
         // Given
         Long id = 1L;
 
-        when(inviteRecordMapper.selectVOById(id)).thenReturn(mockInviteRecordVO);
+        when(inviteRecordMapper.selectVoById(id)).thenReturn(mockInviteRecordVo);
 
         // When
-        InviteRecordVO result = inviteRecordService.selectVOById(id);
+        InviteRecordVo result = inviteRecordService.selectVoById(id);
 
         // Then
         assertNotNull(result);
-        assertEquals(mockInviteRecordVO.getId(), result.getId());
-        assertEquals(mockInviteRecordVO.getInviterUid(), result.getInviterUid());
-        assertEquals(mockInviteRecordVO.getInviteeUid(), result.getInviteeUid());
-        verify(inviteRecordMapper).selectVOById(id);
+        assertEquals(mockInviteRecordVo.getId(), result.getId());
+        assertEquals(mockInviteRecordVo.getInviterUid(), result.getInviterUid());
+        assertEquals(mockInviteRecordVo.getInviteeUid(), result.getInviteeUid());
+        verify(inviteRecordMapper).selectVoById(id);
     }
 
     @Test
     @DisplayName("Should return null when invite record VO with ID does not exist")
-    void selectVOById_WithNonExistentId_ShouldReturnNull() {
+    void selectVoById_WithNonExistentId_ShouldReturnNull() {
         // Given
         Long id = 999L;
 
-        when(inviteRecordMapper.selectVOById(id)).thenReturn(null);
+        when(inviteRecordMapper.selectVoById(id)).thenReturn(null);
 
         // When
-        InviteRecordVO result = inviteRecordService.selectVOById(id);
+        InviteRecordVo result = inviteRecordService.selectVoById(id);
 
         // Then
         assertNull(result);
-        verify(inviteRecordMapper).selectVOById(id);
+        verify(inviteRecordMapper).selectVoById(id);
     }
 
     @Test
@@ -713,11 +713,11 @@ class InviteRecordServiceImplTest {
             assertNotNull(method);
             assertEquals(Long.class, method.getReturnType());
 
-            // Verify selectVOById method
+            // Verify selectVoById method
             method = inviteRecordService.getClass()
-                    .getMethod("selectVOById", Long.class);
+                    .getMethod("selectVoById", Long.class);
             assertNotNull(method);
-            assertEquals(InviteRecordVO.class, method.getReturnType());
+            assertEquals(InviteRecordVo.class, method.getReturnType());
 
             // Verify updateExpireRecord method
             method = inviteRecordService.getClass()
@@ -747,16 +747,16 @@ class InviteRecordServiceImplTest {
 
         try (MockedStatic<SpaceInfoUtil> mockedStatic = mockStatic(SpaceInfoUtil.class)) {
             mockedStatic.when(SpaceInfoUtil::getSpaceId).thenReturn(spaceId);
-            when(inviteRecordMapper.selectVOPageByParam(any(Page.class), eq(type.getCode()),
+            when(inviteRecordMapper.selectVoPageByParam(any(Page.class), eq(type.getCode()),
                     eq(spaceId), isNull(), isNull(), isNull())).thenReturn(mockVOPage);
 
             // When
-            Page<InviteRecordVO> result = inviteRecordService.inviteList(nullParam, type);
+            Page<InviteRecordVo> result = inviteRecordService.inviteList(nullParam, type);
 
             // Then
             assertNotNull(result);
             assertEquals(1L, result.getTotal());
-            verify(inviteRecordMapper).selectVOPageByParam(any(Page.class), eq(type.getCode()),
+            verify(inviteRecordMapper).selectVoPageByParam(any(Page.class), eq(type.getCode()),
                     eq(spaceId), isNull(), isNull(), isNull());
         }
     }

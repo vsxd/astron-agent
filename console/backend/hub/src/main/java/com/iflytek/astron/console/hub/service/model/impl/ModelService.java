@@ -29,7 +29,7 @@ import com.iflytek.astron.console.hub.entity.table.ConfigInfo;
 import com.iflytek.astron.console.hub.entity.table.model.Model;
 import com.iflytek.astron.console.hub.entity.table.model.ModelCategory;
 import com.iflytek.astron.console.hub.entity.table.model.ModelCommon;
-import com.iflytek.astron.console.hub.entity.vo.CategoryTreeVO;
+import com.iflytek.astron.console.hub.entity.vo.CategoryTreeVo;
 import com.iflytek.astron.console.hub.entity.vo.LLMInfoVo;
 import com.iflytek.astron.console.hub.entity.vo.ModelCategoryReq;
 import com.iflytek.astron.console.hub.entity.vo.model.ModelDeployVo;
@@ -966,9 +966,9 @@ public class ModelService extends ServiceImpl<ModelMapper, Model> {
     }
 
 
-    public List<CategoryTreeVO> getAllCategoryTree() {
+    public List<CategoryTreeVo> getAllCategoryTree() {
         List<String> list = Arrays.asList("modelCategory", "languageSupport", "contextLengthTag", "modelScenario");
-        List<CategoryTreeVO> allCategoryTree = modelCategoryService.getAllCategoryTree();
+        List<CategoryTreeVo> allCategoryTree = modelCategoryService.getAllCategoryTree();
         return allCategoryTree.stream().filter(s -> list.contains(s.getKey())).collect(toList());
     }
 

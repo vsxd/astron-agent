@@ -9,9 +9,9 @@ import com.iflytek.astron.console.hub.dto.PageResponse;
 import com.iflytek.astron.console.hub.dto.bot.BotListRequestDto;
 import com.iflytek.astron.console.hub.dto.publish.BotPublishInfoDto;
 import com.iflytek.astron.console.hub.dto.publish.BotDetailResponseDto;
-import com.iflytek.astron.console.hub.dto.publish.BotSummaryStatsVO;
+import com.iflytek.astron.console.hub.dto.publish.BotSummaryStatsVo;
 import com.iflytek.astron.console.hub.dto.publish.BotTimeSeriesResponseDto;
-import com.iflytek.astron.console.hub.dto.publish.BotVersionVO;
+import com.iflytek.astron.console.hub.dto.publish.BotVersionVo;
 import com.iflytek.astron.console.hub.dto.publish.BotTraceRequestDto;
 import com.iflytek.astron.console.hub.dto.publish.UnifiedPrepareDto;
 import com.iflytek.astron.console.hub.dto.publish.UnifiedPublishRequestDto;
@@ -186,7 +186,7 @@ public class BotPublishController {
             description = "Retrieve overall bot usage metrics including total conversations, users, and tokens")
     @RateLimit(limit = 20, window = 60, dimension = "USER")
     @GetMapping("/bots/{botId}/summary")
-    public ApiResult<BotSummaryStatsVO> getBotSummaryStats(
+    public ApiResult<BotSummaryStatsVo> getBotSummaryStats(
             @Parameter(description = "Unique bot identifier", required = true)
             @PathVariable Integer botId) {
 
@@ -196,7 +196,7 @@ public class BotPublishController {
         log.info("Retrieving bot summary statistics: botId={}, uid={}, spaceId={}",
                 botId, currentUid, currentSpaceId);
 
-        BotSummaryStatsVO summaryStats = botPublishService.getBotSummaryStats(
+        BotSummaryStatsVo summaryStats = botPublishService.getBotSummaryStats(
                 botId, currentUid, currentSpaceId);
 
         log.info("Bot summary statistics retrieved successfully: botId={}", botId);
@@ -241,7 +241,7 @@ public class BotPublishController {
             description = "Retrieve paginated list of workflow bot versions with metadata and deployment history")
     @RateLimit(limit = 50, window = 60, dimension = "USER")
     @GetMapping("/bots/{botId}/versions")
-    public ApiResult<PageResponse<BotVersionVO>> getBotVersions(
+    public ApiResult<PageResponse<BotVersionVo>> getBotVersions(
             @Parameter(description = "Unique bot identifier", required = true)
             @PathVariable Integer botId,
 
@@ -260,7 +260,7 @@ public class BotPublishController {
         log.info("Retrieving bot version history: botId={}, page={}, size={}, uid={}, spaceId={}",
                 botId, page, size, currentUid, currentSpaceId);
 
-        PageResponse<BotVersionVO> result = botPublishService.getBotVersions(
+        PageResponse<BotVersionVo> result = botPublishService.getBotVersions(
                 botId, page, size, currentUid, currentSpaceId);
 
         log.info("Bot version history retrieved successfully: botId={}, total={}", botId, result.getTotal());

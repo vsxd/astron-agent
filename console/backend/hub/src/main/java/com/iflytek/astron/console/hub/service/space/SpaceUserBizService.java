@@ -1,7 +1,7 @@
 package com.iflytek.astron.console.hub.service.space;
 
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.hub.dto.space.UserLimitVO;
+import com.iflytek.astron.console.hub.dto.space.UserLimitVo;
 
 public interface SpaceUserBizService {
 
@@ -15,9 +15,9 @@ public interface SpaceUserBizService {
 
     ApiResult<String> transferSpace(String uid);
 
-    UserLimitVO getUserLimit();
+    UserLimitVo getUserLimit();
 
-    UserLimitVO getUserLimit(String uid);
+    UserLimitVo getUserLimit(String uid);
 
-    UserLimitVO getUserLimitVO(Integer type, String uid);
+    UserLimitVo getUserLimitVo(Integer type, String uid);
 }

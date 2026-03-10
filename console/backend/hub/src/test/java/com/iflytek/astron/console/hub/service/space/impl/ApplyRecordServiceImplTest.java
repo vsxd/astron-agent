@@ -3,7 +3,7 @@ package com.iflytek.astron.console.hub.service.space.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.iflytek.astron.console.hub.dto.space.ApplyRecordParam;
-import com.iflytek.astron.console.hub.dto.space.ApplyRecordVO;
+import com.iflytek.astron.console.hub.dto.space.ApplyRecordVo;
 import com.iflytek.astron.console.hub.entity.space.ApplyRecord;
 import com.iflytek.astron.console.hub.mapper.space.ApplyRecordMapper;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
@@ -36,8 +36,8 @@ class ApplyRecordServiceImplTest {
 
     private ApplyRecordParam applyRecordParam;
     private ApplyRecord applyRecord;
-    private ApplyRecordVO applyRecordVO;
-    private Page<ApplyRecordVO> mockVOPage;
+    private ApplyRecordVo applyRecordVo;
+    private Page<ApplyRecordVo> mockVOPage;
 
     @BeforeEach
     void setUp() {
@@ -57,12 +57,12 @@ class ApplyRecordServiceImplTest {
         applyRecord.setSpaceId(100L);
         applyRecord.setStatus(ApplyRecord.Status.APPLYING.getCode());
 
-        applyRecordVO = new ApplyRecordVO();
-        applyRecordVO.setId(1L);
-        applyRecordVO.setApplyNickname("testUser");
+        applyRecordVo = new ApplyRecordVo();
+        applyRecordVo.setId(1L);
+        applyRecordVo.setApplyNickname("testUser");
 
         mockVOPage = new Page<>();
-        mockVOPage.setRecords(java.util.Arrays.asList(applyRecordVO));
+        mockVOPage.setRecords(java.util.Arrays.asList(applyRecordVo));
         mockVOPage.setTotal(1L);
         mockVOPage.setCurrent(1L);
         mockVOPage.setSize(10L);
@@ -76,11 +76,11 @@ class ApplyRecordServiceImplTest {
 
         try (MockedStatic<SpaceInfoUtil> mockedStatic = mockStatic(SpaceInfoUtil.class)) {
             mockedStatic.when(SpaceInfoUtil::getSpaceId).thenReturn(spaceId);
-            when(applyRecordMapper.selectVOPageByParam(any(Page.class), eq(spaceId),
+            when(applyRecordMapper.selectVoPageByParam(any(Page.class), eq(spaceId),
                     isNull(), eq("testUser"), eq(1))).thenReturn(mockVOPage);
 
             // When
-            Page<ApplyRecordVO> result = applyRecordService.page(applyRecordParam);
+            Page<ApplyRecordVo> result = applyRecordService.page(applyRecordParam);
 
             // Then
             assertNotNull(result);
@@ -88,7 +88,7 @@ class ApplyRecordServiceImplTest {
             assertEquals(1, result.getRecords().size());
             assertEquals("testUser", result.getRecords().get(0).getApplyNickname());
 
-            verify(applyRecordMapper).selectVOPageByParam(any(Page.class), eq(spaceId),
+            verify(applyRecordMapper).selectVoPageByParam(any(Page.class), eq(spaceId),
                     isNull(), eq("testUser"), eq(1));
         }
     }
@@ -101,7 +101,7 @@ class ApplyRecordServiceImplTest {
             mockedStatic.when(SpaceInfoUtil::getSpaceId).thenReturn(null);
 
             // When
-            Page<ApplyRecordVO> result = applyRecordService.page(applyRecordParam);
+            Page<ApplyRecordVo> result = applyRecordService.page(applyRecordParam);
 
             // Then
             assertNotNull(result);
@@ -122,15 +122,15 @@ class ApplyRecordServiceImplTest {
 
         try (MockedStatic<SpaceInfoUtil> mockedStatic = mockStatic(SpaceInfoUtil.class)) {
             mockedStatic.when(SpaceInfoUtil::getSpaceId).thenReturn(spaceId);
-            when(applyRecordMapper.selectVOPageByParam(any(Page.class), eq(spaceId),
+            when(applyRecordMapper.selectVoPageByParam(any(Page.class), eq(spaceId),
                     isNull(), isNull(), eq(1))).thenReturn(mockVOPage);
 
             // When
-            Page<ApplyRecordVO> result = applyRecordService.page(applyRecordParam);
+            Page<ApplyRecordVo> result = applyRecordService.page(applyRecordParam);
 
             // Then
             assertNotNull(result);
-            verify(applyRecordMapper).selectVOPageByParam(any(Page.class), eq(spaceId),
+            verify(applyRecordMapper).selectVoPageByParam(any(Page.class), eq(spaceId),
                     isNull(), isNull(), eq(1));
         }
     }
@@ -310,15 +310,15 @@ class ApplyRecordServiceImplTest {
         try (MockedStatic<SpaceInfoUtil> mockedStatic = mockStatic(SpaceInfoUtil.class)) {
             mockedStatic.when(SpaceInfoUtil::getSpaceId).thenReturn(spaceId);
 
-            Page<ApplyRecordVO> expectedPage = new Page<>();
+            Page<ApplyRecordVo> expectedPage = new Page<>();
             expectedPage.setCurrent(2L);
             expectedPage.setSize(20L);
 
-            when(applyRecordMapper.selectVOPageByParam(any(Page.class), eq(spaceId),
+            when(applyRecordMapper.selectVoPageByParam(any(Page.class), eq(spaceId),
                     isNull(), eq("testUser"), eq(1))).thenReturn(expectedPage);
 
             // When
-            Page<ApplyRecordVO> result = applyRecordService.page(applyRecordParam);
+            Page<ApplyRecordVo> result = applyRecordService.page(applyRecordParam);
 
             // Then
             assertNotNull(result);

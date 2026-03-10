@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class RepoVO {
+public class RepoVo {
     private Long id;
     private String name;
     private String desc;
