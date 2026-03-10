@@ -1,4 +1,4 @@
-package com.iflytek.astron.console.hub.mapper.users;
+package com.iflytek.astron.console.hub.mapper.user;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

@@ -38,7 +38,7 @@ import com.iflytek.astron.console.hub.mapper.bot.SparkBotMapper;
 import com.iflytek.astron.console.hub.mapper.relation.FlowToolRelMapper;
 import com.iflytek.astron.console.hub.mapper.tool.*;
 import com.iflytek.astron.console.hub.mapper.trace.ChatInfoMapper;
-import com.iflytek.astron.console.hub.mapper.users.SystemUserMapper;
+import com.iflytek.astron.console.hub.mapper.user.SystemUserMapper;
 import com.iflytek.astron.console.hub.service.bot.BotToolRelService;
 import com.iflytek.astron.console.hub.service.common.ConfigInfoService;
 import com.iflytek.astron.console.hub.service.workflow.WorkflowService;
