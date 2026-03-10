@@ -851,7 +851,7 @@ public class DatabaseService extends ServiceImpl<DbInfoMapper, DbInfo> {
         // 2. Validate illegal fields
         for (String paramKey : params.keySet()) {
             if (!fieldNames.contains(paramKey)) {
-                log.error("Illegal field: " + paramKey);
+                log.error("Illegal field: {}", paramKey);
                 throw new BusinessException(ResponseEnum.DATABASE_TABLE_FIELD_ILLEGAL);
             }
         }
@@ -870,7 +870,7 @@ public class DatabaseService extends ServiceImpl<DbInfoMapper, DbInfo> {
             }
             // Validate required fields without default values
             if (Boolean.TRUE.equals(field.getIsRequired()) && field.getDefaultValue() == null && !params.containsKey(field.getName())) {
-                log.error("Missing required field: " + field.getName());
+                log.error("Missing required field: {}", field.getName());
                 throw new BusinessException(ResponseEnum.DATABASE_TABLE_FIELD_LACK);
             }
         }

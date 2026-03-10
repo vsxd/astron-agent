@@ -3284,13 +3284,13 @@ public class WorkflowService extends ServiceImpl<WorkflowMapper, Workflow> {
     public Object getInputsType(String flowId) {
         Workflow workflow = getOne(Wrappers.lambdaQuery(Workflow.class).eq(Workflow::getFlowId, flowId));
         if (workflow == null) {
-            log.error("Flow not found, id=" + flowId);
+            log.error("Flow not found, id={}", flowId);
             throw new BusinessException(ResponseEnum.NO_WORKFLOW);
         }
 
         String data = workflow.getData();
         if (StringUtils.isBlank(data)) {
-            log.error("Workflow protocol is empty, id=" + flowId);
+            log.error("Workflow protocol is empty, id={}", flowId);
             throw new BusinessException(ResponseEnum.WORKFLOW_PROTOCOL_EMPTY);
         }
 
@@ -3310,13 +3310,13 @@ public class WorkflowService extends ServiceImpl<WorkflowMapper, Workflow> {
     public Object getInputsInfo(String flowId) {
         Workflow workflow = getOne(Wrappers.lambdaQuery(Workflow.class).eq(Workflow::getFlowId, flowId));
         if (workflow == null) {
-            log.error("Flow not found, id=" + flowId);
+            log.error("Flow not found, id={}", flowId);
             throw new BusinessException(ResponseEnum.NO_WORKFLOW);
         }
 
         String data = workflow.getData();
         if (StringUtils.isBlank(data)) {
-            log.error("Workflow protocol is empty, id=" + flowId);
+            log.error("Workflow protocol is empty, id={}", flowId);
             throw new BusinessException(ResponseEnum.WORKFLOW_PROTOCOL_EMPTY);
         }
 

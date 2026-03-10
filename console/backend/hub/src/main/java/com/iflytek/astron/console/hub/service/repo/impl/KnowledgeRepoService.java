@@ -1162,7 +1162,7 @@ public class KnowledgeRepoService {
         String taskId = retResult.getString("taskId");
         ExtractKnowledgeTask extractKnowledgeTask = extractKnowledgeTaskService.getOnly(Wrappers.lambdaQuery(ExtractKnowledgeTask.class).eq(ExtractKnowledgeTask::getTaskId, taskId));
         if (extractKnowledgeTask == null || extractKnowledgeTask.getStatus() != 0) {
-            log.error("No corresponding task found: " + taskId);
+            log.error("No corresponding task found: {}", taskId);
             throw new BusinessException(ResponseEnum.REPO_KNOWLEDGE_NO_TASK);
         }
 

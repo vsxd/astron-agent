@@ -1094,7 +1094,7 @@ public class ToolBoxService extends ServiceImpl<ToolBoxMapper, ToolBox> {
                 redisTemplate.opsForValue().set(TOOL_HEAT_VALUE_PREFIX + mcpTool.getMcpTooId(), mcpHeatValue);
             }
         }
-        log.info("tool heat value select - Current Time: " + LocalDateTime.now());
+        log.info("tool heat value select - Current Time: {}", LocalDateTime.now());
     }
 
     private List<ToolBoxVo> getMcpTools(ToolSquareDto dto) {
@@ -1348,7 +1348,7 @@ public class ToolBoxService extends ServiceImpl<ToolBoxMapper, ToolBox> {
                                     try {
                                         array.add(Double.valueOf(String.valueOf(value)));
                                     } catch (Exception e) {
-                                        log.error(value + " is not Number type");
+                                        log.error("{} is not Number type", value);
                                         throw new BusinessException(ResponseEnum.TOOLBOX_NOT_NUMBER_TYPE);
                                     }
                                     break;
@@ -1356,7 +1356,7 @@ public class ToolBoxService extends ServiceImpl<ToolBoxMapper, ToolBox> {
                                     try {
                                         array.add(Long.valueOf(String.valueOf(value)));
                                     } catch (Exception e) {
-                                        log.error(value + " is not Integer type");
+                                        log.error("{} is not Integer type", value);
                                         throw new BusinessException(ResponseEnum.TOOLBOX_NOT_INTEGER_TYPE);
                                     }
                                     break;
@@ -1364,7 +1364,7 @@ public class ToolBoxService extends ServiceImpl<ToolBoxMapper, ToolBox> {
                                     try {
                                         array.add(Boolean.valueOf(String.valueOf(value)));
                                     } catch (Exception e) {
-                                        log.error(value + " is not Boolean type");
+                                        log.error("{} is not Boolean type", value);
                                         throw new BusinessException(ResponseEnum.TOOLBOX_NOT_BOOLEAN_TYPE);
                                     }
                                     break;
@@ -1383,7 +1383,7 @@ public class ToolBoxService extends ServiceImpl<ToolBoxMapper, ToolBox> {
                             try {
                                 jsonObject.put(item.getName(), Double.valueOf(String.valueOf(value)));
                             } catch (Exception e) {
-                                log.error(value + " is not Number type");
+                                log.error("{} is not Number type", value);
                                 throw new BusinessException(ResponseEnum.TOOLBOX_NOT_NUMBER_TYPE);
                             }
                             break;
@@ -1391,7 +1391,7 @@ public class ToolBoxService extends ServiceImpl<ToolBoxMapper, ToolBox> {
                             try {
                                 jsonObject.put(item.getName(), Long.valueOf(String.valueOf(value)));
                             } catch (Exception e) {
-                                log.error(value + " is not Integer type");
+                                log.error("{} is not Integer type", value);
                                 throw new BusinessException(ResponseEnum.TOOLBOX_NOT_INTEGER_TYPE);
                             }
                             break;
@@ -1399,7 +1399,7 @@ public class ToolBoxService extends ServiceImpl<ToolBoxMapper, ToolBox> {
                             try {
                                 jsonObject.put(item.getName(), Boolean.valueOf(String.valueOf(value)));
                             } catch (Exception e) {
-                                log.error(value + " is not Boolean type");
+                                log.error("{} is not Boolean type", value);
                                 throw new BusinessException(ResponseEnum.TOOLBOX_NOT_NUMBER_TYPE);
                             }
                             break;

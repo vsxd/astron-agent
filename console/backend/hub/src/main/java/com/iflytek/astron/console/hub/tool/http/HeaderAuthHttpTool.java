@@ -129,7 +129,7 @@ public class HeaderAuthHttpTool {
             ResponseBody body = resp.body();
             res = JSON.parse(Objects.requireNonNull(body).bytes()).toString();
         }
-        log.debug(url + " call result: " + res);
+        log.debug("{} call result: {}", url, res);
         return res;
     }
 

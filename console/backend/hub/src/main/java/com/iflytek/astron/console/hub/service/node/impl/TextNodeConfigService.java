@@ -27,7 +27,7 @@ public class TextNodeConfigService extends ServiceImpl<TextNodeConfigMapper, Tex
                 .eq(TextNodeConfig::getSeparator, textNodeConfig.getSeparator())
                 .in(TextNodeConfig::getUid, Arrays.asList(textNodeConfig.getUid(), -1)));
         if (one != null) {
-            log.error("There are duplicate separators present " + textNodeConfig.getSeparator());
+            log.error("There are duplicate separators present {}", textNodeConfig.getSeparator());
             throw new BusinessException(ResponseEnum.DELIMITER_SAME);
         }
 

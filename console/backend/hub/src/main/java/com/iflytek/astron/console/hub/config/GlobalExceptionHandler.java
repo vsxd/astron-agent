@@ -127,7 +127,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ApiResult<Void> handleDistributedLockException(HttpServletRequest request, DistributedLockException e) {
         ApiResult<Void> result = ApiResult.error(ResponseEnum.SYSTEM_ERROR.getCode(), "lock.error." + e.getErrorType().name().toLowerCase());
-        log.error(LOG_STRING + ", lockKey={}, errorType={}", request.getRequestURL(), result.timestamp(), e.getClass().getSimpleName(), e.getMessage(), e.getLockKey(), e.getErrorType(), e);
+        log.error("RequestURL: {}, Timestamp: {}, {}: {}, lockKey={}, errorType={}", request.getRequestURL(), result.timestamp(), e.getClass().getSimpleName(), e.getMessage(), e.getLockKey(), e.getErrorType(), e);
         return result;
     }
 

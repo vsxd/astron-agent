@@ -234,7 +234,7 @@ public class DistributedLockAspect {
      * Log lock operation
      */
     private void logLockOperation(String lockKey, DistributedLock distributedLock, String operation) {
-        log.info("Distributed lock operation: operation={}, key={}, lockType={}, waitTime={}s, leaseTime={}s, " + "failStrategy={}, description={}", operation, lockKey, distributedLock.lockType(),
+        log.info("Distributed lock operation: operation={}, key={}, lockType={}, waitTime={}s, leaseTime={}s, failStrategy={}, description={}", operation, lockKey, distributedLock.lockType(),
                 getTimeInSeconds(distributedLock.waitTime(), distributedLock.timeUnit()), getTimeInSeconds(distributedLock.leaseTime(), distributedLock.timeUnit()), distributedLock.failStrategy(), distributedLock.description());
     }
 
