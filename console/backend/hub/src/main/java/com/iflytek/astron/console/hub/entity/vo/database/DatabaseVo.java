@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class DatabaseVo extends DbInfo {
+    private static final long serialVersionUID = 1L;
 
     String address;
 

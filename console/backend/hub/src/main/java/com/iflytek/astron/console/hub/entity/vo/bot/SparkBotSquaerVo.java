@@ -11,6 +11,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class SparkBotSquaerVo extends SparkBot {
+    private static final long serialVersionUID = 1L;
 
     private String toolId;
 }

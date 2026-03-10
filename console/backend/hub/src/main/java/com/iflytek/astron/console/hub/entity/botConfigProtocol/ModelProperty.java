@@ -9,6 +9,7 @@ import java.util.List;
 
 @Data
 public class ModelProperty implements Serializable {
+    private static final long serialVersionUID = 1L;
     String api;
 
     @JSONField(name = "patch_id")

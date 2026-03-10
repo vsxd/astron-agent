@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class FileInfo implements Serializable {
+    private static final long serialVersionUID = 1L;
     /**
      * Primary key
      */

@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 
 @Data
 public class KnowledgeConfig implements Serializable {
+    private static final long serialVersionUID = 1L;
     // Knowledge base parameters
     @JSONField(name = "top_k")
     @JsonProperty("top_k")

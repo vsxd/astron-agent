@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 
 @Data
 public class ModelParameter implements Serializable {
+    private static final long serialVersionUID = 1L;
     // Large model parameters
     BigDecimal temperature;
     @JSONField(name = "max_tokens")

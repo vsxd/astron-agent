@@ -9,6 +9,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class SparkBotVO extends SparkBot {
+    private static final long serialVersionUID = 1L;
     Integer authStatus;
     String address;
     Object appDetail;

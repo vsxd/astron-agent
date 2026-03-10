@@ -9,6 +9,7 @@ import java.util.List;
 
 @Data
 public class BotConfig implements Serializable {
+    private static final long serialVersionUID = 1L;
     @JSONField(name = "app_id")
     @JsonProperty("app_id")
     String appId;

@@ -83,7 +83,7 @@
 
     <!-- Exclude SpaceInfoUtil static state exposure check -->
     <Match>
-        <Class name="com.iflytek.astron.console.commons.util.space.SpaceInfoUtil"/>
+        <Class name="com.iflytek.astron.console.hub.util.space.SpaceInfoUtil"/>
         <Method name="init"/>
         <Bug pattern="EI_EXPOSE_STATIC_REP2"/>
     </Match>

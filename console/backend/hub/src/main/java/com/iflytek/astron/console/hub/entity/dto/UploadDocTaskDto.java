@@ -7,5 +7,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class UploadDocTaskDto extends UploadDocTask {
+    private static final long serialVersionUID = 1L;
     private String sourceId;
 }
