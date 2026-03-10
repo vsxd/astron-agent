@@ -7,7 +7,7 @@ import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.util.ChatFileHttpClient;
 import com.iflytek.astron.console.commons.util.S3ClientUtil;
-import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
+import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.entity.dto.KnowledgeDto;
 import com.iflytek.astron.console.hub.entity.table.knowledge.MysqlKnowledge;
 import com.iflytek.astron.console.hub.entity.table.knowledge.MysqlPreviewKnowledge;

@@ -5,7 +5,7 @@ import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.hub.mapper.bot.ChatBotBaseMapper;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
-import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
+import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.entity.bot.ChatBotBase;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

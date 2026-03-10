@@ -12,7 +12,7 @@ import com.iflytek.astron.console.hub.enums.space.SpaceTypeEnum;
 import com.iflytek.astron.console.hub.mapper.space.InviteRecordMapper;
 import com.iflytek.astron.console.hub.service.space.InviteRecordService;
 import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;
-import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
+import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.dto.space.InviteRecordVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;

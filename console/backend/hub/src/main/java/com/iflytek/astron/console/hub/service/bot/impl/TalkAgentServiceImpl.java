@@ -14,7 +14,7 @@ import com.iflytek.astron.console.hub.service.bot.BotService;
 import com.iflytek.astron.console.hub.service.data.ChatDataService;
 import com.iflytek.astron.console.hub.service.data.ChatListDataService;
 import com.iflytek.astron.console.commons.util.AuthStringUtil;
-import com.iflytek.astron.console.commons.util.MaasUtil;
+import com.iflytek.astron.console.hub.util.MaasUtil;
 import com.iflytek.astron.console.hub.service.bot.TalkAgentService;
 import com.iflytek.astron.console.hub.service.workflow.BotChainService;
 import jakarta.servlet.http.HttpServletRequest;

@@ -4,7 +4,7 @@ import com.iflytek.astron.console.commons.annotation.RateLimit;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
-import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
+import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.dto.PageResponse;
 import com.iflytek.astron.console.hub.dto.bot.BotListRequestDto;
 import com.iflytek.astron.console.hub.dto.publish.BotPublishInfoDto;

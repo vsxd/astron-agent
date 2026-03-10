@@ -15,7 +15,7 @@ import com.iflytek.astron.console.hub.service.bot.BotFavoriteService;
 import com.iflytek.astron.console.hub.service.bot.BotMarketDataService;
 import com.iflytek.astron.console.hub.service.bot.BotService;
 import com.iflytek.astron.console.hub.service.data.UserLangChainDataService;
-import com.iflytek.astron.console.commons.util.BotUtil;
+import com.iflytek.astron.console.hub.util.BotUtil;
 import com.iflytek.astron.console.commons.util.I18nUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;

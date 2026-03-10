@@ -19,7 +19,7 @@ import com.iflytek.astron.console.hub.service.space.*;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
 import com.iflytek.astron.console.commons.util.S3ClientUtil;
 import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;
-import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
+import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.properties.InviteMessageTempProperties;
 import com.iflytek.astron.console.hub.properties.SpaceLimitProperties;
 import com.iflytek.astron.console.hub.service.notification.NotificationService;

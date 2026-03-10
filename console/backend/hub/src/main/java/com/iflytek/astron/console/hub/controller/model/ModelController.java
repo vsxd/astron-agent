@@ -4,7 +4,7 @@ import com.iflytek.astron.console.commons.annotation.space.SpacePreAuth;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
+import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.common.anno.ResponseResultBody;
 import com.iflytek.astron.console.hub.entity.biz.modelconfig.*;
 import com.iflytek.astron.console.hub.entity.vo.CategoryTreeVO;

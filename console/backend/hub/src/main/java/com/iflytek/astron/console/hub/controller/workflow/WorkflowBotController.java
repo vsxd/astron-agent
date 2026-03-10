@@ -9,7 +9,7 @@ import com.iflytek.astron.console.hub.dto.workflow.WorkflowInputTypeDto;
 import com.iflytek.astron.console.hub.entity.bot.UserLangChainInfo;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.service.data.UserLangChainDataService;
-import com.iflytek.astron.console.commons.util.MaasUtil;
+import com.iflytek.astron.console.hub.util.MaasUtil;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
 import com.iflytek.astron.console.hub.entity.WorkflowTemplateGroup;
 import com.iflytek.astron.console.hub.entity.maas.MaasDuplicate;

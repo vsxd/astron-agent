@@ -18,7 +18,7 @@ import com.iflytek.astron.console.hub.service.bot.BotDatasetService;
 import com.iflytek.astron.console.hub.service.bot.BotService;
 import com.iflytek.astron.console.commons.util.I18nUtil;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
-import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
+import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.dto.bot.BotGenerationDTO;
 import com.iflytek.astron.console.hub.service.bot.BotAIService;
 import com.iflytek.astron.console.hub.service.bot.PersonalityConfigService;

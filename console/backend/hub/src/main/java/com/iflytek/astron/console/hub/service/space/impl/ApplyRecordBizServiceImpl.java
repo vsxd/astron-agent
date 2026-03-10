@@ -16,7 +16,7 @@ import com.iflytek.astron.console.hub.service.space.EnterpriseUserService;
 import com.iflytek.astron.console.hub.service.space.SpaceUserService;
 import com.iflytek.astron.console.hub.service.space.ApplyRecordBizService;
 import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;
-import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
+import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

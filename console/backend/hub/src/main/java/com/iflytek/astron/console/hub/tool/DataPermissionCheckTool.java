@@ -9,7 +9,7 @@ import com.iflytek.astron.console.hub.entity.workflow.Workflow;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.hub.mapper.UserLangChainInfoMapper;
 import com.iflytek.astron.console.hub.service.bot.BotMarketDataService;
-import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
+import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.config.properties.BizConfig;
 import com.iflytek.astron.console.hub.entity.table.bot.SparkBot;
 import com.iflytek.astron.console.hub.entity.table.database.DbInfo;

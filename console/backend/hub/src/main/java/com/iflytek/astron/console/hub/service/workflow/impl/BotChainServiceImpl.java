@@ -7,7 +7,7 @@ import com.iflytek.astron.console.hub.dto.bot.TalkAgentConfigDto;
 import com.iflytek.astron.console.hub.entity.bot.UserLangChainInfo;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.hub.service.data.UserLangChainDataService;
-import com.iflytek.astron.console.commons.util.MaasUtil;
+import com.iflytek.astron.console.hub.util.MaasUtil;
 import com.iflytek.astron.console.hub.service.workflow.BotChainService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;

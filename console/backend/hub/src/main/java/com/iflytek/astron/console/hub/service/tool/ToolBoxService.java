@@ -16,7 +16,7 @@ import com.google.common.collect.Lists;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
+import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.common.*;
 import com.iflytek.astron.console.hub.common.constant.*;
 import com.iflytek.astron.console.hub.config.properties.*;

@@ -5,7 +5,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.iflytek.astron.console.commons.annotation.RateLimit;
 import com.iflytek.astron.console.commons.annotation.space.SpacePreAuth;
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
+import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.entity.CustomSpeaker;
 import com.iflytek.astron.console.hub.service.bot.CustomSpeakerService;
 import com.iflytek.astron.console.hub.service.bot.SpeakerTrainService;

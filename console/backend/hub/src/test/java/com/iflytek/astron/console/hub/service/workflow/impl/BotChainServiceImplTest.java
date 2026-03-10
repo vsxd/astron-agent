@@ -6,7 +6,7 @@ import com.iflytek.astron.console.hub.entity.bot.UserLangChainInfo;
 import com.iflytek.astron.console.hub.enums.bot.BotVersionEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.hub.service.data.UserLangChainDataService;
-import com.iflytek.astron.console.commons.util.MaasUtil;
+import com.iflytek.astron.console.hub.util.MaasUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

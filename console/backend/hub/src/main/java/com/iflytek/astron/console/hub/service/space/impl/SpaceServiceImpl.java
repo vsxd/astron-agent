@@ -17,7 +17,7 @@ import com.iflytek.astron.console.hub.service.space.EnterpriseService;
 import com.iflytek.astron.console.hub.service.space.SpaceService;
 import com.iflytek.astron.console.hub.service.space.SpaceUserService;
 import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;
-import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
+import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.dto.space.EnterpriseSpaceCountVO;
 import com.iflytek.astron.console.hub.dto.space.SpaceVO;
 import org.redisson.api.RedissonClient;

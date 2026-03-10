@@ -1,6 +1,6 @@
 package com.iflytek.astron.console.hub.config;
 
-import com.iflytek.astron.console.commons.config.JwtClaimsFilter;
+import com.iflytek.astron.console.hub.config.JwtClaimsFilter;
 import com.iflytek.astron.console.hub.config.security.RestfulAccessDeniedHandler;
 import com.iflytek.astron.console.hub.config.security.RestfulAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;

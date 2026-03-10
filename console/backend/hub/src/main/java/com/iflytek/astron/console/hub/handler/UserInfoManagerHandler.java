@@ -1,7 +1,7 @@
 package com.iflytek.astron.console.hub.handler;
 
 
-import com.iflytek.astron.console.commons.config.JwtClaimsFilter;
+import com.iflytek.astron.console.commons.util.RequestContextUtil;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.hub.entity.user.UserInfo;
 import com.iflytek.astron.console.commons.exception.BusinessException;
@@ -22,7 +22,7 @@ public final class UserInfoManagerHandler {
         if (request == null) {
             throw new BusinessException(ResponseEnum.UNAUTHORIZED);
         }
-        Object userInfoObj = request.getAttribute(JwtClaimsFilter.USER_INFO_ATTRIBUTE);
+        Object userInfoObj = request.getAttribute(RequestContextUtil.USER_INFO_ATTRIBUTE);
         if (userInfoObj instanceof UserInfo userInfo) {
             return userInfo;
         } else {
@@ -35,7 +35,7 @@ public final class UserInfoManagerHandler {
         if (request == null) {
             throw new BusinessException(ResponseEnum.UNAUTHORIZED);
         }
-        String uid = (String) request.getAttribute(JwtClaimsFilter.USER_ID_ATTRIBUTE);
+        String uid = (String) request.getAttribute(RequestContextUtil.USER_ID_ATTRIBUTE);
         if (StringUtils.isBlank(uid)) {
             throw new BusinessException(ResponseEnum.UNAUTHORIZED);
         }

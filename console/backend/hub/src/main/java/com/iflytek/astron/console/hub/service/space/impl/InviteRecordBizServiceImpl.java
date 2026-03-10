@@ -36,7 +36,7 @@ import com.iflytek.astron.console.hub.service.space.InviteRecordBizService;
 import com.iflytek.astron.console.hub.util.AESUtil;
 import com.iflytek.astron.console.hub.util.NameUtil;
 import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;
-import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
+import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.dto.space.BatchChatUserVO;
 import com.iflytek.astron.console.hub.dto.space.ChatUserVO;
 import com.iflytek.astron.console.hub.dto.space.InviteRecordVO;

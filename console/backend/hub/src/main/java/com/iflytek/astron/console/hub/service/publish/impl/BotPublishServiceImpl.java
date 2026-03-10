@@ -36,7 +36,7 @@ import com.iflytek.astron.console.hub.entity.BotConversationStats;
 import com.iflytek.astron.console.hub.service.publish.BotPublishService;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
-import com.iflytek.astron.console.commons.util.BotFileParamUtil;
+import com.iflytek.astron.console.hub.util.BotFileParamUtil;
 import com.iflytek.astron.console.hub.entity.table.workflow.WorkflowVersion;
 import com.iflytek.astron.console.hub.mapper.workflow.WorkflowVersionMapper;
 import lombok.RequiredArgsConstructor;

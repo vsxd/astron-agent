@@ -9,7 +9,7 @@ import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.hub.service.bot.ChatBotDataService;
 import com.iflytek.astron.console.hub.service.data.UserLangChainDataService;
 import com.iflytek.astron.console.hub.service.workflow.WorkflowBotService;
-import com.iflytek.astron.console.commons.util.MaasUtil;
+import com.iflytek.astron.console.hub.util.MaasUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,7 +3,7 @@ package com.iflytek.astron.console.hub.controller.model;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
+import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.entity.biz.modelconfig.LocalModelDto;
 import com.iflytek.astron.console.hub.entity.biz.modelconfig.ModelDto;
 import com.iflytek.astron.console.hub.entity.biz.modelconfig.ModelValidationRequest;

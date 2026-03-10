@@ -34,7 +34,7 @@ import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.service.bot.BotMarketDataService;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
 import com.iflytek.astron.console.commons.util.SseEmitterUtil;
-import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
+import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.common.Result;
 import com.iflytek.astron.console.hub.common.constant.CommonConst;
 import com.iflytek.astron.console.hub.common.constant.WorkflowConst;

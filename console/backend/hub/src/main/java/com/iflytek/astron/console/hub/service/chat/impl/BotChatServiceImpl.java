@@ -24,7 +24,7 @@ import com.iflytek.astron.console.hub.service.data.ChatListDataService;
 import com.iflytek.astron.console.hub.service.workflow.WorkflowBotChatService;
 import com.iflytek.astron.console.commons.util.I18nUtil;
 import com.iflytek.astron.console.commons.util.SseEmitterUtil;
-import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
+import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.data.ReqKnowledgeRecordsDataService;
 import com.iflytek.astron.console.hub.entity.ReqKnowledgeRecords;
 import com.iflytek.astron.console.hub.enums.ConfigTypeEnum;

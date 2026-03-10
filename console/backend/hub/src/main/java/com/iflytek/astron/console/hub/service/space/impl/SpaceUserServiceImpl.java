@@ -11,7 +11,7 @@ import com.iflytek.astron.console.hub.enums.space.SpaceRoleEnum;
 import com.iflytek.astron.console.hub.enums.space.SpaceTypeEnum;
 import com.iflytek.astron.console.hub.mapper.space.SpaceUserMapper;
 import com.iflytek.astron.console.hub.service.space.SpaceUserService;
-import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
+import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.dto.space.SpaceUserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

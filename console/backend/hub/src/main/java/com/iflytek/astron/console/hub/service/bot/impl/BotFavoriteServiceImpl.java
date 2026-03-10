@@ -14,7 +14,7 @@ import com.iflytek.astron.console.hub.mapper.bot.BotFavoriteMapper;
 import com.iflytek.astron.console.hub.mapper.bot.ChatBotBaseMapper;
 import com.iflytek.astron.console.hub.mapper.bot.ChatBotMarketMapper;
 import com.iflytek.astron.console.hub.service.bot.BotFavoriteService;
-import com.iflytek.astron.console.commons.util.BotUtil;
+import com.iflytek.astron.console.hub.util.BotUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

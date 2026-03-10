@@ -3,7 +3,7 @@ package com.iflytek.astron.console.hub.service.group;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
+import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.entity.table.group.GroupVisibility;
 import com.iflytek.astron.console.hub.entity.vo.group.GroupUserTagVO;
 import com.iflytek.astron.console.hub.handler.UserInfoManagerHandler;

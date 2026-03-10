@@ -11,7 +11,7 @@ import com.iflytek.astron.console.hub.entity.user.UserInfo;
 import com.iflytek.astron.console.hub.entity.workflow.Workflow;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.util.SseEmitterUtil;
-import com.iflytek.astron.console.commons.util.space.SpaceInfoUtil;
+import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.config.properties.ApiUrl;
 import com.iflytek.astron.console.hub.entity.biz.workflow.BizWorkflowData;
 import com.iflytek.astron.console.hub.entity.biz.workflow.BizWorkflowNode;

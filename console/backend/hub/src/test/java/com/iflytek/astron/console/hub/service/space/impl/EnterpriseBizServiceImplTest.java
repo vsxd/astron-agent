@@ -14,7 +14,7 @@ import com.iflytek.astron.console.hub.service.space.EnterpriseUserService;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
 import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;
 import com.iflytek.astron.console.hub.enums.space.EnterpriseServiceTypeEnum;
-import com.iflytek.astron.console.commons.util.space.OrderInfoUtil;
+import com.iflytek.astron.console.hub.util.space.OrderInfoUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -3,6 +3,7 @@ package com.iflytek.astron.console.hub.service.space.impl;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.iflytek.astron.console.hub.handler.UserInfoManagerHandler;
 import com.iflytek.astron.console.hub.data.UserInfoDataService;
 import com.iflytek.astron.console.hub.entity.user.UserInfo;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
@@ -64,7 +65,7 @@ public class EnterpriseServiceImpl extends ServiceImpl<EnterpriseMapper, Enterpr
 
     @Override
     public Integer checkNeedCreateTeam() {
-        UserInfo userInfo = RequestContextUtil.getUserInfo();
+        UserInfo userInfo = UserInfoManagerHandler.get();
         Enterprise enterprise = getEnterpriseByUid(userInfo.getUid());
         if (enterprise != null) {
             // Already joined an enterprise team, no need to create a team
