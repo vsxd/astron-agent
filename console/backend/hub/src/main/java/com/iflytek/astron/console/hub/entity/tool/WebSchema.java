@@ -3,8 +3,10 @@ package com.iflytek.astron.console.hub.entity.tool;
 import lombok.Data;
 
 import java.util.List;
+import org.apache.ibatis.type.Alias;
 
 @Data
+@Alias("ToolWebSchema")
 public class WebSchema {
     @Deprecated
     List<WebSchemaItem> toolHttpHeaders;
