@@ -7,8 +7,8 @@ import com.iflytek.astron.console.hub.service.user.MessageCodeService;
 import org.springframework.stereotype.Service;
 
 /**
- * Default no-op implementation of MessageCodeService.
- * SMS verification is only available in the commercial edition.
+ * Default no-op implementation of MessageCodeService. SMS verification is only available in the
+ * commercial edition.
  */
 @Service
 public class DefaultMessageCodeServiceImpl implements MessageCodeService {
