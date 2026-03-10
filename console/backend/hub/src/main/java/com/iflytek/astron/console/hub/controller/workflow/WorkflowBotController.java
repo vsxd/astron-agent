@@ -11,7 +11,7 @@ import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.service.data.UserLangChainDataService;
 import com.iflytek.astron.console.hub.util.MaasUtil;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
-import com.iflytek.astron.console.hub.entity.WorkflowTemplateGroup;
+import com.iflytek.astron.console.hub.entity.workflow.WorkflowTemplateGroup;
 import com.iflytek.astron.console.hub.entity.maas.MaasDuplicate;
 import com.iflytek.astron.console.hub.entity.maas.MaasTemplate;
 import com.iflytek.astron.console.hub.entity.maas.WorkflowTemplateQueryDto;

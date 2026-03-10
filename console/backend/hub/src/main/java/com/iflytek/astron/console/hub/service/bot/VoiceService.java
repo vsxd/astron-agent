@@ -1,6 +1,6 @@
 package com.iflytek.astron.console.hub.service.bot;
 
-import com.iflytek.astron.console.hub.entity.PronunciationPersonConfig;
+import com.iflytek.astron.console.hub.entity.user.PronunciationPersonConfig;
 
 import java.util.List;
 import java.util.Map;

@@ -1,7 +1,7 @@
 package com.iflytek.astron.console.hub.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.iflytek.astron.console.hub.entity.BotConversationStats;
+import com.iflytek.astron.console.hub.entity.bot.BotConversationStats;
 import com.iflytek.astron.console.hub.dto.publish.BotSummaryStatsVo;
 import com.iflytek.astron.console.hub.dto.publish.BotTimeSeriesStatsVo;
 import org.apache.ibatis.annotations.Mapper;

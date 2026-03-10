@@ -1,6 +1,6 @@
 package com.iflytek.astron.console.hub.entity.vo.rpa;
 
-import com.iflytek.astron.console.hub.entity.enumVo.DebugStatus;
+import com.iflytek.astron.console.hub.entity.enums.DebugStatus;
 
 import java.time.Instant;
 import java.util.Map;

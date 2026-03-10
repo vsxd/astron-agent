@@ -2,7 +2,7 @@ package com.iflytek.astron.console.hub.task.scheduler;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.iflytek.astron.console.hub.entity.enumVo.ModelStatusEnum;
+import com.iflytek.astron.console.hub.entity.enums.ModelStatusEnum;
 import com.iflytek.astron.console.hub.entity.table.model.Model;
 import com.iflytek.astron.console.hub.service.model.impl.ModelService;
 import com.iflytek.astron.console.hub.util.RedisUtil;

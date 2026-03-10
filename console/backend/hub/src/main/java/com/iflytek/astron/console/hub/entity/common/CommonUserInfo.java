@@ -1,4 +1,4 @@
-package com.iflytek.astron.console.hub.entity;
+package com.iflytek.astron.console.hub.entity.common;
 
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -13,7 +13,7 @@ import org.apache.ibatis.type.Alias;
 @NoArgsConstructor
 @Builder
 @Alias("CommonUserInfo")
-public class UserInfo {
+public class CommonUserInfo {
     /**
      * User ID
      */

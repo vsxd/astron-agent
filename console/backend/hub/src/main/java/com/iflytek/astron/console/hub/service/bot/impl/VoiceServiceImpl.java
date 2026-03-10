@@ -2,7 +2,7 @@ package com.iflytek.astron.console.hub.service.bot.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.iflytek.astron.console.commons.util.I18nUtil;
-import com.iflytek.astron.console.hub.entity.PronunciationPersonConfig;
+import com.iflytek.astron.console.hub.entity.user.PronunciationPersonConfig;
 import com.iflytek.astron.console.hub.enums.TtsTypeEnum;
 import com.iflytek.astron.console.hub.mapper.PronunciationPersonConfigMapper;
 import com.iflytek.astron.console.hub.service.bot.VoiceService;

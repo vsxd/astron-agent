@@ -15,7 +15,7 @@ import com.iflytek.astron.console.hub.common.constant.CommonConst;
 import com.iflytek.astron.console.hub.config.jooq.JooqBatchExecutor;
 import com.iflytek.astron.console.hub.config.properties.CommonConfig;
 import com.iflytek.astron.console.hub.entity.dto.database.*;
-import com.iflytek.astron.console.hub.entity.enumVo.DBOperateEnum;
+import com.iflytek.astron.console.hub.entity.enums.DBOperateEnum;
 import com.iflytek.astron.console.hub.entity.table.database.*;
 import com.iflytek.astron.console.hub.entity.table.relation.FlowDbRel;
 import com.iflytek.astron.console.hub.entity.vo.database.*;

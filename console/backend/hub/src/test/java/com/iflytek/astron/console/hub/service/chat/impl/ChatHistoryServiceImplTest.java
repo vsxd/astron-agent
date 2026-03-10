@@ -8,7 +8,7 @@ import com.iflytek.astron.console.hub.dto.llm.SparkChatRequest;
 import com.iflytek.astron.console.hub.service.data.ChatDataService;
 import com.iflytek.astron.console.commons.util.I18nUtil;
 import com.iflytek.astron.console.hub.data.ReqKnowledgeRecordsDataService;
-import com.iflytek.astron.console.hub.entity.ReqKnowledgeRecords;
+import com.iflytek.astron.console.hub.entity.knowledge.ReqKnowledgeRecords;
 import org.apache.logging.log4j.util.Base64Util;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

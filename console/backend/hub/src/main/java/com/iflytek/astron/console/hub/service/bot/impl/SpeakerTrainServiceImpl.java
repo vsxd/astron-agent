@@ -10,7 +10,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.util.AudioValidator;
-import com.iflytek.astron.console.hub.entity.CustomSpeaker;
+import com.iflytek.astron.console.hub.entity.user.CustomSpeaker;
 import com.iflytek.astron.console.hub.service.bot.CustomSpeakerService;
 import com.iflytek.astron.console.hub.service.bot.SpeakerTrainService;
 import lombok.RequiredArgsConstructor;

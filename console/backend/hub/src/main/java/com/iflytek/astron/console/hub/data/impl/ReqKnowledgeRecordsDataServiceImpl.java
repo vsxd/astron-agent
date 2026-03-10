@@ -2,7 +2,7 @@ package com.iflytek.astron.console.hub.data.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.iflytek.astron.console.hub.data.ReqKnowledgeRecordsDataService;
-import com.iflytek.astron.console.hub.entity.ReqKnowledgeRecords;
+import com.iflytek.astron.console.hub.entity.knowledge.ReqKnowledgeRecords;
 import com.iflytek.astron.console.hub.mapper.ReqKnowledgeRecordsMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

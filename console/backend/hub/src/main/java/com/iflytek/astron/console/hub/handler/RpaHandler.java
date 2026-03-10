@@ -7,7 +7,7 @@ import java.util.*;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.hub.config.properties.ApiUrl;
-import com.iflytek.astron.console.hub.entity.enumVo.VarType;
+import com.iflytek.astron.console.hub.entity.enums.VarType;
 import com.iflytek.astron.console.hub.util.OkHttpUtil;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;

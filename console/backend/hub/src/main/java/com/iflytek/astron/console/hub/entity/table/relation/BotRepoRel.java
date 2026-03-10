@@ -2,6 +2,7 @@ package com.iflytek.astron.console.hub.entity.table.relation;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,6 +22,7 @@ import java.sql.Timestamp;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@TableName("bot_repo_rel")
 public class BotRepoRel implements Serializable {
 
     private static final long serialVersionUID = 1L;

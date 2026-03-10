@@ -12,7 +12,7 @@ import com.iflytek.astron.console.commons.util.I18nUtil;
 import com.iflytek.astron.console.commons.util.S3ClientUtil;
 import com.iflytek.astron.console.hub.dto.bot.BotGenerationDto;
 import com.iflytek.astron.console.hub.dto.bot.PromptStructDto;
-import com.iflytek.astron.console.hub.entity.AiPromptTemplate;
+import com.iflytek.astron.console.hub.entity.prompt.AiPromptTemplate;
 import com.iflytek.astron.console.hub.mapper.AiPromptTemplateMapper;
 import com.iflytek.astron.console.hub.service.bot.BotAIService;
 import com.iflytek.astron.console.hub.service.bot.OpenAiModelProcessService;

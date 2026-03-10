@@ -1,6 +1,6 @@
 package com.iflytek.astron.console.hub.data;
 
-import com.iflytek.astron.console.hub.entity.ReqKnowledgeRecords;
+import com.iflytek.astron.console.hub.entity.knowledge.ReqKnowledgeRecords;
 
 import java.util.List;
 import java.util.Map;

@@ -32,7 +32,7 @@ import com.iflytek.astron.console.hub.service.publish.PublishChannelService;
 import com.iflytek.astron.console.hub.service.wechat.WechatThirdpartyService;
 import com.iflytek.astron.console.hub.dto.bot.BotPublishQueryResult;
 import com.iflytek.astron.console.hub.dto.bot.ChatBotApi;
-import com.iflytek.astron.console.hub.entity.BotConversationStats;
+import com.iflytek.astron.console.hub.entity.bot.BotConversationStats;
 import com.iflytek.astron.console.hub.service.publish.BotPublishService;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;

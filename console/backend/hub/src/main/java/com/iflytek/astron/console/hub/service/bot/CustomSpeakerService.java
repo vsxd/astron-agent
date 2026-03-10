@@ -1,6 +1,6 @@
 package com.iflytek.astron.console.hub.service.bot;
 
-import com.iflytek.astron.console.hub.entity.CustomSpeaker;
+import com.iflytek.astron.console.hub.entity.user.CustomSpeaker;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;

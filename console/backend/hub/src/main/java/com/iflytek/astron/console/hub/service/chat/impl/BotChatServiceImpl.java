@@ -26,7 +26,7 @@ import com.iflytek.astron.console.commons.util.I18nUtil;
 import com.iflytek.astron.console.commons.util.SseEmitterUtil;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.data.ReqKnowledgeRecordsDataService;
-import com.iflytek.astron.console.hub.entity.ReqKnowledgeRecords;
+import com.iflytek.astron.console.hub.entity.knowledge.ReqKnowledgeRecords;
 import com.iflytek.astron.console.hub.enums.ConfigTypeEnum;
 import com.iflytek.astron.console.hub.service.PromptChatService;
 import com.iflytek.astron.console.hub.service.SparkChatService;

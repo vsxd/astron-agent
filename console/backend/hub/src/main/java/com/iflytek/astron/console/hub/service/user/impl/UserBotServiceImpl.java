@@ -21,7 +21,7 @@ import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.dto.user.MyBotPageDto;
 import com.iflytek.astron.console.hub.dto.user.MyBotParamDto;
 import com.iflytek.astron.console.hub.dto.user.MyBotResponseDto;
-import com.iflytek.astron.console.hub.entity.ApplicationForm;
+import com.iflytek.astron.console.hub.entity.space.ApplicationForm;
 import com.iflytek.astron.console.hub.entity.wechat.BotOffiaccount;
 import com.iflytek.astron.console.hub.mapper.ApplicationFormMapper;
 import com.iflytek.astron.console.hub.service.wechat.BotOffiaccountService;

@@ -24,7 +24,7 @@ import com.iflytek.astron.console.hub.entity.biz.modelconfig.ModelDto;
 import com.iflytek.astron.console.hub.entity.biz.modelconfig.ModelValidationRequest;
 import com.iflytek.astron.console.hub.entity.biz.workflow.BizWorkflowData;
 import com.iflytek.astron.console.hub.entity.biz.workflow.BizWorkflowNode;
-import com.iflytek.astron.console.hub.entity.enumVo.ModelStatusEnum;
+import com.iflytek.astron.console.hub.entity.enums.ModelStatusEnum;
 import com.iflytek.astron.console.hub.entity.table.ConfigInfo;
 import com.iflytek.astron.console.hub.entity.table.model.Model;
 import com.iflytek.astron.console.hub.entity.table.model.ModelCategory;

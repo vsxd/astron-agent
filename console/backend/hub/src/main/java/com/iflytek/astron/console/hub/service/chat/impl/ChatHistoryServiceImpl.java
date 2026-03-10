@@ -7,7 +7,7 @@ import com.iflytek.astron.console.hub.service.data.ChatDataService;
 import com.iflytek.astron.console.hub.service.data.ChatHistoryService;
 import com.iflytek.astron.console.commons.util.I18nUtil;
 import com.iflytek.astron.console.hub.data.ReqKnowledgeRecordsDataService;
-import com.iflytek.astron.console.hub.entity.ReqKnowledgeRecords;
+import com.iflytek.astron.console.hub.entity.knowledge.ReqKnowledgeRecords;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.util.Base64Util;

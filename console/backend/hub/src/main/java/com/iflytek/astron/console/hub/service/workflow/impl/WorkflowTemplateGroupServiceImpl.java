@@ -1,7 +1,7 @@
 package com.iflytek.astron.console.hub.service.workflow.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.iflytek.astron.console.hub.entity.WorkflowTemplateGroup;
+import com.iflytek.astron.console.hub.entity.workflow.WorkflowTemplateGroup;
 import com.iflytek.astron.console.hub.mapper.WorkflowTemplateGroupMapper;
 import com.iflytek.astron.console.hub.service.workflow.WorkflowTemplateGroupService;
 import org.springframework.stereotype.Service;

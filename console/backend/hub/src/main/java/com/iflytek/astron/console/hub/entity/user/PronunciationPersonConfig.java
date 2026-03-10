@@ -1,4 +1,4 @@
-package com.iflytek.astron.console.hub.entity;
+package com.iflytek.astron.console.hub.entity.user;
 
 
 import com.baomidou.mybatisplus.annotation.IdType;

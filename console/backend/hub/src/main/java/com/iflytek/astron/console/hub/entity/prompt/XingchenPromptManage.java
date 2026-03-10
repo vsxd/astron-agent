@@ -1,4 +1,4 @@
-package com.iflytek.astron.console.hub.entity;
+package com.iflytek.astron.console.hub.entity.prompt;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -8,9 +8,9 @@ import java.time.LocalDateTime;
 import lombok.Data;
 
 @Data
-@TableName("xingchen_official_prompt")
-@Schema(name = "XingchenOfficialPrompt", description = "Xingchen Official Prompt Table")
-public class XingchenOfficialPrompt {
+@TableName("xingchen_prompt_manage")
+@Schema(name = "XingchenPromptManage", description = "Xingchen Prompt Management Table")
+public class XingchenPromptManage {
 
     @TableId(type = IdType.AUTO)
     private Long id;
@@ -32,6 +32,9 @@ public class XingchenOfficialPrompt {
 
     @Schema(description = "Latest version number")
     private String latestVersion;
+
+    @Schema(description = "Current version number")
+    private String currentVersion;
 
     @Schema(description = "Model configuration information (JSON format)")
     private String modelConfig;

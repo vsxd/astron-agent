@@ -1,4 +1,4 @@
-package com.iflytek.astron.console.hub.entity.enumVo;
+package com.iflytek.astron.console.hub.entity.enums;
 
 /**
  * @author clliu19

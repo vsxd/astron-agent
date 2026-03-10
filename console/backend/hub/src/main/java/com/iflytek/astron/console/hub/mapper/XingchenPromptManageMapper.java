@@ -1,7 +1,7 @@
 package com.iflytek.astron.console.hub.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.iflytek.astron.console.hub.entity.XingchenPromptManage;
+import com.iflytek.astron.console.hub.entity.prompt.XingchenPromptManage;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

@@ -26,7 +26,7 @@ import com.iflytek.astron.console.hub.entity.common.PageData;
 import com.iflytek.astron.console.hub.entity.core.openapi.*;
 import com.iflytek.astron.console.hub.entity.dto.*;
 import com.iflytek.astron.console.hub.entity.vo.ToolBoxExportVo;
-import com.iflytek.astron.console.hub.entity.enumVo.ToolboxStatusEnum;
+import com.iflytek.astron.console.hub.entity.enums.ToolboxStatusEnum;
 import com.iflytek.astron.console.hub.entity.table.ConfigInfo;
 import com.iflytek.astron.console.hub.entity.table.relation.BotToolRel;
 import com.iflytek.astron.console.hub.entity.table.relation.FlowToolRel;

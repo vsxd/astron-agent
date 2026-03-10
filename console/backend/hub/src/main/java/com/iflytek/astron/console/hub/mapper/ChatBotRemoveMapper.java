@@ -1,7 +1,7 @@
 package com.iflytek.astron.console.hub.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.iflytek.astron.console.hub.entity.ChatBotRemove;
+import com.iflytek.astron.console.hub.entity.bot.ChatBotRemove;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

@@ -1,4 +1,4 @@
-package com.iflytek.astron.console.hub.entity;
+package com.iflytek.astron.console.hub.entity.prompt;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
