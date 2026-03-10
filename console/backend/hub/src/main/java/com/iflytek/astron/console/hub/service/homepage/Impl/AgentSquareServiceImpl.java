@@ -14,7 +14,6 @@ import com.iflytek.astron.console.hub.dto.homepage.BotListPageDto;
 import com.iflytek.astron.console.hub.dto.homepage.BotTypeDto;
 import com.iflytek.astron.console.hub.service.homepage.AgentSquareService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -22,27 +21,25 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author yun-zhi-ztl
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class AgentSquareServiceImpl implements AgentSquareService {
 
-    @Autowired
-    private BotTypeListService botTypeListService;
+    private final BotTypeListService botTypeListService;
 
-    @Autowired
-    private ChatBotMarketService chatBotMarketService;
+    private final ChatBotMarketService chatBotMarketService;
 
-    @Autowired
-    private UserInfoDataService userInfoDataService;
+    private final UserInfoDataService userInfoDataService;
 
-    @Autowired
-    private BotFavoriteService botFavoriteService;
+    private final BotFavoriteService botFavoriteService;
 
-    @Autowired
-    private ChatListDataService chatListDataService;
+    private final ChatListDataService chatListDataService;
 
     @Override
     public List<BotTypeDto> getBotTypeList() {

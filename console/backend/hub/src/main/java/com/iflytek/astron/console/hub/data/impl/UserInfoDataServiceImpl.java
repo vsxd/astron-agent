@@ -14,10 +14,10 @@ import com.iflytek.astron.console.commons.util.RequestContextUtil;
 import com.iflytek.astron.console.commons.util.I18nUtil;
 import com.iflytek.astron.console.hub.event.UserNicknameUpdatedEvent;
 import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +27,7 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class UserInfoDataServiceImpl implements UserInfoDataService {
 
     private static final Random RANDOM = new Random();
@@ -51,12 +52,9 @@ public class UserInfoDataServiceImpl implements UserInfoDataService {
             "Star", "Moon", "Cloud", "Flower", "Leaf", "Rainbow", "Butterfly", "Bear"
     };
 
-    @Autowired
-    private UserInfoMapper userInfoMapper;
-    @Autowired
-    private RedissonClient redissonClient;
-    @Autowired
-    private ApplicationEventPublisher eventPublisher;
+    private final UserInfoMapper userInfoMapper;
+    private final RedissonClient redissonClient;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Override
     public Optional<UserInfo> findByUid(String uid) {

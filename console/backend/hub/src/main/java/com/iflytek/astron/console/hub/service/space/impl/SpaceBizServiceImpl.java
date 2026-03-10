@@ -28,9 +28,9 @@ import com.iflytek.astron.console.hub.util.space.OrderInfoUtil;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,23 +38,16 @@ import java.util.Objects;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class SpaceBizServiceImpl implements SpaceBizService {
-    @Autowired
-    private SpaceUserService spaceUserService;
-    @Autowired(required = false)
-    private MessageCodeService messageCodeService;
-    @Autowired
-    private EnterpriseUserService enterpriseUserService;
-    @Autowired
-    private EnterpriseService enterpriseService;
-    @Autowired
-    private SpaceLimitProperties spaceLimitProperties;
-    @Autowired
-    private SpaceService spaceService;
-    @Autowired
-    private ChatBotDataService chatBotDataService;
-    @Autowired
-    private UserInfoDataService userInfoDataService;
+    private final SpaceUserService spaceUserService;
+    private final MessageCodeService messageCodeService;
+    private final EnterpriseUserService enterpriseUserService;
+    private final EnterpriseService enterpriseService;
+    private final SpaceLimitProperties spaceLimitProperties;
+    private final SpaceService spaceService;
+    private final ChatBotDataService chatBotDataService;
+    private final UserInfoDataService userInfoDataService;
 
 
     /**

@@ -30,10 +30,10 @@ import com.iflytek.astron.console.hub.util.database.NamePolicy;
 import com.iflytek.astron.console.hub.util.database.SqlRenderer;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.jooq.*;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -57,36 +57,27 @@ import static org.jooq.impl.DSL.*;
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class DatabaseService extends ServiceImpl<DbInfoMapper, DbInfo> {
 
-    @Autowired
-    DbInfoMapper dbInfoMapper;
+    private final DbInfoMapper dbInfoMapper;
 
-    @Autowired
-    DbTableMapper dbTableMapper;
+    private final DbTableMapper dbTableMapper;
 
-    @Autowired
-    DbTableFieldMapper dbTableFieldMapper;
+    private final DbTableFieldMapper dbTableFieldMapper;
 
-    @Autowired
-    DataPermissionCheckTool dataPermissionCheckTool;
+    private final DataPermissionCheckTool dataPermissionCheckTool;
 
-    @Autowired
-    private S3Util s3Util;
+    private final S3Util s3Util;
 
-    @Autowired
-    private CoreSystemService coreSystemService;
+    private final CoreSystemService coreSystemService;
 
-    @Autowired
-    private FlowDbRelMapper flowDbRelMapper;
+    private final FlowDbRelMapper flowDbRelMapper;
 
-    @Autowired
-    private ConfigInfoMapper configInfoMapper;
+    private final ConfigInfoMapper configInfoMapper;
 
-    @Autowired
-    private DSLContext dslCon;
-    @Autowired
-    private CommonConfig commonConfig;
+    private final DSLContext dslCon;
+    private final CommonConfig commonConfig;
 
     private static final String[] SYSTEM_FIELDS = {"id", "uid", "create_time"};
     // New additions in DatabaseService

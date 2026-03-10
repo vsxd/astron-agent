@@ -7,8 +7,8 @@ import com.iflytek.astron.console.hub.entity.space.SpacePermission;
 import com.iflytek.astron.console.hub.service.space.EnterprisePermissionService;
 import com.iflytek.astron.console.hub.service.space.SpacePermissionService;
 import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.springframework.aop.support.AopUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -24,13 +24,11 @@ import java.util.stream.Collectors;
 
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class PermissionValidator implements ApplicationListener<ContextRefreshedEvent> {
-    @Autowired
-    private EnterprisePermissionService enterprisePermissionService;
-    @Autowired
-    private SpacePermissionService spacePermissionService;
-    @Autowired
-    private ApplicationContext applicationContext;
+    private final EnterprisePermissionService enterprisePermissionService;
+    private final SpacePermissionService spacePermissionService;
+    private final ApplicationContext applicationContext;
 
     private static final boolean isInit = false;
 

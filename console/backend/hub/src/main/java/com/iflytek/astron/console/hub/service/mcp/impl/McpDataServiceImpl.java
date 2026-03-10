@@ -5,11 +5,12 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.iflytek.astron.console.hub.entity.model.McpData;
 import com.iflytek.astron.console.hub.mapper.model.McpDataMapper;
 import com.iflytek.astron.console.hub.service.mcp.McpDataService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author wowo_zZ
@@ -17,10 +18,10 @@ import java.util.Objects;
  **/
 
 @Service
+@RequiredArgsConstructor
 public class McpDataServiceImpl implements McpDataService {
 
-    @Autowired
-    private McpDataMapper mcpDataMapper;
+    private final McpDataMapper mcpDataMapper;
 
     @Override
     public List<McpData> getMcpByUid(String uid) {

@@ -10,22 +10,22 @@ import com.iflytek.astron.console.hub.service.space.EnterpriseSpaceService;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
 import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;
 import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class EnterpriseAuthAspect {
 
 
-    @Autowired
-    private EnterpriseSpaceService enterpriseSpaceService;
+    private final EnterpriseSpaceService enterpriseSpaceService;
 
     @Pointcut("@annotation(com.iflytek.astron.console.commons.annotation.space.EnterprisePreAuth)")
     public void annotatedMethod() {}

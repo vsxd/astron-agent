@@ -31,7 +31,6 @@ import com.iflytek.astron.console.hub.util.BotPermissionUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -39,42 +38,35 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author wowo_zZ
  * @since 2025/9/9 19:26
  **/
 @Service
+@RequiredArgsConstructor
 public class UserBotServiceImpl implements UserBotService {
 
-    @Autowired
-    private ChatBotListMapper chatBotListMapper;
+    private final ChatBotListMapper chatBotListMapper;
 
-    @Autowired
-    private BotOffiaccountService botOffiaccountService;
+    private final BotOffiaccountService botOffiaccountService;
 
-    @Autowired
-    private UserLangChainDataService userLangChainDataService;
+    private final UserLangChainDataService userLangChainDataService;
 
-    @Autowired
-    private BotFavoriteService botFavoriteService;
+    private final BotFavoriteService botFavoriteService;
 
-    @Autowired
-    private ChatBotApiService chatBotApiService;
+    private final ChatBotApiService chatBotApiService;
 
-    @Autowired
-    private McpDataService mcpDataService;
+    private final McpDataService mcpDataService;
 
-    @Autowired
-    private RedissonClient redissonClient;
+    private final RedissonClient redissonClient;
 
-    @Autowired
-    private BotPermissionUtil botPermissionUtil;
+    private final BotPermissionUtil botPermissionUtil;
 
-    @Autowired
-    private ApplicationFormMapper applicationFormMapper;
+    private final ApplicationFormMapper applicationFormMapper;
 
-    @Autowired
-    private BotService botService;
+    private final BotService botService;
 
     public static final String RECORD_BOT_ID = "recordFormBotId_";
 

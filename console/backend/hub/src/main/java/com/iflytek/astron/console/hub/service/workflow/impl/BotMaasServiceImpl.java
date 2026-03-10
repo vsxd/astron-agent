@@ -22,7 +22,6 @@ import com.iflytek.astron.console.hub.service.workflow.BotMaasService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -30,27 +29,25 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @Author cherry
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class BotMaasServiceImpl implements BotMaasService {
 
-    @Autowired
-    private MaasUtil maasUtil;
+    private final MaasUtil maasUtil;
 
-    @Autowired
-    private UserLangChainDataService userLangChainDataService;
+    private final UserLangChainDataService userLangChainDataService;
 
-    @Autowired
-    private RedissonClient redissonClient;
+    private final RedissonClient redissonClient;
 
-    @Autowired
-    private BotService botService;
+    private final BotService botService;
 
-    @Autowired
-    private MaasTemplateMapper maasTemplateMapper;
+    private final MaasTemplateMapper maasTemplateMapper;
 
     @Override
     public BotInfoDto createFromTemplate(String uid, MaasDuplicate maasDuplicate, HttpServletRequest request) {

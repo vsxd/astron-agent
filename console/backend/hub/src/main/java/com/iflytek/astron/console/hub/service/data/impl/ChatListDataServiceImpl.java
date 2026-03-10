@@ -15,7 +15,6 @@ import com.iflytek.astron.console.hub.mapper.chat.ChatTreeIndexMapper;
 import com.iflytek.astron.console.hub.service.data.ChatListDataService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -26,14 +25,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ChatListDataServiceImpl implements ChatListDataService {
 
-    @Autowired
-    private ChatListMapper chatListMapper;
+    private final ChatListMapper chatListMapper;
 
-    @Autowired
-    private ChatTreeIndexMapper chatTreeIndexMapper;
+    private final ChatTreeIndexMapper chatTreeIndexMapper;
 
-    @Autowired
-    private ChatBotListMapper chatBotListMapper;
+    private final ChatBotListMapper chatBotListMapper;
 
     /**
      * Query chat list by user ID and chat ID

@@ -8,9 +8,10 @@ import com.iflytek.astron.console.commons.util.RequestContextUtil;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.entity.bot.ChatBotBase;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author yun-zhi-ztl
@@ -18,10 +19,10 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class BotPermissionUtil {
 
-    @Autowired
-    private ChatBotBaseMapper chatBotBaseMapper;
+    private final ChatBotBaseMapper chatBotBaseMapper;
 
     public void checkBot(Integer botId) {
         Long spaceId = SpaceInfoUtil.getSpaceId();

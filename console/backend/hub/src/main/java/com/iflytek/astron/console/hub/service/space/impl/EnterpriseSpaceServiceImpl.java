@@ -4,29 +4,24 @@ import com.iflytek.astron.console.hub.entity.space.*;
 import com.iflytek.astron.console.hub.service.space.*;
 import com.iflytek.astron.console.hub.enums.space.SpaceTypeEnum;
 import com.iflytek.astron.console.hub.util.space.OrderInfoUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Service
+@RequiredArgsConstructor
 public class EnterpriseSpaceServiceImpl implements EnterpriseSpaceService {
-    @Autowired
-    private SpaceUserService spaceUserService;
-    @Autowired
-    private EnterpriseService enterpriseService;
-    @Autowired
-    private SpaceService spaceService;
-    @Autowired
-    private SpacePermissionService spacePermissionService;
-    @Autowired
-    private EnterprisePermissionService enterprisePermissionService;
-    @Autowired
-    private EnterpriseUserService enterpriseUserService;
+    private final SpaceUserService spaceUserService;
+    private final EnterpriseService enterpriseService;
+    private final SpaceService spaceService;
+    private final SpacePermissionService spacePermissionService;
+    private final EnterprisePermissionService enterprisePermissionService;
+    private final EnterpriseUserService enterpriseUserService;
 
     @Override
     @Transactional

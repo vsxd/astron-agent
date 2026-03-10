@@ -22,7 +22,6 @@ import com.iflytek.astron.console.hub.mapper.workflow.*;
 import com.iflytek.astron.console.hub.tool.DataPermissionCheckTool;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +30,8 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * Version service for managing workflow versions. Handles workflow version creation, listing,
@@ -41,22 +42,18 @@ import java.util.stream.Collectors;
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class VersionService {
 
-    @Autowired
-    WorkflowService workflowService;
+    private final WorkflowService workflowService;
 
-    @Autowired
-    DataPermissionCheckTool dataPermissionCheckTool;
+    private final DataPermissionCheckTool dataPermissionCheckTool;
 
-    @Autowired
-    WorkflowMapper workflowMapper;
+    private final WorkflowMapper workflowMapper;
 
-    @Autowired
-    WorkflowVersionMapper workflowVersionMapper;
+    private final WorkflowVersionMapper workflowVersionMapper;
 
-    @Autowired
-    private WorkflowConfigMapper workflowConfigMapper;
+    private final WorkflowConfigMapper workflowConfigMapper;
 
 
     @Value("${spring.profiles.active}")

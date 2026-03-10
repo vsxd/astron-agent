@@ -28,7 +28,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -52,32 +51,23 @@ public class PublishApiServiceImpl implements PublishApiService {
     @Value("${maas.botApiMaasBaseUrl}")
     private String botApiMaasBaseUrl;
 
-    @Autowired
-    private AppMstService appMstService;
+    private final AppMstService appMstService;
 
-    @Autowired
-    private TenantService tenantService;
+    private final TenantService tenantService;
 
-    @Autowired
-    private RedisUtil redisUtil;
+    private final RedisUtil redisUtil;
 
-    @Autowired
-    private ChatBotDataService chatBotDataService;
+    private final ChatBotDataService chatBotDataService;
 
-    @Autowired
-    private ChatBotApiService chatBotApiService;
+    private final ChatBotApiService chatBotApiService;
 
-    @Autowired
-    private BotDatasetMapper botDatasetMapper;
+    private final BotDatasetMapper botDatasetMapper;
 
-    @Autowired
-    private UserLangChainDataService userLangChainDataService;
+    private final UserLangChainDataService userLangChainDataService;
 
-    @Autowired
-    private MaasUtil maasUtil;
+    private final MaasUtil maasUtil;
 
-    @Autowired
-    private ReleaseManageClientService releaseManageClientService;
+    private final ReleaseManageClientService releaseManageClientService;
 
     private static final String PUBLISH_API = "publish_api";
 

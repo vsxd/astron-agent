@@ -5,18 +5,19 @@ import com.iflytek.astron.console.hub.entity.space.AgentShareRecord;
 import com.iflytek.astron.console.hub.mapper.AgentShareRecordMapper;
 import com.iflytek.astron.console.hub.data.ShareDataService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author mingsuiyongheng
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ShareDataServiceImpl implements ShareDataService {
 
-    @Autowired
-    private AgentShareRecordMapper shareRecordMapper;
+    private final AgentShareRecordMapper shareRecordMapper;
 
     @Override
     public AgentShareRecord findActiveShareRecord(String uid, int shareType, Long baseId) {

@@ -40,7 +40,6 @@ import com.iflytek.astron.console.hub.service.model.LLMService;
 import com.iflytek.astron.console.hub.service.model.ModelService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,54 +50,44 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author mingsuiyongheng
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class BotChatServiceImpl implements BotChatService {
 
-    @Autowired
-    private ChatBotDataService chatBotDataService;
+    private final ChatBotDataService chatBotDataService;
 
-    @Autowired
-    private ChatDataService chatDataService;
+    private final ChatDataService chatDataService;
 
-    @Autowired
-    private SparkChatService sparkChatService;
+    private final SparkChatService sparkChatService;
 
-    @Autowired
-    private ChatHistoryService chatHistoryService;
+    private final ChatHistoryService chatHistoryService;
 
-    @Autowired
-    private WorkflowBotChatService workflowBotChatService;
+    private final WorkflowBotChatService workflowBotChatService;
 
-    @Autowired
-    private KnowledgeService knowledgeService;
+    private final KnowledgeService knowledgeService;
 
     @Value("${spark.chat.max.input.tokens:8000}")
     private int maxInputTokens;
 
-    @Autowired
-    private ChatListDataService chatListDataService;
+    private final ChatListDataService chatListDataService;
 
-    @Autowired
-    private ChatListService chatListService;
+    private final ChatListService chatListService;
 
-    @Autowired
-    private BotService botService;
+    private final BotService botService;
 
-    @Autowired
-    private ModelService modelService;
+    private final ModelService modelService;
 
-    @Autowired
-    private PromptChatService promptChatService;
+    private final PromptChatService promptChatService;
 
-    @Autowired
-    private ReqKnowledgeRecordsDataService reqKnowledgeRecordsDataService;
+    private final ReqKnowledgeRecordsDataService reqKnowledgeRecordsDataService;
 
-    @Autowired
-    private PersonalityConfigService personalityConfigService;
+    private final PersonalityConfigService personalityConfigService;
 
     /**
      * Function to handle chat messages

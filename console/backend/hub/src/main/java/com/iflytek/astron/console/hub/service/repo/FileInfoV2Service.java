@@ -68,6 +68,8 @@ import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * FileInfoV2 Service Implementation Class This service handles file operations including upload,
  * slicing, embedding, and management for various file sources including Spark RAG, CBG RAG, and
@@ -78,6 +80,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2> {
     /**
      * Get single record by query wrapper
@@ -119,10 +122,8 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
     @Resource
     DataPermissionCheckTool dataPermissionCheckTool;
 
-    @Autowired
-    ChatFileHttpClient chatFileHttpClient;
-    @Autowired
-    private S3ClientUtil s3ClientUtil;
+    private final ChatFileHttpClient chatFileHttpClient;
+    private final S3ClientUtil s3ClientUtil;
     // @Autowired
     // private ResourceQuotaFacade facade;
 
@@ -132,7 +133,6 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
     @Value("${biz.cbg-rag-max-char-count}")
     private long cbgRagMaxCharCount;
 
-    @Autowired
     private ApiUrl apiUrl;
 
     private void ensureApiUrl() {

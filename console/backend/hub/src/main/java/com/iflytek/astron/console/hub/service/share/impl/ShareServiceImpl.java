@@ -9,23 +9,23 @@ import com.iflytek.astron.console.hub.data.ShareDataService;
 import com.iflytek.astron.console.hub.service.share.ShareService;
 import com.iflytek.astron.console.hub.util.Md5Util;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author mingsuiyongheng
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ShareServiceImpl implements ShareService {
 
-    @Autowired
-    private ChatBotDataService chatBotDataService;
+    private final ChatBotDataService chatBotDataService;
 
-    @Autowired
-    private ShareDataService shareDataService;
+    private final ShareDataService shareDataService;
 
 
     /**

@@ -38,7 +38,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,55 +51,44 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author wowo_zZ
  * @since 2025/9/9 20:24
  **/
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class BotServiceImpl implements BotService {
 
-    @Autowired
-    private ChatBotDataService chatBotDataService;
+    private final ChatBotDataService chatBotDataService;
 
-    @Autowired
-    private UserLangChainDataService userLangChainDataService;
+    private final UserLangChainDataService userLangChainDataService;
 
-    @Autowired
-    private UserInfoDataService userInfoDataService;
+    private final UserInfoDataService userInfoDataService;
 
-    @Autowired
-    private BotFavoriteService botFavoriteService;
+    private final BotFavoriteService botFavoriteService;
 
-    @Autowired
-    private ChatListDataService chatListDataService;
+    private final ChatListDataService chatListDataService;
 
-    @Autowired
-    private DatasetDataService datasetDataService;
+    private final DatasetDataService datasetDataService;
 
-    @Autowired
-    private BotDatasetService botDatasetService;
+    private final BotDatasetService botDatasetService;
 
-    @Autowired
-    private BotTypeListService botTypeListService;
+    private final BotTypeListService botTypeListService;
 
-    @Autowired
-    private ChatBotMarketService chatBotMarketService;
+    private final ChatBotMarketService chatBotMarketService;
 
-    @Autowired
-    private RedissonClient redissonClient;
+    private final RedissonClient redissonClient;
 
-    @Autowired
-    private MaasUtil maasUtil;
+    private final MaasUtil maasUtil;
 
-    @Autowired
-    private UserLangChainLogService userLangChainLogService;
+    private final UserLangChainLogService userLangChainLogService;
 
-    @Autowired
-    private ChatBotBaseMapper chatBotBaseMapper;
+    private final ChatBotBaseMapper chatBotBaseMapper;
 
-    @Autowired
-    private ChatBotPromptStructMapper chatBotPromptStructMapper;
+    private final ChatBotPromptStructMapper chatBotPromptStructMapper;
 
     @Value("${bot.default.avatar}")
     private String DEFAULT_AVATAR;

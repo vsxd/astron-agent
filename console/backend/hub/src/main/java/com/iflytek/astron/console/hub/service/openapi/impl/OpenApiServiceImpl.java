@@ -15,28 +15,27 @@ import com.iflytek.astron.console.hub.service.external.ExternalApiService;
 import com.iflytek.astron.console.hub.service.openapi.OpenApiService;
 import com.iflytek.astron.console.hub.service.workflow.WorkflowService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Open API Service Implementation
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class OpenApiServiceImpl implements OpenApiService {
 
-    @Autowired
-    private ExternalApiService externalApiService;
+    private final ExternalApiService externalApiService;
 
-    @Autowired
-    private WorkflowService workflowService;
+    private final WorkflowService workflowService;
 
-    @Autowired
-    private ChatBotApiMapper chatBotApiMapper;
+    private final ChatBotApiMapper chatBotApiMapper;
 
     @Override
     public List<JSONObject> getWorkflowIoTransformations(WorkflowIoTransRequest request) {

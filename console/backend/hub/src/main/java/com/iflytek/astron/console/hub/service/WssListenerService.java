@@ -1,19 +1,18 @@
 package com.iflytek.astron.console.hub.service;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @Getter
+@RequiredArgsConstructor
 public class WssListenerService {
 
-    @Autowired
-    private ChatRecordModelService chatRecordModelService;
+    private final ChatRecordModelService chatRecordModelService;
 
-    @Autowired
-    private RedissonClient redissonClient;
+    private final RedissonClient redissonClient;
 
     public ChatRecordModelService getChatRecordModelService() {
         return chatRecordModelService;

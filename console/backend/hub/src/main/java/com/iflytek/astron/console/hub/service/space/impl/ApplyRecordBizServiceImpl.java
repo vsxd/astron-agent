@@ -18,7 +18,7 @@ import com.iflytek.astron.console.hub.service.space.ApplyRecordBizService;
 import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,16 +27,13 @@ import java.util.Objects;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ApplyRecordBizServiceImpl implements ApplyRecordBizService {
 
-    @Autowired
-    private SpaceUserService spaceUserService;
-    @Autowired
-    private UserInfoDataService userInfoDataService;
-    @Autowired
-    private EnterpriseUserService enterpriseUserService;
-    @Autowired
-    private ApplyRecordService applyRecordService;
+    private final SpaceUserService spaceUserService;
+    private final UserInfoDataService userInfoDataService;
+    private final EnterpriseUserService enterpriseUserService;
+    private final ApplyRecordService applyRecordService;
 
     /**
      * User applies to join enterprise space

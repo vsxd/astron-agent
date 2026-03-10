@@ -15,12 +15,12 @@ import com.iflytek.astron.console.hub.dto.bot.PromptStructDTO;
 import com.iflytek.astron.console.hub.entity.AiPromptTemplate;
 import com.iflytek.astron.console.hub.mapper.AiPromptTemplateMapper;
 import com.iflytek.astron.console.hub.service.bot.BotAIService;
+import com.iflytek.astron.console.hub.service.bot.OpenAiModelProcessService;
 import com.iflytek.astron.console.hub.util.BotAIServiceClient;
 import com.iflytek.astron.console.hub.util.ImageUtil;
 import com.iflytek.astron.console.hub.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
@@ -31,30 +31,28 @@ import java.util.regex.Pattern;
 
 import static com.iflytek.astron.console.commons.constant.ResponseEnum.PARAMETER_ERROR;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * AI service implementation class for creating intelligent agents
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class BotAIServiceImpl implements BotAIService {
 
     private static final float IMAGE_COMPRESS_SCALE = 0.2f;
     private static final int BASE_IMAGE_SIZE = 1024;
 
-    @Autowired
-    private S3ClientUtil s3ClientUtil;
+    private final S3ClientUtil s3ClientUtil;
 
-    @Autowired
-    private BotAIServiceClient aiServiceClient;
+    private final BotAIServiceClient aiServiceClient;
 
-    @Autowired
-    private AiPromptTemplateMapper promptTemplateMapper;
+    private final AiPromptTemplateMapper promptTemplateMapper;
 
-    @Autowired
-    private com.iflytek.astron.console.hub.service.bot.OpenAiModelProcessService openAiModelProcessService;
+    private final OpenAiModelProcessService openAiModelProcessService;
 
-    @Autowired
-    private RedisUtil redisUtil;
+    private final RedisUtil redisUtil;
 
     /**
      * Get prompt template from database with Redis cache

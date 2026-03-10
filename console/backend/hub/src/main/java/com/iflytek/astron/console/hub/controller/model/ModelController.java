@@ -12,7 +12,7 @@ import com.iflytek.astron.console.hub.service.model.ModelService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,9 +22,9 @@ import java.util.List;
 @RequestMapping("/api/model")
 @Tag(name = "Model management interface")
 @Slf4j
+@RequiredArgsConstructor
 public class ModelController {
-    @Autowired
-    private ModelService modelService;
+    private final ModelService modelService;
 
     /**
      * Add or update model

@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import okio.BufferedSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -26,11 +25,9 @@ public class PromptChatService {
 
     private final OkHttpClient httpClient;
 
-    @Autowired
-    private ChatDataService chatDataService;
+    private final ChatDataService chatDataService;
 
-    @Autowired
-    private ChatRecordModelService chatRecordModelService;
+    private final ChatRecordModelService chatRecordModelService;
 
     /**
      * Function to handle chat stream requests

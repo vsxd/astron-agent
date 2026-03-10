@@ -4,19 +4,20 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.iflytek.astron.console.hub.mapper.bot.BotTypeListMapper;
 import com.iflytek.astron.console.hub.service.bot.BotTypeListService;
 import com.iflytek.astron.console.hub.entity.bot.BotTypeList;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author yun-zhi-ztl
  */
 @Service
+@RequiredArgsConstructor
 public class BotTypeListServiceImpl implements BotTypeListService {
 
-    @Autowired
-    private BotTypeListMapper botTypeListMapper;
+    private final BotTypeListMapper botTypeListMapper;
 
     @Override
     public List<BotTypeList> getBotTypeList() {

@@ -12,7 +12,6 @@ import com.iflytek.astron.console.hub.service.data.ChatDataService;
 import com.iflytek.astron.console.hub.service.workflow.WorkflowBotParamService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -22,15 +21,17 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author mingsuiyongheng
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class WorkflowBotParamServiceImpl implements WorkflowBotParamService {
 
-    @Autowired
-    private ChatDataService chatDataService;
+    private final ChatDataService chatDataService;
 
     /**
      * Function to handle single parameter

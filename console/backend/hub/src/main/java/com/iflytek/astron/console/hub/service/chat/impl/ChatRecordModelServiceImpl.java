@@ -6,18 +6,19 @@ import com.iflytek.astron.console.hub.entity.chat.ChatReqRecords;
 import com.iflytek.astron.console.hub.entity.chat.ChatRespRecords;
 import com.iflytek.astron.console.hub.service.ChatRecordModelService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author mingsuiyongheng
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class ChatRecordModelServiceImpl implements ChatRecordModelService {
 
-    @Autowired
-    private ChatDataService chatDataService;
+    private final ChatDataService chatDataService;
 
     /**
      * Save thinking process result

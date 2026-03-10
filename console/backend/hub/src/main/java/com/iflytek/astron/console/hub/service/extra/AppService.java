@@ -13,7 +13,6 @@ import com.iflytek.astron.console.hub.util.RedisUtil;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -21,12 +20,15 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Application service for managing app credentials and authentication Handles retrieval of API keys
  * and secrets for applications
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class AppService {
 
     @Resource
@@ -36,8 +38,7 @@ public class AppService {
 
     @Resource
     RedisUtil redisUtil;
-    @Autowired
-    private CommonConfig commonConfig;
+    private final CommonConfig commonConfig;
 
 
     /**

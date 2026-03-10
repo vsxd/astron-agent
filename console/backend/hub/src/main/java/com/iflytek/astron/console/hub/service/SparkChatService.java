@@ -18,7 +18,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import okio.BufferedSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -38,11 +37,9 @@ public class SparkChatService {
     @Value("${spark.api.password}")
     private String apiPassword;
 
-    @Autowired
-    private ChatDataService chatDataService;
+    private final ChatDataService chatDataService;
 
-    @Autowired
-    private ChatRecordModelService chatRecordModelService;
+    private final ChatRecordModelService chatRecordModelService;
 
     /**
      * Create and return an SseEmitter object for handling chat room streaming requests

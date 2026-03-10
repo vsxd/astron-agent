@@ -21,7 +21,6 @@ import com.iflytek.astron.console.hub.entity.chat.ChatReqRecords;
 import com.iflytek.astron.console.hub.service.chat.ChatListService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,24 +29,23 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author mingsuiyongheng
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ChatListServiceImpl implements ChatListService {
 
-    @Autowired
-    private ChatListDataService chatListDataService;
+    private final ChatListDataService chatListDataService;
 
-    @Autowired
-    private ChatDataService chatDataService;
+    private final ChatDataService chatDataService;
 
-    @Autowired
-    private BotService botService;
+    private final BotService botService;
 
-    @Autowired
-    private ModelService modelService;
+    private final ModelService modelService;
 
     /**
      * Create chat list for restart process

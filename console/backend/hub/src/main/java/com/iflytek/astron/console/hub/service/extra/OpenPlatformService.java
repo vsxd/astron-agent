@@ -13,11 +13,12 @@ import com.iflytek.astron.console.hub.tool.OpenPlatformTool;
 import com.iflytek.astron.console.hub.util.OkHttpUtil;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * Service for integrating with the Open Platform API Provides functionality for repository
@@ -25,13 +26,13 @@ import java.util.*;
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class OpenPlatformService {
     @Resource
     ApiUrl apiUrl;
     @Resource
     CommonConfig commonConfig;
-    @Autowired
-    private WorkflowBotService botMassService;
+    private final WorkflowBotService botMassService;
 
     @Value("${xfyun.api.auth.secret}")
     String secret;

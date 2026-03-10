@@ -25,7 +25,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +34,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author cherry
  */
@@ -42,28 +43,22 @@ import java.util.stream.Collectors;
 @Tag(name = "Workflow Assistant Interface")
 @RestController
 @RequestMapping(value = "/workflow")
+@RequiredArgsConstructor
 public class BotController {
 
-    @Autowired
-    private BotPermissionUtil botPermissionUtil;
+    private final BotPermissionUtil botPermissionUtil;
 
-    @Autowired
-    private BotService botService;
+    private final BotService botService;
 
-    @Autowired
-    private ChatBotDataService chatBotDataService;
+    private final ChatBotDataService chatBotDataService;
 
-    @Autowired
-    private MaasUtil maasUtil;
+    private final MaasUtil maasUtil;
 
-    @Autowired
-    private UserLangChainDataService userLangChainDataService;
+    private final UserLangChainDataService userLangChainDataService;
 
-    @Autowired
-    private RedissonClient redissonClient;
+    private final RedissonClient redissonClient;
 
-    @Autowired
-    private BotTransactionalService botTransactionalService;
+    private final BotTransactionalService botTransactionalService;
 
     @Value("${maas.appid:}")
     String tenantId;

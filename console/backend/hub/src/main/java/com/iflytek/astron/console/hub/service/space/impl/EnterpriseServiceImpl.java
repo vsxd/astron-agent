@@ -16,25 +16,24 @@ import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;
 import com.iflytek.astron.console.hub.dto.space.EnterpriseVO;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Enterprise team service implementation
  */
 @Service
+@RequiredArgsConstructor
 public class EnterpriseServiceImpl extends ServiceImpl<EnterpriseMapper, Enterprise> implements EnterpriseService {
     private static final String USER_LAST_VISIT_ENTERPRISE_ID = "USER_LAST_VISIT_ENTERPRISE_ID:";
-    @Autowired
-    private UserInfoDataService userInfoDataService;
-    @Autowired
-    private EnterpriseUserService enterpriseUserService;
-    @Autowired
-    private RedissonClient redissonClient;
+    private final UserInfoDataService userInfoDataService;
+    private final EnterpriseUserService enterpriseUserService;
+    private final RedissonClient redissonClient;
 
     @Override
     public boolean setLastVisitEnterpriseId(Long enterpriseId) {

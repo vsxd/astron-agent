@@ -5,21 +5,22 @@ import com.iflytek.astron.console.hub.entity.user.AppMst;
 import com.iflytek.astron.console.hub.mapper.user.AppMstMapper;
 import com.iflytek.astron.console.hub.service.user.AppMstService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author yun-zhi-ztl
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class AppMstServiceImpl implements AppMstService {
 
-    @Autowired
-    private AppMstMapper appMstMapper;
+    private final AppMstMapper appMstMapper;
 
 
     @Override

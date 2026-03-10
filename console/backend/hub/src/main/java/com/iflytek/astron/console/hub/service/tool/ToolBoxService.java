@@ -49,7 +49,6 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -72,6 +71,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import jakarta.servlet.http.HttpServletResponse;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * <p>
  * Service implementation class
@@ -82,6 +83,7 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ToolBoxService extends ServiceImpl<ToolBoxMapper, ToolBox> {
 
     @Resource
@@ -90,8 +92,7 @@ public class ToolBoxService extends ServiceImpl<ToolBoxMapper, ToolBox> {
     @Resource
     ChatInfoMapper chatInfoMapper;
 
-    @Autowired
-    UrlCheckTool urlCheckTool;
+    private final UrlCheckTool urlCheckTool;
 
     public static final String ARRAY = "array";
     public static final String OBJECT = "object";
@@ -139,16 +140,12 @@ public class ToolBoxService extends ServiceImpl<ToolBoxMapper, ToolBox> {
     SystemUserMapper systemUserMapper;
     @Resource
     FlowToolRelMapper flowToolRelMapper;
-    @Autowired
-    McpServerHandler mcpServerHandler;
-    @Autowired
-    ToolBoxOperateHistoryMapper toolBoxOperateHistoryMapper;
-    @Autowired
-    ToolBoxFeedbackMapper toolBoxFeedbackMapper;
+    private final McpServerHandler mcpServerHandler;
+    private final ToolBoxOperateHistoryMapper toolBoxOperateHistoryMapper;
+    private final ToolBoxFeedbackMapper toolBoxFeedbackMapper;
     @Resource
     WorkflowService workflowService;
-    @Autowired
-    private CommonConfig commonConfig;
+    private final CommonConfig commonConfig;
 
     private static final String FAVORITE_KEY_PREFIX = "new:user:favorite:tool:";
 

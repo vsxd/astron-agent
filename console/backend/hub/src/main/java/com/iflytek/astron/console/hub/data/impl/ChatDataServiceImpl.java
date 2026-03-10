@@ -18,6 +18,7 @@ import com.iflytek.astron.console.hub.mapper.chat.ChatTreeIndexMapper;
 import com.iflytek.astron.console.hub.service.data.ChatDataService;
 import com.iflytek.astron.console.hub.enums.LongContextStatusEnum;
 import com.iflytek.astron.console.hub.mapper.*;
+import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,46 +27,35 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 @Service
+@RequiredArgsConstructor
 public class ChatDataServiceImpl implements ChatDataService {
 
-    @Autowired
-    private ChatListMapper chatListMapper;
+    private final ChatListMapper chatListMapper;
 
-    @Autowired
-    private ChatReqRecordsMapper chatReqRecordsMapper;
+    private final ChatReqRecordsMapper chatReqRecordsMapper;
 
-    @Autowired
-    private ChatRespRecordsMapper chatRespRecordsMapper;
+    private final ChatRespRecordsMapper chatRespRecordsMapper;
 
-    @Autowired
-    private ChatReqModelMapper chatReqModelMapper;
+    private final ChatReqModelMapper chatReqModelMapper;
 
-    @Autowired
-    private ChatRespModelMapper chatRespModelMapper;
+    private final ChatRespModelMapper chatRespModelMapper;
 
-    @Autowired
-    private ChatReasonRecordsMapper chatReasonRecordsMapper;
+    private final ChatReasonRecordsMapper chatReasonRecordsMapper;
 
-    @Autowired
-    private ChatTraceSourceMapper chatTraceSourceMapper;
+    private final ChatTraceSourceMapper chatTraceSourceMapper;
 
-    @Autowired
-    private ChatFileReqMapper chatFileReqMapper;
+    private final ChatFileReqMapper chatFileReqMapper;
 
-    @Autowired
-    private ChatFileUserMapper chatFileUserMapper;
+    private final ChatFileUserMapper chatFileUserMapper;
 
-    @Autowired
-    private ChatTreeIndexMapper chatTreeIndexMapper;
+    private final ChatTreeIndexMapper chatTreeIndexMapper;
 
-    @Autowired
-    private BotChatFileParamMapper botChatFileParamMapper;
+    private final BotChatFileParamMapper botChatFileParamMapper;
 
     public static final int MatHistoryNumbers = 8000;
 

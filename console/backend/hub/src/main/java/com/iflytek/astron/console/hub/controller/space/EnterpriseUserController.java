@@ -13,12 +13,13 @@ import com.iflytek.astron.console.hub.service.space.EnterpriseUserBizService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * Enterprise Team User
@@ -28,11 +29,11 @@ import jakarta.validation.Valid;
 @RequestMapping("/enterprise-user")
 @Tag(name = "Enterprise Team User")
 @Validated
+@RequiredArgsConstructor
 public class EnterpriseUserController {
     @Resource
     private EnterpriseUserService enterpriseUserService;
-    @Autowired
-    private EnterpriseUserBizService enterpriseUserBizService;
+    private final EnterpriseUserBizService enterpriseUserBizService;
 
     @DeleteMapping("/remove")
     @EnterprisePreAuth(module = "Enterprise Team User Management", description = "Remove user", key = "EnterpriseUserController_remove_DELETE")

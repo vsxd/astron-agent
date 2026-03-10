@@ -12,23 +12,23 @@ import com.iflytek.astron.console.hub.mapper.model.ModelCategoryMapper;
 import com.iflytek.astron.console.hub.mapper.model.ModelCustomCategoryMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @Author clliu19
  * @Date: 2025/8/18 18:04
  */
 @Service
+@RequiredArgsConstructor
 public class ModelCategoryService extends ServiceImpl<ModelCategoryMapper, ModelCategory> implements IService<ModelCategory> {
-    @Autowired
-    private ModelCategoryMapper categoryMapper;
-    @Autowired
-    private ModelCustomCategoryMapper modelCustomCategoryMapper;
+    private final ModelCategoryMapper categoryMapper;
+    private final ModelCustomCategoryMapper modelCustomCategoryMapper;
 
     public List<CategoryTreeVO> getTree(Long modelId) {
         List<ModelCategory> items = this.getBaseMapper().listByModelId(modelId);

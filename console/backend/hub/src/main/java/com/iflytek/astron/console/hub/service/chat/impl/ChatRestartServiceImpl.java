@@ -9,23 +9,23 @@ import com.iflytek.astron.console.hub.entity.chat.ChatTreeIndex;
 import com.iflytek.astron.console.hub.service.chat.ChatListService;
 import com.iflytek.astron.console.hub.service.chat.ChatRestartService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author mingsuiyongheng
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class ChatRestartServiceImpl implements ChatRestartService {
 
-    @Autowired
-    private ChatListDataService chatListDataService;
+    private final ChatListDataService chatListDataService;
 
-    @Autowired
-    private ChatListService chatListService;
+    private final ChatListService chatListService;
 
     /**
      * @param rootChatId Root chat ID

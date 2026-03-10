@@ -3,6 +3,7 @@ package com.iflytek.astron.console.hub.aspect;
 import com.iflytek.astron.console.hub.annotation.DistributedLock;
 import com.iflytek.astron.console.hub.exception.DistributedLockException;
 import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -10,7 +11,6 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.redisson.api.RLock;
 import org.redisson.api.RReadWriteLock;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.expression.MethodBasedEvaluationContext;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.ParameterNameDiscoverer;
@@ -38,16 +38,12 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Aspect
 @Component
+@RequiredArgsConstructor
 public class DistributedLockAspect {
 
     private final RedissonClient redissonClient;
     private final ExpressionParser parser = new SpelExpressionParser();
     private final ParameterNameDiscoverer nameDiscoverer = new DefaultParameterNameDiscoverer();
-
-    @Autowired
-    public DistributedLockAspect(RedissonClient redissonClient) {
-        this.redissonClient = redissonClient;
-    }
 
     /**
      * Distributed lock around advice

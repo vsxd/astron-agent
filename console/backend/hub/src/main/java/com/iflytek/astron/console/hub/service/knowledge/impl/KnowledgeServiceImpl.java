@@ -7,7 +7,6 @@ import com.iflytek.astron.console.hub.service.knowledge.KnowledgeService;
 import com.iflytek.astron.console.hub.entity.core.knowledge.ChunkInfo;
 import com.iflytek.astron.console.hub.service.repo.RepoService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,21 +14,21 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author mingsuiyongheng
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class KnowledgeServiceImpl implements KnowledgeService {
 
-    @Autowired
-    private DatasetDataService datasetDataService;
+    private final DatasetDataService datasetDataService;
 
-    @Autowired
-    private RepoService repoService;
+    private final RepoService repoService;
 
-    @Autowired
-    private ChatListDataService chatListDataService;
+    private final ChatListDataService chatListDataService;
 
     /**
      * Get knowledge chunks by botId

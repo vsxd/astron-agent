@@ -29,11 +29,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.api.RTopic;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.*;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author mingsuiyongheng
@@ -42,22 +43,18 @@ import java.util.*;
 @Slf4j
 @Tag(name = "Chat Messages")
 @RequestMapping("/chat-message")
+@RequiredArgsConstructor
 public class ChatMessageController {
 
-    @Autowired
-    private ChatBotDataService chatBotDataService;
+    private final ChatBotDataService chatBotDataService;
 
-    @Autowired
-    private ChatListDataService chatListDataService;
+    private final ChatListDataService chatListDataService;
 
-    @Autowired
-    private BotChatService botChatService;
+    private final BotChatService botChatService;
 
-    @Autowired
-    private ChatDataService chatDataService;
+    private final ChatDataService chatDataService;
 
-    @Autowired
-    private RedissonClient redissonClient;
+    private final RedissonClient redissonClient;
 
     public static final String STOP_GENERATE_SUBSCRIBE_PUBLISH_CHANNEL = "stop_generate_sub_pub";
 

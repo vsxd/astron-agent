@@ -14,7 +14,6 @@ import com.iflytek.astron.console.hub.util.OkHttpUtil;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,12 +29,15 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Core system service for handling workflow operations, file uploads, and database management
  * Provides integration with external workflow and database services
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class CoreSystemService {
 
     public static final String X_CONSUMER_USERNAME = "X-Consumer-Username";
@@ -63,10 +65,8 @@ public class CoreSystemService {
     @Value("${spring.profiles.active}")
     String env;
 
-    @Autowired
-    AppService appService;
-    @Autowired
-    private CommonConfig commonConfig;
+    private final AppService appService;
+    private final CommonConfig commonConfig;
 
     /**
      * Publish workflow with specified configuration

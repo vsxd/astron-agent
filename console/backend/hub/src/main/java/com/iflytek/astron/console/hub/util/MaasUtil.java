@@ -25,10 +25,10 @@ import jakarta.annotation.Resource;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import okhttp3.*;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +41,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class MaasUtil {
     private static final OkHttpClient HTTP_CLIENT = new OkHttpClient.Builder()
             .connectTimeout(Duration.ofSeconds(10))
@@ -85,14 +86,11 @@ public class MaasUtil {
     @Value("${maas.mcpRegister}")
     private String mcpReleaseUrl;
 
-    @Autowired
-    private UserLangChainDataService userLangChainDataService;
+    private final UserLangChainDataService userLangChainDataService;
 
-    @Autowired
-    private ChatBotTagService chatBotTagService;
+    private final ChatBotTagService chatBotTagService;
 
-    @Autowired
-    private RedissonClient redissonClient;
+    private final RedissonClient redissonClient;
 
     public static final String PREFIX_MAAS_COPY = "maas_copy_";
     private static final String BOT_TAG_LIST = "bot_tag_list";

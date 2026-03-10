@@ -17,30 +17,28 @@ import com.iflytek.astron.console.hub.service.bot.BotFavoriteService;
 import com.iflytek.astron.console.hub.util.BotUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author cherry
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class BotFavoriteServiceImpl implements BotFavoriteService {
 
-    @Autowired
-    private BotFavoriteMapper botFavoriteMapper;
+    private final BotFavoriteMapper botFavoriteMapper;
 
-    @Autowired
-    private ChatBotBaseMapper chatBotBaseMapper;
+    private final ChatBotBaseMapper chatBotBaseMapper;
 
-    @Autowired
-    private ChatBotMarketMapper chatBotMarketMapper;
-    @Autowired
-    private UserInfoDataService userInfoDataService;
+    private final ChatBotMarketMapper chatBotMarketMapper;
+    private final UserInfoDataService userInfoDataService;
 
     @Override
     public BotFavoritePageDto selectPage(BotMarketForm botMarketForm, String uid, String langCode) {

@@ -7,19 +7,20 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.iflytek.astron.console.hub.entity.table.model.ModelCommon;
 import com.iflytek.astron.console.hub.mapper.model.ModelCommonMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @Author clliu19
  * @Date: 2025/8/18 15:50
  */
 @Service
+@RequiredArgsConstructor
 public class ModelCommonService extends ServiceImpl<ModelCommonMapper, ModelCommon> implements IService<ModelCommon> {
-    @Autowired
-    private ModelCategoryService modelCategoryService;
+    private final ModelCategoryService modelCategoryService;
 
     /**
      * Get common model list

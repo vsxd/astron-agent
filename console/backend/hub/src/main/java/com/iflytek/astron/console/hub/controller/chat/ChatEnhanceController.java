@@ -19,7 +19,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +28,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author mingsuiyongheng
  */
@@ -36,16 +37,14 @@ import java.util.Map;
 @Slf4j
 @Tag(name = "Chat Enhancement")
 @RequestMapping("/chat-enhance")
+@RequiredArgsConstructor
 public class ChatEnhanceController {
 
-    @Autowired
-    private ChatListDataService chatListDataService;
+    private final ChatListDataService chatListDataService;
 
-    @Autowired
-    private ChatEnhanceService chatEnhanceService;
+    private final ChatEnhanceService chatEnhanceService;
 
-    @Autowired
-    private ChatDataService chatDataService;
+    private final ChatDataService chatDataService;
 
     /**
      * Handles the request mapping for saving files

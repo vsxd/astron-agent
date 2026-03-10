@@ -12,17 +12,19 @@ import com.iflytek.astron.console.hub.service.publish.ReleaseManageClientService
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author yun-zhi-ztl
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ReleaseManageClientServiceImpl implements ReleaseManageClientService {
 
     // Basic URL configuration, read from config file
@@ -30,8 +32,7 @@ public class ReleaseManageClientServiceImpl implements ReleaseManageClientServic
     private String baseUrl;
 
     // User language chain data service dependency injection
-    @Autowired
-    private UserLangChainDataService userLangChainDataService;
+    private final UserLangChainDataService userLangChainDataService;
 
     // Constant definition area
     // API path for getting version name

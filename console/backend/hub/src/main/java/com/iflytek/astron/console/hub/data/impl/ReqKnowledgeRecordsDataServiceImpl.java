@@ -5,22 +5,23 @@ import com.iflytek.astron.console.hub.data.ReqKnowledgeRecordsDataService;
 import com.iflytek.astron.console.hub.entity.ReqKnowledgeRecords;
 import com.iflytek.astron.console.hub.mapper.ReqKnowledgeRecordsMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author mingsuiyongheng
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ReqKnowledgeRecordsDataServiceImpl implements ReqKnowledgeRecordsDataService {
 
-    @Autowired
-    private ReqKnowledgeRecordsMapper reqKnowledgeRecordsMapper;
+    private final ReqKnowledgeRecordsMapper reqKnowledgeRecordsMapper;
 
     @Override
     public ReqKnowledgeRecords create(ReqKnowledgeRecords reqKnowledgeRecords) {

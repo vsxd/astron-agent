@@ -19,8 +19,8 @@ import com.iflytek.astron.console.hub.util.BotUtil;
 import com.iflytek.astron.console.commons.util.I18nUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -29,21 +29,17 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class BotMarketDataServiceImpl implements BotMarketDataService {
 
-    @Autowired
-    private ChatBotMarketMapper chatBotMarketMapper;
+    private final ChatBotMarketMapper chatBotMarketMapper;
 
-    @Autowired
-    private ChatBotListMapper chatBotListMapper;
+    private final ChatBotListMapper chatBotListMapper;
 
-    @Autowired
-    private BotFavoriteService botFavoriteService;
+    private final BotFavoriteService botFavoriteService;
 
-    @Autowired
-    private BotService botService;
-    @Autowired
-    private UserLangChainDataService userLangChainDataService;
+    private final BotService botService;
+    private final UserLangChainDataService userLangChainDataService;
 
     @Override
     public void removeBotForDeleteSpace(String uid, Long spaceId, List<Integer> spaceBotIdList) {

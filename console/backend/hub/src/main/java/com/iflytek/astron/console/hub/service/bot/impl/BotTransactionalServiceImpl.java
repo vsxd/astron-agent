@@ -10,30 +10,28 @@ import com.iflytek.astron.console.hub.service.workflow.BotChainService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author mingsuiyongheng
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class BotTransactionalServiceImpl implements BotTransactionalService {
 
-    @Autowired
-    private BotService botService;
+    private final BotService botService;
 
-    @Autowired
-    private BotChainService botChainService;
+    private final BotChainService botChainService;
 
-    @Autowired
-    private RedissonClient redissonClient;
+    private final RedissonClient redissonClient;
 
-    @Autowired
-    private PersonalityConfigService personalityConfigService;
+    private final PersonalityConfigService personalityConfigService;
 
     /**
      * Copy bot

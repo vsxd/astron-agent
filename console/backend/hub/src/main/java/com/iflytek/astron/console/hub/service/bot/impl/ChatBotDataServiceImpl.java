@@ -31,8 +31,8 @@ import com.iflytek.astron.console.hub.util.MaasUtil;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -41,43 +41,32 @@ import java.util.*;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class ChatBotDataServiceImpl implements ChatBotDataService {
 
-    @Autowired
-    private ChatBotBaseMapper chatBotBaseMapper;
+    private final ChatBotBaseMapper chatBotBaseMapper;
 
-    @Autowired
-    private ChatBotListMapper chatBotListMapper;
+    private final ChatBotListMapper chatBotListMapper;
 
-    @Autowired
-    private ChatBotMarketMapper chatBotMarketMapper;
+    private final ChatBotMarketMapper chatBotMarketMapper;
 
-    @Autowired
-    private BotDatasetMapper botDatasetMapper;
+    private final BotDatasetMapper botDatasetMapper;
 
-    @Autowired
-    private MaasUtil maasUtil;
+    private final MaasUtil maasUtil;
 
-    @Autowired
-    private ChatListMapper chatListMapper;
+    private final ChatListMapper chatListMapper;
 
-    @Autowired
-    private ChatBotPromptStructMapper promptStructMapper;
+    private final ChatBotPromptStructMapper promptStructMapper;
 
-    @Autowired
-    private BotFavoriteService botFavoriteService;
+    private final BotFavoriteService botFavoriteService;
 
-    @Autowired
-    private IDatasetInfoService datasetInfoService;
+    private final IDatasetInfoService datasetInfoService;
 
-    @Autowired
-    private CustomVCNMapper customVCNMapper;
+    private final CustomVCNMapper customVCNMapper;
 
-    @Autowired
-    private ChatBotApiMapper botApiMapper;
+    private final ChatBotApiMapper botApiMapper;
 
-    @Autowired
-    private McpDataService mcpDataService;
+    private final McpDataService mcpDataService;
 
     public static final String BOT_INPUT_EXAMPLE_SPLIT = "%%split%%";
 

@@ -30,7 +30,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,34 +42,26 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @RestController
 @RequestMapping("/bot")
+@RequiredArgsConstructor
 public class BotCreateController {
 
-    @Autowired
-    private BotAIService botAIService;
+    private final BotAIService botAIService;
 
-    @Autowired
-    private BotService botService;
+    private final BotService botService;
 
-    @Autowired
-    private BotPermissionUtil botPermissionUtil;
+    private final BotPermissionUtil botPermissionUtil;
 
-    @Autowired
-    private LLMService llmService;
+    private final LLMService llmService;
 
-    @Autowired
-    private BotDatasetService botDatasetService;
+    private final BotDatasetService botDatasetService;
 
-    @Autowired
-    private MassDatasetInfoService botDatasetMaasService;
+    private final MassDatasetInfoService botDatasetMaasService;
 
-    @Autowired
-    private BotTemplateMapper botTemplateMapper;
+    private final BotTemplateMapper botTemplateMapper;
 
-    @Autowired
-    private RedisUtil redisUtil;
+    private final RedisUtil redisUtil;
 
-    @Autowired
-    private PersonalityConfigService personalityConfigService;
+    private final PersonalityConfigService personalityConfigService;
 
     /**
      * Create workflow assistant

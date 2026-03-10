@@ -21,7 +21,6 @@ import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.dto.space.EnterpriseSpaceCountVO;
 import com.iflytek.astron.console.hub.dto.space.SpaceVO;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -32,21 +31,20 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Space service implementation
  */
 @Service
+@RequiredArgsConstructor
 public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space> implements SpaceService {
     private static final String USER_LAST_VISIT_PERSONAL_SPACE_TIME = "USER_LAST_VISIT_PERSONAL_SPACE_TIME:";
 
-    @Autowired
-    private SpaceUserService spaceUserService;
-    @Autowired
-    private UserInfoDataService userInfoDataService;
-    @Autowired
-    private RedissonClient redissonClient;
-    @Autowired
-    private EnterpriseService enterpriseService;
+    private final SpaceUserService spaceUserService;
+    private final UserInfoDataService userInfoDataService;
+    private final RedissonClient redissonClient;
+    private final EnterpriseService enterpriseService;
 
     @Override
     public List<SpaceVO> recentVisitList() {

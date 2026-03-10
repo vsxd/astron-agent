@@ -19,10 +19,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author mingsuiyongheng
@@ -30,13 +31,12 @@ import java.util.List;
 @RestController
 @Tag(name = "Chat List")
 @RequestMapping("/chat-list")
+@RequiredArgsConstructor
 public class ChatListController {
 
-    @Autowired
-    private ChatListService chatListService;
+    private final ChatListService chatListService;
 
-    @Autowired
-    private ChatBotDataService chatBotDataService;
+    private final ChatBotDataService chatBotDataService;
 
     /**
      * All chat list

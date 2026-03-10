@@ -28,7 +28,6 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,12 +52,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Knowledge repository service - renamed from KnowledgeService to avoid conflict with
  * hub.service.knowledge.KnowledgeService
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class KnowledgeRepoService {
     @Resource
     private KnowledgeV2ServiceCallHandler knowledgeV2ServiceCallHandler;
@@ -78,8 +80,7 @@ public class KnowledgeRepoService {
     private S3Util s3Util;
     // @Resource
     // private AuditService auditService;
-    @Autowired
-    private DataPermissionCheckTool dataPermissionCheckTool;
+    private final DataPermissionCheckTool dataPermissionCheckTool;
     @Resource
     private KnowledgeMapper knowledgeMapper;
     @Resource

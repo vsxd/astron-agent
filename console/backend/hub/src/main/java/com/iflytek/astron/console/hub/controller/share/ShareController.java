@@ -17,12 +17,13 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.Objects;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author mingsuiyongheng
@@ -31,16 +32,14 @@ import java.util.Objects;
 @Tag(name = "Sharing related")
 @RestController
 @RequestMapping(value = "/share")
+@RequiredArgsConstructor
 public class ShareController {
 
-    @Autowired
-    private ShareService shareService;
+    private final ShareService shareService;
 
-    @Autowired
-    private BotPermissionUtil botPermissionUtil;
+    private final BotPermissionUtil botPermissionUtil;
 
-    @Autowired
-    private ChatListService chatListService;
+    private final ChatListService chatListService;
 
     /**
      * Method defined with @PostMapping annotation to handle GET share key requests

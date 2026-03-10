@@ -37,8 +37,8 @@ import com.iflytek.astron.console.hub.tool.DataPermissionCheckTool;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.SneakyThrows;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.LoaderOptions;
@@ -63,6 +63,7 @@ import java.util.stream.Collectors;
  * @since 2025/6/18 15:39
  */
 @Service
+@RequiredArgsConstructor
 public class WorkflowExportService {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -75,20 +76,16 @@ public class WorkflowExportService {
     WorkflowService workflowService;
     @Resource
     ModelService modelService;
-    @Autowired
-    private BotUtil botUtil;
+    private final BotUtil botUtil;
     @Resource
     BizConfig bizConfig;
     @Resource
     ToolBoxService toolBoxService;
-    @Autowired
-    DataPermissionCheckTool dataPermissionCheckTool;
+    private final DataPermissionCheckTool dataPermissionCheckTool;
     @Resource
     RepoService repoService;
-    @Autowired
-    DbInfoMapper dbInfoMapper;
-    @Autowired
-    CommonConfig commonConfig;
+    private final DbInfoMapper dbInfoMapper;
+    private final CommonConfig commonConfig;
 
     /**
      * Export workflow data as YAML format.

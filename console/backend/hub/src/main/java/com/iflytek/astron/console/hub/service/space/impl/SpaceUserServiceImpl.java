@@ -13,7 +13,6 @@ import com.iflytek.astron.console.hub.mapper.space.SpaceUserMapper;
 import com.iflytek.astron.console.hub.service.space.SpaceUserService;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.dto.space.SpaceUserVO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,14 +20,16 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Space users
  */
 @Service
+@RequiredArgsConstructor
 public class SpaceUserServiceImpl extends ServiceImpl<SpaceUserMapper, SpaceUser> implements SpaceUserService {
 
-    @Autowired
-    private UserInfoDataService userInfoDataService;
+    private final UserInfoDataService userInfoDataService;
 
     @Override
     @Transactional

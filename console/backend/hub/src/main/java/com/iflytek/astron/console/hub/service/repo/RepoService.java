@@ -56,6 +56,8 @@ import java.util.concurrent.CountDownLatch;
 import java.util.stream.Collectors;
 
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * <p>
  * Repository Service Implementation Class Provides comprehensive repository management
@@ -68,6 +70,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class RepoService extends ServiceImpl<RepoMapper, Repo> {
     /**
      * Get single record by query wrapper
@@ -128,8 +131,7 @@ public class RepoService extends ServiceImpl<RepoMapper, Repo> {
     DataPermissionCheckTool dataPermissionCheckTool;
     @Resource
     OpenPlatformService openPlatformService;
-    @Autowired
-    private FlowRepoRelMapper flowRepoRelMapper;
+    private final FlowRepoRelMapper flowRepoRelMapper;
     @Resource
     private KnowledgeMapper knowledgeMapper;
     @Resource

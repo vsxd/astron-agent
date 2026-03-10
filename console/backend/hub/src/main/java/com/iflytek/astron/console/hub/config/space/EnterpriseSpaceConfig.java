@@ -4,13 +4,14 @@ package com.iflytek.astron.console.hub.config.space;
 import com.iflytek.astron.console.hub.service.space.EnterpriseSpaceService;
 import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import lombok.RequiredArgsConstructor;
 
 import jakarta.annotation.PostConstruct;
 
 @Configuration
+@RequiredArgsConstructor
 public class EnterpriseSpaceConfig {
 
     @Value("${space.header.id-key:space-id}")
@@ -18,8 +19,7 @@ public class EnterpriseSpaceConfig {
     @Value("${enterprise.header.id-key:enterprise-id}")
     private String enterpriseIdKey;
 
-    @Autowired
-    private EnterpriseSpaceService enterpriseSpaceService;
+    private final EnterpriseSpaceService enterpriseSpaceService;
 
 
     @PostConstruct

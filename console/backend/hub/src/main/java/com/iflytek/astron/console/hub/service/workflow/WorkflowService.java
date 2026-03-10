@@ -119,7 +119,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -145,6 +144,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Workflow service providing comprehensive workflow management functionality. Handles workflow
  * creation, modification, execution, publishing, and related operations. Includes support for
@@ -156,6 +157,7 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 @SuppressWarnings({"PMD.NcssCount", "PMD.CyclomaticComplexity"})
+@RequiredArgsConstructor
 public class WorkflowService extends ServiceImpl<WorkflowMapper, Workflow> {
 
     public static final String PROTOCOL_ADD_PATH = "/workflow/v1/protocol/add";
@@ -190,90 +192,50 @@ public class WorkflowService extends ServiceImpl<WorkflowMapper, Workflow> {
     // Cache load lock
     private static final Object CACHE_LOAD_LOCK = new Object();
 
-    @Autowired
-    WorkflowDialogMapper workflowDialogMapper;
-    @Autowired
-    AppService appService;
-    @Autowired
-    S3Util s3Util;
-    @Autowired
-    ApiUrl apiUrl;
-    @Autowired
-    DataPermissionCheckTool dataPermissionCheckTool;
-    @Autowired
-    BizConfig bizConfig;
-    @Autowired
-    EvalSetMapper evalSetMapper;
-    @Autowired
-    ConfigInfoMapper configInfoMapper;
-    @Autowired
-    EvalSetVerDataMapper evalSetVerDataMapper;
-    @Autowired
-    EvalSetVerMapper evalSetVerMapper;
-    @Autowired
-    OpenPlatformService openPlatformService;
-    @Autowired
-    FlowToolRelMapper flowToolRelMapper;
-    @Autowired
-    FlowRepoRelMapper flowRepoRelMapper;
-    @Autowired
-    FlowReleaseChannelMapper flowReleaseChannelMapper;
-    @Autowired
-    FlowReleaseAiuiInfoMapper flowReleaseAiuiInfoMapper;
-    @Autowired
-    CoreSystemService coreSystemService;
-    @Autowired
-    FlowProtocolTempMapper flowProtocolTempMapper;
-    @Autowired
-    WorkflowMapper workflowMapper;
-    @Autowired
-    NodeInfoMapper nodeInfoMapper;
-    @Autowired
-    ChatInfoMapper chatInfoMapper;
-    @Autowired
-    RedisUtil redisUtil;
-    @Autowired
-    private ModelService modelService;
-    @Autowired
-    McpServerHandler mcpServerHandler;
+    private final WorkflowDialogMapper workflowDialogMapper;
+    private final AppService appService;
+    private final S3Util s3Util;
+    private final ApiUrl apiUrl;
+    private final DataPermissionCheckTool dataPermissionCheckTool;
+    private final BizConfig bizConfig;
+    private final EvalSetMapper evalSetMapper;
+    private final ConfigInfoMapper configInfoMapper;
+    private final EvalSetVerDataMapper evalSetVerDataMapper;
+    private final EvalSetVerMapper evalSetVerMapper;
+    private final OpenPlatformService openPlatformService;
+    private final FlowToolRelMapper flowToolRelMapper;
+    private final FlowRepoRelMapper flowRepoRelMapper;
+    private final FlowReleaseChannelMapper flowReleaseChannelMapper;
+    private final FlowReleaseAiuiInfoMapper flowReleaseAiuiInfoMapper;
+    private final CoreSystemService coreSystemService;
+    private final FlowProtocolTempMapper flowProtocolTempMapper;
+    private final WorkflowMapper workflowMapper;
+    private final NodeInfoMapper nodeInfoMapper;
+    private final ChatInfoMapper chatInfoMapper;
+    private final RedisUtil redisUtil;
+    private final ModelService modelService;
+    private final McpServerHandler mcpServerHandler;
     @Resource
     FileInfoV2Mapper fileInfoV2Mapper;
-    @Autowired
-    private UserLangChainInfoMapper userLangChainInfoDao;
-    @Autowired
-    private ChatBotBaseMapper chatBotBaseMapper;
-    @Autowired
-    private McpToolConfigMapper mcpToolConfigMapper;
+    private final UserLangChainInfoMapper userLangChainInfoDao;
+    private final ChatBotBaseMapper chatBotBaseMapper;
+    private final McpToolConfigMapper mcpToolConfigMapper;
     @Resource
     RedisTemplate<String, Object> redisTemplate;
-    @Autowired
-    private BotMarketDataService chatBotMarketService;
-    @Autowired
-    private WorkflowComparisonMapper workflowComparisonMapper;
-    @Autowired
-    private WorkflowFeedbackMapper workflowFeedbackMapper;
-    @Autowired
-    private WorkflowVersionMapper workflowVersionMapper;
-    @Autowired
-    private FlowDbRelMapper flowDbRelMapper;
-    @Autowired
-    private DbTableMapper dbTableMapper;
-    @Autowired
-    private ToolBoxMapper toolBoxMapper;
-    @Autowired
-    private PromptTemplateMapper promptTemplateMapper;
-    @Autowired
-    private ToolBoxOperateHistoryMapper toolBoxOperateHistoryMapper;
-    @Autowired
-    private CommonConfig commonConfig;
-    @Autowired
-    private UserInfoDataService userInfoDataService;
-    @Autowired
-    private RpaUserAssistantFieldMapper rpaUserAssistantFieldMapper;
-    @Autowired
-    private RpaHandler rpaHandler;
-    @Autowired
-    private WorkflowConfigMapper workflowConfigMapper;
+    private final BotMarketDataService chatBotMarketService;
+    private final WorkflowComparisonMapper workflowComparisonMapper;
+    private final WorkflowFeedbackMapper workflowFeedbackMapper;
+    private final WorkflowVersionMapper workflowVersionMapper;
+    private final FlowDbRelMapper flowDbRelMapper;
+    private final DbTableMapper dbTableMapper;
+    private final ToolBoxMapper toolBoxMapper;
+    private final PromptTemplateMapper promptTemplateMapper;
+    private final ToolBoxOperateHistoryMapper toolBoxOperateHistoryMapper;
+    private final CommonConfig commonConfig;
+    private final UserInfoDataService userInfoDataService;
+    private final RpaUserAssistantFieldMapper rpaUserAssistantFieldMapper;
+    private final RpaHandler rpaHandler;
+    private final WorkflowConfigMapper workflowConfigMapper;
 
     /**
      * Query workflow list with pagination (in-memory pagination, can be replaced with database

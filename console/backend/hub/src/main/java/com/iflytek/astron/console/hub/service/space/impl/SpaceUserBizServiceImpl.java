@@ -18,7 +18,7 @@ import com.iflytek.astron.console.hub.util.space.OrderInfoUtil;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.dto.space.UserLimitVO;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,24 +27,17 @@ import java.util.Objects;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class SpaceUserBizServiceImpl implements SpaceUserBizService {
 
-    @Autowired
-    private EnterpriseUserService enterpriseUserService;
-    @Autowired
-    private SpaceService spaceService;
-    @Autowired
-    private SpaceLimitProperties spaceLimitProperties;
-    @Autowired
-    private InviteRecordService inviteRecordService;
-    @Autowired
-    private EnterpriseSpaceService enterpriseSpaceService;
-    @Autowired
-    private SpaceUserService spaceUserService;
-    @Autowired
-    private EnterpriseUserBizService enterpriseUserBizService;
-    @Autowired
-    private EnterpriseService enterpriseService;
+    private final EnterpriseUserService enterpriseUserService;
+    private final SpaceService spaceService;
+    private final SpaceLimitProperties spaceLimitProperties;
+    private final InviteRecordService inviteRecordService;
+    private final EnterpriseSpaceService enterpriseSpaceService;
+    private final SpaceUserService spaceUserService;
+    private final EnterpriseUserBizService enterpriseUserBizService;
+    private final EnterpriseService enterpriseService;
 
     /**
      * Enterprise add space member (user is already enterprise user) -- Not used in page

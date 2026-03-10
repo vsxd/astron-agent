@@ -8,11 +8,12 @@ import com.iflytek.astron.console.hub.service.openapi.OpenApiService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * Open API Controller for external service integration
@@ -21,10 +22,10 @@ import java.util.List;
 @RequestMapping("/open-api")
 @Slf4j
 @Tag(name = "Open API interface")
+@RequiredArgsConstructor
 public class OpenApiController {
 
-    @Autowired
-    private OpenApiService openApiService;
+    private final OpenApiService openApiService;
 
     private static final String AUTHORIZATION_PREFIX = "Bearer ";
 

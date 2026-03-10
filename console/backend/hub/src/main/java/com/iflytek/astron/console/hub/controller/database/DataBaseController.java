@@ -13,7 +13,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,10 +23,10 @@ import java.util.List;
 @RequestMapping("/db")
 @Slf4j
 @Tag(name = "Database Management")
+@RequiredArgsConstructor
 public class DataBaseController {
 
-    @Autowired
-    private DatabaseService databaseService;
+    private final DatabaseService databaseService;
 
     @PostMapping("/create")
     @Operation(summary = "Create database")

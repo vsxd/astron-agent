@@ -7,13 +7,14 @@ import com.iflytek.astron.console.hub.service.homepage.AgentSquareService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author yun-zhi-ztl
@@ -22,10 +23,10 @@ import java.util.List;
 @Tag(name = "Homepage Agent Square")
 @RestController
 @RequestMapping("/home-page/agent-square")
+@RequiredArgsConstructor
 public class AgentSquareController {
 
-    @Autowired
-    private AgentSquareService agentSquareService;
+    private final AgentSquareService agentSquareService;
 
     @GetMapping("/get-bot-type-list")
     @Operation(summary = "Get agent category list")

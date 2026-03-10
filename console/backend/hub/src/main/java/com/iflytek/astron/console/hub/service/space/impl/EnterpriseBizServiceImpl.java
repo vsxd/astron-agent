@@ -16,20 +16,18 @@ import com.iflytek.astron.console.hub.service.space.EnterpriseBizService;
 import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;
 import com.iflytek.astron.console.hub.util.space.OrderInfoUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class EnterpriseBizServiceImpl implements EnterpriseBizService {
 
-    @Autowired
-    private EnterpriseMapper enterpriseMapper;
-    @Autowired
-    private EnterpriseUserService enterpriseUserService;
-    @Autowired
-    private EnterpriseService enterpriseService;
+    private final EnterpriseMapper enterpriseMapper;
+    private final EnterpriseUserService enterpriseUserService;
+    private final EnterpriseService enterpriseService;
 
     @Override
     public ApiResult<Boolean> visitEnterprise(Long enterpriseId) {

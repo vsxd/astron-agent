@@ -8,24 +8,22 @@ import com.iflytek.astron.console.hub.entity.bot.ChatBotBase;
 import com.iflytek.astron.console.hub.entity.workflow.Workflow;
 import com.iflytek.astron.console.hub.service.bot.BotService;
 import com.iflytek.astron.console.hub.service.bot.ChatBotDataService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * Bot-related utility class
  */
 @Component
+@RequiredArgsConstructor
 public class BotUtil {
 
-    @Autowired
-    private ChatBotDataService chatBotDataService;
+    private final ChatBotDataService chatBotDataService;
 
-    @Autowired
-    private BotService botService;
+    private final BotService botService;
 
     public static final String BOT_INPUT_EXAMPLE_SPLIT = "%%split%%";
-
-    public BotUtil(ChatBotDataService chatBotDataService) {}
 
     public static String convertNumToStr(int number, String langCode) {
         String numStr = "";

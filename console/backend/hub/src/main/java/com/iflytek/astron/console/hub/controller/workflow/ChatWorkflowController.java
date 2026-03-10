@@ -13,13 +13,14 @@ import com.iflytek.astron.console.hub.entity.bot.ChatBotBase;
 import com.iflytek.astron.console.hub.entity.bot.UserLangChainInfo;
 import com.iflytek.astron.console.hub.service.workflow.WorkflowService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * Workflow related
@@ -29,16 +30,14 @@ import java.util.*;
 @Slf4j
 @RestController
 @RequestMapping(value = "/workflow/web")
+@RequiredArgsConstructor
 public class ChatWorkflowController {
 
-    @Autowired
-    private ChatBotDataService chatBotDataService;
+    private final ChatBotDataService chatBotDataService;
 
-    @Autowired
-    private UserLangChainDataService userLangChainDataService;
+    private final UserLangChainDataService userLangChainDataService;
 
-    @Autowired
-    private WorkflowService workflowService;
+    private final WorkflowService workflowService;
 
     /**
      * Get workflow information

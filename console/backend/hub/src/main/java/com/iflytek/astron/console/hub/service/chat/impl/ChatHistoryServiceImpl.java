@@ -11,25 +11,25 @@ import com.iflytek.astron.console.hub.entity.ReqKnowledgeRecords;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.util.Base64Util;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author mingsuiyongheng
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ChatHistoryServiceImpl implements ChatHistoryService {
 
-    @Autowired
-    private ChatDataService chatDataService;
+    private final ChatDataService chatDataService;
 
-    @Autowired
-    private ReqKnowledgeRecordsDataService reqKnowledgeRecordsDataService;
+    private final ReqKnowledgeRecordsDataService reqKnowledgeRecordsDataService;
 
     public static final int MAX_HISTORY_NUMBERS = 8000;
 

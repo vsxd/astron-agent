@@ -13,24 +13,21 @@ import com.iflytek.astron.console.hub.mapper.dataset.BotDatasetMaasMapper;
 import com.iflytek.astron.console.hub.service.data.DatasetDataService;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class DatasetDataServiceImpl implements DatasetDataService {
 
-    @Autowired
-    private DatasetInfoMapper datasetInfoMapper;
+    private final DatasetInfoMapper datasetInfoMapper;
 
-    @Autowired
-    private DatasetFileMapper datasetFileMapper;
+    private final DatasetFileMapper datasetFileMapper;
 
-    @Autowired
-    private BotDatasetMapper botDatasetMapper;
+    private final BotDatasetMapper botDatasetMapper;
 
-    @Autowired
-    private BotDatasetMaasMapper botDatasetMaasMapper;
+    private final BotDatasetMaasMapper botDatasetMaasMapper;
 
     @Override
     public Optional<DatasetInfo> findById(Long datasetId) {

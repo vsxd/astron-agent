@@ -5,21 +5,22 @@ import com.iflytek.astron.console.hub.dto.bot.ChatBotApi;
 import com.iflytek.astron.console.hub.mapper.bot.ChatBotApiMapper;
 import com.iflytek.astron.console.hub.service.chat.ChatBotApiService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author mingsuiyongheng
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class ChatBotApiServiceImpl implements ChatBotApiService {
 
-    @Autowired
-    private ChatBotApiMapper chatBotApiMapper;
+    private final ChatBotApiMapper chatBotApiMapper;
 
     /**
      * Get chat bot API list for specified user ID

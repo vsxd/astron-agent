@@ -13,26 +13,23 @@ import com.iflytek.astron.console.hub.enums.TalkAgentSceneEnum;
 import com.iflytek.astron.console.hub.util.BotPermissionUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @Tag(name = "Talk Agent")
 @RestController
 @RequestMapping(value = "/talkAgent")
+@RequiredArgsConstructor
 public class TalkAgentController {
-    @Autowired
-    private BotService botService;
+    private final BotService botService;
 
-    @Autowired
-    private TalkAgentService talkAgentService;
+    private final TalkAgentService talkAgentService;
 
-    @Autowired
-    private MaasUtil maasUtil;
+    private final MaasUtil maasUtil;
 
-    @Autowired
-    private BotPermissionUtil botPermissionUtil;
+    private final BotPermissionUtil botPermissionUtil;
 
     @PostMapping("/getSceneList")
     public ApiResult<List<TalkAgentSceneDto>> getSceneList() {

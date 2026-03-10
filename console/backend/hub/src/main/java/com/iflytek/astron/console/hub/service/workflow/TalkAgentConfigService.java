@@ -9,8 +9,9 @@ import com.iflytek.astron.console.hub.entity.table.workflow.WorkflowConfigEntity
 import com.iflytek.astron.console.hub.mapper.workflow.WorkflowConfigMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * Service class for handling Talk Agent configuration.
@@ -34,13 +35,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class TalkAgentConfigService {
 
-    @Autowired
-    private VersionService versionService;
+    private final VersionService versionService;
 
-    @Autowired
-    private WorkflowConfigMapper workflowConfigMapper;
+    private final WorkflowConfigMapper workflowConfigMapper;
 
     /**
      * Retrieves Talk Agent configuration data for a specified bot.

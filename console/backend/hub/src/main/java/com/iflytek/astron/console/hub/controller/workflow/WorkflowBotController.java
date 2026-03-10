@@ -22,11 +22,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * Workflow related
@@ -37,22 +38,18 @@ import java.util.List;
 @Tag(name = "Workflow Assistant Interface")
 @RestController
 @RequestMapping(value = "/workflow/bot")
+@RequiredArgsConstructor
 public class WorkflowBotController {
 
-    @Autowired
-    private WorkflowTemplateGroupService workflowTemplateGroupService;
+    private final WorkflowTemplateGroupService workflowTemplateGroupService;
 
-    @Autowired
-    private BotMaasService botMaasService;
+    private final BotMaasService botMaasService;
 
-    @Autowired
-    private BotPermissionUtil botPermissionUtil;
+    private final BotPermissionUtil botPermissionUtil;
 
-    @Autowired
-    private UserLangChainDataService userLangChainDataService;
+    private final UserLangChainDataService userLangChainDataService;
 
-    @Autowired
-    private MaasUtil maasUtil;
+    private final MaasUtil maasUtil;
 
     @GetMapping("/templateGroup")
     @Operation(summary = "work flow template", description = "Get workflow group information")

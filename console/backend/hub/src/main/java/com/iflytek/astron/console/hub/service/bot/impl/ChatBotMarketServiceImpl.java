@@ -10,20 +10,21 @@ import com.iflytek.astron.console.hub.enums.bot.BotStatusEnum;
 import com.iflytek.astron.console.hub.mapper.bot.ChatBotMarketMapper;
 import com.iflytek.astron.console.hub.service.bot.ChatBotMarketService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author yun-zhi-ztl
  */
 @Service
+@RequiredArgsConstructor
 public class ChatBotMarketServiceImpl implements ChatBotMarketService {
-    @Autowired
-    private ChatBotMarketMapper chatBotMarketMapper;
+    private final ChatBotMarketMapper chatBotMarketMapper;
 
     private static final Integer NOT_DELETED = 0;
 

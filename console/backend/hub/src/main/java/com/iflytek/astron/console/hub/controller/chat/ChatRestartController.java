@@ -17,11 +17,12 @@ import com.iflytek.astron.console.hub.service.chat.ChatRestartService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author mingsuiyongheng
@@ -30,19 +31,16 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "New Chat")
 @RequestMapping("/chat-restart")
 @Slf4j
+@RequiredArgsConstructor
 public class ChatRestartController {
 
-    @Autowired
-    private ChatListDataService chatListDataService;
+    private final ChatListDataService chatListDataService;
 
-    @Autowired
-    private ChatBotDataService chatBotDataService;
+    private final ChatBotDataService chatBotDataService;
 
-    @Autowired
-    private ChatReqRespService chatReqRespService;
+    private final ChatReqRespService chatReqRespService;
 
-    @Autowired
-    private ChatRestartService chatRestartService;
+    private final ChatRestartService chatRestartService;
 
     /**
      * Restart chat functionality

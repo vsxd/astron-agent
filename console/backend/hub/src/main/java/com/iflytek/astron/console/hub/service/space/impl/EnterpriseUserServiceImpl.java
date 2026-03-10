@@ -12,19 +12,20 @@ import com.iflytek.astron.console.hub.mapper.space.EnterpriseUserMapper;
 import com.iflytek.astron.console.hub.service.space.EnterpriseUserService;
 import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;
 import com.iflytek.astron.console.hub.dto.space.EnterpriseUserVO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Enterprise team users
  */
 @Service
+@RequiredArgsConstructor
 public class EnterpriseUserServiceImpl extends ServiceImpl<EnterpriseUserMapper, EnterpriseUser> implements EnterpriseUserService {
-    @Autowired
-    private UserInfoDataService userInfoDataService;
+    private final UserInfoDataService userInfoDataService;
 
     @Override
     public EnterpriseUser getEnterpriseUserByUid(Long enterpriseId, String uid) {

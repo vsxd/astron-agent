@@ -6,7 +6,7 @@ import com.iflytek.astron.console.hub.entity.bot.UserLangChainLog;
 import com.iflytek.astron.console.hub.mapper.UserLangChainLogMapper;
 import com.iflytek.astron.console.hub.service.data.UserLangChainLogService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -14,10 +14,10 @@ import java.util.List;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class UserLangChainLogServiceImpl implements UserLangChainLogService {
 
-    @Autowired
-    private UserLangChainLogMapper userLangChainLogMapper;
+    private final UserLangChainLogMapper userLangChainLogMapper;
 
     public final static int LOG_MAX_SIZE = 20;
 

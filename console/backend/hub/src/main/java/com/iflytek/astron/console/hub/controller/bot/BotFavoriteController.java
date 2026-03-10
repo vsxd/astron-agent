@@ -8,16 +8,16 @@ import com.iflytek.astron.console.commons.util.I18nUtil;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import lombok.RequiredArgsConstructor;
 
 @Tag(name = "Assistant Favorites")
 @RestController
 @RequestMapping(value = "/bot/favorite")
+@RequiredArgsConstructor
 public class BotFavoriteController {
 
-    @Autowired
-    private BotFavoriteService botFavoriteService;
+    private final BotFavoriteService botFavoriteService;
 
     @PostMapping(value = "/list")
     public ApiResult<BotFavoritePageDto> list(HttpServletRequest request, @RequestBody BotMarketForm botMarketForm) {

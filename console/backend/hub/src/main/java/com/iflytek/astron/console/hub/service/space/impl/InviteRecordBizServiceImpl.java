@@ -44,11 +44,11 @@ import com.iflytek.astron.console.hub.dto.space.UserLimitVO;
 import jakarta.annotation.Resource;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.IndexedColors;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -65,31 +65,22 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class InviteRecordBizServiceImpl implements InviteRecordBizService {
     private static final String AES_KEY = "bca4162158f8ab040861208f0bdd674bb237be7cf7d4642bf8fde54bafd7952b";
     private static final int MAX_EXPIRE_TIME = 7;
-    @Autowired
-    private SpaceUserService spaceUserService;
-    @Autowired
-    private EnterpriseUserService enterpriseUserService;
-    @Autowired
-    private SpaceService spaceService;
-    @Autowired
-    private EnterpriseService enterpriseService;
+    private final SpaceUserService spaceUserService;
+    private final EnterpriseUserService enterpriseUserService;
+    private final SpaceService spaceService;
+    private final EnterpriseService enterpriseService;
     @Resource
     private InviteMessageTempProperties tempProperties;
-    @Autowired
-    private SpaceLimitProperties spaceLimitProperties;
-    @Autowired
-    private InviteRecordService inviteRecordService;
-    @Autowired
-    private EnterpriseUserBizService enterpriseUserBizService;
-    @Autowired
-    private S3ClientUtil s3ClientUtil;
-    @Autowired
-    private NotificationService notificationService;
-    @Autowired
-    private UserInfoDataService userInfoDataService;
+    private final SpaceLimitProperties spaceLimitProperties;
+    private final InviteRecordService inviteRecordService;
+    private final EnterpriseUserBizService enterpriseUserBizService;
+    private final S3ClientUtil s3ClientUtil;
+    private final NotificationService notificationService;
+    private final UserInfoDataService userInfoDataService;
 
     /**
      * Space invitation

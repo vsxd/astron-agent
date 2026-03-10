@@ -19,8 +19,8 @@ import com.iflytek.astron.console.hub.service.bot.TalkAgentService;
 import com.iflytek.astron.console.hub.service.workflow.BotChainService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,26 +31,22 @@ import java.util.List;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class TalkAgentServiceImpl implements TalkAgentService {
     @Value("${spark.virtual-man-apiKey}")
     private String apiKey;
     @Value("${spark.virtual-man-apiSecret}")
     private String apiSecret;
 
-    @Autowired
-    private ChatListDataService chatListDataService;
+    private final ChatListDataService chatListDataService;
 
-    @Autowired
-    private ChatDataService chatDataService;
+    private final ChatDataService chatDataService;
 
-    @Autowired
-    private BotService botService;
+    private final BotService botService;
 
-    @Autowired
-    private BotChainService botChainService;
+    private final BotChainService botChainService;
 
-    @Autowired
-    private RedissonClient redissonClient;
+    private final RedissonClient redissonClient;
     private static final String SIGNATURE_URL = "wss://avatar.cn-huadong-1.xf-yun.com/v1/interact";
 
     @Override

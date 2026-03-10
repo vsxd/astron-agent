@@ -16,11 +16,12 @@ import com.iflytek.astron.console.hub.service.workflow.WorkflowService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * Service for managing model shelf operations Handles model removal from shelf and workflow updates
@@ -30,9 +31,9 @@ import java.util.*;
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ShelfModelService {
-    @Autowired
-    private ConfigInfoMapper configInfoMapper;
+    private final ConfigInfoMapper configInfoMapper;
     @Resource
     private WorkflowService workflowService;
 

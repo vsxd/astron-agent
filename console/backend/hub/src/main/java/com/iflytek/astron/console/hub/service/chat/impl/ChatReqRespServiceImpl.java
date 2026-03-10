@@ -3,18 +3,19 @@ package com.iflytek.astron.console.hub.service.chat.impl;
 import com.iflytek.astron.console.hub.service.data.ChatDataService;
 import com.iflytek.astron.console.hub.service.chat.ChatReqRespService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author mingsuiyongheng
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ChatReqRespServiceImpl implements ChatReqRespService {
 
-    @Autowired
-    private ChatDataService chatDataService;
+    private final ChatDataService chatDataService;
 
     /**
      * Update bot chat context

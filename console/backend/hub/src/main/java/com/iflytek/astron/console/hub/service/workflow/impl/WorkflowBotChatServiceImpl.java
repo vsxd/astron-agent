@@ -31,7 +31,6 @@ import lombok.extern.slf4j.Slf4j;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -40,33 +39,29 @@ import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author mingsuiyongheng
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class WorkflowBotChatServiceImpl implements WorkflowBotChatService {
 
-    @Autowired
-    private UserLangChainDataService userLangChainDataService;
+    private final UserLangChainDataService userLangChainDataService;
 
-    @Autowired
-    private ChatDataService chatDataService;
+    private final ChatDataService chatDataService;
 
-    @Autowired
-    private WorkflowBotParamService workflowBotParamService;
+    private final WorkflowBotParamService workflowBotParamService;
 
-    @Autowired
-    private ChatHistoryService chatHistoryService;
+    private final ChatHistoryService chatHistoryService;
 
-    @Autowired
-    private ChatBotDataService chatBotDataService;
+    private final ChatBotDataService chatBotDataService;
 
-    @Autowired
-    private RedissonClient redissonClient;
+    private final RedissonClient redissonClient;
 
-    @Autowired
-    private WssListenerService wssListenerService;
+    private final WssListenerService wssListenerService;
 
     @Value("${workflow.chatUrl}")
     private String chatUrl;

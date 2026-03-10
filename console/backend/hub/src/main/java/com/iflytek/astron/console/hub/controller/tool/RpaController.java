@@ -11,13 +11,14 @@ import com.iflytek.astron.console.hub.handler.UserInfoManagerHandler;
 import com.iflytek.astron.console.hub.service.tool.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.List;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * REST controller for RPA resources.
@@ -33,13 +34,12 @@ import java.util.List;
 @RequestMapping("/api/rpa")
 @Slf4j
 @Tag(name = "RPA management interface")
+@RequiredArgsConstructor
 public class RpaController {
 
-    @Autowired
-    private RpaInfoService rpaInfoService;
+    private final RpaInfoService rpaInfoService;
 
-    @Autowired
-    private RpaAssistantService rpaAssistantService;
+    private final RpaAssistantService rpaAssistantService;
 
     /**
      * Get all available RPA platforms/sources.

@@ -19,9 +19,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author wowo
@@ -33,24 +34,19 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/my-bot")
 @Tag(name = "Personal agent correlation")
 @RestController
+@RequiredArgsConstructor
 public class MyBotController {
 
-    @Autowired
-    private UserBotService userBotService;
+    private final UserBotService userBotService;
 
-    @Autowired
-    private ChatBotDataService chatBotDataService;
+    private final ChatBotDataService chatBotDataService;
 
-    @Autowired
-    private BotPermissionUtil botPermissionUtil;
+    private final BotPermissionUtil botPermissionUtil;
 
-    @Autowired
-    private MassDatasetInfoService massDatasetInfoService;
+    private final MassDatasetInfoService massDatasetInfoService;
 
-    @Autowired
-    private ChatListService chatListService;
-    @Autowired
-    private PersonalityConfigService personalityConfigService;
+    private final ChatListService chatListService;
+    private final PersonalityConfigService personalityConfigService;
 
     /**
      * Display assistants I created

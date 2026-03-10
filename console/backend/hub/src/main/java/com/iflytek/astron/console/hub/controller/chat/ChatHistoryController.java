@@ -21,7 +21,6 @@ import com.iflytek.astron.console.hub.service.chat.TraceToSourceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author mingsuiyongheng
  */
@@ -38,25 +39,20 @@ import java.util.Map;
 @Slf4j
 @Tag(name = "Chat History")
 @RequestMapping("/chat-history")
+@RequiredArgsConstructor
 public class ChatHistoryController {
 
-    @Autowired
-    private ChatDataService chatDataService;
+    private final ChatDataService chatDataService;
 
-    @Autowired
-    private TraceToSourceService traceToSourceService;
+    private final TraceToSourceService traceToSourceService;
 
-    @Autowired
-    private ChatReasonRecordsService chatReasonRecordsService;
+    private final ChatReasonRecordsService chatReasonRecordsService;
 
-    @Autowired
-    private ChatHistoryMultiModalService chatHistoryMultiModalService;
+    private final ChatHistoryMultiModalService chatHistoryMultiModalService;
 
-    @Autowired
-    private ChatEnhanceService chatEnhanceService;
+    private final ChatEnhanceService chatEnhanceService;
 
-    @Autowired
-    private ChatListDataService chatListDataService;
+    private final ChatListDataService chatListDataService;
 
     /**
      * Get chat history based on chatId

@@ -7,8 +7,8 @@ import com.iflytek.astron.console.hub.event.UserNicknameUpdatedEvent;
 import com.iflytek.astron.console.hub.mapper.space.EnterpriseUserMapper;
 import com.iflytek.astron.console.hub.mapper.space.SpaceUserMapper;
 import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
@@ -17,13 +17,12 @@ import java.time.LocalDateTime;
 
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class UserNicknameUpdateEventListener {
 
-    @Autowired
-    private EnterpriseUserMapper enterpriseUserMapper;
+    private final EnterpriseUserMapper enterpriseUserMapper;
 
-    @Autowired
-    private SpaceUserMapper spaceUserMapper;
+    private final SpaceUserMapper spaceUserMapper;
 
     @EventListener
     @Async
