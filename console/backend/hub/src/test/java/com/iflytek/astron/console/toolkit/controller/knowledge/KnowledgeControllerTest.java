@@ -5,7 +5,7 @@ import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.entity.mongo.Knowledge;
 import com.iflytek.astron.console.hub.entity.vo.repo.KnowledgeVO;
-import com.iflytek.astron.console.hub.service.repo.KnowledgeService;
+import com.iflytek.astron.console.hub.service.repo.KnowledgeRepoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -53,7 +53,7 @@ import static org.mockito.Mockito.*;
 class KnowledgeControllerTest {
 
     @Mock
-    private KnowledgeService knowledgeService;
+    private KnowledgeRepoService knowledgeService;
 
     @InjectMocks
     private KnowledgeController knowledgeController;

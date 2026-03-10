@@ -9,6 +9,7 @@ import com.iflytek.astron.console.hub.entity.user.UserInfo;
 import com.iflytek.astron.console.hub.enums.space.EnterpriseServiceTypeEnum;
 import com.iflytek.astron.console.hub.mapper.space.EnterpriseMapper;
 import com.iflytek.astron.console.hub.service.space.EnterpriseUserService;
+import com.iflytek.astron.console.hub.handler.UserInfoManagerHandler;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
 import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -241,8 +242,8 @@ class EnterpriseServiceImplTest {
     @DisplayName("Should return 0 when user already joined an enterprise team")
     void checkNeedCreateTeam_WithExistingEnterprise_ShouldReturn0() {
         // Given
-        try (MockedStatic<RequestContextUtil> mockedRequestContext = mockStatic(RequestContextUtil.class)) {
-            mockedRequestContext.when(RequestContextUtil::getUserInfo).thenReturn(mockUserInfo);
+        try (MockedStatic<UserInfoManagerHandler> mockedHandler = mockStatic(UserInfoManagerHandler.class)) {
+            mockedHandler.when(UserInfoManagerHandler::get).thenReturn(mockUserInfo);
 
             when(enterpriseMapper.selectOne(any(LambdaQueryWrapper.class))).thenReturn(mockEnterprise);
 
@@ -261,8 +262,8 @@ class EnterpriseServiceImplTest {
         // Given
         mockUserInfo.setEnterpriseServiceType(null);
 
-        try (MockedStatic<RequestContextUtil> mockedRequestContext = mockStatic(RequestContextUtil.class)) {
-            mockedRequestContext.when(RequestContextUtil::getUserInfo).thenReturn(mockUserInfo);
+        try (MockedStatic<UserInfoManagerHandler> mockedHandler = mockStatic(UserInfoManagerHandler.class)) {
+            mockedHandler.when(UserInfoManagerHandler::get).thenReturn(mockUserInfo);
 
             when(enterpriseMapper.selectOne(any(LambdaQueryWrapper.class))).thenReturn(null);
 
@@ -280,8 +281,8 @@ class EnterpriseServiceImplTest {
         // Given
         mockUserInfo.setEnterpriseServiceType(EnterpriseServiceTypeEnum.ENTERPRISE);
 
-        try (MockedStatic<RequestContextUtil> mockedRequestContext = mockStatic(RequestContextUtil.class)) {
-            mockedRequestContext.when(RequestContextUtil::getUserInfo).thenReturn(mockUserInfo);
+        try (MockedStatic<UserInfoManagerHandler> mockedHandler = mockStatic(UserInfoManagerHandler.class)) {
+            mockedHandler.when(UserInfoManagerHandler::get).thenReturn(mockUserInfo);
 
             when(enterpriseMapper.selectOne(any(LambdaQueryWrapper.class))).thenReturn(null);
 
@@ -297,8 +298,8 @@ class EnterpriseServiceImplTest {
     @DisplayName("Should throw NullPointerException when user info is null")
     void checkNeedCreateTeam_WithNullUserInfo_ShouldThrowNullPointerException() {
         // Given
-        try (MockedStatic<RequestContextUtil> mockedRequestContext = mockStatic(RequestContextUtil.class)) {
-            mockedRequestContext.when(RequestContextUtil::getUserInfo).thenReturn(null);
+        try (MockedStatic<UserInfoManagerHandler> mockedHandler = mockStatic(UserInfoManagerHandler.class)) {
+            mockedHandler.when(UserInfoManagerHandler::get).thenReturn(null);
 
             // When & Then
             assertThrows(NullPointerException.class, () -> {
@@ -622,7 +623,7 @@ class EnterpriseServiceImplTest {
         });
 
         // Verify the service implements the interface correctly
-        assertTrue(enterpriseService instanceof com.iflytek.astron.console.commons.service.space.EnterpriseService,
+        assertTrue(enterpriseService instanceof com.iflytek.astron.console.hub.service.space.EnterpriseService,
                 "Service should implement EnterpriseService interface");
     }
 
@@ -714,7 +715,7 @@ class EnterpriseServiceImplTest {
     @DisplayName("Should verify service implements interface correctly")
     void verifyServiceImplementsInterfaceCorrectly() {
         // Given & When & Then
-        assertTrue(enterpriseService instanceof com.iflytek.astron.console.commons.service.space.EnterpriseService,
+        assertTrue(enterpriseService instanceof com.iflytek.astron.console.hub.service.space.EnterpriseService,
                 "Service should implement EnterpriseService interface");
 
         assertTrue(enterpriseService instanceof com.baomidou.mybatisplus.extension.service.impl.ServiceImpl,

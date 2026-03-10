@@ -216,7 +216,7 @@ class EnterprisePermissionServiceImplTest {
 
         // Verify the method can be called without parameters causing issues
         // Note: We avoid actual invocation to prevent MyBatis-Plus lambda cache issues
-        assertTrue(enterprisePermissionService instanceof com.iflytek.astron.console.commons.service.space.EnterprisePermissionService,
+        assertTrue(enterprisePermissionService instanceof com.iflytek.astron.console.hub.service.space.EnterprisePermissionService,
                 "Service should implement EnterprisePermissionService interface");
     }
 
@@ -258,7 +258,7 @@ class EnterprisePermissionServiceImplTest {
                     "listByKeys method should not be static");
 
             // Verify method exists in interface
-            java.lang.reflect.Method interfaceMethod = com.iflytek.astron.console.commons.service.space.EnterprisePermissionService.class
+            java.lang.reflect.Method interfaceMethod = com.iflytek.astron.console.hub.service.space.EnterprisePermissionService.class
                     .getMethod("listByKeys", Collection.class);
             assertNotNull(interfaceMethod, "Method should exist in interface");
         });
@@ -269,7 +269,7 @@ class EnterprisePermissionServiceImplTest {
     void verifyServiceInterfaceImplementation() {
         // Given & When & Then
         // Verify that the service properly implements the interface
-        assertTrue(enterprisePermissionService instanceof com.iflytek.astron.console.commons.service.space.EnterprisePermissionService);
+        assertTrue(enterprisePermissionService instanceof com.iflytek.astron.console.hub.service.space.EnterprisePermissionService);
 
         // Verify that it also implements MyBatis-Plus ServiceImpl
         assertTrue(enterprisePermissionService instanceof com.baomidou.mybatisplus.extension.service.impl.ServiceImpl);
@@ -358,7 +358,7 @@ class EnterprisePermissionServiceImplTest {
         });
 
         // Verify the service has the method from the interface
-        assertTrue(enterprisePermissionService instanceof com.iflytek.astron.console.commons.service.space.EnterprisePermissionService,
+        assertTrue(enterprisePermissionService instanceof com.iflytek.astron.console.hub.service.space.EnterprisePermissionService,
                 "Service should implement EnterprisePermissionService interface");
     }
 
@@ -415,7 +415,7 @@ class EnterprisePermissionServiceImplTest {
         });
 
         // Test that service properly implements the interface contract
-        assertTrue(com.iflytek.astron.console.commons.service.space.EnterprisePermissionService.class
+        assertTrue(com.iflytek.astron.console.hub.service.space.EnterprisePermissionService.class
                 .isAssignableFrom(enterprisePermissionService.getClass()),
                 "Service should implement EnterprisePermissionService interface");
     }

@@ -590,7 +590,7 @@ class EnterpriseUserServiceImplTest {
     @DisplayName("Should verify service implements interface correctly")
     void verifyServiceImplementsInterfaceCorrectly() {
         // Given & When & Then
-        assertTrue(enterpriseUserService instanceof com.iflytek.astron.console.commons.service.space.EnterpriseUserService,
+        assertTrue(enterpriseUserService instanceof com.iflytek.astron.console.hub.service.space.EnterpriseUserService,
                 "Service should implement EnterpriseUserService interface");
 
         assertTrue(enterpriseUserService instanceof com.baomidou.mybatisplus.extension.service.impl.ServiceImpl,

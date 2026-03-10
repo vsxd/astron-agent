@@ -354,8 +354,8 @@ class BotChatServiceImplUnitTest {
         doNothing().when(promptChatService).chatStream(any(JSONObject.class), any(SseEmitter.class), anyString(), any(), anyBoolean(), anyBoolean());
 
         // When & Then - Mock SpaceInfoUtil static method
-        try (var mockedSpaceInfoUtil = mockStatic(com.iflytek.astron.console.commons.util.space.SpaceInfoUtil.class)) {
-            mockedSpaceInfoUtil.when(com.iflytek.astron.console.commons.util.space.SpaceInfoUtil::getSpaceId).thenReturn(1L);
+        try (var mockedSpaceInfoUtil = mockStatic(com.iflytek.astron.console.hub.util.space.SpaceInfoUtil.class)) {
+            mockedSpaceInfoUtil.when(com.iflytek.astron.console.hub.util.space.SpaceInfoUtil::getSpaceId).thenReturn(1L);
 
             botChatService.debugChatMessageBot(request, sseEmitter, sseId);
 

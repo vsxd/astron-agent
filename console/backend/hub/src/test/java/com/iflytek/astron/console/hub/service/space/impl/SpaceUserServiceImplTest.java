@@ -319,7 +319,7 @@ class SpaceUserServiceImplTest {
         });
 
         // Verify the service implements the interface correctly
-        assertTrue(spaceUserService instanceof com.iflytek.astron.console.commons.service.space.SpaceUserService,
+        assertTrue(spaceUserService instanceof com.iflytek.astron.console.hub.service.space.SpaceUserService,
                 "Service should implement SpaceUserService interface");
     }
 
@@ -572,7 +572,7 @@ class SpaceUserServiceImplTest {
         });
 
         // Verify the service properly implements the interface contract
-        assertTrue(com.iflytek.astron.console.commons.service.space.SpaceUserService.class
+        assertTrue(com.iflytek.astron.console.hub.service.space.SpaceUserService.class
                 .isAssignableFrom(spaceUserService.getClass()),
                 "Service should implement SpaceUserService interface");
     }
@@ -662,7 +662,7 @@ class SpaceUserServiceImplTest {
     @DisplayName("Should verify service implements interface correctly")
     void verifyServiceImplementsInterfaceCorrectly() {
         // Given & When & Then
-        assertTrue(spaceUserService instanceof com.iflytek.astron.console.commons.service.space.SpaceUserService,
+        assertTrue(spaceUserService instanceof com.iflytek.astron.console.hub.service.space.SpaceUserService,
                 "Service should implement SpaceUserService interface");
 
         assertTrue(spaceUserService instanceof com.baomidou.mybatisplus.extension.service.impl.ServiceImpl,

@@ -386,7 +386,7 @@ class InviteRecordServiceImplTest {
         });
 
         // Verify the service properly implements the interface contract
-        assertTrue(com.iflytek.astron.console.commons.service.space.InviteRecordService.class
+        assertTrue(com.iflytek.astron.console.hub.service.space.InviteRecordService.class
                 .isAssignableFrom(inviteRecordService.getClass()),
                 "Service should implement InviteRecordService interface");
     }
@@ -429,7 +429,7 @@ class InviteRecordServiceImplTest {
                     "saveBatch method should not be static");
 
             // Verify method exists in interface
-            java.lang.reflect.Method interfaceMethod = com.iflytek.astron.console.commons.service.space.InviteRecordService.class
+            java.lang.reflect.Method interfaceMethod = com.iflytek.astron.console.hub.service.space.InviteRecordService.class
                     .getMethod("saveBatch", Collection.class);
             assertNotNull(interfaceMethod, "Method should exist in interface");
         });
@@ -562,7 +562,7 @@ class InviteRecordServiceImplTest {
         });
 
         // Verify the service implements the interface correctly
-        assertTrue(inviteRecordService instanceof com.iflytek.astron.console.commons.service.space.InviteRecordService,
+        assertTrue(inviteRecordService instanceof com.iflytek.astron.console.hub.service.space.InviteRecordService,
                 "Service should implement InviteRecordService interface");
     }
 
@@ -665,7 +665,7 @@ class InviteRecordServiceImplTest {
     @DisplayName("Should verify service implements interface correctly")
     void verifyServiceImplementsInterfaceCorrectly() {
         // Given & When & Then
-        assertTrue(inviteRecordService instanceof com.iflytek.astron.console.commons.service.space.InviteRecordService,
+        assertTrue(inviteRecordService instanceof com.iflytek.astron.console.hub.service.space.InviteRecordService,
                 "Service should implement InviteRecordService interface");
 
         assertTrue(inviteRecordService instanceof com.baomidou.mybatisplus.extension.service.impl.ServiceImpl,

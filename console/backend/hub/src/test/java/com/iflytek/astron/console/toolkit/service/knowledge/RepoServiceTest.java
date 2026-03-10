@@ -4,7 +4,7 @@ import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.iflytek.astron.console.hub.config.JwtClaimsFilter;
+import com.iflytek.astron.console.commons.util.RequestContextUtil;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.hub.dto.dataset.DatasetStats;
 import com.iflytek.astron.console.commons.exception.BusinessException;
@@ -168,7 +168,7 @@ class RepoServiceTest {
     void setUp() {
         // Initialize mock HttpServletRequest and set up RequestContextHolder
         mockRequest = new MockHttpServletRequest();
-        mockRequest.setAttribute(JwtClaimsFilter.USER_ID_ATTRIBUTE, "user-001");
+        mockRequest.setAttribute(RequestContextUtil.USER_ID_ATTRIBUTE, "user-001");
         ServletRequestAttributes attributes = new ServletRequestAttributes(mockRequest);
         RequestContextHolder.setRequestAttributes(attributes);
 

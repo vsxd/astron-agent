@@ -755,7 +755,7 @@ class SpaceServiceImplTest {
     @DisplayName("Should verify service implements interface correctly")
     void verifyServiceImplementsInterfaceCorrectly() {
         // Given & When & Then
-        assertTrue(spaceService instanceof com.iflytek.astron.console.commons.service.space.SpaceService,
+        assertTrue(spaceService instanceof com.iflytek.astron.console.hub.service.space.SpaceService,
                 "Service should implement SpaceService interface");
 
         assertTrue(spaceService instanceof com.baomidou.mybatisplus.extension.service.impl.ServiceImpl,

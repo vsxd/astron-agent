@@ -486,8 +486,8 @@ class ModelServiceTest {
                     .thenReturn(new ResponseEntity<>(okResp, HttpStatus.OK));
 
             // 5) mock SpaceInfoUtil.getSpaceId() to set space id on creation
-            try (MockedStatic<com.iflytek.astron.console.commons.util.space.SpaceInfoUtil> space = mockStatic(com.iflytek.astron.console.commons.util.space.SpaceInfoUtil.class)) {
-                space.when(com.iflytek.astron.console.commons.util.space.SpaceInfoUtil::getSpaceId).thenReturn(1001L);
+            try (MockedStatic<com.iflytek.astron.console.hub.util.space.SpaceInfoUtil> space = mockStatic(com.iflytek.astron.console.hub.util.space.SpaceInfoUtil.class)) {
+                space.when(com.iflytek.astron.console.hub.util.space.SpaceInfoUtil::getSpaceId).thenReturn(1001L);
 
                 // when
                 String result = modelService.validateModel(req);
@@ -624,8 +624,8 @@ class ModelServiceTest {
         doNothing().when(modelCategoryService).saveAll(any(ModelCategoryReq.class));
 
         // space id
-        try (MockedStatic<com.iflytek.astron.console.commons.util.space.SpaceInfoUtil> space = mockStatic(com.iflytek.astron.console.commons.util.space.SpaceInfoUtil.class)) {
-            space.when(com.iflytek.astron.console.commons.util.space.SpaceInfoUtil::getSpaceId).thenReturn(2002L);
+        try (MockedStatic<com.iflytek.astron.console.hub.util.space.SpaceInfoUtil> space = mockStatic(com.iflytek.astron.console.hub.util.space.SpaceInfoUtil.class)) {
+            space.when(com.iflytek.astron.console.hub.util.space.SpaceInfoUtil::getSpaceId).thenReturn(2002L);
 
             Object ok = modelService.localModel(dto);
             assertEquals(Boolean.TRUE, ok);

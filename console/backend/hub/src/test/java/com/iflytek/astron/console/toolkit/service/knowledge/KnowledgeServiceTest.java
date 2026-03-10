@@ -22,7 +22,7 @@ import com.iflytek.astron.console.hub.mapper.knowledge.KnowledgeMapper;
 import com.iflytek.astron.console.hub.mapper.knowledge.PreviewKnowledgeMapper;
 import com.iflytek.astron.console.hub.mapper.repo.FileInfoV2Mapper;
 import com.iflytek.astron.console.hub.service.repo.FileInfoV2Service;
-import com.iflytek.astron.console.hub.service.repo.KnowledgeService;
+import com.iflytek.astron.console.hub.service.repo.KnowledgeRepoService;
 import com.iflytek.astron.console.hub.service.repo.RepoService;
 import com.iflytek.astron.console.hub.service.task.ExtractKnowledgeTaskService;
 import com.iflytek.astron.console.hub.tool.DataPermissionCheckTool;
@@ -95,7 +95,7 @@ class KnowledgeServiceTest {
     private PreviewKnowledgeMapper previewKnowledgeMapper;
 
     @InjectMocks
-    private KnowledgeService knowledgeService;
+    private KnowledgeRepoService knowledgeService;
 
     private KnowledgeVO mockKnowledgeVO;
     private MysqlKnowledge mockMysqlKnowledge;

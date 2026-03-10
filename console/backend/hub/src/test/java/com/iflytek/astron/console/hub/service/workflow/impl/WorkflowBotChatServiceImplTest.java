@@ -19,7 +19,7 @@ import com.iflytek.astron.console.hub.service.data.ChatDataService;
 import com.iflytek.astron.console.hub.service.data.ChatHistoryService;
 import com.iflytek.astron.console.hub.service.data.UserLangChainDataService;
 import com.iflytek.astron.console.hub.service.workflow.WorkflowBotParamService;
-import com.iflytek.astron.console.commons.workflow.WorkflowClient;
+import com.iflytek.astron.console.hub.workflow.WorkflowClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

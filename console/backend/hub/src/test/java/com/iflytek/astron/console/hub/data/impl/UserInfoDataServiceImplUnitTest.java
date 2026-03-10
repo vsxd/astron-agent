@@ -2,7 +2,7 @@ package com.iflytek.astron.console.hub.data.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.iflytek.astron.console.hub.entity.user.UserInfo;
-import com.iflytek.astron.console.commons.event.UserNicknameUpdatedEvent;
+import com.iflytek.astron.console.hub.event.UserNicknameUpdatedEvent;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.hub.mapper.user.UserInfoMapper;
 import com.iflytek.astron.console.commons.util.I18nUtil;

@@ -111,7 +111,7 @@ class FileInfoV2ServiceTest {
     private FileDirectoryTreeService fileDirectoryTreeService;
 
     @Mock
-    private KnowledgeService knowledgeService;
+    private KnowledgeRepoService knowledgeService;
 
     @Mock
     private ExtractKnowledgeTaskService extractKnowledgeTaskService;
