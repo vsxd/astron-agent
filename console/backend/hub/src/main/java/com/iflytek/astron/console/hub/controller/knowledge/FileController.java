@@ -5,7 +5,6 @@ import com.iflytek.astron.console.commons.annotation.space.SpacePreAuth;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.hub.common.Result;
 import com.iflytek.astron.console.hub.entity.common.PageData;
 import com.iflytek.astron.console.hub.entity.dto.FileInfoV2Dto;
 import com.iflytek.astron.console.hub.entity.dto.KnowledgeDto;
@@ -93,12 +92,8 @@ public class FileController {
         if (StringUtils.isEmpty(sliceFileVO.getSliceConfig().getSeperator().get(0))) {
             sliceFileVO.getSliceConfig().setSeperator(Collections.singletonList("\n"));
         }
-        Result<Boolean> result = fileInfoV2Service.sliceFiles(sliceFileVO);
-        if (result.noError()) {
-            return ApiResult.success(result.getData());
-        } else {
-            return ApiResult.error(result.getCode(), result.getMessage());
-        }
+        Boolean result = fileInfoV2Service.sliceFiles(sliceFileVO);
+        return ApiResult.success(result);
     }
 
     /**

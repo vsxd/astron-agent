@@ -6,7 +6,6 @@ import com.iflytek.astron.console.hub.entity.workflow.Workflow;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
-import com.iflytek.astron.console.hub.common.Result;
 import com.iflytek.astron.console.hub.entity.biz.workflow.ChatBizReq;
 import com.iflytek.astron.console.hub.entity.biz.workflow.ChatResumeReq;
 import com.iflytek.astron.console.hub.entity.biz.workflow.WorkflowDebugDto;
@@ -223,7 +222,7 @@ public class WorkflowController {
     @GetMapping("/can-publish-set")
     public Object canPublishSet(@RequestParam Long id) {
         log.info("workflow[{}] set unpublished ,operator = {}", id, UserInfoManagerHandler.get());
-        return Result.success(workflowService.canPublishSet(id));
+        return ApiResult.success(workflowService.canPublishSet(id));
     }
 
     @GetMapping("/can-publish-set-not")

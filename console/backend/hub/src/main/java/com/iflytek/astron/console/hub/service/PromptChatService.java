@@ -6,7 +6,6 @@ import com.iflytek.astron.console.hub.service.data.ChatDataService;
 import com.iflytek.astron.console.commons.util.SseEmitterUtil;
 import com.iflytek.astron.console.hub.entity.chat.ChatReqRecords;
 import com.iflytek.astron.console.hub.entity.chat.ChatTraceSource;
-import com.iflytek.astron.console.hub.service.ChatRecordModelService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;

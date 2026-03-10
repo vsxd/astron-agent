@@ -25,7 +25,8 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * <p>
- * Renamed from TalkAgentService to TalkAgentConfigService to avoid conflict with hub.service.bot.TalkAgentService
+ * Renamed from TalkAgentService to TalkAgentConfigService to avoid conflict with
+ * hub.service.bot.TalkAgentService
  * </p>
  *
  * @author clliu19

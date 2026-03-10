@@ -1,6 +1,5 @@
 package com.iflytek.astron.console.hub.dto.bot;
 
-import com.iflytek.astron.console.hub.dto.bot.BotCreateForm;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

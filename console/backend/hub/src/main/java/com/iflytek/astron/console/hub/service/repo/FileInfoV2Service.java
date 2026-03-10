@@ -12,7 +12,6 @@ import com.iflytek.astron.console.commons.util.S3ClientUtil;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
-import com.iflytek.astron.console.hub.common.Result;
 import com.iflytek.astron.console.hub.common.constant.*;
 import com.iflytek.astron.console.hub.config.properties.ApiUrl;
 import com.iflytek.astron.console.hub.entity.common.PageData;
@@ -483,7 +482,7 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
      * @throws ExecutionException if execution fails
      * @throws BusinessException if files are currently being parsed or slice range is invalid
      */
-    public Result<Boolean> sliceFiles(DealFileVO sliceFileVO) throws InterruptedException, ExecutionException {
+    public Boolean sliceFiles(DealFileVO sliceFileVO) throws InterruptedException, ExecutionException {
         Long spaceId = SpaceInfoUtil.getSpaceId();
         if (ProjectContent.isSparkRagCompatible(sliceFileVO.getTag())) {
             if (sliceFileVO.getSliceConfig().getType().equals(1)) {
@@ -513,7 +512,7 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
                     throw new BusinessException(ResponseEnum.REPO_FILE_SLICE_FAILED);
                 }
             } else {
-                return Result.success(true);
+                return true;
             }
         } else {
             List<Long> fileIds = sliceFileVO.getFileIds()
@@ -580,7 +579,7 @@ public class FileInfoV2Service extends ServiceImpl<FileInfoV2Mapper, FileInfoV2>
                 }
             }
         }
-        return Result.success(true);
+        return true;
     }
 
 
