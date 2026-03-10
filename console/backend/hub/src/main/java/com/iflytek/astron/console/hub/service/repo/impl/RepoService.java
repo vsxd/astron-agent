@@ -1,4 +1,4 @@
-package com.iflytek.astron.console.hub.service.repo;
+package com.iflytek.astron.console.hub.service.repo.impl;
 
 import cn.hutool.core.thread.ThreadUtil;
 import com.alibaba.fastjson2.*;
@@ -33,8 +33,8 @@ import com.iflytek.astron.console.hub.mapper.repo.FileInfoV2Mapper;
 import com.iflytek.astron.console.hub.mapper.repo.RepoMapper;
 import com.iflytek.astron.console.hub.service.bot.BotRepoRelService;
 import com.iflytek.astron.console.hub.service.bot.BotRepoSubscriptService;
-import com.iflytek.astron.console.hub.service.extra.OpenPlatformService;
-import com.iflytek.astron.console.hub.service.group.GroupVisibilityService;
+import com.iflytek.astron.console.hub.service.extra.impl.OpenPlatformService;
+import com.iflytek.astron.console.hub.service.group.impl.GroupVisibilityService;
 import com.iflytek.astron.console.hub.tool.DataPermissionCheckTool;
 import com.iflytek.astron.console.hub.util.OkHttpUtil;
 import com.iflytek.astron.console.hub.util.S3Util;

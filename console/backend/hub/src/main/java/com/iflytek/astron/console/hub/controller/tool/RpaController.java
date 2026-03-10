@@ -8,7 +8,7 @@ import com.iflytek.astron.console.hub.entity.tool.CreateRpaAssistantReq;
 import com.iflytek.astron.console.hub.entity.tool.RpaAssistantResp;
 import com.iflytek.astron.console.hub.entity.tool.UpdateRpaAssistantReq;
 import com.iflytek.astron.console.hub.handler.UserInfoManagerHandler;
-import com.iflytek.astron.console.hub.service.tool.*;
+import com.iflytek.astron.console.hub.service.tool.impl.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;

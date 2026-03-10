@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.iflytek.astron.console.hub.entity.table.node.TextNodeConfig;
 import com.iflytek.astron.console.hub.handler.UserInfoManagerHandler;
 import com.iflytek.astron.console.hub.mapper.node.TextNodeConfigMapper;
-import com.iflytek.astron.console.hub.service.node.TextNodeConfigService;
+import com.iflytek.astron.console.hub.service.node.impl.TextNodeConfigService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;

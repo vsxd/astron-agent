@@ -15,7 +15,7 @@ import com.iflytek.astron.console.hub.entity.core.workflow.sse.ChatResponse;
 import com.iflytek.astron.console.hub.entity.core.workflow.sse.Choice;
 import com.iflytek.astron.console.hub.entity.core.workflow.sse.Node;
 import com.iflytek.astron.console.hub.mapper.workflow.WorkflowMapper;
-import com.iflytek.astron.console.hub.service.extra.CoreSystemService;
+import com.iflytek.astron.console.hub.service.extra.impl.CoreSystemService;
 import com.iflytek.astron.console.hub.util.JacksonUtil;
 import com.iflytek.astron.console.hub.util.SpringUtils;
 import lombok.Getter;

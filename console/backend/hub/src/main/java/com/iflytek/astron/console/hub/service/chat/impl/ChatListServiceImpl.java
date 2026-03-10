@@ -9,7 +9,7 @@ import com.iflytek.astron.console.hub.enums.bot.DefaultBotModelEnum;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.service.bot.BotService;
 import com.iflytek.astron.console.hub.entity.vo.LLMInfoVo;
-import com.iflytek.astron.console.hub.service.model.ModelService;
+import com.iflytek.astron.console.hub.service.model.impl.ModelService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.BeanUtils;
 import com.iflytek.astron.console.hub.service.data.ChatDataService;

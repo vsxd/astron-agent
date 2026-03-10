@@ -1,4 +1,4 @@
-package com.iflytek.astron.console.hub.service.model;
+package com.iflytek.astron.console.hub.service.model.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;

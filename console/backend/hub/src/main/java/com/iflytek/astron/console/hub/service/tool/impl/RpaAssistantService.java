@@ -1,4 +1,4 @@
-package com.iflytek.astron.console.hub.service.tool;
+package com.iflytek.astron.console.hub.service.tool.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.alibaba.fastjson2.*;

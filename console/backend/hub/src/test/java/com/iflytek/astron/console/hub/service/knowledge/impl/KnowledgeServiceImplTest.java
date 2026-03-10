@@ -4,7 +4,7 @@ import com.iflytek.astron.console.hub.entity.dataset.BotDatasetMaas;
 import com.iflytek.astron.console.hub.service.data.ChatListDataService;
 import com.iflytek.astron.console.hub.service.data.DatasetDataService;
 import com.iflytek.astron.console.hub.entity.core.knowledge.ChunkInfo;
-import com.iflytek.astron.console.hub.service.repo.RepoService;
+import com.iflytek.astron.console.hub.service.repo.impl.RepoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

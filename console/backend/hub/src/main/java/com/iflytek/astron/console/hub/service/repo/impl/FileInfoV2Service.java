@@ -1,4 +1,4 @@
-package com.iflytek.astron.console.hub.service.repo;
+package com.iflytek.astron.console.hub.service.repo.impl;
 
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.RandomUtil;
@@ -31,8 +31,8 @@ import com.iflytek.astron.console.hub.entity.vo.repo.*;
 import com.iflytek.astron.console.hub.handler.UserInfoManagerHandler;
 import com.iflytek.astron.console.hub.mapper.repo.FileDirectoryTreeMapper;
 import com.iflytek.astron.console.hub.mapper.repo.FileInfoV2Mapper;
-import com.iflytek.astron.console.hub.service.common.ConfigInfoService;
-import com.iflytek.astron.console.hub.service.task.ExtractKnowledgeTaskService;
+import com.iflytek.astron.console.hub.service.common.impl.ConfigInfoService;
+import com.iflytek.astron.console.hub.service.task.impl.ExtractKnowledgeTaskService;
 import com.iflytek.astron.console.hub.task.EmbeddingFileTask;
 import com.iflytek.astron.console.hub.task.SliceFileTask;
 import com.iflytek.astron.console.hub.tool.DataPermissionCheckTool;

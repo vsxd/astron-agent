@@ -1,4 +1,4 @@
-package com.iflytek.astron.console.hub.service.database;
+package com.iflytek.astron.console.hub.service.database.impl;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.fastjson2.JSONObject;
@@ -23,7 +23,7 @@ import com.iflytek.astron.console.hub.handler.UserInfoManagerHandler;
 import com.iflytek.astron.console.hub.mapper.ConfigInfoMapper;
 import com.iflytek.astron.console.hub.mapper.database.*;
 import com.iflytek.astron.console.hub.mapper.relation.FlowDbRelMapper;
-import com.iflytek.astron.console.hub.service.extra.CoreSystemService;
+import com.iflytek.astron.console.hub.service.extra.impl.CoreSystemService;
 import com.iflytek.astron.console.hub.tool.DataPermissionCheckTool;
 import com.iflytek.astron.console.hub.util.S3Util;
 import com.iflytek.astron.console.hub.util.database.NamePolicy;

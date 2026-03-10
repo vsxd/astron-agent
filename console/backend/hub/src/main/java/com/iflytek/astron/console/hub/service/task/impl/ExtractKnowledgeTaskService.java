@@ -1,4 +1,4 @@
-package com.iflytek.astron.console.hub.service.task;
+package com.iflytek.astron.console.hub.service.task.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.iflytek.astron.console.hub.config.properties.RepoAuthorizedConfig;
 import com.iflytek.astron.console.hub.entity.table.repo.ExtractKnowledgeTask;
 import com.iflytek.astron.console.hub.mapper.repo.ExtractKnowledgeTaskMapper;
-import com.iflytek.astron.console.hub.service.repo.KnowledgeRepoService;
+import com.iflytek.astron.console.hub.service.repo.impl.KnowledgeRepoService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

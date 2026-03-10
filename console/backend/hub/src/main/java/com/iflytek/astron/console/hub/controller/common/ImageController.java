@@ -4,7 +4,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.hub.service.common.ImageService;
+import com.iflytek.astron.console.hub.service.common.impl.ImageService;
 import com.iflytek.astron.console.hub.util.S3Util;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;

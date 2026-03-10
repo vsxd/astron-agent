@@ -8,7 +8,7 @@ import com.iflytek.astron.console.hub.entity.dto.database.*;
 import com.iflytek.astron.console.hub.entity.table.database.DbInfo;
 import com.iflytek.astron.console.hub.entity.table.database.DbTableField;
 import com.iflytek.astron.console.hub.entity.vo.database.*;
-import com.iflytek.astron.console.hub.service.database.DatabaseService;
+import com.iflytek.astron.console.hub.service.database.impl.DatabaseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;

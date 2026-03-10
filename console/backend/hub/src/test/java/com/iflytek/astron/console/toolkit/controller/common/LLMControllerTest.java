@@ -1,6 +1,6 @@
 package com.iflytek.astron.console.hub.controller.common;
 
-import com.iflytek.astron.console.hub.service.model.LLMService;
+import com.iflytek.astron.console.hub.service.model.impl.LLMService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

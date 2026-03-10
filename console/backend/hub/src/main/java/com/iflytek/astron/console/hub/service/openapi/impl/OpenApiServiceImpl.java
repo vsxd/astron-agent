@@ -11,7 +11,7 @@ import com.iflytek.astron.console.hub.mapper.bot.ChatBotApiMapper;
 import com.iflytek.astron.console.hub.entity.biz.workflow.BizWorkflowData;
 import com.iflytek.astron.console.hub.entity.dto.external.AppInfoResponse;
 import com.iflytek.astron.console.hub.entity.dto.openapi.WorkflowIoTransRequest;
-import com.iflytek.astron.console.hub.service.external.ExternalApiService;
+import com.iflytek.astron.console.hub.service.external.impl.ExternalApiService;
 import com.iflytek.astron.console.hub.service.openapi.OpenApiService;
 import com.iflytek.astron.console.hub.service.workflow.WorkflowService;
 import lombok.extern.slf4j.Slf4j;

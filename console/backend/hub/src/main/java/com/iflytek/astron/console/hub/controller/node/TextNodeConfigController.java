@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.entity.table.node.TextNodeConfig;
 import com.iflytek.astron.console.hub.handler.UserInfoManagerHandler;
-import com.iflytek.astron.console.hub.service.node.TextNodeConfigService;
+import com.iflytek.astron.console.hub.service.node.impl.TextNodeConfigService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;

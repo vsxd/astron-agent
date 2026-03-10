@@ -1,4 +1,4 @@
-package com.iflytek.astron.console.hub.service.repo;
+package com.iflytek.astron.console.hub.service.repo.impl;
 
 import cn.hutool.core.thread.ThreadFactoryBuilder;
 import com.alibaba.fastjson2.*;
@@ -21,7 +21,7 @@ import com.iflytek.astron.console.hub.entity.table.repo.*;
 import com.iflytek.astron.console.hub.entity.vo.repo.KnowledgeVO;
 import com.iflytek.astron.console.hub.handler.KnowledgeV2ServiceCallHandler;
 import com.iflytek.astron.console.hub.mapper.repo.FileInfoV2Mapper;
-import com.iflytek.astron.console.hub.service.task.ExtractKnowledgeTaskService;
+import com.iflytek.astron.console.hub.service.task.impl.ExtractKnowledgeTaskService;
 import com.iflytek.astron.console.hub.tool.DataPermissionCheckTool;
 import com.iflytek.astron.console.hub.util.S3Util;
 import jakarta.annotation.Resource;

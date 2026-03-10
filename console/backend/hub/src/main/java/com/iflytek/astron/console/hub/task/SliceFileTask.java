@@ -1,7 +1,7 @@
 package com.iflytek.astron.console.hub.task;
 
 import com.iflytek.astron.console.hub.entity.pojo.SliceConfig;
-import com.iflytek.astron.console.hub.service.repo.FileInfoV2Service;
+import com.iflytek.astron.console.hub.service.repo.impl.FileInfoV2Service;
 
 import java.util.concurrent.Callable;
 

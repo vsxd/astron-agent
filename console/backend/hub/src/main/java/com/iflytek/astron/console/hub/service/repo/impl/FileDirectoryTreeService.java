@@ -1,4 +1,4 @@
-package com.iflytek.astron.console.hub.service.repo;
+package com.iflytek.astron.console.hub.service.repo.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;

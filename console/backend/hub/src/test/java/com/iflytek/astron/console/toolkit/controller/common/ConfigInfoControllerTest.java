@@ -3,7 +3,7 @@ package com.iflytek.astron.console.hub.controller.common;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.entity.table.ConfigInfo;
-import com.iflytek.astron.console.hub.service.common.ConfigInfoService;
+import com.iflytek.astron.console.hub.service.common.impl.ConfigInfoService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;

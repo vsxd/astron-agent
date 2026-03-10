@@ -10,7 +10,7 @@ import com.iflytek.astron.console.hub.entity.biz.modelconfig.ModelValidationRequ
 import com.iflytek.astron.console.hub.entity.vo.CategoryTreeVO;
 import com.iflytek.astron.console.hub.entity.vo.LLMInfoVo;
 import com.iflytek.astron.console.hub.handler.UserInfoManagerHandler;
-import com.iflytek.astron.console.hub.service.model.ModelService;
+import com.iflytek.astron.console.hub.service.model.impl.ModelService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

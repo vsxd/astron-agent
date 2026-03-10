@@ -1,4 +1,4 @@
-package com.iflytek.astron.console.hub.service.repo;
+package com.iflytek.astron.console.hub.service.repo.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;

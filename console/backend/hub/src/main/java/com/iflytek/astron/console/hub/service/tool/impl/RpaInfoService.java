@@ -1,4 +1,4 @@
-package com.iflytek.astron.console.hub.service.tool;
+package com.iflytek.astron.console.hub.service.tool.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.iflytek.astron.console.hub.entity.table.tool.RpaInfo;

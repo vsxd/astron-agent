@@ -7,7 +7,7 @@ import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.entity.mongo.Knowledge;
 import com.iflytek.astron.console.hub.entity.vo.repo.KnowledgeVO;
-import com.iflytek.astron.console.hub.service.repo.KnowledgeRepoService;
+import com.iflytek.astron.console.hub.service.repo.impl.KnowledgeRepoService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;

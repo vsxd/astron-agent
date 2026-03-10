@@ -8,7 +8,7 @@ import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.entity.biz.modelconfig.*;
 import com.iflytek.astron.console.hub.entity.vo.CategoryTreeVO;
 import com.iflytek.astron.console.hub.handler.UserInfoManagerHandler;
-import com.iflytek.astron.console.hub.service.model.ModelService;
+import com.iflytek.astron.console.hub.service.model.impl.ModelService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;

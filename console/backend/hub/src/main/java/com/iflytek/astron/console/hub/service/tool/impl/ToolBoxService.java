@@ -1,4 +1,4 @@
-package com.iflytek.astron.console.hub.service.tool;
+package com.iflytek.astron.console.hub.service.tool.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
@@ -40,7 +40,7 @@ import com.iflytek.astron.console.hub.mapper.tool.*;
 import com.iflytek.astron.console.hub.mapper.trace.ChatInfoMapper;
 import com.iflytek.astron.console.hub.mapper.user.SystemUserMapper;
 import com.iflytek.astron.console.hub.service.bot.BotToolRelService;
-import com.iflytek.astron.console.hub.service.common.ConfigInfoService;
+import com.iflytek.astron.console.hub.service.common.impl.ConfigInfoService;
 import com.iflytek.astron.console.hub.service.workflow.WorkflowService;
 import com.iflytek.astron.console.hub.tool.DataPermissionCheckTool;
 import com.iflytek.astron.console.hub.tool.UrlCheckTool;

@@ -1,4 +1,4 @@
-package com.iflytek.astron.console.hub.service.extra;
+package com.iflytek.astron.console.hub.service.extra.impl;
 
 import com.alibaba.fastjson2.*;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;

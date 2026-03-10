@@ -5,7 +5,7 @@ import com.iflytek.astron.console.hub.service.data.ChatListDataService;
 import com.iflytek.astron.console.hub.service.data.DatasetDataService;
 import com.iflytek.astron.console.hub.service.knowledge.KnowledgeService;
 import com.iflytek.astron.console.hub.entity.core.knowledge.ChunkInfo;
-import com.iflytek.astron.console.hub.service.repo.RepoService;
+import com.iflytek.astron.console.hub.service.repo.impl.RepoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

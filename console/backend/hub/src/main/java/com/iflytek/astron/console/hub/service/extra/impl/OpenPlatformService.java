@@ -1,4 +1,4 @@
-package com.iflytek.astron.console.hub.service.extra;
+package com.iflytek.astron.console.hub.service.extra.impl;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;

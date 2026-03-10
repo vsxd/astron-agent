@@ -1,4 +1,4 @@
-package com.iflytek.astron.console.hub.service.model;
+package com.iflytek.astron.console.hub.service.model.impl;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

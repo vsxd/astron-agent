@@ -1,7 +1,7 @@
 package com.iflytek.astron.console.hub.controller.common;
 
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.hub.service.model.LLMService;
+import com.iflytek.astron.console.hub.service.model.impl.LLMService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;

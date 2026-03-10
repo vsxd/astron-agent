@@ -5,7 +5,7 @@ import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.entity.dto.*;
-import com.iflytek.astron.console.hub.service.tool.ToolBoxService;
+import com.iflytek.astron.console.hub.service.tool.impl.ToolBoxService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;

@@ -25,7 +25,7 @@ import com.iflytek.astron.console.hub.service.chat.ChatListService;
 import com.iflytek.astron.console.hub.service.knowledge.KnowledgeService;
 import com.iflytek.astron.console.hub.entity.vo.CategoryTreeVO;
 import com.iflytek.astron.console.hub.entity.vo.LLMInfoVo;
-import com.iflytek.astron.console.hub.service.model.ModelService;
+import com.iflytek.astron.console.hub.service.model.impl.ModelService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

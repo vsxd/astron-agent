@@ -1,4 +1,4 @@
-package com.iflytek.astron.console.hub.service.external;
+package com.iflytek.astron.console.hub.service.external.impl;
 
 import com.alibaba.fastjson2.JSON;
 import com.iflytek.astron.console.hub.entity.dto.external.AppInfoResponse;

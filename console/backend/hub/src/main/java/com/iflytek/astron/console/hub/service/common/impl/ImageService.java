@@ -1,4 +1,4 @@
-package com.iflytek.astron.console.hub.service.common;
+package com.iflytek.astron.console.hub.service.common.impl;
 
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;

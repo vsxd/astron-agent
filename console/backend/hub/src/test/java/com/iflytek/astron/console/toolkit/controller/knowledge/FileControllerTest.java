@@ -15,7 +15,7 @@ import com.iflytek.astron.console.hub.entity.vo.HtmlFileVO;
 import com.iflytek.astron.console.hub.entity.vo.repo.CreateFolderVO;
 import com.iflytek.astron.console.hub.entity.vo.repo.DealFileVO;
 import com.iflytek.astron.console.hub.entity.vo.repo.KnowledgeQueryVO;
-import com.iflytek.astron.console.hub.service.repo.FileInfoV2Service;
+import com.iflytek.astron.console.hub.service.repo.impl.FileInfoV2Service;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.BeforeEach;

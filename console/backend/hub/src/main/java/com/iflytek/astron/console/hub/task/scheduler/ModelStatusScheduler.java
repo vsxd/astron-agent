@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.iflytek.astron.console.hub.entity.enumVo.ModelStatusEnum;
 import com.iflytek.astron.console.hub.entity.table.model.Model;
-import com.iflytek.astron.console.hub.service.model.ModelService;
+import com.iflytek.astron.console.hub.service.model.impl.ModelService;
 import com.iflytek.astron.console.hub.util.RedisUtil;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;

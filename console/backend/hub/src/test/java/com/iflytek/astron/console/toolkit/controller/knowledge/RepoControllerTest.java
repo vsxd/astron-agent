@@ -6,7 +6,7 @@ import com.iflytek.astron.console.hub.entity.dto.RepoDto;
 import com.iflytek.astron.console.hub.entity.table.repo.HitTestHistory;
 import com.iflytek.astron.console.hub.entity.table.repo.Repo;
 import com.iflytek.astron.console.hub.entity.vo.knowledge.RepoVO;
-import com.iflytek.astron.console.hub.service.repo.RepoService;
+import com.iflytek.astron.console.hub.service.repo.impl.RepoService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

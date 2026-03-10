@@ -1,7 +1,7 @@
 package com.iflytek.astron.console.hub.task;
 
 
-import com.iflytek.astron.console.hub.service.repo.FileInfoV2Service;
+import com.iflytek.astron.console.hub.service.repo.impl.FileInfoV2Service;
 
 public class EmbeddingFileTask implements Runnable {
     private final FileInfoV2Service fileInfoV2Service;

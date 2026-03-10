@@ -13,7 +13,7 @@ import com.iflytek.astron.console.hub.entity.table.repo.FileDirectoryTree;
 import com.iflytek.astron.console.hub.entity.table.repo.FileInfoV2;
 import com.iflytek.astron.console.hub.entity.vo.HtmlFileVO;
 import com.iflytek.astron.console.hub.entity.vo.repo.*;
-import com.iflytek.astron.console.hub.service.repo.FileInfoV2Service;
+import com.iflytek.astron.console.hub.service.repo.impl.FileInfoV2Service;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
