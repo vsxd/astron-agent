@@ -221,11 +221,7 @@ class FileControllerTest {
         @DisplayName("Slice files successfully - With separator")
         void sliceFiles_Success_WithSeparator() throws InterruptedException, ExecutionException {
             // Given
-            @SuppressWarnings("unchecked")
-            ApiResult<Boolean> successResult = mock(ApiResult.class);
-            when(successResult.noError()).thenReturn(true);
-            when(successResult.getData()).thenReturn(true);
-            when(fileInfoV2Service.sliceFiles(dealFileVO)).thenReturn(successResult);
+            when(fileInfoV2Service.sliceFiles(dealFileVO)).thenReturn(true);
 
             // When
             ApiResult<Boolean> result = fileController.sliceFiles(dealFileVO);
@@ -249,11 +245,7 @@ class FileControllerTest {
         void sliceFiles_Success_EmptySeparatorDefaultsToNewline() throws InterruptedException, ExecutionException {
             // Given
             dealFileVO.getSliceConfig().setSeperator(Collections.singletonList(""));
-            @SuppressWarnings("unchecked")
-            ApiResult<Boolean> successResult = mock(ApiResult.class);
-            when(successResult.noError()).thenReturn(true);
-            when(successResult.getData()).thenReturn(true);
-            when(fileInfoV2Service.sliceFiles(dealFileVO)).thenReturn(successResult);
+            when(fileInfoV2Service.sliceFiles(dealFileVO)).thenReturn(true);
 
             // When
             ApiResult<Boolean> result = fileController.sliceFiles(dealFileVO);
@@ -278,11 +270,7 @@ class FileControllerTest {
         void sliceFiles_Success_NullSeparatorDefaultsToNewline() throws InterruptedException, ExecutionException {
             // Given
             dealFileVO.getSliceConfig().setSeperator(Collections.singletonList(null));
-            @SuppressWarnings("unchecked")
-            ApiResult<Boolean> successResult = mock(ApiResult.class);
-            when(successResult.noError()).thenReturn(true);
-            when(successResult.getData()).thenReturn(true);
-            when(fileInfoV2Service.sliceFiles(dealFileVO)).thenReturn(successResult);
+            when(fileInfoV2Service.sliceFiles(dealFileVO)).thenReturn(true);
 
             // When
             ApiResult<Boolean> result = fileController.sliceFiles(dealFileVO);
@@ -295,30 +283,25 @@ class FileControllerTest {
         }
 
         /**
-         * Test file slicing failure with error message returned Verifies that slicing failure returns
-         * appropriate error code and message
+         * Test file slicing with false result
+         * Verifies that false result is properly wrapped in ApiResult
          *
          * @throws InterruptedException if the operation is interrupted
          * @throws ExecutionException if the operation fails during execution
          */
         @Test
-        @DisplayName("Slice files failure - Returns error")
-        void sliceFiles_Failure_ReturnsError() throws InterruptedException, ExecutionException {
+        @DisplayName("Slice files - Returns false")
+        void sliceFiles_ReturnsFalse() throws InterruptedException, ExecutionException {
             // Given
-            @SuppressWarnings("unchecked")
-            ApiResult<Boolean> failureResult = mock(ApiResult.class);
-            when(failureResult.noError()).thenReturn(false);
-            when(failureResult.getCode()).thenReturn(500);
-            when(failureResult.getMessage()).thenReturn("Slice failed");
-            when(fileInfoV2Service.sliceFiles(dealFileVO)).thenReturn(failureResult);
+            when(fileInfoV2Service.sliceFiles(dealFileVO)).thenReturn(false);
 
             // When
             ApiResult<Boolean> result = fileController.sliceFiles(dealFileVO);
 
             // Then
             assertThat(result).isNotNull();
-            assertThat(result.code()).isEqualTo(500);
-            assertThat(result.message()).isEqualTo("Slice failed");
+            assertThat(result.code()).isEqualTo(0);
+            assertThat(result.data()).isFalse();
             verify(fileInfoV2Service, times(1)).sliceFiles(dealFileVO);
         }
 
@@ -1222,11 +1205,7 @@ class FileControllerTest {
             // Given
             when(fileInfoV2Service.uploadFile(multipartFile, 0L, 100L, "tag", request))
                     .thenReturn(mockFileInfo);
-            @SuppressWarnings("unchecked")
-            ApiResult<Boolean> sliceResult = mock(ApiResult.class);
-            when(sliceResult.noError()).thenReturn(true);
-            when(sliceResult.getData()).thenReturn(true);
-            when(fileInfoV2Service.sliceFiles(dealFileVO)).thenReturn(sliceResult);
+            when(fileInfoV2Service.sliceFiles(dealFileVO)).thenReturn(true);
             doNothing().when(fileInfoV2Service).embeddingFiles(dealFileVO, request);
 
             // When

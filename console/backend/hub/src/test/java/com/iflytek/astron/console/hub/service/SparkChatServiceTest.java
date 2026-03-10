@@ -54,10 +54,8 @@ class SparkChatServiceTest {
 
     @BeforeEach
     void setUp() {
-        sparkChatService = new SparkChatService();
+        sparkChatService = new SparkChatService(chatDataService, chatRecordModelService);
         ReflectionTestUtils.setField(sparkChatService, "apiPassword", "test-api-password");
-        ReflectionTestUtils.setField(sparkChatService, "chatDataService", chatDataService);
-        ReflectionTestUtils.setField(sparkChatService, "chatRecordModelService", chatRecordModelService);
 
         streamId = "test-stream-id";
 

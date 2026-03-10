@@ -2717,11 +2717,11 @@ class FileInfoV2ServiceTest {
             doReturn(successResult).when(fileInfoV2Service).sliceFile(anyLong(), any(SliceConfig.class), anyInt());
 
             // When
-            ApiResult<Boolean> result = fileInfoV2Service.sliceFiles(dealFileVO);
+            Boolean result = fileInfoV2Service.sliceFiles(dealFileVO);
 
             // Then
             assertThat(result).isNotNull();
-            assertThat(result.getData()).isTrue();
+            assertThat(result).isTrue();
             verify(fileInfoV2Mapper, atLeastOnce()).listByIds(anyList());
         }
 
@@ -2827,7 +2827,7 @@ class FileInfoV2ServiceTest {
             doReturn(successResult).when(fileInfoV2Service).sliceFile(anyLong(), any(SliceConfig.class), anyInt());
 
             // When
-            ApiResult<Boolean> result = fileInfoV2Service.sliceFiles(dealFileVO);
+            Boolean result = fileInfoV2Service.sliceFiles(dealFileVO);
 
             // Then
             assertThat(result).isNotNull();

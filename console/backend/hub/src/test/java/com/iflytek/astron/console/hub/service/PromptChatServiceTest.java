@@ -53,9 +53,7 @@ class PromptChatServiceTest {
 
     @BeforeEach
     void setUp() {
-        promptChatService = new PromptChatService(httpClient);
-        ReflectionTestUtils.setField(promptChatService, "chatDataService", chatDataService);
-        ReflectionTestUtils.setField(promptChatService, "chatRecordModelService", chatRecordModelService);
+        promptChatService = new PromptChatService(httpClient, chatDataService, chatRecordModelService);
 
         streamId = "test-stream-id";
         request = new JSONObject();
