@@ -3,7 +3,6 @@ package com.iflytek.astron.console.hub.controller.open;
 import com.alibaba.fastjson2.JSONObject;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.hub.common.anno.ResponseResultBody;
 import com.iflytek.astron.console.hub.entity.dto.openapi.WorkflowIoTransRequest;
 import com.iflytek.astron.console.hub.service.openapi.OpenApiService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,7 +20,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/open-api")
 @Slf4j
-@ResponseResultBody
 @Tag(name = "Open API interface")
 public class OpenApiController {
 

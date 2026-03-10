@@ -4,7 +4,6 @@ import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.iflytek.astron.console.commons.annotation.space.SpacePreAuth;
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.hub.common.anno.ResponseResultBody;
 import com.iflytek.astron.console.hub.entity.dto.database.*;
 import com.iflytek.astron.console.hub.entity.table.database.DbInfo;
 import com.iflytek.astron.console.hub.entity.table.database.DbTableField;
@@ -23,7 +22,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/db")
 @Slf4j
-@ResponseResultBody
 @Tag(name = "Database Management")
 public class DataBaseController {
 

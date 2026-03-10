@@ -2,7 +2,6 @@ package com.iflytek.astron.console.hub.controller.bot;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.hub.common.anno.ResponseResultBody;
 import com.iflytek.astron.console.hub.entity.biz.AiCode;
 import com.iflytek.astron.console.hub.entity.biz.AiGenerate;
 import com.iflytek.astron.console.hub.service.bot.PromptService;
@@ -19,7 +18,6 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
  * @date 2025/09/26
  */
 @RestController
-@ResponseResultBody
 @RequestMapping("/prompt")
 public class PromptController {
 

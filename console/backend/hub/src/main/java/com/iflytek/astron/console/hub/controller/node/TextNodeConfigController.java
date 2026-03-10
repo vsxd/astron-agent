@@ -1,7 +1,6 @@
 package com.iflytek.astron.console.hub.controller.node;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.iflytek.astron.console.hub.common.anno.ResponseResultBody;
 import com.iflytek.astron.console.hub.entity.table.node.TextNodeConfig;
 import com.iflytek.astron.console.hub.handler.UserInfoManagerHandler;
 import com.iflytek.astron.console.hub.service.node.TextNodeConfigService;
@@ -19,7 +18,6 @@ import java.util.Date;
  */
 @RestController
 @RequestMapping("/textNode/config")
-@ResponseResultBody
 @Tag(name = "Text node management interface")
 public class TextNodeConfigController {
     @Resource

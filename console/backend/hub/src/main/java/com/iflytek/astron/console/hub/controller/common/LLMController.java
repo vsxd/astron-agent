@@ -1,6 +1,5 @@
 package com.iflytek.astron.console.hub.controller.common;
 
-import com.iflytek.astron.console.hub.common.anno.ResponseResultBody;
 import com.iflytek.astron.console.hub.service.model.LLMService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/llm")
 @Slf4j
-@ResponseResultBody
 @Tag(name = "Model acquisition interface")
 public class LLMController {
 

@@ -3,7 +3,6 @@ package com.iflytek.astron.console.hub.controller.workflow;
 import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.hub.common.anno.ResponseResultBody;
 import com.iflytek.astron.console.hub.entity.table.workflow.WorkflowVersion;
 import com.iflytek.astron.console.hub.service.workflow.VersionService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/workflow/version")
 @Slf4j
-@ResponseResultBody
 @Tag(name = "Workflow version management interface")
 public class VersionController {
 

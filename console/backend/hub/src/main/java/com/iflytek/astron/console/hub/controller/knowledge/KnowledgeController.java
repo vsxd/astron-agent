@@ -5,7 +5,6 @@ import com.iflytek.astron.console.commons.annotation.space.SpacePreAuth;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.hub.common.anno.ResponseResultBody;
 import com.iflytek.astron.console.hub.entity.mongo.Knowledge;
 import com.iflytek.astron.console.hub.entity.vo.repo.KnowledgeVO;
 import com.iflytek.astron.console.hub.service.repo.KnowledgeRepoService;
@@ -28,7 +27,6 @@ import java.util.concurrent.ExecutionException;
 @RestController
 @RequestMapping("/knowledge")
 @Slf4j
-@ResponseResultBody
 public class KnowledgeController {
     @Resource
     private KnowledgeRepoService knowledgeService;

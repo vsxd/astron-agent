@@ -3,7 +3,6 @@ package com.iflytek.astron.console.hub.controller.knowledge;
 
 import com.iflytek.astron.console.commons.annotation.space.SpacePreAuth;
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.hub.common.anno.ResponseResultBody;
 import com.iflytek.astron.console.hub.entity.common.PageData;
 import com.iflytek.astron.console.hub.entity.dto.RepoDto;
 import com.iflytek.astron.console.hub.entity.table.repo.HitTestHistory;
@@ -30,7 +29,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/repo")
 @Slf4j
-@ResponseResultBody
 public class RepoController {
     @Resource
     private RepoService repoService;

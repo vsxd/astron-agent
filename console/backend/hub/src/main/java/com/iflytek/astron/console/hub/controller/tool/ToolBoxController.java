@@ -3,7 +3,6 @@ package com.iflytek.astron.console.hub.controller.tool;
 import com.iflytek.astron.console.commons.annotation.space.SpacePreAuth;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
-import com.iflytek.astron.console.hub.common.anno.ResponseResultBody;
 import com.iflytek.astron.console.hub.entity.dto.*;
 import com.iflytek.astron.console.hub.service.tool.ToolBoxService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,7 +19,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/tool")
 @Slf4j
-@ResponseResultBody
 @Tag(name = "Plugin Management")
 public class ToolBoxController {
     @Resource

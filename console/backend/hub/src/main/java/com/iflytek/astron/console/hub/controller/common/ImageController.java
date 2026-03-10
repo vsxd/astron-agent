@@ -4,7 +4,6 @@ import com.alibaba.fastjson2.JSONObject;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.hub.common.anno.ResponseResultBody;
 import com.iflytek.astron.console.hub.service.common.ImageService;
 import com.iflytek.astron.console.hub.util.S3Util;
 import jakarta.annotation.Resource;
@@ -24,7 +23,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/image")
 @Slf4j
-@ResponseResultBody
 public class ImageController {
 
     @Resource

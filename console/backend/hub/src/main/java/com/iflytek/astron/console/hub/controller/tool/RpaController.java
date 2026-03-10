@@ -1,7 +1,6 @@
 package com.iflytek.astron.console.hub.controller.tool;
 
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.hub.common.anno.ResponseResultBody;
 import com.iflytek.astron.console.hub.entity.dto.rpa.StartReq;
 import com.iflytek.astron.console.hub.entity.table.tool.RpaInfo;
 import com.iflytek.astron.console.hub.entity.table.tool.RpaUserAssistant;
@@ -33,7 +32,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/rpa")
 @Slf4j
-@ResponseResultBody
 @Tag(name = "RPA management interface")
 public class RpaController {
 

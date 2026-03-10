@@ -6,7 +6,6 @@ import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.common.Result;
-import com.iflytek.astron.console.hub.common.anno.ResponseResultBody;
 import com.iflytek.astron.console.hub.entity.common.PageData;
 import com.iflytek.astron.console.hub.entity.dto.FileInfoV2Dto;
 import com.iflytek.astron.console.hub.entity.dto.KnowledgeDto;
@@ -40,7 +39,6 @@ import java.util.concurrent.ExecutionException;
 @RestController
 @RequestMapping("/file")
 @Slf4j
-@ResponseResultBody
 public class FileController {
     @Resource
     private FileInfoV2Service fileInfoV2Service;

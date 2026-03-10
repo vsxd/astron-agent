@@ -7,7 +7,6 @@ import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
 import com.iflytek.astron.console.hub.common.Result;
-import com.iflytek.astron.console.hub.common.anno.ResponseResultBody;
 import com.iflytek.astron.console.hub.entity.biz.workflow.ChatBizReq;
 import com.iflytek.astron.console.hub.entity.biz.workflow.ChatResumeReq;
 import com.iflytek.astron.console.hub.entity.biz.workflow.WorkflowDebugDto;
@@ -61,7 +60,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/workflow")
 @Slf4j
-@ResponseResultBody
 @Validated
 @RequiredArgsConstructor
 @Tag(name = "Workflow management interface")
