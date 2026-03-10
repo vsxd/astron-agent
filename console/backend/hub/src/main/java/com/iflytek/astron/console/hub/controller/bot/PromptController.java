@@ -45,7 +45,7 @@ public class PromptController {
      * @param req request body containing "question"
      */
     @PostMapping("/next-question-advice")
-    public Object nqa(@RequestBody JSONObject req) {
+    public ApiResult<Object> nqa(@RequestBody JSONObject req) {
         return ApiResult.success(promptService.nextQuestionAdvice(req.getString("question")));
     }
 

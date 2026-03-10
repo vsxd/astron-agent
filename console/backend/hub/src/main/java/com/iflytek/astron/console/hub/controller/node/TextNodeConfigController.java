@@ -1,6 +1,7 @@
 package com.iflytek.astron.console.hub.controller.node;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.entity.table.node.TextNodeConfig;
 import com.iflytek.astron.console.hub.handler.UserInfoManagerHandler;
 import com.iflytek.astron.console.hub.service.node.TextNodeConfigService;
@@ -24,28 +25,28 @@ public class TextNodeConfigController {
     private TextNodeConfigService textNodeConfigService;
 
     @PostMapping("/save")
-    public Object save(@RequestBody TextNodeConfig textNodeConfig, HttpServletRequest httpServletRequest) {
+    public ApiResult<Object> save(@RequestBody TextNodeConfig textNodeConfig, HttpServletRequest httpServletRequest) {
         String userId = UserInfoManagerHandler.getUserId();
         textNodeConfig.setUid(userId);
-        return textNodeConfigService.saveInfo(textNodeConfig);
+        return ApiResult.success(textNodeConfigService.saveInfo(textNodeConfig));
     }
 
     @GetMapping("/list")
-    public Object list() {
+    public ApiResult<Object> list() {
         String uid = UserInfoManagerHandler.getUserId();
-        return textNodeConfigService.list(new LambdaQueryWrapper<TextNodeConfig>()
+        return ApiResult.success(textNodeConfigService.list(new LambdaQueryWrapper<TextNodeConfig>()
                 .in(TextNodeConfig::getUid, Arrays.asList(uid, -1))
-                .orderByDesc(TextNodeConfig::getCreateTime));
+                .orderByDesc(TextNodeConfig::getCreateTime)));
     }
 
     @GetMapping("/delete")
-    public Object delete(Long id) {
-        return textNodeConfigService.getBaseMapper().delete(new LambdaQueryWrapper<TextNodeConfig>().eq(TextNodeConfig::getId, id));
+    public ApiResult<Object> delete(Long id) {
+        return ApiResult.success(textNodeConfigService.getBaseMapper().delete(new LambdaQueryWrapper<TextNodeConfig>().eq(TextNodeConfig::getId, id)));
     }
 
     @PostMapping("/update")
-    public Object update(@RequestBody TextNodeConfig textNodeConfig) {
+    public ApiResult<Object> update(@RequestBody TextNodeConfig textNodeConfig) {
         textNodeConfig.setUpdateTime(new Date());
-        return textNodeConfigService.updateById(textNodeConfig);
+        return ApiResult.success(textNodeConfigService.updateById(textNodeConfig));
     }
 }

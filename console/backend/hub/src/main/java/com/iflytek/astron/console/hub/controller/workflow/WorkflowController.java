@@ -88,7 +88,7 @@ public class WorkflowController {
             module = "Workflow",
             point = "Workflow List",
             description = "Workflow List")
-    public PageData<WorkflowVo> list(
+    public ApiResult<PageData<WorkflowVo>> list(
             @NotNull(message = "Pagination parameters cannot be null") Pagination pagination,
             @RequestParam(required = false) String search,
             @RequestParam(required = false) String flowId,
@@ -99,8 +99,8 @@ public class WorkflowController {
         if (pagination.isEmpty()) {
             throw new BusinessException(ResponseEnum.PAGE_SEPARATOR_MISS);
         }
-        return workflowService.listPage(
-                spaceId, pagination.getCurrent(), pagination.getPageSize(), search, status, order, flowId);
+        return ApiResult.success(workflowService.listPage(
+                spaceId, pagination.getCurrent(), pagination.getPageSize(), search, status, order, flowId));
     }
 
     /**
@@ -114,8 +114,8 @@ public class WorkflowController {
             module = "Workflow",
             point = "Workflow Details",
             description = "Workflow Details")
-    public WorkflowVo detail(@RequestParam @NotBlank String id, @RequestParam(required = false) Long spaceId) {
-        return workflowService.detail(id, spaceId);
+    public ApiResult<WorkflowVo> detail(@RequestParam @NotBlank String id, @RequestParam(required = false) Long spaceId) {
+        return ApiResult.success(workflowService.detail(id, spaceId));
     }
 
     /**
@@ -127,8 +127,8 @@ public class WorkflowController {
             module = "Workflow",
             point = "Workflow Creation",
             description = "Workflow Creation")
-    public Object create(@RequestBody @NotNull WorkflowReq createDto, HttpServletRequest request) {
-        return workflowService.create(createDto, request);
+    public ApiResult<Object> create(@RequestBody @NotNull WorkflowReq createDto, HttpServletRequest request) {
+        return ApiResult.success(workflowService.create(createDto, request));
     }
 
     /**
@@ -140,8 +140,8 @@ public class WorkflowController {
             module = "Workflow",
             point = "Workflow Editing",
             description = "Workflow Editing")
-    public Workflow update(@RequestBody @NotNull WorkflowReq updateDto) {
-        return workflowService.updateInfo(updateDto);
+    public ApiResult<Workflow> update(@RequestBody @NotNull WorkflowReq updateDto) {
+        return ApiResult.success(workflowService.updateInfo(updateDto));
     }
 
     /**
@@ -157,8 +157,8 @@ public class WorkflowController {
      * Create copy.
      */
     @GetMapping("/clone")
-    public Object clone(@RequestParam @NotNull Long id) {
-        return workflowService.clone(id);
+    public ApiResult<Object> clone(@RequestParam @NotNull Long id) {
+        return ApiResult.success(workflowService.clone(id));
     }
 
     /**
@@ -168,13 +168,13 @@ public class WorkflowController {
      * Note: Retain existing logic, only return standard error response when validation fails.
      */
     @PostMapping("/internal-clone")
-    public Object cloneV2(
+    public ApiResult<Object> cloneV2(
             @RequestBody CloneFlowReq req,
             HttpServletRequest request) {
         if (!"xfyun".equals(req.getPassword())) {
             return ApiResult.error(ResponseEnum.INCORRECT_PASSWORD);
         }
-        return workflowService.cloneForXfYun(req.getMaasId(), SpaceInfoUtil.getSpaceId(), req.getFlowType(), req.getBotId(), req.getFlowConfig(), request);
+        return ApiResult.success(workflowService.cloneForXfYun(req.getMaasId(), SpaceInfoUtil.getSpaceId(), req.getFlowType(), req.getBotId(), req.getFlowConfig(), request));
     }
 
     /**
@@ -186,47 +186,47 @@ public class WorkflowController {
             module = "Workflow",
             point = "Workflow Build",
             description = "Workflow Build")
-    public Object build(@RequestBody @NotNull WorkflowReq buildDto) throws InterruptedException {
-        return workflowService.build(buildDto);
+    public ApiResult<Object> build(@RequestBody @NotNull WorkflowReq buildDto) throws InterruptedException {
+        return ApiResult.success(workflowService.build(buildDto));
     }
 
     // ---------------------- Nodes and Dialogs ----------------------
 
     @PostMapping("/node/debug/{nodeId}")
-    public Object nodeDebug(@PathVariable("nodeId") @NotBlank String nodeId, @RequestBody @NotNull WorkflowDebugDto debugDto) {
-        return workflowService.nodeDebug(nodeId, debugDto);
+    public ApiResult<Object> nodeDebug(@PathVariable("nodeId") @NotBlank String nodeId, @RequestBody @NotNull WorkflowDebugDto debugDto) {
+        return ApiResult.success(workflowService.nodeDebug(nodeId, debugDto));
     }
 
     @PostMapping("/dialog")
-    public Object saveDialog(@RequestBody @NotNull WorkflowDialog dialog) {
-        return workflowService.saveDialog(dialog);
+    public ApiResult<Object> saveDialog(@RequestBody @NotNull WorkflowDialog dialog) {
+        return ApiResult.success(workflowService.saveDialog(dialog));
     }
 
     @GetMapping("/dialog/list")
-    public List<WorkflowDialog> listDialog(@RequestParam @NotNull Long workflowId, @RequestParam(required = false) Integer type) {
-        return workflowService.listDialog(workflowId, type);
+    public ApiResult<List<WorkflowDialog>> listDialog(@RequestParam @NotNull Long workflowId, @RequestParam(required = false) Integer type) {
+        return ApiResult.success(workflowService.listDialog(workflowId, type));
     }
 
     @GetMapping("/dialog/clear")
-    public Object clearDialog(@RequestParam @NotNull Long workflowId, @RequestParam(required = false) Integer type) {
-        return workflowService.clearDialog(workflowId, type);
+    public ApiResult<Object> clearDialog(@RequestParam @NotNull Long workflowId, @RequestParam(required = false) Integer type) {
+        return ApiResult.success(workflowService.clearDialog(workflowId, type));
     }
 
     // ---------------------- Publish Control ----------------------
 
     @GetMapping("/can-publish")
-    public Object canPublish(@RequestParam @NotNull Long id) {
+    public ApiResult<Object> canPublish(@RequestParam @NotNull Long id) {
         return ApiResult.success(workflowService.getById(id).getCanPublish());
     }
 
     @GetMapping("/can-publish-set")
-    public Object canPublishSet(@RequestParam Long id) {
+    public ApiResult<Object> canPublishSet(@RequestParam Long id) {
         log.info("workflow[{}] set unpublished ,operator = {}", id, UserInfoManagerHandler.get());
         return ApiResult.success(workflowService.canPublishSet(id));
     }
 
     @GetMapping("/can-publish-set-not")
-    public Object canPublishSetNot(@RequestParam @NotNull Long id) {
+    public ApiResult<Object> canPublishSetNot(@RequestParam @NotNull Long id) {
         log.info("workflow[{}] set unpublished, operator={}", id, UserInfoManagerHandler.get());
         return ApiResult.success(workflowService.canPublishSetNot(id));
     }
@@ -234,12 +234,12 @@ public class WorkflowController {
     // ---------------------- Run/Evaluation/Square ----------------------
 
     @PostMapping("/code/run")
-    public Object runCode(@RequestBody @NotNull Object runCodeData) {
-        return workflowService.runCode(runCodeData);
+    public ApiResult<Object> runCode(@RequestBody @NotNull Object runCodeData) {
+        return ApiResult.success(workflowService.runCode(runCodeData));
     }
 
     @GetMapping("/square")
-    public Object square(
+    public ApiResult<Object> square(
             @NotNull(message = "Pagination parameters cannot be null") Pagination pagination,
             @RequestParam(required = false) String search,
             @RequestParam(required = false) Integer tagFlag,
@@ -247,40 +247,40 @@ public class WorkflowController {
         if (pagination.isEmpty()) {
             throw new BusinessException(ResponseEnum.PAGE_SEPARATOR_MISS);
         }
-        return workflowService.getSquare(pagination.getCurrent(), pagination.getPageSize(), search, tagFlag, tags);
+        return ApiResult.success(workflowService.getSquare(pagination.getCurrent(), pagination.getPageSize(), search, tagFlag, tags));
     }
 
     @PostMapping("/public-copy")
-    public Object publicCopy(@RequestBody @NotNull WorkflowReq req) {
-        return workflowService.publicCopy(req);
+    public ApiResult<Object> publicCopy(@RequestBody @NotNull WorkflowReq req) {
+        return ApiResult.success(workflowService.publicCopy(req));
     }
 
     @GetMapping("/auto-add-eval-set-data")
-    public Object autoAddEvalSetData(@RequestParam @NotNull Long id) {
-        return workflowService.getAutoAddEvalSetData(id);
+    public ApiResult<Object> autoAddEvalSetData(@RequestParam @NotNull Long id) {
+        return ApiResult.success(workflowService.getAutoAddEvalSetData(id));
     }
 
     @GetMapping("/node-template")
-    public Object getNodeTemplate(@RequestParam(required = false) Integer source) {
-        return workflowService.getNodeTemplate(source);
+    public ApiResult<Object> getNodeTemplate(@RequestParam(required = false) Integer source) {
+        return ApiResult.success(workflowService.getNodeTemplate(source));
     }
 
     /**
      * Whether it is a "Simple IO" workflow (affects evaluation templates).
      */
     @GetMapping("/is-simple-io")
-    public Object isSimpleIo(@RequestParam @NotNull Long id) {
-        return workflowService.isSimpleIo(id);
+    public ApiResult<Object> isSimpleIo(@RequestParam @NotNull Long id) {
+        return ApiResult.success(workflowService.isSimpleIo(id));
     }
 
     @GetMapping("trainable-nodes")
-    public Object trainableNodes(@RequestParam @NotNull Long id) {
-        return workflowService.trainableNodes(id);
+    public ApiResult<Object> trainableNodes(@RequestParam @NotNull Long id) {
+        return ApiResult.success(workflowService.trainableNodes(id));
     }
 
     @GetMapping("/eval-page-first-time")
-    public Object evalPageFirstTime(@RequestParam @NotNull Long id) {
-        return workflowService.evalPageFirstTime(id);
+    public ApiResult<Object> evalPageFirstTime(@RequestParam @NotNull Long id) {
+        return ApiResult.success(workflowService.evalPageFirstTime(id));
     }
 
     // ---------------------- SSE (Chat) ----------------------
@@ -309,46 +309,46 @@ public class WorkflowController {
      * File upload.
      */
     @PostMapping("/upload-file")
-    public Object uploadFile(@RequestParam("files") MultipartFile[] files, @RequestParam String flowId) {
-        return workflowService.uploadFile(files, flowId);
+    public ApiResult<Object> uploadFile(@RequestParam("files") MultipartFile[] files, @RequestParam String flowId) {
+        return ApiResult.success(workflowService.uploadFile(files, flowId));
     }
 
     @GetMapping("/get-inputs-yype")
-    public Object getInputsType(@RequestParam @NotBlank String flowId) {
-        return workflowService.getInputsType(flowId);
+    public ApiResult<Object> getInputsType(@RequestParam @NotBlank String flowId) {
+        return ApiResult.success(workflowService.getInputsType(flowId));
     }
 
     @GetMapping("/get-inputs-info")
-    public Object getInputsInfo(@RequestParam @NotBlank String flowId) {
-        return workflowService.getInputsInfo(flowId);
+    public ApiResult<Object> getInputsInfo(@RequestParam @NotBlank String flowId) {
+        return ApiResult.success(workflowService.getInputsInfo(flowId));
     }
 
     // ---------------------- Model Information / Error Information ----------------------
 
     @PostMapping("/get-model-info")
-    public Object getModelInfo(@RequestBody @NotNull WorkflowModelReq workflowReq) {
-        return workflowService.getModelInfo(workflowReq);
+    public ApiResult<Object> getModelInfo(@RequestBody @NotNull WorkflowModelReq workflowReq) {
+        return ApiResult.success(workflowService.getModelInfo(workflowReq));
     }
 
     @PostMapping("/get-node-error-info")
-    public Object getNodeErrorInfo(@RequestBody @NotNull WorkflowModelErrorReq workflowModelErrorReq) {
-        return workflowService.getNodeErrorInfo(workflowModelErrorReq);
+    public ApiResult<Object> getNodeErrorInfo(@RequestBody @NotNull WorkflowModelErrorReq workflowModelErrorReq) {
+        return ApiResult.success(workflowService.getNodeErrorInfo(workflowModelErrorReq));
     }
 
     @PostMapping("/get-user-feedback-error-info")
-    public Object getUserFeedbackErrorInfo(@RequestBody @NotNull WorkflowModelErrorReq workflowModelErrorReq) {
-        return workflowService.getUserFeedbackErrorInfo(workflowModelErrorReq);
+    public ApiResult<Object> getUserFeedbackErrorInfo(@RequestBody @NotNull WorkflowModelErrorReq workflowModelErrorReq) {
+        return ApiResult.success(workflowService.getUserFeedbackErrorInfo(workflowModelErrorReq));
     }
 
     // ---------------------- MCP Tools/Strategy ----------------------
 
     @GetMapping("/get-mcp-server-list")
-    public Object getMcpServerList(
+    public ApiResult<Object> getMcpServerList(
             @RequestParam(required = false) String categoryId,
             @RequestParam(required = false, defaultValue = "1") Integer pageNo,
             @RequestParam(required = false, defaultValue = "1000") Integer pageSize,
             HttpServletRequest request) {
-        return workflowService.getMcpServerList(categoryId, pageNo, pageSize, request);
+        return ApiResult.success(workflowService.getMcpServerList(categoryId, pageNo, pageSize, request));
     }
 
     @GetMapping("/get-mcp-server-list-locally")
@@ -361,23 +361,23 @@ public class WorkflowController {
     }
 
     @GetMapping("/get-agent-strategy")
-    public Object getAgentStrategy() {
-        return workflowService.getAgentStrategy();
+    public ApiResult<Object> getAgentStrategy() {
+        return ApiResult.success(workflowService.getAgentStrategy());
     }
 
     @GetMapping("/get-knowledge-pro-strategy")
-    public Object getKnowledgeProStrategy() {
-        return workflowService.getKnowledgeProStrategy();
+    public ApiResult<Object> getKnowledgeProStrategy() {
+        return ApiResult.success(workflowService.getKnowledgeProStrategy());
     }
 
     @PostMapping("/debug-server-tool")
-    public Object debugServerTool(@RequestBody @Validated McpToolReq req) {
-        return workflowService.debugServerTool(req);
+    public ApiResult<Object> debugServerTool(@RequestBody @Validated McpToolReq req) {
+        return ApiResult.success(workflowService.debugServerTool(req));
     }
 
     @GetMapping("/get-server-tool-detail")
-    public Object getServerToolDetail(@RequestParam @NotBlank String serverId) {
-        return workflowService.getServerToolDetail(serverId);
+    public ApiResult<Object> getServerToolDetail(@RequestParam @NotBlank String serverId) {
+        return ApiResult.success(workflowService.getServerToolDetail(serverId));
     }
 
     @GetMapping("/get-server-tool-detail-locally")
@@ -386,51 +386,51 @@ public class WorkflowController {
     }
 
     @GetMapping("/get-env-key")
-    public Object andEnvKey(@RequestParam @NotBlank String serverId, HttpServletRequest request) {
-        return workflowService.andEnvKey(serverId, request);
+    public ApiResult<Object> andEnvKey(@RequestParam @NotBlank String serverId, HttpServletRequest request) {
+        return ApiResult.success(workflowService.andEnvKey(serverId, request));
     }
 
     @PostMapping("/push-env-key")
-    public Object pushEnvKey(@RequestBody @NotNull McpPushDto req, HttpServletRequest request) {
-        return workflowService.pushEnvKey(req, request);
+    public ApiResult<Object> pushEnvKey(@RequestBody @NotNull McpPushDto req, HttpServletRequest request) {
+        return ApiResult.success(workflowService.pushEnvKey(req, request));
     }
 
     @GetMapping("/replace-appId")
-    public Object replaceAppId(@RequestParam @NotBlank String appId, @RequestParam @NotBlank String flowId) {
-        return workflowService.replaceAppId(appId, flowId);
+    public ApiResult<Object> replaceAppId(@RequestParam @NotBlank String appId, @RequestParam @NotBlank String flowId) {
+        return ApiResult.success(workflowService.replaceAppId(appId, flowId));
     }
 
     @GetMapping("/has-qa-node")
-    public Object hasQaNode(@RequestParam @NotNull Integer botId) {
-        return workflowService.hasQaNode(botId);
+    public ApiResult<Object> hasQaNode(@RequestParam @NotNull Integer botId) {
+        return ApiResult.success(workflowService.hasQaNode(botId));
     }
 
     // ---------------------- Prompt Comparison ----------------------
 
     @PostMapping("/add-comparisons")
-    public Object addComparisons(@RequestBody @NotNull WorkflowComparisonReq workflowComparisonReq) {
-        return workflowService.addComparisons(workflowComparisonReq);
+    public ApiResult<Object> addComparisons(@RequestBody @NotNull WorkflowComparisonReq workflowComparisonReq) {
+        return ApiResult.success(workflowService.addComparisons(workflowComparisonReq));
     }
 
     @PostMapping("/delete-comparisons")
-    public Object deleteComparisons(@RequestBody @NotNull WorkflowComparisonReq workflowComparisonReq) {
-        return workflowService.deleteComparisons(workflowComparisonReq);
+    public ApiResult<Object> deleteComparisons(@RequestBody @NotNull WorkflowComparisonReq workflowComparisonReq) {
+        return ApiResult.success(workflowService.deleteComparisons(workflowComparisonReq));
     }
 
     /**
      * Get user-created workflows (by status).
      */
     @GetMapping("/get-list-by-LLM")
-    public Object list(HttpServletRequest request, @RequestParam(required = false) String search) {
-        return workflowService.listByStatus(request, search);
+    public ApiResult<Object> list(HttpServletRequest request, @RequestParam(required = false) String search) {
+        return ApiResult.success(workflowService.listByStatus(request, search));
     }
 
     /**
      * Get workflow prompt comparison status.
      */
     @GetMapping("/get-workflow-prompt-status")
-    public Object getWorkflowPromptStatus(@RequestParam @NotNull Long id) {
-        return workflowService.getWorkflowPromptStatus(id);
+    public ApiResult<Object> getWorkflowPromptStatus(@RequestParam @NotNull Long id) {
+        return ApiResult.success(workflowService.getWorkflowPromptStatus(id));
     }
 
     // ---------------------- Export/Import YAML ----------------------
@@ -471,9 +471,9 @@ public class WorkflowController {
      * Import workflow from YAML.
      */
     @PostMapping("/import")
-    public Object importWorkflow(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+    public ApiResult<Object> importWorkflow(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
         try (InputStream inputStream = file.getInputStream()) {
-            return workflowExportService.importWorkflowFromYaml(inputStream, request);
+            return ApiResult.success(workflowExportService.importWorkflowFromYaml(inputStream, request));
         } catch (Exception e) {
             log.error("import workflow failed, filename={}", file.getOriginalFilename(), e);
             throw new BusinessException(ResponseEnum.WORKFLOW_IMPORT_FAILED);
@@ -488,20 +488,21 @@ public class WorkflowController {
     }
 
     @GetMapping("/list-comparisons")
-    public List<WorkflowComparison> listComparisons(@RequestParam @NotBlank String promptId) {
-        return workflowService.listComparisons(promptId);
+    public ApiResult<List<WorkflowComparison>> listComparisons(@RequestParam @NotBlank String promptId) {
+        return ApiResult.success(workflowService.listComparisons(promptId));
     }
 
     // ---------------------- Feedback ----------------------
 
     @PostMapping("/feedback")
-    public void feedback(@RequestBody @NotNull WorkflowFeedbackReq workflowFeedbackReq, HttpServletRequest request) {
+    public ApiResult<Void> feedback(@RequestBody @NotNull WorkflowFeedbackReq workflowFeedbackReq, HttpServletRequest request) {
         workflowService.feedback(workflowFeedbackReq, request);
+        return ApiResult.success();
     }
 
     @GetMapping("/feedback-list")
-    public List<WorkflowFeedback> getFeedbackList(@RequestParam @NotBlank String flowId) {
-        return workflowService.getFeedbackList(flowId);
+    public ApiResult<List<WorkflowFeedback>> getFeedbackList(@RequestParam @NotBlank String flowId) {
+        return ApiResult.success(workflowService.getFeedbackList(flowId));
     }
 
     // ---------------------- Advanced Configuration / Templates / Versions ----------------------
@@ -510,35 +511,35 @@ public class WorkflowController {
      * Get workflow advanced configuration (background image, etc.).
      */
     @GetMapping("/get-flow-advanced-config")
-    public Object getFlowAdvancedConfig(@RequestParam @NotNull Integer botId) {
-        return workflowService.getFlowAdvancedConfig(botId);
+    public ApiResult<Object> getFlowAdvancedConfig(@RequestParam @NotNull Integer botId) {
+        return ApiResult.success(workflowService.getFlowAdvancedConfig(botId));
     }
 
     /**
      * Agent node Prompt template list.
      */
     @GetMapping("/agent-node/prompt-template")
-    public Object promptTemplate(@NotNull(message = "Pagination parameters cannot be null") Pagination pagination, @RequestParam(required = false) String search) {
+    public ApiResult<Object> promptTemplate(@NotNull(message = "Pagination parameters cannot be null") Pagination pagination, @RequestParam(required = false) String search) {
         if (pagination.isEmpty()) {
             throw new BusinessException(ResponseEnum.PAGE_SEPARATOR_MISS);
         }
-        return workflowService.listPagePromptTemplate(pagination.getCurrent(), pagination.getPageSize(), search);
+        return ApiResult.success(workflowService.listPagePromptTemplate(pagination.getCurrent(), pagination.getPageSize(), search));
     }
 
     /**
      * Copy workflow protocol (source -> target).
      */
     @GetMapping("/copy-flow")
-    public Object copyFlow(@RequestParam @NotBlank String sourceFlowId, @RequestParam @NotBlank String targetFlowId) {
-        return workflowService.copyFlow(sourceFlowId, targetFlowId);
+    public ApiResult<Object> copyFlow(@RequestParam @NotBlank String sourceFlowId, @RequestParam @NotBlank String targetFlowId) {
+        return ApiResult.success(workflowService.copyFlow(sourceFlowId, targetFlowId));
     }
 
     /**
      * Get maximum version number for a specific FlowId.
      */
     @GetMapping("/get-max-version")
-    public Object getMaxVersion(@RequestParam @NotBlank String flowId) {
-        return workflowService.getMaxVersionByFlowId(flowId);
+    public ApiResult<Object> getMaxVersion(@RequestParam @NotBlank String flowId) {
+        return ApiResult.success(workflowService.getMaxVersionByFlowId(flowId));
     }
 
     /**
@@ -549,7 +550,7 @@ public class WorkflowController {
      * @return
      */
     @GetMapping("/get-talk-agent-config")
-    public TalkAgentConfigDto getTalkAgentConfig(@RequestParam Integer botId, @RequestParam(required = false) String version, @RequestParam String type) {
-        return talkAgentService.getTalkAgentConfig(botId, version, type);
+    public ApiResult<TalkAgentConfigDto> getTalkAgentConfig(@RequestParam Integer botId, @RequestParam(required = false) String version, @RequestParam String type) {
+        return ApiResult.success(talkAgentService.getTalkAgentConfig(botId, version, type));
     }
 }

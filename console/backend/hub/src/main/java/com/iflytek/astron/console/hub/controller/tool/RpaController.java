@@ -75,9 +75,9 @@ public class RpaController {
      *         violations
      */
     @PostMapping
-    public RpaAssistantResp create(@RequestBody @Validated CreateRpaAssistantReq req) {
+    public ApiResult<RpaAssistantResp> create(@RequestBody @Validated CreateRpaAssistantReq req) {
         String userId = UserInfoManagerHandler.getUserId();
-        return rpaAssistantService.create(userId, req);
+        return ApiResult.success(rpaAssistantService.create(userId, req));
     }
 
     /**
@@ -90,9 +90,9 @@ public class RpaController {
      *         exist or no permission
      */
     @GetMapping("/{id}")
-    public RpaAssistantResp detail(@PathVariable("id") Long id, @RequestParam(required = false) String name) {
+    public ApiResult<RpaAssistantResp> detail(@PathVariable("id") Long id, @RequestParam(required = false) String name) {
         String userId = UserInfoManagerHandler.getUserId();
-        return rpaAssistantService.detail(userId, id, name);
+        return ApiResult.success(rpaAssistantService.detail(userId, id, name));
     }
 
     /**
@@ -106,10 +106,10 @@ public class RpaController {
      *         exist or no permission
      */
     @PutMapping("/{id}")
-    public RpaUserAssistant update(@PathVariable("id") Long id,
+    public ApiResult<RpaUserAssistant> update(@PathVariable("id") Long id,
             @RequestBody @Validated UpdateRpaAssistantReq req) {
         String userId = UserInfoManagerHandler.getUserId();
-        return rpaAssistantService.update(userId, id, req);
+        return ApiResult.success(rpaAssistantService.update(userId, id, req));
     }
 
     /**
@@ -120,9 +120,10 @@ public class RpaController {
      *         exist or no permission
      */
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") Long id) {
+    public ApiResult<Void> delete(@PathVariable("id") Long id) {
         String userId = UserInfoManagerHandler.getUserId();
         rpaAssistantService.delete(userId, id);
+        return ApiResult.success();
     }
 
     /**

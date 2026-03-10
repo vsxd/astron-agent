@@ -285,8 +285,8 @@ public class RepoController {
      * @throws RuntimeException if file listing fails due to system error or access issues
      */
     @GetMapping("/file-list")
-    public Object listFiles(@RequestParam("id") Long id) {
-        return repoService.listFiles(id);
+    public ApiResult<Object> listFiles(@RequestParam("id") Long id) {
+        return ApiResult.success(repoService.listFiles(id));
     }
 
     /**
@@ -304,7 +304,7 @@ public class RepoController {
      * @throws RuntimeException if usage status retrieval fails due to system error
      */
     @GetMapping("/get-repo-use-status")
-    public Object getRepoUseStatus(Long repoId, HttpServletRequest request) {
-        return repoService.getRepoUseStatus(repoId, request);
+    public ApiResult<Object> getRepoUseStatus(Long repoId, HttpServletRequest request) {
+        return ApiResult.success(repoService.getRepoUseStatus(repoId, request));
     }
 }

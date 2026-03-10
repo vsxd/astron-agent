@@ -1,5 +1,6 @@
 package com.iflytek.astron.console.hub.controller.common;
 
+import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.service.model.LLMService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
@@ -18,12 +19,12 @@ public class LLMController {
     LLMService llmService;
 
     @GetMapping("/auth-list")
-    public Object getLlmAuthList(
+    public ApiResult<Object> getLlmAuthList(
             HttpServletRequest request,
             @RequestParam String appId,
             @RequestParam(required = false) String scene,
             @RequestParam(required = false) String nodeType) throws InterruptedException {
-        return llmService.getLlmAuthList(request, appId, scene, nodeType);
+        return ApiResult.success(llmService.getLlmAuthList(request, appId, scene, nodeType));
     }
 
     /**
@@ -33,8 +34,8 @@ public class LLMController {
      * @return
      */
     @GetMapping("/inter1")
-    public Object inter1(HttpServletRequest request, @RequestParam Long id, @RequestParam Integer llmSource) {
-        return llmService.getModelServerInfo(request, id, llmSource);
+    public ApiResult<Object> inter1(HttpServletRequest request, @RequestParam Long id, @RequestParam Integer llmSource) {
+        return ApiResult.success(llmService.getModelServerInfo(request, id, llmSource));
     }
 
     /**
@@ -45,12 +46,12 @@ public class LLMController {
      * @return
      */
     @GetMapping("/self-model-config")
-    public Object selfModelConfig(@RequestParam Long id, @RequestParam Integer llmSource) {
-        return llmService.selfModelConfig(id, llmSource);
+    public ApiResult<Object> selfModelConfig(@RequestParam Long id, @RequestParam Integer llmSource) {
+        return ApiResult.success(llmService.selfModelConfig(id, llmSource));
     }
 
     @GetMapping("/flow-use-list")
-    public Object flowUseList(String flowId) {
-        return llmService.getFlowUseList(flowId);
+    public ApiResult<Object> flowUseList(String flowId) {
+        return ApiResult.success(llmService.getFlowUseList(flowId));
     }
 }

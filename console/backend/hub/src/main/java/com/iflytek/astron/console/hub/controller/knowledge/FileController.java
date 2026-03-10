@@ -187,8 +187,8 @@ public class FileController {
      * @throws BusinessException when knowledge preview retrieval fails or query parameters are invalid
      */
     @PostMapping("/list-preview-knowledge-by-page")
-    public Object listPreviewKnowledgeByPage(@RequestBody KnowledgeQueryVO knowledgeQueryVO) {
-        return fileInfoV2Service.listPreviewKnowledgeByPage(knowledgeQueryVO);
+    public ApiResult<Object> listPreviewKnowledgeByPage(@RequestBody KnowledgeQueryVO knowledgeQueryVO) {
+        return ApiResult.success(fileInfoV2Service.listPreviewKnowledgeByPage(knowledgeQueryVO));
     }
 
     /**
@@ -237,14 +237,14 @@ public class FileController {
      * @throws BusinessException when file list retrieval fails or access is denied
      */
     @GetMapping("/query-file-list")
-    public Object queryFileList(@RequestParam(value = "repoId") Long repoId,
+    public ApiResult<Object> queryFileList(@RequestParam(value = "repoId") Long repoId,
             @RequestParam(value = "parentId", defaultValue = "-1") Long parentId,
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
             @RequestParam(value = "tag", defaultValue = "") String tag,
             @RequestParam(value = "isRepoPage", defaultValue = "1") Integer isRepoPage,
             HttpServletRequest request) {
-        return fileInfoV2Service.queryFileList(repoId, parentId, pageNo, pageSize, tag, request, isRepoPage);
+        return ApiResult.success(fileInfoV2Service.queryFileList(repoId, parentId, pageNo, pageSize, tag, request, isRepoPage));
     }
 
     /**

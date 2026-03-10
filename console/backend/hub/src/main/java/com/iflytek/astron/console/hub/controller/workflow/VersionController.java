@@ -35,9 +35,9 @@ public class VersionController {
      * @throws IllegalArgumentException if {@code flowId} is blank
      */
     @GetMapping("/list")
-    public Object list(Page<WorkflowVersion> page,
+    public ApiResult<Object> list(Page<WorkflowVersion> page,
             @RequestParam String flowId) {
-        return versionService.listPage(page, flowId);
+        return ApiResult.success(versionService.listPage(page, flowId));
     }
 
     /**
@@ -49,9 +49,9 @@ public class VersionController {
      * @throws IllegalArgumentException if {@code botId} is blank
      */
     @GetMapping("/list-botId")
-    public Object list_botId(Page<WorkflowVersion> page,
+    public ApiResult<Object> list_botId(Page<WorkflowVersion> page,
             @RequestParam String botId) {
-        return versionService.list_botId_Page(page, botId);
+        return ApiResult.success(versionService.list_botId_Page(page, botId));
     }
 
     /**
@@ -110,8 +110,8 @@ public class VersionController {
      * @throws IllegalArgumentException if required parameters are missing
      */
     @PostMapping("/get-version-name")
-    public Object getVersionName(@RequestBody WorkflowVersion createDto) {
-        return versionService.getVersionName(createDto);
+    public ApiResult<Object> getVersionName(@RequestBody WorkflowVersion createDto) {
+        return ApiResult.success(versionService.getVersionName(createDto));
     }
 
     /**
@@ -122,8 +122,8 @@ public class VersionController {
      * @throws IllegalArgumentException if {@code botId} is blank
      */
     @GetMapping("/get-max-version")
-    public Object getMaxVersion(@RequestParam String botId) {
-        return versionService.getMaxVersion(botId);
+    public ApiResult<Object> getMaxVersion(@RequestParam String botId) {
+        return ApiResult.success(versionService.getMaxVersion(botId));
     }
 
     /**
@@ -134,8 +134,8 @@ public class VersionController {
      * @throws IllegalArgumentException if version is not found
      */
     @PostMapping("/get-version-sys-data")
-    public Object getVersionSysData(@RequestBody WorkflowVersion createDto) {
-        return versionService.getVersionSysData(createDto);
+    public ApiResult<Object> getVersionSysData(@RequestBody WorkflowVersion createDto) {
+        return ApiResult.success(versionService.getVersionSysData(createDto));
     }
 
     /**
@@ -146,8 +146,8 @@ public class VersionController {
      * @throws IllegalArgumentException if version is not found
      */
     @PostMapping("/have-version-sys-data")
-    public Object haveVersionSysData(@RequestBody WorkflowVersion createDto) {
-        return versionService.haveVersionSysData(createDto);
+    public ApiResult<Object> haveVersionSysData(@RequestBody WorkflowVersion createDto) {
+        return ApiResult.success(versionService.haveVersionSysData(createDto));
     }
 
     /**
@@ -159,8 +159,8 @@ public class VersionController {
      * @throws IllegalArgumentException if {@code flowId} or {@code name} is blank
      */
     @GetMapping("/publish-result")
-    public Object publishResult(@RequestParam String flowId,
+    public ApiResult<Object> publishResult(@RequestParam String flowId,
             @RequestParam String name) {
-        return versionService.publishResult(flowId, name);
+        return ApiResult.success(versionService.publishResult(flowId, name));
     }
 }
