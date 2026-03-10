@@ -18,9 +18,9 @@ import com.iflytek.astron.console.hub.util.BotUtil;
 import com.iflytek.astron.console.commons.util.I18nUtil;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
-import com.iflytek.astron.console.hub.dto.user.MyBotPageDTO;
-import com.iflytek.astron.console.hub.dto.user.MyBotParamDTO;
-import com.iflytek.astron.console.hub.dto.user.MyBotResponseDTO;
+import com.iflytek.astron.console.hub.dto.user.MyBotPageDto;
+import com.iflytek.astron.console.hub.dto.user.MyBotParamDto;
+import com.iflytek.astron.console.hub.dto.user.MyBotResponseDto;
 import com.iflytek.astron.console.hub.entity.ApplicationForm;
 import com.iflytek.astron.console.hub.entity.wechat.BotOffiaccount;
 import com.iflytek.astron.console.hub.mapper.ApplicationFormMapper;
@@ -71,16 +71,16 @@ public class UserBotServiceImpl implements UserBotService {
     public static final String RECORD_BOT_ID = "recordFormBotId_";
 
     @Override
-    public MyBotPageDTO listMyBots(MyBotParamDTO myBotParamDTO) {
+    public MyBotPageDto listMyBots(MyBotParamDto myBotParamDto) {
         String uid = RequestContextUtil.getUID();
         Long spaceId = SpaceInfoUtil.getSpaceId();
 
         // Build query parameters
-        Map<String, Object> param = buildQueryParams(myBotParamDTO, uid, spaceId);
+        Map<String, Object> param = buildQueryParams(myBotParamDto, uid, spaceId);
 
         // Get count and setup pagination
         Long count = chatBotListMapper.countCheckBotList(param);
-        setupPagination(param, myBotParamDTO);
+        setupPagination(param, myBotParamDto);
 
         // Get release information
         ReleaseInfo releaseInfo = getReleaseInfo(uid);
@@ -95,8 +95,8 @@ public class UserBotServiceImpl implements UserBotService {
         }
 
         // Convert to DTOs and return
-        Page<MyBotResponseDTO> myBotResponsesPage = createPageResult(list, count);
-        return new MyBotPageDTO(
+        Page<MyBotResponseDto> myBotResponsesPage = createPageResult(list, count);
+        return new MyBotPageDto(
                 myBotResponsesPage.getRecords(),
                 Math.toIntExact(myBotResponsesPage.getTotal()),
                 Math.toIntExact(myBotResponsesPage.getSize()),
@@ -111,26 +111,26 @@ public class UserBotServiceImpl implements UserBotService {
         return botService.deleteBot(botId);
     }
 
-    private Map<String, Object> buildQueryParams(MyBotParamDTO myBotParamDTO, String uid, Long spaceId) {
-        Map<String, Object> param = getBotCheckParam(myBotParamDTO, uid);
+    private Map<String, Object> buildQueryParams(MyBotParamDto myBotParamDto, String uid, Long spaceId) {
+        Map<String, Object> param = getBotCheckParam(myBotParamDto, uid);
         param.put("spaceId", spaceId);
 
-        if (myBotParamDTO.getVersion() != null) {
-            param.put("version", myBotParamDTO.getVersion());
+        if (myBotParamDto.getVersion() != null) {
+            param.put("version", myBotParamDto.getVersion());
         }
-        if (StringUtils.isNotBlank(myBotParamDTO.getSearchValue())) {
-            param.put("botName", myBotParamDTO.getSearchValue());
+        if (StringUtils.isNotBlank(myBotParamDto.getSearchValue())) {
+            param.put("botName", myBotParamDto.getSearchValue());
         }
-        if (myBotParamDTO.getSort() != null) {
-            if (("createTime").equals(myBotParamDTO.getSort())) {
+        if (myBotParamDto.getSort() != null) {
+            if (("createTime").equals(myBotParamDto.getSort())) {
                 param.put("sort", "a.create_time desc");
             }
-            if (("updateTime").equals(myBotParamDTO.getSort())) {
+            if (("updateTime").equals(myBotParamDto.getSort())) {
                 param.put("sort", "a.update_time desc");
             }
         }
-        if (CollectionUtils.isNotEmpty(myBotParamDTO.getBotStatus())) {
-            List<Integer> botStatus = myBotParamDTO.getBotStatus();
+        if (CollectionUtils.isNotEmpty(myBotParamDto.getBotStatus())) {
+            List<Integer> botStatus = myBotParamDto.getBotStatus();
             param.put("status", botStatus);
             if (botStatus.contains(0)) {
                 param.put("flag", 1);
@@ -139,9 +139,9 @@ public class UserBotServiceImpl implements UserBotService {
         return param;
     }
 
-    private void setupPagination(Map<String, Object> param, MyBotParamDTO myBotParamDTO) {
-        int pageNum = myBotParamDTO.getPageIndex();
-        int pageSize = Math.min(myBotParamDTO.getPageSize(), 200);
+    private void setupPagination(Map<String, Object> param, MyBotParamDto myBotParamDto) {
+        int pageNum = myBotParamDto.getPageIndex();
+        int pageSize = Math.min(myBotParamDto.getPageSize(), 200);
         int offset = (pageNum - 1) * pageSize;
         param.put("offset", offset);
         param.put("pageSize", pageSize);
@@ -270,12 +270,12 @@ public class UserBotServiceImpl implements UserBotService {
         list.forEach(map -> map.put("multiInput", multiInputMap.get(map.get("botId"))));
     }
 
-    private Page<MyBotResponseDTO> createPageResult(LinkedList<Map<String, Object>> list, Long count) {
-        List<MyBotResponseDTO> myBotResponseDTOList = list.stream().map(this::mapToMyBotDTO).collect(Collectors.toList());
+    private Page<MyBotResponseDto> createPageResult(LinkedList<Map<String, Object>> list, Long count) {
+        List<MyBotResponseDto> myBotResponseDtoList = list.stream().map(this::mapToMyBotDto).collect(Collectors.toList());
 
-        Page<MyBotResponseDTO> page = new Page<>();
+        Page<MyBotResponseDto> page = new Page<>();
         page.setTotal(count);
-        page.setRecords(myBotResponseDTOList);
+        page.setRecords(myBotResponseDtoList);
         return page;
     }
 
@@ -294,8 +294,8 @@ public class UserBotServiceImpl implements UserBotService {
         }
     }
 
-    private MyBotResponseDTO mapToMyBotDTO(Map<String, Object> map) {
-        MyBotResponseDTO dto = new MyBotResponseDTO();
+    private MyBotResponseDto mapToMyBotDto(Map<String, Object> map) {
+        MyBotResponseDto dto = new MyBotResponseDto();
         dto.setBotId(Convert.toLong(map.get("botId")));
         dto.setUid(Convert.toStr(map.get("uid")));
         dto.setMarketBotId(Convert.toLong(map.get("marketBotId")));
@@ -318,10 +318,10 @@ public class UserBotServiceImpl implements UserBotService {
         return dto;
     }
 
-    private static Map<String, Object> getBotCheckParam(MyBotParamDTO myBotParamDTO, String uid) {
+    private static Map<String, Object> getBotCheckParam(MyBotParamDto myBotParamDto, String uid) {
         Map<String, Object> param = new HashMap<>();
         param.put("uid", uid);
-        List<Integer> botStatuses = myBotParamDTO.getBotStatus();
+        List<Integer> botStatuses = myBotParamDto.getBotStatus();
         if (!Objects.isNull(botStatuses) && botStatuses.contains(1)) {
             botStatuses.add(4);
         }

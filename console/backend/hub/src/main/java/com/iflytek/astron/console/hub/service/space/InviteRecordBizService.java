@@ -1,7 +1,7 @@
 package com.iflytek.astron.console.hub.service.space;
 
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.hub.dto.space.InviteRecordAddDTO;
+import com.iflytek.astron.console.hub.dto.space.InviteRecordAddDto;
 import com.iflytek.astron.console.hub.enums.space.InviteRecordTypeEnum;
 import com.iflytek.astron.console.hub.dto.space.BatchChatUserVO;
 import com.iflytek.astron.console.hub.dto.space.ChatUserVO;
@@ -12,9 +12,9 @@ import java.util.List;
 
 public interface InviteRecordBizService {
 
-    ApiResult<String> spaceInvite(List<InviteRecordAddDTO> dtos);
+    ApiResult<String> spaceInvite(List<InviteRecordAddDto> dtos);
 
-    ApiResult<String> enterpriseInvite(List<InviteRecordAddDTO> dtos);
+    ApiResult<String> enterpriseInvite(List<InviteRecordAddDto> dtos);
 
     ApiResult<String> acceptInvite(Long inviteId);
 

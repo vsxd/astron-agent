@@ -6,7 +6,7 @@ import lombok.Data;
  * Prompt Structure DTO
  */
 @Data
-public class PromptStructDTO {
+public class PromptStructDto {
 
     /**
      * Prompt key name

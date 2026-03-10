@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "App List Info DTO")
-public class AppListDTO {
+public class AppListDto {
 
     @Schema(description = "App Id")
     private String appId;

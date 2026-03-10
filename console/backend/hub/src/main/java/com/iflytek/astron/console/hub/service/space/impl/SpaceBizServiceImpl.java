@@ -7,8 +7,8 @@ import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.service.user.MessageCodeService;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
-import com.iflytek.astron.console.hub.dto.space.SpaceAddDTO;
-import com.iflytek.astron.console.hub.dto.space.SpaceUpdateDTO;
+import com.iflytek.astron.console.hub.dto.space.SpaceAddDto;
+import com.iflytek.astron.console.hub.dto.space.SpaceUpdateDto;
 import com.iflytek.astron.console.hub.entity.space.Enterprise;
 import com.iflytek.astron.console.hub.entity.space.EnterpriseUser;
 import com.iflytek.astron.console.hub.entity.space.Space;
@@ -53,18 +53,18 @@ public class SpaceBizServiceImpl implements SpaceBizService {
     /**
      * Create space
      *
-     * @param spaceAddDTO
+     * @param spaceAddDto
      * @param enterpriseId
      * @return
      */
     @Override
     @Transactional
-    public ApiResult<Long> create(SpaceAddDTO spaceAddDTO, Long enterpriseId) {
-        if (spaceService.checkExistByName(spaceAddDTO.getName(), null)) {
+    public ApiResult<Long> create(SpaceAddDto spaceAddDto, Long enterpriseId) {
+        if (spaceService.checkExistByName(spaceAddDto.getName(), null)) {
             return ApiResult.error(ResponseEnum.SPACE_NAME_EXISTS);
         }
         Space space = new Space();
-        BeanUtils.copyProperties(spaceAddDTO, space);
+        BeanUtils.copyProperties(spaceAddDto, space);
         // Set creator UID
         String uid = RequestContextUtil.getUID();
         space.setUid(uid);
@@ -154,22 +154,22 @@ public class SpaceBizServiceImpl implements SpaceBizService {
     /**
      * Update space
      *
-     * @param spaceUpdateDTO Name, description, avatar
+     * @param spaceUpdateDto Name, description, avatar
      * @return
      */
     @Override
     @Transactional
-    public ApiResult<String> updateSpace(SpaceUpdateDTO spaceUpdateDTO) {
-        if (!Objects.equals(SpaceInfoUtil.getSpaceId(), spaceUpdateDTO.getId())) {
+    public ApiResult<String> updateSpace(SpaceUpdateDto spaceUpdateDto) {
+        if (!Objects.equals(SpaceInfoUtil.getSpaceId(), spaceUpdateDto.getId())) {
             return ApiResult.error(ResponseEnum.SPACE_APPLICATION_CURRENT_SPACE_INCONSISTENT);
         }
-        Space space = spaceService.getById(spaceUpdateDTO.getId());
-        if (spaceService.checkExistByName(spaceUpdateDTO.getName(), spaceUpdateDTO.getId())) {
+        Space space = spaceService.getById(spaceUpdateDto.getId());
+        if (spaceService.checkExistByName(spaceUpdateDto.getName(), spaceUpdateDto.getId())) {
             return ApiResult.error(ResponseEnum.SPACE_NAME_DUPLICATE);
         }
-        space.setName(spaceUpdateDTO.getName());
-        space.setDescription(spaceUpdateDTO.getDescription());
-        space.setAvatarUrl(spaceUpdateDTO.getAvatarUrl());
+        space.setName(spaceUpdateDto.getName());
+        space.setDescription(spaceUpdateDto.getDescription());
+        space.setAvatarUrl(spaceUpdateDto.getAvatarUrl());
         if (spaceService.updateById(space)) {
             return ApiResult.success();
         } else {

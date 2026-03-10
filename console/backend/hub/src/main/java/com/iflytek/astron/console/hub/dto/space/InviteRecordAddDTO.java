@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 
 @Data
 @Schema(name = "Invite user request parameters")
-public class InviteRecordAddDTO {
+public class InviteRecordAddDto {
 
     @Schema(description = "User UID")
     @NotNull(message = "User UID cannot be null")

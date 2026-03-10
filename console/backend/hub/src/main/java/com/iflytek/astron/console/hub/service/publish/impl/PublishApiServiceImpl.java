@@ -13,8 +13,8 @@ import com.iflytek.astron.console.hub.service.user.AppMstService;
 import com.iflytek.astron.console.hub.util.MaasUtil;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
-import com.iflytek.astron.console.hub.dto.publish.AppListDTO;
-import com.iflytek.astron.console.hub.dto.publish.BotApiInfoDTO;
+import com.iflytek.astron.console.hub.dto.publish.AppListDto;
+import com.iflytek.astron.console.hub.dto.publish.BotApiInfoDto;
 import com.iflytek.astron.console.hub.dto.publish.CreateAppVo;
 import com.iflytek.astron.console.hub.dto.publish.CreateBotApiVo;
 import com.iflytek.astron.console.hub.dto.user.TenantAuth;
@@ -95,17 +95,17 @@ public class PublishApiServiceImpl implements PublishApiService {
     }
 
     @Override
-    public List<AppListDTO> getAppList() {
+    public List<AppListDto> getAppList() {
         String uid = RequestContextUtil.getUID();
         return appMstService.getAppListByUid(uid)
                 .stream()
-                .map(appMst -> new AppListDTO(appMst.getAppId(), appMst.getAppName(), appMst.getAppDescribe(),
+                .map(appMst -> new AppListDto(appMst.getAppId(), appMst.getAppName(), appMst.getAppDescribe(),
                         appMst.getAppKey(), appMst.getAppSecret(), appMst.getCreateTime()))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public BotApiInfoDTO createBotApi(CreateBotApiVo createBotApiVo, HttpServletRequest request) {
+    public BotApiInfoDto createBotApi(CreateBotApiVo createBotApiVo, HttpServletRequest request) {
         String uid = RequestContextUtil.getUID();
         String uuid = UUID.randomUUID().toString();
         // Only the space creator can publish APIs
@@ -139,7 +139,7 @@ public class PublishApiServiceImpl implements PublishApiService {
     }
 
     @Override
-    public BotApiInfoDTO getApiInfo(Long botId) {
+    public BotApiInfoDto getApiInfo(Long botId) {
         String uid = RequestContextUtil.getUID();
         // Only the space creator can publish APIs
         if (!uid.equals(SpaceInfoUtil.getUidByCurrentSpaceId())) {
@@ -151,14 +151,14 @@ public class PublishApiServiceImpl implements PublishApiService {
         }
         ChatBotApi botApi = chatBotApiService.getOneByUidAndBotId(uid, botId);
         if (Objects.isNull(botApi)) {
-            return new BotApiInfoDTO();
+            return new BotApiInfoDto();
         }
         AppMst appMst = appMstService.getByAppId(uid, botApi.getAppId());
         if (Objects.isNull(appMst)) {
             throw new BusinessException(ResponseEnum.USER_APP_ID_NOT_EXISTE);
         }
         String serviceUrlHost = botBase.getVersion() == 1 ? botApiCbmBaseUrl : botApiMaasBaseUrl;
-        return BotApiInfoDTO.builder()
+        return BotApiInfoDto.builder()
                 .botId(Math.toIntExact(botId))
                 .botName(botBase.getBotName())
                 .appName(appMst.getAppName())
@@ -170,7 +170,7 @@ public class PublishApiServiceImpl implements PublishApiService {
                 .build();
     }
 
-    private BotApiInfoDTO createMaasApi(String uid, AppMst appMst, ChatBotBase botBase, HttpServletRequest request) {
+    private BotApiInfoDto createMaasApi(String uid, AppMst appMst, ChatBotBase botBase, HttpServletRequest request) {
         Long spaceId = SpaceInfoUtil.getSpaceId();
         Integer botId = botBase.getId();
         List<UserLangChainInfo> userLangChainInfoList = userLangChainDataService.findListByBotId(botId);
@@ -203,7 +203,7 @@ public class PublishApiServiceImpl implements PublishApiService {
 
         chatBotApiService.insertOrUpdate(chatBotApi);
 
-        return BotApiInfoDTO.builder()
+        return BotApiInfoDto.builder()
                 .botId(botId)
                 .botName(botBase.getBotName())
                 .appName(appMst.getAppName())

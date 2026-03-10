@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "Bot Api Info DTO")
-public class BotApiInfoDTO {
+public class BotApiInfoDto {
 
     @Schema(description = "Bot ID", example = "123")
     private Integer botId;

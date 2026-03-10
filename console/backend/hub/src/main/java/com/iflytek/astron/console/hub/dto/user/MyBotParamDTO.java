@@ -10,7 +10,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class MyBotParamDTO {
+public class MyBotParamDto {
 
     private String searchValue;
 

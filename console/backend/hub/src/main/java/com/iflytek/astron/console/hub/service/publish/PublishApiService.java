@@ -1,7 +1,7 @@
 package com.iflytek.astron.console.hub.service.publish;
 
-import com.iflytek.astron.console.hub.dto.publish.AppListDTO;
-import com.iflytek.astron.console.hub.dto.publish.BotApiInfoDTO;
+import com.iflytek.astron.console.hub.dto.publish.AppListDto;
+import com.iflytek.astron.console.hub.dto.publish.BotApiInfoDto;
 import com.iflytek.astron.console.hub.dto.publish.CreateAppVo;
 import com.iflytek.astron.console.hub.dto.publish.CreateBotApiVo;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,9 +14,9 @@ import java.util.List;
 public interface PublishApiService {
     Boolean createApp(CreateAppVo createAppVo);
 
-    List<AppListDTO> getAppList();
+    List<AppListDto> getAppList();
 
-    BotApiInfoDTO createBotApi(CreateBotApiVo createBotApiVo, HttpServletRequest request);
+    BotApiInfoDto createBotApi(CreateBotApiVo createBotApiVo, HttpServletRequest request);
 
-    BotApiInfoDTO getApiInfo(Long botId);
+    BotApiInfoDto getApiInfo(Long botId);
 }

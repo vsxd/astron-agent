@@ -5,7 +5,7 @@ import com.iflytek.astron.console.commons.annotation.RateLimit;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.commons.annotation.space.EnterprisePreAuth;
 import com.iflytek.astron.console.commons.annotation.space.SpacePreAuth;
-import com.iflytek.astron.console.hub.dto.space.InviteRecordAddDTO;
+import com.iflytek.astron.console.hub.dto.space.InviteRecordAddDto;
 import com.iflytek.astron.console.hub.dto.space.InviteRecordParam;
 import com.iflytek.astron.console.hub.enums.space.InviteRecordTypeEnum;
 import com.iflytek.astron.console.hub.dto.space.BatchChatUserVO;
@@ -67,7 +67,7 @@ public class InviteRecordController {
     @SpacePreAuth(module = "Invitation Management", description = "Invite to join space", requireSpaceId = true, key = "InviteRecordController_spaceInvite_POST")
     @Operation(summary = "Invite to join space")
     @RateLimit(dimension = "USER", window = 1, limit = 1)
-    public ApiResult<String> spaceInvite(@RequestBody @Valid @NotEmpty List<InviteRecordAddDTO> dtos) {
+    public ApiResult<String> spaceInvite(@RequestBody @Valid @NotEmpty List<InviteRecordAddDto> dtos) {
         return inviteRecordBizService.spaceInvite(dtos);
     }
 
@@ -110,7 +110,7 @@ public class InviteRecordController {
     @EnterprisePreAuth(module = "Invitation Management", description = "Invite to join enterprise team", key = "InviteRecordController_enterpriseInvite_POST")
     @Operation(summary = "Invite to join enterprise team")
     @RateLimit(dimension = "USER", window = 1, limit = 1)
-    public ApiResult<String> enterpriseInvite(@RequestBody @Valid @NotEmpty List<InviteRecordAddDTO> dtos) {
+    public ApiResult<String> enterpriseInvite(@RequestBody @Valid @NotEmpty List<InviteRecordAddDto> dtos) {
         return inviteRecordBizService.enterpriseInvite(dtos);
     }
 

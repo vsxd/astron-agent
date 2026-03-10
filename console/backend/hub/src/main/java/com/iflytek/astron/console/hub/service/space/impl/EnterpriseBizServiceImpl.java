@@ -5,7 +5,7 @@ import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
-import com.iflytek.astron.console.hub.dto.space.EnterpriseAddDTO;
+import com.iflytek.astron.console.hub.dto.space.EnterpriseAddDto;
 import com.iflytek.astron.console.hub.entity.space.Enterprise;
 import com.iflytek.astron.console.hub.entity.space.EnterpriseUser;
 import com.iflytek.astron.console.hub.enums.space.EnterpriseRoleEnum;
@@ -49,19 +49,19 @@ public class EnterpriseBizServiceImpl implements EnterpriseBizService {
     /**
      * Create enterprise team
      *
-     * @param enterpriseAddDTO
+     * @param enterpriseAddDto
      * @return
      */
     @Override
     @Transactional
-    public ApiResult<Long> create(EnterpriseAddDTO enterpriseAddDTO) {
+    public ApiResult<Long> create(EnterpriseAddDto enterpriseAddDto) {
         String uid = RequestContextUtil.getUID();
         // Get user purchase plan information
         OrderInfoUtil.EnterpriseResult enterpriseResult = OrderInfoUtil.getEnterpriseResult(uid);
         if (enterpriseResult == null) {
             return ApiResult.error(ResponseEnum.ENTERPRISE_PLEASE_BUY_PLAN_FIRST);
         }
-        if (enterpriseService.checkExistByName(enterpriseAddDTO.getName(), null)) {
+        if (enterpriseService.checkExistByName(enterpriseAddDto.getName(), null)) {
             return ApiResult.error(ResponseEnum.ENTERPRISE_NAME_EXISTS);
         }
         if (enterpriseService.checkExistByUid(uid)) {
@@ -69,8 +69,8 @@ public class EnterpriseBizServiceImpl implements EnterpriseBizService {
         }
         // Save team data
         Enterprise enterprise = new Enterprise();
-        enterprise.setName(enterpriseAddDTO.getName());
-        enterprise.setAvatarUrl(enterpriseAddDTO.getAvatarUrl());
+        enterprise.setName(enterpriseAddDto.getName());
+        enterprise.setAvatarUrl(enterpriseAddDto.getAvatarUrl());
         enterprise.setUid(uid);
         enterprise.setOrgId(IdWorker.getId());
         enterprise.setServiceType(enterpriseResult.getServiceType().getCode());

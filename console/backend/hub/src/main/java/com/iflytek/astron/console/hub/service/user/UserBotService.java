@@ -1,7 +1,7 @@
 package com.iflytek.astron.console.hub.service.user;
 
-import com.iflytek.astron.console.hub.dto.user.MyBotPageDTO;
-import com.iflytek.astron.console.hub.dto.user.MyBotParamDTO;
+import com.iflytek.astron.console.hub.dto.user.MyBotPageDto;
+import com.iflytek.astron.console.hub.dto.user.MyBotParamDto;
 
 
 /**
@@ -11,7 +11,7 @@ import com.iflytek.astron.console.hub.dto.user.MyBotParamDTO;
 
 public interface UserBotService {
 
-    MyBotPageDTO listMyBots(MyBotParamDTO myBotParamDTO);
+    MyBotPageDto listMyBots(MyBotParamDto myBotParamDto);
 
     Boolean deleteBot(Integer botId);
 }

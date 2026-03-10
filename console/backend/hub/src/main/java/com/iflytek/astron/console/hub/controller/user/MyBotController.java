@@ -8,8 +8,8 @@ import com.iflytek.astron.console.hub.dto.bot.PromptBotDetail;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.service.bot.ChatBotDataService;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
-import com.iflytek.astron.console.hub.dto.user.MyBotPageDTO;
-import com.iflytek.astron.console.hub.dto.user.MyBotParamDTO;
+import com.iflytek.astron.console.hub.dto.user.MyBotPageDto;
+import com.iflytek.astron.console.hub.dto.user.MyBotParamDto;
 import com.iflytek.astron.console.hub.service.bot.PersonalityConfigService;
 import com.iflytek.astron.console.hub.service.chat.ChatListService;
 import com.iflytek.astron.console.hub.service.user.UserBotService;
@@ -54,8 +54,8 @@ public class MyBotController {
     @SpacePreAuth(key = "MyBotController_getCreatedList_POST")
     @PostMapping("/list")
     @Operation(summary = "User-created assistant presentation")
-    public ApiResult<MyBotPageDTO> getCreatedList(@RequestBody MyBotParamDTO myBotParamDTO) {
-        return ApiResult.success(userBotService.listMyBots(myBotParamDTO));
+    public ApiResult<MyBotPageDto> getCreatedList(@RequestBody MyBotParamDto myBotParamDto) {
+        return ApiResult.success(userBotService.listMyBots(myBotParamDto));
     }
 
     /**

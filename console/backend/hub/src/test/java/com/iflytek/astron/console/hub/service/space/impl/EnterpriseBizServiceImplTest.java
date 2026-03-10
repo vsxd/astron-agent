@@ -2,7 +2,7 @@ package com.iflytek.astron.console.hub.service.space.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
-import com.iflytek.astron.console.hub.dto.space.EnterpriseAddDTO;
+import com.iflytek.astron.console.hub.dto.space.EnterpriseAddDto;
 import com.iflytek.astron.console.hub.entity.space.Enterprise;
 import com.iflytek.astron.console.hub.entity.space.EnterpriseUser;
 import com.iflytek.astron.console.hub.enums.space.EnterpriseRoleEnum;
@@ -58,7 +58,7 @@ class EnterpriseBizServiceImplTest {
 
     private Enterprise testEnterprise;
     private EnterpriseUser testEnterpriseUser;
-    private EnterpriseAddDTO testEnterpriseAddDTO;
+    private EnterpriseAddDto testEnterpriseAddDto;
 
     @BeforeEach
     void setUp() {
@@ -78,9 +78,9 @@ class EnterpriseBizServiceImplTest {
         testEnterpriseUser.setUid(TEST_UID);
         testEnterpriseUser.setRole(EnterpriseRoleEnum.OFFICER.getCode());
 
-        testEnterpriseAddDTO = new EnterpriseAddDTO();
-        testEnterpriseAddDTO.setName(TEST_ENTERPRISE_NAME);
-        testEnterpriseAddDTO.setAvatarUrl(TEST_AVATAR_URL);
+        testEnterpriseAddDto = new EnterpriseAddDto();
+        testEnterpriseAddDto.setName(TEST_ENTERPRISE_NAME);
+        testEnterpriseAddDto.setAvatarUrl(TEST_AVATAR_URL);
     }
 
     @Test
@@ -215,7 +215,7 @@ class EnterpriseBizServiceImplTest {
             when(enterpriseUserService.addEnterpriseUser(isNull(), eq(TEST_UID), eq(EnterpriseRoleEnum.OFFICER))).thenReturn(true);
 
             // Act
-            ApiResult<Long> result = enterpriseBizService.create(testEnterpriseAddDTO);
+            ApiResult<Long> result = enterpriseBizService.create(testEnterpriseAddDto);
 
             // Assert
             assertNotNull(result);
@@ -239,7 +239,7 @@ class EnterpriseBizServiceImplTest {
             mockedOrderInfo.when(() -> OrderInfoUtil.getEnterpriseResult(TEST_UID)).thenReturn(null);
 
             // Act
-            ApiResult<Long> result = enterpriseBizService.create(testEnterpriseAddDTO);
+            ApiResult<Long> result = enterpriseBizService.create(testEnterpriseAddDto);
 
             // Assert
             assertNotNull(result);
@@ -264,7 +264,7 @@ class EnterpriseBizServiceImplTest {
             when(enterpriseService.checkExistByName(TEST_ENTERPRISE_NAME, null)).thenReturn(true);
 
             // Act
-            ApiResult<Long> result = enterpriseBizService.create(testEnterpriseAddDTO);
+            ApiResult<Long> result = enterpriseBizService.create(testEnterpriseAddDto);
 
             // Assert
             assertNotNull(result);
@@ -290,7 +290,7 @@ class EnterpriseBizServiceImplTest {
             when(enterpriseService.checkExistByUid(TEST_UID)).thenReturn(true);
 
             // Act
-            ApiResult<Long> result = enterpriseBizService.create(testEnterpriseAddDTO);
+            ApiResult<Long> result = enterpriseBizService.create(testEnterpriseAddDto);
 
             // Assert
             assertNotNull(result);
@@ -323,7 +323,7 @@ class EnterpriseBizServiceImplTest {
             when(enterpriseService.save(any(Enterprise.class))).thenReturn(false);
 
             // Act
-            ApiResult<Long> result = enterpriseBizService.create(testEnterpriseAddDTO);
+            ApiResult<Long> result = enterpriseBizService.create(testEnterpriseAddDto);
 
             // Assert
             assertNotNull(result);
@@ -357,7 +357,7 @@ class EnterpriseBizServiceImplTest {
 
             // Act & Assert
             BusinessException exception = assertThrows(BusinessException.class,
-                    () -> enterpriseBizService.create(testEnterpriseAddDTO));
+                    () -> enterpriseBizService.create(testEnterpriseAddDto));
 
             assertEquals(ResponseEnum.INVITE_ADD_TEAM_USER_FAILED, exception.getResponseEnum());
             verify(enterpriseService).save(any(Enterprise.class));

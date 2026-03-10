@@ -10,7 +10,7 @@ import lombok.Data;
  */
 @Data
 @OnceAbsoluteMerge(firstRowIndex = 0, firstColumnIndex = 0, lastRowIndex = 0, lastColumnIndex = 9)
-public class UserInfoResultExcelDTO {
+public class UserInfoResultExcelDto {
     @ExcelProperty(value = {"Please ensure the mobile number is registered on the Astron platform, the parsing result only displays registered users. Duplicate accounts will be automatically deduplicated.", "Mobile Number"}, index = 0)
     @ColumnWidth(15)
     private String mobile;

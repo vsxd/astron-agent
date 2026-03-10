@@ -14,7 +14,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.iflytek.astron.console.hub.dto.bot.BotDetail;
 import com.iflytek.astron.console.hub.dto.bot.ChatBotApi;
 import com.iflytek.astron.console.hub.dto.bot.PromptBotDetail;
-import com.iflytek.astron.console.hub.dto.vcn.CustomV2VCNDTO;
+import com.iflytek.astron.console.hub.dto.vcn.CustomV2VCNDto;
 import com.iflytek.astron.console.hub.entity.bot.*;
 import com.iflytek.astron.console.hub.entity.chat.ChatList;
 import com.iflytek.astron.console.hub.entity.model.McpData;
@@ -571,7 +571,7 @@ public class ChatBotDataServiceImpl implements ChatBotDataService {
 
     @Override
     public Map<String, Object> getVcnDetail(String vcnCode) {
-        CustomV2VCNDTO detail = customVCNMapper.getVcnByCode(vcnCode);
+        CustomV2VCNDto detail = customVCNMapper.getVcnByCode(vcnCode);
         if (detail == null) {
             return null;
         }

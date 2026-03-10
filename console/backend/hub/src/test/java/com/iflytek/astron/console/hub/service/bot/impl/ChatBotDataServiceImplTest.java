@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.iflytek.astron.console.hub.dto.bot.BotDetail;
-import com.iflytek.astron.console.hub.dto.vcn.CustomV2VCNDTO;
+import com.iflytek.astron.console.hub.dto.vcn.CustomV2VCNDto;
 import com.iflytek.astron.console.hub.entity.bot.*;
 import com.iflytek.astron.console.hub.entity.chat.ChatList;
 import com.iflytek.astron.console.hub.entity.model.McpData;
@@ -620,7 +620,7 @@ class ChatBotDataServiceImplTest {
     @Test
     void testGetVcnDetail_Success() {
         String vcnCode = "test-vcn";
-        CustomV2VCNDTO vcnDTO = new CustomV2VCNDTO();
+        CustomV2VCNDto vcnDTO = new CustomV2VCNDto();
         vcnDTO.setVcnId("1");
         vcnDTO.setName("Test VCN");
         vcnDTO.setUid(TEST_UID);

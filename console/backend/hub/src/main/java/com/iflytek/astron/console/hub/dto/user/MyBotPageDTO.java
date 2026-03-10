@@ -13,10 +13,10 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(name = "MyBotPageDTO", description = "My bot paginated list")
-public class MyBotPageDTO {
+@Schema(name = "MyBotPageDto", description = "My bot paginated list")
+public class MyBotPageDto {
     @Schema(description = "List storing bot information")
-    private List<MyBotResponseDTO> pageData;
+    private List<MyBotResponseDto> pageData;
 
     @Schema(description = "Total number of records (returned as string)")
     private Integer totalCount;

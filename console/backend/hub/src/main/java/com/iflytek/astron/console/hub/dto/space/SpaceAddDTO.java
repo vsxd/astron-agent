@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotEmpty;
 
 @Data
 @Schema(name = "Add space request parameters")
-public class SpaceAddDTO {
+public class SpaceAddDto {
 
     @Schema(description = "Space name")
     @NotEmpty(message = "Space name cannot be empty")

@@ -1,6 +1,6 @@
 package com.iflytek.astron.console.hub.service.bot;
 
-import com.iflytek.astron.console.hub.dto.bot.BotGenerationDTO;
+import com.iflytek.astron.console.hub.dto.bot.BotGenerationDto;
 
 /**
  * Chatbot AI service interface
@@ -24,7 +24,7 @@ public interface BotAIService {
      * @param uid User ID
      * @return Generated assistant details
      */
-    BotGenerationDTO sentenceBot(String sentence, String uid);
+    BotGenerationDto sentenceBot(String sentence, String uid);
 
     /**
      * Large model generate assistant prologue

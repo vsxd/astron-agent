@@ -12,7 +12,7 @@ import java.util.List;
  * @since 2025/9/9 15:43
  **/
 @Data
-public class MyBotResponseDTO {
+public class MyBotResponseDto {
 
     // Basic identifier fields
     private Long botId;

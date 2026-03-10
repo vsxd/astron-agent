@@ -5,8 +5,8 @@ import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.commons.annotation.RateLimit;
 import com.iflytek.astron.console.commons.annotation.space.EnterprisePreAuth;
 import com.iflytek.astron.console.commons.annotation.space.SpacePreAuth;
-import com.iflytek.astron.console.hub.dto.space.SpaceAddDTO;
-import com.iflytek.astron.console.hub.dto.space.SpaceUpdateDTO;
+import com.iflytek.astron.console.hub.dto.space.SpaceAddDto;
+import com.iflytek.astron.console.hub.dto.space.SpaceUpdateDto;
 import com.iflytek.astron.console.hub.entity.space.Space;
 import com.iflytek.astron.console.commons.util.space.EnterpriseInfoUtil;
 import com.iflytek.astron.console.hub.dto.space.EnterpriseSpaceCountVO;
@@ -107,16 +107,16 @@ public class SpaceController {
     @PostMapping("/create-personal-space")
     @Operation(summary = "Personal create space")
     @RateLimit(dimension = "USER", window = 1, limit = 1)
-    public ApiResult<Long> createPersonalSpace(@RequestBody @Valid SpaceAddDTO spaceAddDTO) {
-        return spaceBizService.create(spaceAddDTO, null);
+    public ApiResult<Long> createPersonalSpace(@RequestBody @Valid SpaceAddDto spaceAddDto) {
+        return spaceBizService.create(spaceAddDto, null);
     }
 
     @PostMapping("/update-personal-space")
     @Operation(summary = "Personal edit space information")
     @SpacePreAuth(key = "SpaceController_updatePersonalSpace_POST", requireSpaceId = true, module = "Space Management", point = "Edit space information", description = "Edit space information")
     @RateLimit(dimension = "USER", window = 1, limit = 1)
-    public ApiResult<String> updatePersonalSpace(@RequestBody @Valid SpaceUpdateDTO spaceUpdateDTO) {
-        return spaceBizService.updateSpace(spaceUpdateDTO);
+    public ApiResult<String> updatePersonalSpace(@RequestBody @Valid SpaceUpdateDto spaceUpdateDto) {
+        return spaceBizService.updateSpace(spaceUpdateDto);
     }
 
     // ---------------------------------------------------Enterprise
@@ -126,8 +126,8 @@ public class SpaceController {
     @Operation(summary = "Enterprise create space")
     @EnterprisePreAuth(key = "SpaceController_createCorporateSpace_POST", module = "Team/Enterprise Level Space Management", description = "Create space")
     @RateLimit(dimension = "USER", window = 1, limit = 1)
-    public ApiResult<Long> createCorporateSpace(@RequestBody @Valid SpaceAddDTO spaceAddDTO) {
-        return spaceBizService.create(spaceAddDTO, EnterpriseInfoUtil.getEnterpriseId());
+    public ApiResult<Long> createCorporateSpace(@RequestBody @Valid SpaceAddDto spaceAddDto) {
+        return spaceBizService.create(spaceAddDto, EnterpriseInfoUtil.getEnterpriseId());
     }
 
     @DeleteMapping("/delete-corporate-space")
@@ -142,8 +142,8 @@ public class SpaceController {
     @Operation(summary = "Enterprise edit space information")
     @EnterprisePreAuth(key = "SpaceController_updateCorporateSpace_POST", module = "Team/Enterprise Level Space Management", description = "Edit space information")
     @RateLimit(dimension = "USER", window = 1, limit = 1)
-    public ApiResult<String> updateCorporateSpace(@RequestBody @Valid SpaceUpdateDTO spaceUpdateDTO) {
-        return spaceBizService.updateSpace(spaceUpdateDTO);
+    public ApiResult<String> updateCorporateSpace(@RequestBody @Valid SpaceUpdateDto spaceUpdateDto) {
+        return spaceBizService.updateSpace(spaceUpdateDto);
     }
 
     @GetMapping("/corporate-list")

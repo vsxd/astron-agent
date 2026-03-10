@@ -2,8 +2,8 @@ package com.iflytek.astron.console.hub.controller.publish;
 
 import com.iflytek.astron.console.commons.annotation.RateLimit;
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.hub.dto.publish.AppListDTO;
-import com.iflytek.astron.console.hub.dto.publish.BotApiInfoDTO;
+import com.iflytek.astron.console.hub.dto.publish.AppListDto;
+import com.iflytek.astron.console.hub.dto.publish.BotApiInfoDto;
 import com.iflytek.astron.console.hub.dto.publish.CreateAppVo;
 import com.iflytek.astron.console.hub.dto.publish.CreateBotApiVo;
 import com.iflytek.astron.console.hub.service.publish.PublishApiService;
@@ -40,21 +40,21 @@ public class PublishApiController {
     @Operation(summary = "Get App List", description = "Get user app list")
     @RateLimit(limit = 30, window = 60, dimension = "USER")
     @GetMapping("/app-list")
-    public ApiResult<List<AppListDTO>> getAppList() {
+    public ApiResult<List<AppListDto>> getAppList() {
         return ApiResult.success(publishApiService.getAppList());
     }
 
     @Operation(summary = "Create Bot Api", description = "create bot api with user app")
     @RateLimit(limit = 30, window = 60, dimension = "USER")
     @PostMapping("/create-bot-api")
-    public ApiResult<BotApiInfoDTO> createBotApi(HttpServletRequest request, @RequestBody CreateBotApiVo createBotApiVo) {
+    public ApiResult<BotApiInfoDto> createBotApi(HttpServletRequest request, @RequestBody CreateBotApiVo createBotApiVo) {
         return ApiResult.success(publishApiService.createBotApi(createBotApiVo, request));
     }
 
     @Operation(summary = "Get Bot Api Info", description = "Get Bot Api Info")
     @RateLimit(limit = 30, window = 60, dimension = "USER")
     @GetMapping("/get-bot-api-info")
-    public ApiResult<BotApiInfoDTO> usageRealTime(@RequestParam Long botId) {
+    public ApiResult<BotApiInfoDto> usageRealTime(@RequestParam Long botId) {
         return ApiResult.success(publishApiService.getApiInfo(botId));
     }
 

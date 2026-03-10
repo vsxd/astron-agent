@@ -7,7 +7,7 @@ import lombok.Data;
  * Batch import for inviting users
  */
 @Data
-public class UserInfoExcelDTO {
+public class UserInfoExcelDto {
 
     @ExcelProperty("Mobile")
     private String mobile;

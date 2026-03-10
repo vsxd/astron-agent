@@ -9,7 +9,7 @@ import java.util.List;
  *
  */
 @Data
-public class BotGenerationDTO {
+public class BotGenerationDto {
 
     /**
      * Assistant name
@@ -54,7 +54,7 @@ public class BotGenerationDTO {
     /**
      * Prompt structure list
      */
-    private List<PromptStructDTO> promptStructList;
+    private List<PromptStructDto> promptStructList;
 
     /**
      * Input example list

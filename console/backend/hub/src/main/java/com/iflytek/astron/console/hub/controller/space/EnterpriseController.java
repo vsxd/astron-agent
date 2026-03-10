@@ -3,7 +3,7 @@ package com.iflytek.astron.console.hub.controller.space;
 import com.iflytek.astron.console.commons.annotation.RateLimit;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.commons.annotation.space.EnterprisePreAuth;
-import com.iflytek.astron.console.hub.dto.space.EnterpriseAddDTO;
+import com.iflytek.astron.console.hub.dto.space.EnterpriseAddDto;
 import com.iflytek.astron.console.hub.dto.space.EnterpriseVO;
 import com.iflytek.astron.console.hub.service.space.EnterpriseService;
 import com.iflytek.astron.console.hub.service.space.EnterpriseBizService;
@@ -52,8 +52,8 @@ public class EnterpriseController {
     @PostMapping("/create")
     @Operation(summary = "Create team")
     @RateLimit(dimension = "USER", window = 1, limit = 1)
-    public ApiResult<Long> create(@RequestBody @Valid EnterpriseAddDTO enterpriseAddDTO) {
-        return enterpriseBizService.create(enterpriseAddDTO);
+    public ApiResult<Long> create(@RequestBody @Valid EnterpriseAddDto enterpriseAddDto) {
+        return enterpriseBizService.create(enterpriseAddDto);
     }
 
     @GetMapping("/check-name")

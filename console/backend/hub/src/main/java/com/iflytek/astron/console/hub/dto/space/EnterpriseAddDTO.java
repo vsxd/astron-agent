@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotEmpty;
 
 @Data
 @Schema(name = "Add Enterprise Team Request Parameters")
-public class EnterpriseAddDTO {
+public class EnterpriseAddDto {
 
     @Schema(description = "Team name")
     @NotEmpty(message = "Team name cannot be empty")

@@ -23,10 +23,10 @@ import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.service.space.*;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
 import com.iflytek.astron.console.commons.util.S3ClientUtil;
-import com.iflytek.astron.console.hub.dto.space.InviteRecordAddDTO;
+import com.iflytek.astron.console.hub.dto.space.InviteRecordAddDto;
 import com.iflytek.astron.console.hub.dto.notification.SendNotificationRequest;
-import com.iflytek.astron.console.hub.dto.user.UserInfoExcelDTO;
-import com.iflytek.astron.console.hub.dto.user.UserInfoResultExcelDTO;
+import com.iflytek.astron.console.hub.dto.user.UserInfoExcelDto;
+import com.iflytek.astron.console.hub.dto.user.UserInfoResultExcelDto;
 import com.iflytek.astron.console.hub.enums.*;
 import com.iflytek.astron.console.hub.properties.InviteMessageTempProperties;
 import com.iflytek.astron.console.hub.properties.SpaceLimitProperties;
@@ -90,8 +90,8 @@ public class InviteRecordBizServiceImpl implements InviteRecordBizService {
      */
     @Override
     @Transactional
-    public ApiResult<String> spaceInvite(List<InviteRecordAddDTO> dtos) {
-        List<String> uids = dtos.stream().map(InviteRecordAddDTO::getUid).collect(Collectors.toList());
+    public ApiResult<String> spaceInvite(List<InviteRecordAddDto> dtos) {
+        List<String> uids = dtos.stream().map(InviteRecordAddDto::getUid).collect(Collectors.toList());
         Long spaceId = SpaceInfoUtil.getSpaceId();
         Space space = spaceService.getSpaceById(spaceId);
         // Check if space capacity is full, including users being invited
@@ -127,7 +127,7 @@ public class InviteRecordBizServiceImpl implements InviteRecordBizService {
         }
         List<InviteRecord> inviteRecords = new ArrayList<>();
         String uid = RequestContextUtil.getUID();
-        for (InviteRecordAddDTO dto : dtos) {
+        for (InviteRecordAddDto dto : dtos) {
             InviteRecord inviteRecord = new InviteRecord();
             inviteRecord.setType(InviteRecordTypeEnum.SPACE.getCode());
             inviteRecord.setSpaceId(spaceId);
@@ -169,8 +169,8 @@ public class InviteRecordBizServiceImpl implements InviteRecordBizService {
      */
     @Override
     @Transactional
-    public ApiResult<String> enterpriseInvite(List<InviteRecordAddDTO> dtos) {
-        List<String> uids = dtos.stream().map(InviteRecordAddDTO::getUid).collect(Collectors.toList());
+    public ApiResult<String> enterpriseInvite(List<InviteRecordAddDto> dtos) {
+        List<String> uids = dtos.stream().map(InviteRecordAddDto::getUid).collect(Collectors.toList());
         Long enterpriseId = EnterpriseInfoUtil.getEnterpriseId();
         Enterprise enterprise = enterpriseService.getEnterpriseById(enterpriseId);
         Integer userCount = 0;
@@ -196,7 +196,7 @@ public class InviteRecordBizServiceImpl implements InviteRecordBizService {
         }
         List<InviteRecord> inviteRecords = new ArrayList<>();
         String uid = RequestContextUtil.getUID();
-        for (InviteRecordAddDTO dto : dtos) {
+        for (InviteRecordAddDto dto : dtos) {
             InviteRecord inviteRecord = new InviteRecord();
             inviteRecord.setType(InviteRecordTypeEnum.ENTERPRISE.getCode());
             inviteRecord.setEnterpriseId(enterpriseId);
@@ -563,9 +563,9 @@ public class InviteRecordBizServiceImpl implements InviteRecordBizService {
     }
 
     private @NotNull String uploadResultExcelFile(List<ChatUserVO> chatUserVOS, List<String> mobiles) {
-        List<UserInfoResultExcelDTO> userInfoResultExcelDTOS = getUserInfoResultDTOS(chatUserVOS, mobiles);
+        List<UserInfoResultExcelDto> userInfoResultExcelDtos = getUserInfoResultDtos(chatUserVOS, mobiles);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        EasyExcel.write(outputStream, UserInfoResultExcelDTO.class)
+        EasyExcel.write(outputStream, UserInfoResultExcelDto.class)
                 .registerWriteHandler(new CellWriteHandler() {
                     @Override
                     public void afterCellDispose(CellWriteHandlerContext context) {
@@ -597,41 +597,41 @@ public class InviteRecordBizServiceImpl implements InviteRecordBizService {
                 })
                 .useDefaultStyle(false)
                 .sheet("Sheet1")
-                .doWrite(userInfoResultExcelDTOS);
+                .doWrite(userInfoResultExcelDtos);
         String fileName = NameUtil.generateUniqueFileName("result.xlsx");
         return s3ClientUtil.uploadObject("space/" + fileName,
                 MediaType.APPLICATION_OCTET_STREAM_VALUE,
                 new ByteArrayInputStream(outputStream.toByteArray()));
     }
 
-    private @NotNull List<UserInfoResultExcelDTO> getUserInfoResultDTOS(List<ChatUserVO> chatUserVOS, List<String> mobiles) {
-        List<UserInfoResultExcelDTO> userInfoResultExcelDTOS = new ArrayList<>();
+    private @NotNull List<UserInfoResultExcelDto> getUserInfoResultDtos(List<ChatUserVO> chatUserVOS, List<String> mobiles) {
+        List<UserInfoResultExcelDto> userInfoResultExcelDtos = new ArrayList<>();
         Map<String, ChatUserVO> collect = chatUserVOS.stream()
                 .collect(Collectors.toMap(ChatUserVO::getMobile, i -> i));
         for (String mobile : mobiles) {
-            UserInfoResultExcelDTO userInfoResultExcelDTO = new UserInfoResultExcelDTO();
-            userInfoResultExcelDTO.setMobile(mobile);
+            UserInfoResultExcelDto userInfoResultExcelDto = new UserInfoResultExcelDto();
+            userInfoResultExcelDto.setMobile(mobile);
             if (!StringUtils.isNumeric(mobile) || mobile.length() != 11) {
-                userInfoResultExcelDTO.setResult(UserInfoResultEnum.INVALID_MOBILE.getDesc());
+                userInfoResultExcelDto.setResult(UserInfoResultEnum.INVALID_MOBILE.getDesc());
             } else if (!collect.containsKey(mobile)) {
-                userInfoResultExcelDTO.setResult(UserInfoResultEnum.NOT_EXIST.getDesc());
+                userInfoResultExcelDto.setResult(UserInfoResultEnum.NOT_EXIST.getDesc());
             } else if (collect.get(mobile).getStatus() == 1) {
-                userInfoResultExcelDTO.setResult(UserInfoResultEnum.JOINED.getDesc());
+                userInfoResultExcelDto.setResult(UserInfoResultEnum.JOINED.getDesc());
             } else if (collect.get(mobile).getStatus() == 2) {
-                userInfoResultExcelDTO.setResult(UserInfoResultEnum.INVITING.getDesc());
+                userInfoResultExcelDto.setResult(UserInfoResultEnum.INVITING.getDesc());
             } else {
-                userInfoResultExcelDTO.setResult(UserInfoResultEnum.NORMAL.getDesc());
+                userInfoResultExcelDto.setResult(UserInfoResultEnum.NORMAL.getDesc());
             }
-            userInfoResultExcelDTOS.add(userInfoResultExcelDTO);
+            userInfoResultExcelDtos.add(userInfoResultExcelDto);
         }
-        return userInfoResultExcelDTOS;
+        return userInfoResultExcelDtos;
     }
 
     private @NotNull List<String> readMobilesFromExcel(InputStream inputStream) {
         List<String> mobiles = new ArrayList<>();
-        EasyExcel.read(inputStream, UserInfoExcelDTO.class, new ReadListener<UserInfoExcelDTO>() {
+        EasyExcel.read(inputStream, UserInfoExcelDto.class, new ReadListener<UserInfoExcelDto>() {
             @Override
-            public void invoke(UserInfoExcelDTO o, AnalysisContext analysisContext) {
+            public void invoke(UserInfoExcelDto o, AnalysisContext analysisContext) {
                 mobiles.add(o.getMobile());
             }
 
@@ -648,9 +648,9 @@ public class InviteRecordBizServiceImpl implements InviteRecordBizService {
 
     private @NotNull List<String> readUsernamesFromExcel(InputStream inputStream) {
         List<String> usernames = new ArrayList<>();
-        EasyExcel.read(inputStream, UserInfoExcelDTO.class, new ReadListener<UserInfoExcelDTO>() {
+        EasyExcel.read(inputStream, UserInfoExcelDto.class, new ReadListener<UserInfoExcelDto>() {
             @Override
-            public void invoke(UserInfoExcelDTO o, AnalysisContext analysisContext) {
+            public void invoke(UserInfoExcelDto o, AnalysisContext analysisContext) {
                 usernames.add(o.getUsername());
             }
 
@@ -664,9 +664,9 @@ public class InviteRecordBizServiceImpl implements InviteRecordBizService {
     }
 
     private @NotNull String uploadResultExcelFileForUsernames(List<ChatUserVO> chatUserVOS, List<String> usernames) {
-        List<UserInfoResultExcelDTO> userInfoResultExcelDTOS = getUserInfoResultDTOSForUsernames(chatUserVOS, usernames);
+        List<UserInfoResultExcelDto> userInfoResultExcelDtos = getUserInfoResultDtosForUsernames(chatUserVOS, usernames);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        EasyExcel.write(outputStream, UserInfoResultExcelDTO.class)
+        EasyExcel.write(outputStream, UserInfoResultExcelDto.class)
                 .registerWriteHandler(new CellWriteHandler() {
                     @Override
                     public void afterCellDispose(CellWriteHandlerContext context) {
@@ -696,34 +696,34 @@ public class InviteRecordBizServiceImpl implements InviteRecordBizService {
                 })
                 .useDefaultStyle(false)
                 .sheet("Sheet1")
-                .doWrite(userInfoResultExcelDTOS);
+                .doWrite(userInfoResultExcelDtos);
         String fileName = NameUtil.generateUniqueFileName("result.xlsx");
         return s3ClientUtil.uploadObject("space/" + fileName,
                 MediaType.APPLICATION_OCTET_STREAM_VALUE,
                 new ByteArrayInputStream(outputStream.toByteArray()));
     }
 
-    private @NotNull List<UserInfoResultExcelDTO> getUserInfoResultDTOSForUsernames(List<ChatUserVO> chatUserVOS, List<String> usernames) {
-        List<UserInfoResultExcelDTO> userInfoResultExcelDTOS = new ArrayList<>();
+    private @NotNull List<UserInfoResultExcelDto> getUserInfoResultDtosForUsernames(List<ChatUserVO> chatUserVOS, List<String> usernames) {
+        List<UserInfoResultExcelDto> userInfoResultExcelDtos = new ArrayList<>();
         Map<String, ChatUserVO> collect = chatUserVOS.stream()
                 .filter(chatUser -> chatUser.getUid() != null)
                 .collect(Collectors.toMap(ChatUserVO::getUid, i -> i));
         for (String username : usernames) {
-            UserInfoResultExcelDTO userInfoResultExcelDTO = new UserInfoResultExcelDTO();
-            userInfoResultExcelDTO.setUsername(username);
+            UserInfoResultExcelDto userInfoResultExcelDto = new UserInfoResultExcelDto();
+            userInfoResultExcelDto.setUsername(username);
             if (StringUtils.isBlank(username)) {
-                userInfoResultExcelDTO.setResult(UserInfoResultEnum.NOT_EXIST.getDesc());
+                userInfoResultExcelDto.setResult(UserInfoResultEnum.NOT_EXIST.getDesc());
             } else if (!collect.containsKey(username)) {
-                userInfoResultExcelDTO.setResult(UserInfoResultEnum.NOT_EXIST.getDesc());
+                userInfoResultExcelDto.setResult(UserInfoResultEnum.NOT_EXIST.getDesc());
             } else if (collect.get(username).getStatus() == 1) {
-                userInfoResultExcelDTO.setResult(UserInfoResultEnum.JOINED.getDesc());
+                userInfoResultExcelDto.setResult(UserInfoResultEnum.JOINED.getDesc());
             } else if (collect.get(username).getStatus() == 2) {
-                userInfoResultExcelDTO.setResult(UserInfoResultEnum.INVITING.getDesc());
+                userInfoResultExcelDto.setResult(UserInfoResultEnum.INVITING.getDesc());
             } else {
-                userInfoResultExcelDTO.setResult(UserInfoResultEnum.NORMAL.getDesc());
+                userInfoResultExcelDto.setResult(UserInfoResultEnum.NORMAL.getDesc());
             }
-            userInfoResultExcelDTOS.add(userInfoResultExcelDTO);
+            userInfoResultExcelDtos.add(userInfoResultExcelDto);
         }
-        return userInfoResultExcelDTOS;
+        return userInfoResultExcelDtos;
     }
 }

@@ -19,7 +19,7 @@ import com.iflytek.astron.console.hub.service.bot.BotService;
 import com.iflytek.astron.console.commons.util.I18nUtil;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
-import com.iflytek.astron.console.hub.dto.bot.BotGenerationDTO;
+import com.iflytek.astron.console.hub.dto.bot.BotGenerationDto;
 import com.iflytek.astron.console.hub.service.bot.BotAIService;
 import com.iflytek.astron.console.hub.service.bot.PersonalityConfigService;
 import com.iflytek.astron.console.hub.util.BotPermissionUtil;
@@ -158,13 +158,13 @@ public class BotCreateController {
      */
     @PostMapping("/ai-sentence-gen")
     @RateLimit(dimension = "USER", window = 1, limit = 1)
-    public ApiResult<BotGenerationDTO> sentence(@RequestParam String sentence) {
+    public ApiResult<BotGenerationDto> sentence(@RequestParam String sentence) {
         if (sentence == null || sentence.trim().isEmpty()) {
             return ApiResult.error(ResponseEnum.PARAMS_ERROR);
         }
 
         String uid = RequestContextUtil.getUID();
-        BotGenerationDTO botDetail = botAIService.sentenceBot(sentence, uid);
+        BotGenerationDto botDetail = botAIService.sentenceBot(sentence, uid);
         return ApiResult.success(botDetail);
     }
 

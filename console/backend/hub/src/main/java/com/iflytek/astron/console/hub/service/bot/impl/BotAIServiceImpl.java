@@ -10,8 +10,8 @@ import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.util.I18nUtil;
 import com.iflytek.astron.console.commons.util.S3ClientUtil;
-import com.iflytek.astron.console.hub.dto.bot.BotGenerationDTO;
-import com.iflytek.astron.console.hub.dto.bot.PromptStructDTO;
+import com.iflytek.astron.console.hub.dto.bot.BotGenerationDto;
+import com.iflytek.astron.console.hub.dto.bot.PromptStructDto;
 import com.iflytek.astron.console.hub.entity.AiPromptTemplate;
 import com.iflytek.astron.console.hub.mapper.AiPromptTemplateMapper;
 import com.iflytek.astron.console.hub.service.bot.BotAIService;
@@ -282,7 +282,7 @@ public class BotAIServiceImpl implements BotAIService {
     }
 
     @Override
-    public BotGenerationDTO sentenceBot(String sentence, String uid) {
+    public BotGenerationDto sentenceBot(String sentence, String uid) {
         if (StringUtils.isBlank(sentence)) {
             throw new BusinessException(PARAMETER_ERROR);
         }
@@ -294,7 +294,7 @@ public class BotAIServiceImpl implements BotAIService {
 
         try {
             // Use AI service to generate assistant configuration
-            BotGenerationDTO botDetail = generateBotFromSentence(sentence);
+            BotGenerationDto botDetail = generateBotFromSentence(sentence);
 
             // Generate AI avatar (optional, enable as needed)
             String botName = botDetail.getBotName();
@@ -323,7 +323,7 @@ public class BotAIServiceImpl implements BotAIService {
     /**
      * Generate assistant configuration based on one-sentence description
      */
-    private BotGenerationDTO generateBotFromSentence(String sentence) throws Exception {
+    private BotGenerationDto generateBotFromSentence(String sentence) throws Exception {
         // Build prompt - use original project prompt logic
         String prompt = formatPrompt("sentence_bot_generation", sentence);
 
@@ -346,8 +346,8 @@ public class BotAIServiceImpl implements BotAIService {
     /**
      * Parse AI response and extract assistant configuration information
      */
-    private BotGenerationDTO parseBotConfigFromResponse(String response) {
-        BotGenerationDTO botDetail = new BotGenerationDTO();
+    private BotGenerationDto parseBotConfigFromResponse(String response) {
+        BotGenerationDto botDetail = new BotGenerationDto();
 
         try {
             Map<String, List<String>> fieldMappings = getFieldMappings();
@@ -363,7 +363,7 @@ public class BotAIServiceImpl implements BotAIService {
             populateBotBasicInfo(botDetail, fields, botType);
 
             // Build prompt structure
-            List<PromptStructDTO> promptStructList = buildPromptStructList(fields);
+            List<PromptStructDto> promptStructList = buildPromptStructList(fields);
             botDetail.setPromptStructList(promptStructList);
 
             // Process input examples
@@ -466,7 +466,7 @@ public class BotAIServiceImpl implements BotAIService {
     /**
      * Populate basic bot information
      */
-    private void populateBotBasicInfo(BotGenerationDTO botDetail, ParsedBotFields fields, int botType) {
+    private void populateBotBasicInfo(BotGenerationDto botDetail, ParsedBotFields fields, int botType) {
         botDetail.setBotName(StringUtils.isNotBlank(fields.botName) ? fields.botName : "AI Assistant");
         botDetail.setBotDesc(StringUtils.isNotBlank(fields.botDesc) ? fields.botDesc : "Intelligent Assistant");
         botDetail.setBotType(botType);
@@ -480,8 +480,8 @@ public class BotAIServiceImpl implements BotAIService {
     /**
      * Build prompt structure list
      */
-    private List<PromptStructDTO> buildPromptStructList(ParsedBotFields fields) {
-        List<PromptStructDTO> promptStructList = new ArrayList<>();
+    private List<PromptStructDto> buildPromptStructList(ParsedBotFields fields) {
+        List<PromptStructDto> promptStructList = new ArrayList<>();
         Map<String, String> labels = getPromptStructLabels();
 
         addPromptStruct(promptStructList, labels.get("role_setting"), fields.roleDesc);
@@ -494,9 +494,9 @@ public class BotAIServiceImpl implements BotAIService {
     /**
      * Add prompt struct if value is not blank
      */
-    private void addPromptStruct(List<PromptStructDTO> list, String key, String value) {
+    private void addPromptStruct(List<PromptStructDto> list, String key, String value) {
         if (StringUtils.isNotBlank(value)) {
-            PromptStructDTO struct = new PromptStructDTO();
+            PromptStructDto struct = new PromptStructDto();
             struct.setPromptKey(key);
             struct.setPromptValue(value);
             list.add(struct);
@@ -538,7 +538,7 @@ public class BotAIServiceImpl implements BotAIService {
     /**
      * Set default bot details
      */
-    private void setDefaultBotDetails(BotGenerationDTO botDetail) {
+    private void setDefaultBotDetails(BotGenerationDto botDetail) {
         botDetail.setBotName("AI Assistant");
         botDetail.setBotDesc("Intelligent Assistant");
         botDetail.setBotType(1);

@@ -4,7 +4,7 @@ import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.hub.data.UserInfoDataService;
 import com.iflytek.astron.console.hub.dto.space.BatchChatUserVO;
 import com.iflytek.astron.console.hub.dto.space.ChatUserVO;
-import com.iflytek.astron.console.hub.dto.space.InviteRecordAddDTO;
+import com.iflytek.astron.console.hub.dto.space.InviteRecordAddDto;
 import com.iflytek.astron.console.hub.dto.space.InviteRecordVO;
 import com.iflytek.astron.console.hub.dto.space.UserLimitVO;
 import com.iflytek.astron.console.hub.entity.space.Enterprise;
@@ -93,7 +93,7 @@ class InviteRecordBizServiceImplTest {
     private Space testSpace;
     private Enterprise testEnterprise;
     private InviteRecord testInviteRecord;
-    private InviteRecordAddDTO testInviteDto;
+    private InviteRecordAddDto testInviteDto;
     private UserInfo testUserInfo;
     private SpaceLimitProperties.SpaceLimit spaceLimit;
 
@@ -128,7 +128,7 @@ class InviteRecordBizServiceImplTest {
         testInviteRecord.setInviteeNickname("Test User");
 
         // Initialize test invite DTO
-        testInviteDto = new InviteRecordAddDTO();
+        testInviteDto = new InviteRecordAddDto();
         testInviteDto.setUid(TEST_UID);
         testInviteDto.setRole(InviteRecordRoleEnum.MEMBER.getCode());
 
@@ -154,7 +154,7 @@ class InviteRecordBizServiceImplTest {
                 MockedStatic<RequestContextUtil> mockedRequestContext = mockStatic(RequestContextUtil.class)) {
 
             // Arrange
-            List<InviteRecordAddDTO> dtos = Arrays.asList(testInviteDto);
+            List<InviteRecordAddDto> dtos = Arrays.asList(testInviteDto);
             mockedSpaceInfo.when(SpaceInfoUtil::getSpaceId).thenReturn(TEST_SPACE_ID);
             mockedRequestContext.when(RequestContextUtil::getUID).thenReturn("inviter-uid");
 
@@ -193,7 +193,7 @@ class InviteRecordBizServiceImplTest {
     void spaceInvite_Error_WhenSpaceIsFull() {
         try (MockedStatic<SpaceInfoUtil> mockedSpaceInfo = mockStatic(SpaceInfoUtil.class)) {
             // Arrange
-            List<InviteRecordAddDTO> dtos = Arrays.asList(testInviteDto);
+            List<InviteRecordAddDto> dtos = Arrays.asList(testInviteDto);
             mockedSpaceInfo.when(SpaceInfoUtil::getSpaceId).thenReturn(TEST_SPACE_ID);
 
             when(spaceService.getSpaceById(TEST_SPACE_ID)).thenReturn(testSpace);
@@ -216,7 +216,7 @@ class InviteRecordBizServiceImplTest {
     void spaceInvite_Error_WhenUserAlreadyInSpace() {
         try (MockedStatic<SpaceInfoUtil> mockedSpaceInfo = mockStatic(SpaceInfoUtil.class)) {
             // Arrange
-            List<InviteRecordAddDTO> dtos = Arrays.asList(testInviteDto);
+            List<InviteRecordAddDto> dtos = Arrays.asList(testInviteDto);
             mockedSpaceInfo.when(SpaceInfoUtil::getSpaceId).thenReturn(TEST_SPACE_ID);
 
             when(spaceService.getSpaceById(TEST_SPACE_ID)).thenReturn(testSpace);
@@ -239,7 +239,7 @@ class InviteRecordBizServiceImplTest {
     void spaceInvite_Error_WhenUserAlreadyInvited() {
         try (MockedStatic<SpaceInfoUtil> mockedSpaceInfo = mockStatic(SpaceInfoUtil.class)) {
             // Arrange
-            List<InviteRecordAddDTO> dtos = Arrays.asList(testInviteDto);
+            List<InviteRecordAddDto> dtos = Arrays.asList(testInviteDto);
             mockedSpaceInfo.when(SpaceInfoUtil::getSpaceId).thenReturn(TEST_SPACE_ID);
 
             when(spaceService.getSpaceById(TEST_SPACE_ID)).thenReturn(testSpace);
@@ -267,7 +267,7 @@ class InviteRecordBizServiceImplTest {
                 MockedStatic<RequestContextUtil> mockedRequestContext = mockStatic(RequestContextUtil.class)) {
 
             // Arrange
-            List<InviteRecordAddDTO> dtos = Arrays.asList(testInviteDto);
+            List<InviteRecordAddDto> dtos = Arrays.asList(testInviteDto);
             mockedEnterpriseInfo.when(EnterpriseInfoUtil::getEnterpriseId).thenReturn(TEST_ENTERPRISE_ID);
             mockedRequestContext.when(RequestContextUtil::getUID).thenReturn("inviter-uid");
 
@@ -306,7 +306,7 @@ class InviteRecordBizServiceImplTest {
     void enterpriseInvite_Error_WhenEnterpriseIsFull() {
         try (MockedStatic<EnterpriseInfoUtil> mockedEnterpriseInfo = mockStatic(EnterpriseInfoUtil.class)) {
             // Arrange
-            List<InviteRecordAddDTO> dtos = Arrays.asList(testInviteDto);
+            List<InviteRecordAddDto> dtos = Arrays.asList(testInviteDto);
             mockedEnterpriseInfo.when(EnterpriseInfoUtil::getEnterpriseId).thenReturn(TEST_ENTERPRISE_ID);
 
             when(enterpriseService.getEnterpriseById(TEST_ENTERPRISE_ID)).thenReturn(testEnterprise);
@@ -328,7 +328,7 @@ class InviteRecordBizServiceImplTest {
     void enterpriseInvite_Error_WhenUserAlreadyInEnterprise() {
         try (MockedStatic<EnterpriseInfoUtil> mockedEnterpriseInfo = mockStatic(EnterpriseInfoUtil.class)) {
             // Arrange
-            List<InviteRecordAddDTO> dtos = Arrays.asList(testInviteDto);
+            List<InviteRecordAddDto> dtos = Arrays.asList(testInviteDto);
             mockedEnterpriseInfo.when(EnterpriseInfoUtil::getEnterpriseId).thenReturn(TEST_ENTERPRISE_ID);
 
             when(enterpriseService.getEnterpriseById(TEST_ENTERPRISE_ID)).thenReturn(testEnterprise);

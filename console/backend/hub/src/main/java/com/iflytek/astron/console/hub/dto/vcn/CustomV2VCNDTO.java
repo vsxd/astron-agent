@@ -3,7 +3,7 @@ package com.iflytek.astron.console.hub.dto.vcn;
 import lombok.Data;
 
 @Data
-public class CustomV2VCNDTO {
+public class CustomV2VCNDto {
 
     private String vcnId;
     private String uid;

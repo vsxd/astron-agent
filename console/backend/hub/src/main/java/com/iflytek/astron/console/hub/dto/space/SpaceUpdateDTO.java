@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 
 @Data
 @Schema(name = "Update space request parameters")
-public class SpaceUpdateDTO {
+public class SpaceUpdateDto {
 
     @Schema(description = "Space ID")
     @NotNull(message = "Space ID cannot be null")
