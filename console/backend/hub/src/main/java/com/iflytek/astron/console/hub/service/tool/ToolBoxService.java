@@ -17,7 +17,9 @@ import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
-import com.iflytek.astron.console.hub.common.*;
+import com.iflytek.astron.console.hub.common.constant.CommonConst;
+import com.iflytek.astron.console.hub.common.constant.OpenApiConst;
+import com.iflytek.astron.console.hub.common.constant.ToolConst;
 import com.iflytek.astron.console.hub.common.constant.*;
 import com.iflytek.astron.console.hub.config.properties.*;
 import com.iflytek.astron.console.hub.entity.common.PageData;
@@ -32,7 +34,6 @@ import com.iflytek.astron.console.hub.entity.table.tool.*;
 import com.iflytek.astron.console.hub.entity.table.users.SystemUser;
 import com.iflytek.astron.console.hub.entity.tool.*;
 import com.iflytek.astron.console.hub.handler.*;
-import com.iflytek.astron.console.hub.handler.language.LanguageContext;
 import com.iflytek.astron.console.hub.mapper.bot.SparkBotMapper;
 import com.iflytek.astron.console.hub.mapper.relation.FlowToolRelMapper;
 import com.iflytek.astron.console.hub.mapper.tool.*;
@@ -1109,11 +1110,7 @@ public class ToolBoxService extends ServiceImpl<ToolBoxMapper, ToolBox> {
         for (McpServerTool mcp : mcpToolList) {
             ToolBoxVo toolBoxVo = new ToolBoxVo();
             List<String> tags = new ArrayList<>();
-            if (LanguageContext.isZh()) {
-                tags.add("MCP Tools");
-            } else {
-                tags.add("MCP Tools");
-            }
+            tags.add("MCP Tools");
             toolBoxVo.setTags(tags);
             toolBoxVo.setName(mcp.getName());
             toolBoxVo.setDescription(mcp.getBrief());

@@ -35,7 +35,6 @@ import com.iflytek.astron.console.hub.service.bot.BotMarketDataService;
 import com.iflytek.astron.console.commons.util.RequestContextUtil;
 import com.iflytek.astron.console.commons.util.SseEmitterUtil;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
-import com.iflytek.astron.console.hub.common.Result;
 import com.iflytek.astron.console.hub.common.constant.CommonConst;
 import com.iflytek.astron.console.hub.common.constant.WorkflowConst;
 import com.iflytek.astron.console.hub.config.properties.ApiUrl;
@@ -1699,11 +1698,11 @@ public class WorkflowService extends ServiceImpl<WorkflowMapper, Workflow> {
         String response = OkHttpUtil.post(url, body);
         log.info("workflow protocol add, response = {}", response);
 
-        Result<?> result = JSON.parseObject(response, Result.class);
-        if (result.getCode() != 0) {
-            throw new BusinessException(ResponseEnum.RESPONSE_FAILED, result.getMessage());
+        ApiResult<?> result = JSON.parseObject(response, ApiResult.class);
+        if (result.code() != 0) {
+            throw new BusinessException(ResponseEnum.RESPONSE_FAILED, result.message());
         }
-        JSONObject jsonObject = JSON.parseObject(String.valueOf(result.getData()));
+        JSONObject jsonObject = JSON.parseObject(String.valueOf(result.data()));
         String flowId = jsonObject.getString("flow_id");
         return ApiResult.success(flowId);
     }
@@ -2482,9 +2481,9 @@ public class WorkflowService extends ServiceImpl<WorkflowMapper, Workflow> {
         log.info("workflow protocol update, url = {}, body = {}", url, body);
         String response = OkHttpUtil.post(url, body);
         log.info("workflow protocol update, response = {}", response);
-        Result<?> result = JSON.parseObject(response, Result.class);
-        if (result.getCode() != 0) {
-            throw new BusinessException(ResponseEnum.RESPONSE_FAILED, result.getMessage());
+        ApiResult<?> result = JSON.parseObject(response, ApiResult.class);
+        if (result.code() != 0) {
+            throw new BusinessException(ResponseEnum.RESPONSE_FAILED, result.message());
         }
 
         // Flow protocol temporary storage
@@ -2557,7 +2556,7 @@ public class WorkflowService extends ServiceImpl<WorkflowMapper, Workflow> {
 
         String resp = OkHttpUtil.post(url, body);
         log.info("code run, resp = {}", resp);
-        return JSON.parseObject(resp, Result.class);
+        return JSON.parseObject(resp, ApiResult.class);
     }
 
     public Object getSquare(int current, int size, String search, Integer tagFlag, Integer tags) {

@@ -3,7 +3,7 @@ package com.iflytek.astron.console.hub.controller.knowledge;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
-import com.iflytek.astron.console.hub.common.Result;
+import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.entity.common.PageData;
 import com.iflytek.astron.console.hub.entity.dto.FileInfoV2Dto;
 import com.iflytek.astron.console.hub.entity.dto.KnowledgeDto;
@@ -222,7 +222,7 @@ class FileControllerTest {
         void sliceFiles_Success_WithSeparator() throws InterruptedException, ExecutionException {
             // Given
             @SuppressWarnings("unchecked")
-            Result<Boolean> successResult = mock(Result.class);
+            ApiResult<Boolean> successResult = mock(ApiResult.class);
             when(successResult.noError()).thenReturn(true);
             when(successResult.getData()).thenReturn(true);
             when(fileInfoV2Service.sliceFiles(dealFileVO)).thenReturn(successResult);
@@ -250,7 +250,7 @@ class FileControllerTest {
             // Given
             dealFileVO.getSliceConfig().setSeperator(Collections.singletonList(""));
             @SuppressWarnings("unchecked")
-            Result<Boolean> successResult = mock(Result.class);
+            ApiResult<Boolean> successResult = mock(ApiResult.class);
             when(successResult.noError()).thenReturn(true);
             when(successResult.getData()).thenReturn(true);
             when(fileInfoV2Service.sliceFiles(dealFileVO)).thenReturn(successResult);
@@ -279,7 +279,7 @@ class FileControllerTest {
             // Given
             dealFileVO.getSliceConfig().setSeperator(Collections.singletonList(null));
             @SuppressWarnings("unchecked")
-            Result<Boolean> successResult = mock(Result.class);
+            ApiResult<Boolean> successResult = mock(ApiResult.class);
             when(successResult.noError()).thenReturn(true);
             when(successResult.getData()).thenReturn(true);
             when(fileInfoV2Service.sliceFiles(dealFileVO)).thenReturn(successResult);
@@ -306,7 +306,7 @@ class FileControllerTest {
         void sliceFiles_Failure_ReturnsError() throws InterruptedException, ExecutionException {
             // Given
             @SuppressWarnings("unchecked")
-            Result<Boolean> failureResult = mock(Result.class);
+            ApiResult<Boolean> failureResult = mock(ApiResult.class);
             when(failureResult.noError()).thenReturn(false);
             when(failureResult.getCode()).thenReturn(500);
             when(failureResult.getMessage()).thenReturn("Slice failed");
@@ -1223,7 +1223,7 @@ class FileControllerTest {
             when(fileInfoV2Service.uploadFile(multipartFile, 0L, 100L, "tag", request))
                     .thenReturn(mockFileInfo);
             @SuppressWarnings("unchecked")
-            Result<Boolean> sliceResult = mock(Result.class);
+            ApiResult<Boolean> sliceResult = mock(ApiResult.class);
             when(sliceResult.noError()).thenReturn(true);
             when(sliceResult.getData()).thenReturn(true);
             when(fileInfoV2Service.sliceFiles(dealFileVO)).thenReturn(sliceResult);

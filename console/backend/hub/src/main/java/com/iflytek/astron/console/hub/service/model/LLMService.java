@@ -15,7 +15,6 @@ import com.iflytek.astron.console.hub.entity.workflow.Workflow;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.util.space.SpaceInfoUtil;
-import com.iflytek.astron.console.hub.common.ResultStatus;
 import com.iflytek.astron.console.hub.common.constant.CommonConst;
 import com.iflytek.astron.console.hub.common.constant.WorkflowConst;
 import com.iflytek.astron.console.hub.common.constant.http.CustomHeader;
@@ -183,7 +182,7 @@ public class LLMService {
             ConfigInfo planFilterCfg = configInfoMapper.getByCategoryAndCode("LLM_FILTER", "plan");
             ConfigInfo summaryFilterCfg = configInfoMapper.getByCategoryAndCode("LLM_FILTER", "summary");
             if (planFilterCfg == null || summaryFilterCfg == null) {
-                r.error = ApiResult.error(ResultStatus.FILTER_CONF_MISS.getCode(), ResultStatus.FILTER_CONF_MISS.getMessage());
+                r.error = ApiResult.error(ResponseEnum.FILTER_CONF_MISS);
                 return r;
             }
             r.sceneFilter = new ArrayList<>();
@@ -390,7 +389,7 @@ public class LLMService {
 
         String data = workflow.getData();
         if (data == null) {
-            return ApiResult.error(ResultStatus.PROTOCOL_EMPTY.getCode(), ResultStatus.PROTOCOL_EMPTY.getMessage());
+            return ApiResult.error(ResponseEnum.WORKFLOW_PROTOCOL_EMPTY);
         }
 
         HashSet<String> domainSet = new HashSet<>();

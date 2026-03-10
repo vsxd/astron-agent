@@ -13,7 +13,7 @@ import com.iflytek.astron.console.hub.entity.table.knowledge.MysqlKnowledge;
 import com.iflytek.astron.console.hub.entity.table.knowledge.MysqlPreviewKnowledge;
 import com.iflytek.astron.console.hub.entity.vo.repo.KnowledgeQueryVO;
 import com.iflytek.astron.console.hub.util.SpringUtils;
-import com.iflytek.astron.console.hub.common.Result;
+import com.iflytek.astron.console.commons.response.ApiResult;
 import com.iflytek.astron.console.hub.common.constant.ProjectContent;
 import com.iflytek.astron.console.hub.config.properties.ApiUrl;
 import com.iflytek.astron.console.hub.entity.pojo.DealFileResult;
@@ -2717,7 +2717,7 @@ class FileInfoV2ServiceTest {
             doReturn(successResult).when(fileInfoV2Service).sliceFile(anyLong(), any(SliceConfig.class), anyInt());
 
             // When
-            Result<Boolean> result = fileInfoV2Service.sliceFiles(dealFileVO);
+            ApiResult<Boolean> result = fileInfoV2Service.sliceFiles(dealFileVO);
 
             // Then
             assertThat(result).isNotNull();
@@ -2827,7 +2827,7 @@ class FileInfoV2ServiceTest {
             doReturn(successResult).when(fileInfoV2Service).sliceFile(anyLong(), any(SliceConfig.class), anyInt());
 
             // When
-            Result<Boolean> result = fileInfoV2Service.sliceFiles(dealFileVO);
+            ApiResult<Boolean> result = fileInfoV2Service.sliceFiles(dealFileVO);
 
             // Then
             assertThat(result).isNotNull();

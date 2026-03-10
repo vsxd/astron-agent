@@ -4,10 +4,11 @@ import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.DynamicTableNameInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import com.iflytek.astron.console.hub.handler.language.LanguageContext;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,8 +32,12 @@ public class MyBatisPlusConfig {
             List<String> tableNames = new ArrayList<>(Arrays.asList("config_info", "prompt_template"));
             if (tableNames.contains(tableName)) {
                 // Domain check if it's "en"
-                if (LanguageContext.isEn()) {
-                    return tableName + "_en";
+                ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+                if (attributes != null) {
+                    String domain = attributes.getRequest().getHeader("domain");
+                    if ("en".equalsIgnoreCase(domain)) {
+                        return tableName + "_en";
+                    }
                 }
             }
             return tableName;

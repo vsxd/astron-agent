@@ -5,8 +5,9 @@ import com.alibaba.excel.event.AnalysisEventListener;
 import com.iflytek.astron.console.commons.constant.ResponseEnum;
 import com.iflytek.astron.console.commons.exception.BusinessException;
 import com.iflytek.astron.console.hub.entity.dto.database.DbTableFieldDto;
-import com.iflytek.astron.console.hub.handler.language.LanguageContext;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.*;
 
@@ -48,7 +49,11 @@ public class DBTableExcelReadListener extends AnalysisEventListener<Map<Integer,
     public void invokeHeadMap(Map<Integer, String> headMap, AnalysisContext context) {
         List<String> actualHeaders = new ArrayList<>(headMap.values());
         List<String> expectedHeadersFormat;
-        if (LanguageContext.isEn()) {
+
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        String domain = attributes != null ? attributes.getRequest().getHeader("domain") : null;
+
+        if ("en".equalsIgnoreCase(domain)) {
             expectedHeadersFormat = expectedHeadersEn;
         } else {
             expectedHeadersFormat = expectedHeaders;
